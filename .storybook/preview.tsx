@@ -5,6 +5,7 @@ import { PageLayout } from "../src/app/components/PageLayout";
 import { postIds, getItem } from "../src/lib/data.mock";
 import { http, HttpResponse } from "msw";
 import { initialize, mswLoader } from "msw-storybook-addon";
+import "../src/app/globals.css";
 
 initialize({ onUnhandledRequest: "warn" });
 
@@ -36,9 +37,9 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <PageLayout>
+      <>
         <Story />
-      </PageLayout>
+      </>
     ),
   ],
   loaders: [mswLoader],
