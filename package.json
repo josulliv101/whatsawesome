@@ -1,0 +1,45 @@
+{
+  "name": "whatsawesome",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "type-check": "tsc --pretty --noEmit"
+  },
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "@faker-js/faker": "^8.3.1",
+    "@mswjs/data": "^0.16.1",
+    "@storybook/addon-essentials": "^8.0.0-alpha.11",
+    "@storybook/addon-interactions": "^8.0.0-alpha.11",
+    "@storybook/addon-links": "^8.0.0-alpha.11",
+    "@storybook/blocks": "^8.0.0-alpha.11",
+    "@storybook/nextjs": "^8.0.0-alpha.11",
+    "@storybook/react": "^8.0.0-alpha.11",
+    "@storybook/test": "^8.0.0-alpha.11",
+    "msw": "^2.0.11",
+    "msw-storybook-addon": "2.0.0--canary.122.06f0c92.0",
+    "storybook": "0.0.0-pr-25787-sha-ce3d85aa"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
+}
