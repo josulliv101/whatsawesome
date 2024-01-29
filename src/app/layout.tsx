@@ -1,7 +1,6 @@
+import { PageLayout } from "./components/PageLayout";
 import "./globals.css";
-import Header from "@/app/components/header";
-import SystemInfo from "@/app/components/server-info";
-import Footer from "@/app/components/footer";
+
 import { PropsWithChildren } from "react";
 
 export const metadata = {
@@ -13,28 +12,15 @@ export const metadata = {
   },
 };
 
-export const viewport = {
-  themeColor: "#ffa52a",
-};
-
-export function Layout({ children }: PropsWithChildren) {
-  return (
-    <main>
-      <Header />
-      <div className="page">
-        {children}
-        <Footer />
-        <SystemInfo />
-      </div>
-    </main>
-  );
-}
+// export const viewport = {
+//   themeColor: "#ffa52a",
+// };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body>
-        <Layout>{children}</Layout>
+        <PageLayout>{children}</PageLayout>
       </body>
     </html>
   );

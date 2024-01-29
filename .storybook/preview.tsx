@@ -1,7 +1,7 @@
 import React from "react";
 import type { Preview } from "@storybook/react";
 
-import { Layout } from "../src/app/layout";
+import { PageLayout } from "../src/app/components/PageLayout";
 import { postIds, getItem } from "../src/lib/data.mock";
 import { http, HttpResponse } from "msw";
 import { initialize, mswLoader } from "msw-storybook-addon";
@@ -36,9 +36,9 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <Layout>
+      <PageLayout>
         <Story />
-      </Layout>
+      </PageLayout>
     ),
   ],
   loaders: [mswLoader],
