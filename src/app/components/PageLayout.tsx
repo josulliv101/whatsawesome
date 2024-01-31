@@ -6,13 +6,11 @@ import Header from "@/components/Header";
 
 export function PageLayout({ children }: PropsWithChildren) {
   return (
-    <main>
+    <>
       <Header />
-      <div className="page">
-        {children}
-        <Footer />
-        <SystemInfo />
-      </div>
-    </main>
+      {children}
+      <Footer />
+      <SystemInfo />
+    </>
   );
 }

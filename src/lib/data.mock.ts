@@ -1,9 +1,16 @@
 import { faker } from "@faker-js/faker";
 import { drop, factory, manyOf, primaryKey } from "@mswjs/data";
+import { Profile } from "./profile";
 
 let _id: number;
 
 export const db = factory({
+  profile: {
+    id: primaryKey(faker.internet.userName),
+    name: faker.person.fullName,
+    description: faker.person.bio,
+    pic: faker.image.url,
+  },
   item: {
     type: String, // 'post' | 'comment'
 
@@ -23,6 +30,31 @@ export const db = factory({
     text: faker.lorem.paragraph,
   },
 });
+
+const profiles1 = Array.from(
+  { length: 10 },
+  () => db.profile.create() as Profile
+);
+
+const profiles2 = Array.from(
+  { length: 7 },
+  () => db.profile.create() as Profile
+);
+
+const profiles3 = Array.from(
+  { length: 4 },
+  () => db.profile.create() as Profile
+);
+
+export const mockProfilesByTag: Array<{
+  tags: string[];
+  label: string;
+  profiles: Array<Profile>;
+}> = [
+  { tags: ["foo"], label: "tag one", profiles: profiles1 },
+  { tags: ["bar"], label: "tag two", profiles: profiles2 },
+  { tags: ["baz"], label: "tag three", profiles: profiles3 },
+];
 
 export const range = (count: number) =>
   Array.from({ length: count }, (x, i) => i);

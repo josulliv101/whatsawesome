@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { config } from "./config";
 import { PrimaryTagType } from "./tags";
+import { Profile } from "./profile";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_API_KEY,
@@ -59,16 +60,18 @@ export async function fetchHubProfiles(
   ];
 
   const q = query.apply(null, args as any);
+  const docs: Array<Profile> = [];
 
-  const querySnapshot = await getDocs(q);
-  const docs: Array<unknown> = [];
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    // console.log(doc.id, " => ", doc.data());
-    docs.push(doc.data());
-  });
+  try {
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      docs.push(doc.data() as Profile);
+    });
+  } catch (err) {
+    console.log("err", err);
+  }
 
-  return docs;
+  return { tags: [], label: tags.join(" + "), profiles: docs };
 }
 
 export async function fetchEntities(tags: Array<string> = []) {

@@ -40,17 +40,18 @@ export const getPrimaryTags = () => {
 };
 
 export const getHubTags = (
-  tags: Array<string> = []
+  tags: string | Array<string> = []
 ): {
   hub: string;
   primaryTag: PrimaryTagType;
   tags: Array<string>;
 } => {
+  const normalizedTags1 = typeof tags === "string" ? [tags] : tags;
   const [
     hub = config.rootHub,
     primaryTag = config.defaultPrimaryTag,
     ...restTags
-  ] = tags;
+  ] = normalizedTags1;
 
   const normalizedTags = (
     !restTags || !restTags.length

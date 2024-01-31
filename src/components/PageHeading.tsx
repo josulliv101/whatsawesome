@@ -14,7 +14,7 @@ export default function PageHeading({
         {heading}
       </h2>
       {subhead && (
-        <p className="text-md lg:text-lg text-muted-foreground mb-12">
+        <p className="text-md lg:text-lg text-muted-foreground mb-8">
           {subhead}
         </p>
       )}
