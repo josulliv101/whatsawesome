@@ -18,9 +18,8 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Cities",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+    href: "/boston",
+    description: "Check out what's awesome in Boston, NYC & Chicago.",
   },
   {
     title: "Colleges & Universities",
@@ -29,25 +28,24 @@ const components: { title: string; href: string; description: string }[] = [
       "For sighted users to preview content available behind a link.",
   },
   {
-    title: "People",
-    href: "/docs/primitives/progress",
+    title: "Chicago",
+    href: "/chicago",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
-    title: "Restaurants",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    title: "Boston People",
+    href: "/boston",
+    description: "People",
   },
   {
-    title: "Nature",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+    title: "Boston Places",
+    href: "/boston/place",
+    description: "Places",
   },
   {
-    title: "Sports",
-    href: "/docs/primitives/tooltip",
+    title: "NYC",
+    href: "/new-york-city",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },

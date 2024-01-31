@@ -20,10 +20,9 @@ export default async function Home() {
           Your personal playlists. Updated daily.
         </p>
       </div>
-      <Separator className="my-4" />
       <div className="relative w-full">
         <ScrollArea>
-          <div className="flex space-x-4 p-4 border">
+          <div className="flex space-x-4 mt-8 p-4 border border-gray-200">
             {data.map((profile: any) => (
               <ProfileCard
                 key={profile.name}

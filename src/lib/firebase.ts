@@ -12,6 +12,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { config } from "./config";
+import { PrimaryTagType } from "./tags";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_API_KEY,
@@ -29,19 +30,63 @@ export const auth = getAuth(firebaseApp);
 
 export const db = getFirestore(firebaseApp);
 
-export async function fetchEntities(tags: Array<string> = []) {
-  const q = query(
-    collection(db, "entity"),
-    where("oinks", ">", -1),
-    orderBy("oinks", "desc"),
-    limit(config.maxNumberOfProfilesInRow)
+export async function fetchHubProfiles(
+  hub: string,
+  primaryTag: PrimaryTagType,
+  tags: Array<string> = []
+) {
+  console.log("fetchHubProfiles", hub, primaryTag, tags);
+
+  const normalizedTags =
+    !tags || !tags.length ? config.defaultHubTags[primaryTag] : tags;
+
+  const queryHub =
+    hub !== config.rootHub ? [where(`tagMap.${hub}`, "==", true)] : [];
+
+  const queryTags = normalizedTags.map((tag) =>
+    where(`tagMap.${tag}`, "==", true)
   );
+
+  const args = [
+    collection(db, "entity"),
+    where("oinks", ">", 0),
+    ...queryHub,
+    where(`tagMap.${primaryTag}`, "==", true),
+    ...queryTags,
+    orderBy("oinks", "desc"),
+    limit(config.maxNumberOfProfilesInRow),
+  ];
+
+  const q = query.apply(null, args as any);
 
   const querySnapshot = await getDocs(q);
   const docs: Array<unknown> = [];
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
+    // console.log(doc.id, " => ", doc.data());
+    docs.push(doc.data());
+  });
+
+  return docs;
+}
+
+export async function fetchEntities(tags: Array<string> = []) {
+  const queryTags = tags.map((tag) => where(`tagMap.${tag}`, "==", true));
+  const args = [
+    collection(db, "entity"),
+    where("oinks", ">", 0),
+    ...queryTags,
+    orderBy("oinks", "desc"),
+    limit(config.maxNumberOfProfilesInRow),
+  ];
+
+  const q = query.apply(null, args as any);
+
+  const querySnapshot = await getDocs(q);
+  const docs: Array<unknown> = [];
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    // console.log(doc.id, " => ", doc.data());
     docs.push(doc.data());
   });
 
