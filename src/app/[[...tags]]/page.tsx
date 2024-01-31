@@ -17,7 +17,7 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
   );
   const fetchedProfileByTag = await Promise.all(fetchPromises);
   return (
-    <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-8 py-12">
+    <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
       <PageHeading
         heading={`Discover what&#39;s awesome about ${tagDefinitions[primaryTag].plural}.`}
         subhead="Inclusion in the what&#39;s awesome catalog is by invitation only. Everyone can vote on what&#39;s awesome."

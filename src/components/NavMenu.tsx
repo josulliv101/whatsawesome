@@ -23,7 +23,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "Colleges & Universities",
-    href: "/docs/primitives/hover-card",
+    href: "/tufts-university",
     description:
       "For sighted users to preview content available behind a link.",
   },
@@ -117,13 +117,13 @@ export default function NavMenu() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        <NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               developer api
             </NavigationMenuLink>
           </Link>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
       </NavigationMenuList>
     </NavigationMenu>
   );
