@@ -26,7 +26,7 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
         <>
           <div className="mt-0 space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">
-              {hub} / {primaryTag} / {tags[tagIndex]}
+              {hub} / {tags[tagIndex]}
             </h2>
             <p className="text-sm text-muted-foreground">
               Your personal playlists. Updated daily. / {tags.join(" / ")}

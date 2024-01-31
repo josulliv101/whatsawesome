@@ -13,17 +13,17 @@ export const tags: Array<string> = [
 ];
 
 export const tagDefinitions = {
-  root: {
+  all: {
     children: ["person", "place"],
   },
   person: {
     plural: "people",
-    parentTag: "root",
+    parentTag: "all",
     children: ["comedian", "musician", "sports"],
   },
   place: {
     plural: "places",
-    parentTag: "root",
+    parentTag: "all",
     children: ["museum", "nature"],
   },
   sports: {
@@ -36,7 +36,7 @@ export const tagDefinitions = {
 };
 
 export const getPrimaryTags = () => {
-  tagDefinitions.root.children;
+  tagDefinitions.all.children;
 };
 
 export const getHubTags = (

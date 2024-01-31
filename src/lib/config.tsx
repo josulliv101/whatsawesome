@@ -2,7 +2,7 @@ import { PrimaryTagType } from "./tags";
 
 export const config = {
   maxNumberOfProfilesInRow: 8,
-  rootHub: "root",
+  rootHub: "all",
   defaultPrimaryTag: "person",
   defaultHubTags: {
     person: ["musician", "sports", "comedian"],
