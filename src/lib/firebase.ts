@@ -40,7 +40,7 @@ export async function fetchHubProfiles(
   const normalizedTags =
     !tags || !tags.length ? config.defaultHubTags[primaryTag] : tags;
 
-  const queryHub = [config.rootHub, "index"].includes(hub)
+  const queryHub = ![config.rootHub, "index"].includes(hub)
     ? [where(`tagMap.${hub}`, "==", true)]
     : [];
 
