@@ -8,17 +8,6 @@ export default function Header() {
         className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
-          <Link href="/" className="flex items-center -m-1.5 p-1.5 gap-3">
-            <img
-              className="h-8 w-auto"
-              src="/cute-mushroom.png"
-              alt="whatsawesome"
-            />
-            <span className="sr-only">whats awesome</span>
-          </Link>
-        </div>
-
         <NavMenu />
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">

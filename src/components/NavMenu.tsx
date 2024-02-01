@@ -14,28 +14,34 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import HubLink from "./HubLink";
 
-const components: { title: string; href: string; description: string }[] = [
+const components: {
+  title: string;
+  href?: string;
+  hub?: string;
+  description: string;
+}[] = [
   {
     title: "Cities",
-    href: "/boston",
+    hub: "boston",
     description: "Check out what's awesome in Boston, NYC & Chicago.",
   },
   {
     title: "Colleges & Universities",
-    href: "/tufts-university",
+    hub: "tufts-university",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     title: "Chicago",
-    href: "/chicago",
+    hub: "chicago",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
     title: "Boston People",
-    href: "/boston",
+    href: "/boston/person",
     description: "People",
   },
   {
@@ -45,99 +51,146 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "NYC",
-    href: "/new-york-city",
+    hub: "new-york-city",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
 ];
 
-export default function NavMenu() {
+export default function NavMenu({ children }: React.PropsWithChildren) {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>whats awesome</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <Link
-                    className="flex items-center h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
-                  >
-                    <img
-                      width="48"
-                      height="48"
-                      alt="whatsawesome"
-                      src="/cute-mushroom.png"
-                      className="grayscale"
-                    />
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                      whats awesome
-                    </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Find out what is awesome about people and places. Vote on
-                      what you think is awesome or add you own awesome items.
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/docs" title="What is this?">
-                Learn why this site was created.
-              </ListItem>
-              <ListItem href="/docs/installation" title="FAQ">
-                Got questions? Find answers here.
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Credits">
-                Find out what technology was used to create this site.
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>explore</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
+    <>
+      <div className="flex lg:flex-1">
+        <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
+          <img
+            className="h-8 w-auto"
+            src="/cute-mushroom.png"
+            alt="whatsawesome"
+          />
+          <span className="sr-only">whats awesome</span>
+        </HubLink>
+      </div>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>whats awesome</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <li className="row-span-3">
+                  <NavigationMenuLink asChild>
+                    <Link
+                      className="flex items-center h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      href="/"
+                    >
+                      <img
+                        width="48"
+                        height="48"
+                        alt="whatsawesome"
+                        src="/cute-mushroom.png"
+                        className="grayscale"
+                      />
+                      <div className="mb-2 mt-4 text-lg font-medium">
+                        whats awesome
+                      </div>
+                      <p className="text-sm leading-tight text-muted-foreground">
+                        Find out what is awesome about people and places. Vote
+                        on what you think is awesome or add you own awesome
+                        items.
+                      </p>
+                    </Link>
+                  </NavigationMenuLink>
+                </li>
+                <ListItem href="/docs" title="What is this?">
+                  Learn why this site was created.
                 </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              suggest
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        {/* <NavigationMenuItem>
+                <ListItem href="/docs/installation" title="FAQ">
+                  Got questions? Find answers here.
+                </ListItem>
+                <ListItem href="/docs/primitives/typography" title="Credits">
+                  Find out what technology was used to create this site.
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>explore</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
+                {components.map((component) => (
+                  <ListItem
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
+                    hub={component.hub}
+                  >
+                    {component.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/docs" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                suggest
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          {/* <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               developer api
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem> */}
-      </NavigationMenuList>
-    </NavigationMenu>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </>
   );
 }
 
-const ListItem = React.forwardRef<
-  React.ElementRef<typeof Link>,
-  React.ComponentPropsWithoutRef<typeof Link>
->(({ className, title, children, ...props }, ref) => {
+const ListItem = ({
+  className,
+  title,
+  children,
+  href,
+  hub,
+  ...props
+}: React.PropsWithChildren<{
+  className?: string;
+  title?: string;
+  href?: string;
+  hub?: string;
+}>) => {
+  //const hub = hubProp || href?.split("/")[1];
+  if (href) {
+    return (
+      <li>
+        <NavigationMenuLink asChild>
+          <Link
+            // ref={ref}
+            href={href}
+            className={cn(
+              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              className
+            )}
+            {...props}
+          >
+            <div className="text-sm font-medium leading-none">{title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+              {children}
+            </p>
+          </Link>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
   return (
     <li>
       <NavigationMenuLink asChild>
-        <Link
-          ref={ref}
+        <HubLink
+          // ref={ref}
+          hub={hub}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
@@ -148,9 +201,9 @@ const ListItem = React.forwardRef<
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
-        </Link>
+        </HubLink>
       </NavigationMenuLink>
     </li>
   );
-});
+};
 ListItem.displayName = "ListItem";

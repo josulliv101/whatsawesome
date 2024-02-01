@@ -16,10 +16,9 @@ const meta = {
   },
   args: {
     // params: { page: 1, tags: ["boston", "place"] },
-    hub: "hub name",
-    primaryTag: "place",
+    hub: "boston",
+
     profilesByTag: mockProfilesByTag,
-    tags: ["tag one", "tag two"],
   },
 } satisfies Meta<typeof PageContent>;
 export default meta;
@@ -27,7 +26,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Mocked: Story = {
-  // args: {},
+  args: { primaryTag: "person", tags: ["sports", "musician"] },
   parameters: {
     msw: {
       handlers: [
@@ -54,6 +53,15 @@ export const Mocked: Story = {
 
 export const MockedWithTags = {
   ...Mocked,
+  //   params: {
+  //     tags: ["boston", "place"],
+  //   },
+};
+
+export const TabSelectedPlace = {
+  ...Mocked,
+  primaryTag: "place",
+  tags: ["college"],
   //   params: {
   //     tags: ["boston", "place"],
   //   },

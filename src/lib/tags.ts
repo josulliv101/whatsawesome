@@ -10,6 +10,7 @@ export const tags: Array<string> = [
   "musician",
   "museum",
   "nature",
+  "college",
 ];
 
 export const tagDefinitions = {
@@ -24,7 +25,7 @@ export const tagDefinitions = {
   place: {
     plural: "places",
     parentTag: "all",
-    children: ["museum", "nature"],
+    children: ["museum", "nature", "college"],
   },
   sports: {
     parentTag: "person",
@@ -33,6 +34,7 @@ export const tagDefinitions = {
   musician: { plural: "musicians", parentTag: "person" },
   museum: { plural: "museums", parentTag: "place" },
   nature: { parentTag: "place" },
+  college: { plural: "colleges", parentTag: "place" },
 };
 
 export const getPrimaryTags = () => {
@@ -64,4 +66,12 @@ export const getHubTags = (
     primaryTag: primaryTag as PrimaryTagType,
     tags: normalizedTags,
   };
+};
+
+export const getHubUrl = (
+  hub: string,
+  primaryTag: string,
+  tags: string[] = []
+) => {
+  return `/${hub}/${primaryTag}/${tags.join("/")}`;
 };

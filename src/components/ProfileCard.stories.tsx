@@ -27,8 +27,10 @@ export const Default: Story = {
     aspectRatio: "portrait",
     className: "w-[250px]",
     profile: {
+      id: "bird",
       name: "Larry Bird",
       pic: "/larry-bird.jpg",
+      oinks: 80,
       description:
         "Larry Bird is an American former professional basketball player, coach, and executive in the National Basketball Association ...",
     },

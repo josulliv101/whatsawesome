@@ -1,27 +1,5 @@
 import Link from "next/link";
 import NavMenu from "./NavMenu";
-
-interface Profile {
-  name: string;
-  description: string;
-  pic: string;
-}
-
-// export default function ProfileCard({ name, description, pic }: Profile) {
-//   return (
-//     <div>
-//       <h2 className="flex items-center text-xl lg:text-4xl font-semibold tracking-tight mb-1">
-//         {name}
-//       </h2>
-//       {description && (
-//         <p className="text-md lg:text-lg text-muted-foreground mb-12">
-//           {description}
-//         </p>
-//       )}
-//     </div>
-//   );
-// }
-
 import Image from "next/image";
 import { CircleUserIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -37,6 +15,8 @@ import {
 } from "@/components/ui/context-menu";
 import { Separator } from "./ui/separator";
 import { Badge } from "./ui/badge";
+import Rating from "./Rating";
+import { Profile } from "@/lib/profile";
 
 interface ProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
   profile: Profile;
@@ -87,8 +67,9 @@ export default function ProfileCard({
           </p> */}
         </div>
       </div>
-      <h3 className="font-medium leading-normal pb-2 text-sm text-center text-balance">
+      <h3 className="relative font-medium leading-normal pb-2 text-sm text-center text-balance">
         {profile.name}
+        <Rating value={profile.oinks} />
       </h3>
     </div>
   );

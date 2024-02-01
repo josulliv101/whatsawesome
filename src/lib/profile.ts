@@ -19,6 +19,7 @@ export const profileSchema = z.object({
     }),
   description: z.string().max(500).min(4),
   pic: z.string().max(200).min(0),
+  oinks: z.coerce.number().min(0).multipleOf(1),
   /*
     tags: z
       .array(
@@ -35,7 +36,7 @@ export const profileSchema = z.object({
           val.forEach((option) => (map[option.value as TagName] = true));
         return map;
       }),
-    oinks: z.coerce.number().min(0).multipleOf(1),
+    
     reasons: z.array(
       z.object({
         id: z.string().optional(),

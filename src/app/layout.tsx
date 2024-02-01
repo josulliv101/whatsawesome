@@ -1,3 +1,4 @@
+import { HubContextProvider } from "@/components/HubContext";
 import { PageLayout } from "./components/PageLayout";
 import "./globals.css";
 
@@ -16,11 +17,17 @@ export const metadata = {
 //   themeColor: "#ffa52a",
 // };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default function RootLayout({
+  children,
+  params: { tags = [] },
+}: PropsWithChildren<{ params: { tags: string[] } }>) {
+  console.log("tags[1]", tags);
   return (
     <html lang="en">
       <body>
-        <PageLayout>{children}</PageLayout>
+        <HubContextProvider>
+          <PageLayout>{children}</PageLayout>
+        </HubContextProvider>
       </body>
     </html>
   );

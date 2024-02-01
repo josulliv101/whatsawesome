@@ -10,6 +10,7 @@ export const db = factory({
     name: faker.person.fullName,
     description: faker.person.bio,
     pic: faker.image.url,
+    oinks: faker.number.int,
   },
   item: {
     type: String, // 'post' | 'comment'
