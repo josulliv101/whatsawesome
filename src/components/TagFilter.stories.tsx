@@ -12,6 +12,11 @@ const meta = {
     // params: { page: 1 },
     // postCount: 10,
   },
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
 } satisfies Meta<typeof TagFilter>;
 export default meta;
 
@@ -20,28 +25,46 @@ type Story = StoryObj<typeof meta>;
 // Note that after we set up MSW globally, our orginal story is broken
 // export const Home: Story = {};
 
-export const Default: Story = {
+const getMockOptions = (activeTags: string[] = []) => {
+  return ["sports", "musician", "rapper", "singer", "nba", "nfl"].map(
+    (tag) => ({
+      label: tag,
+      value: tag,
+      active: activeTags.includes(tag),
+    })
+  );
+};
+
+export const NoActiveTags: Story = {
   args: {
-    activeTags: ["sports", "rapper"],
+    // activeTags: ["sports", "rapper"],
     // column,
-    title: "title",
-    // options: [
-    //   { label: "sports", value: "sports" },
-    //   { label: "musician", value: "musician" },
-    //   { label: "rapper", value: "rapper" },
-    //   { label: "singer", value: "singer" },
-    //   { label: "NBA", value: "nba" },
-    //   { label: "NFL", value: "nfl" },
-    // ],
+    title: "tag filter",
+    options: getMockOptions(),
+    initialActiveTags: [],
     hub: "boston",
     primaryTag: "person",
     // onFilterChange: (tags) => console.log("tags", tags),
   },
 };
 
-export const ManySelectedTags: Story = {
+export const SingleTagActive: Story = {
   args: {
-    ...Default.args,
-    activeTags: ["sports", "rapper", "nba", "musician", "nfl"],
+    ...NoActiveTags.args,
+    options: getMockOptions(["sports"]),
+  },
+};
+
+export const SmallNumberTagsActive: Story = {
+  args: {
+    ...NoActiveTags.args,
+    options: getMockOptions(["sports", "rapper"]),
+  },
+};
+
+export const LargeNumberTagsActive: Story = {
+  args: {
+    ...NoActiveTags.args,
+    options: getMockOptions(["sports", "rapper", "nba", "nfl", "musician"]),
   },
 };

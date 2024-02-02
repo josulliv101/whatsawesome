@@ -30,54 +30,75 @@ import { useState } from "react";
 import { getHubUrl, tagDefinitions } from "@/lib/tags";
 import { useFilterContext } from "./FilterContext";
 import useLocalStorage from "./useLocalStorage";
+import { useCookies } from "react-cookie";
 
 type TagOptions = Array<{ value: string; label: string; active?: boolean }>;
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   // column?: Column<TData, TValue>;
   title?: string;
-  // options?: {
-  //   label: string;
-  //   value: string;
-  //   icon?: React.ComponentType<{ className?: string }>;
-  // }[];
-  activeTags: string[];
+  options?: {
+    label: string;
+    value: string;
+    active?: boolean;
+    icon?: React.ComponentType<{ className?: string }>;
+  }[];
+  initialActiveTags: string[];
   hub: string;
   primaryTag: "person" | "place";
   //onFilterChange?: (tags: string[]) => void;
 }
 
 export function TagFilter<TData, TValue>({
-  activeTags,
+  initialActiveTags = [],
   // column,
   title,
-  // options,
+  options, // for test & storybook stories
   hub,
   primaryTag,
   // onFilterChange,
 }: // onChange,
 DataTableFacetedFilterProps<TData, TValue>) {
-  const [activeTagPendingCommit, onChange] = useState(activeTags);
   const params = useParams();
 
-  const tagOptionsPlace = tagDefinitions.place.children.map((tag) => ({
-    label: tag,
-    value: tag,
-    active: params.tags.includes(tag),
-  }));
+  const tagOptionsPlace =
+    options ||
+    tagDefinitions[primaryTag].children.map((tag) => ({
+      label: tag,
+      value: tag,
+      active: initialActiveTags?.includes(tag),
+    }));
 
-  const [storedPlaceFilteredOptions, setStoredPlaceFilteredOptions] =
-    useLocalStorage<TagOptions>("placeFilterOptions", tagOptionsPlace);
-
-  console.log("storedPlaceFilteredOptions@@", storedPlaceFilteredOptions);
+  // const [storedPlaceFilteredOptions, setStoredPlaceFilteredOptions] =
+  //   useLocalStorage<TagOptions>("placeFilterOptions", tagOptionsPlace);
+  const optionsToUse = tagOptionsPlace; // || storedPlaceFilteredOptions;
+  console.log("optionsToUse@@", optionsToUse);
   // const options = useFilterContext();
   // const facets = column?.getFacetedUniqueValues();
-  const selectedValues = { size: activeTags.length, has: () => true }; //new Set(column?.getFilterValue() as string[]);
+  // const selectedValues = { size: activeTags.length, has: () => true }; //new Set(column?.getFilterValue() as string[]);
   const router = useRouter();
+  const [cookies, setCookie] = useCookies([`filter-${primaryTag}`]);
+  const activeTags =
+    optionsToUse
+      ?.filter((option) => option.active === true)
+      .map((option) => option.value) || [];
+
+  const [activeTagPendingCommit, onChange] = useState(activeTags);
+  console.log("activeTags", activeTags, optionsToUse);
+  console.log("activeTagPendingCommit", activeTagPendingCommit);
   const onFilterChange = (activeTagIds: string[]) => {
     const url = getHubUrl(hub, primaryTag, activeTagIds);
     console.log("activeTagOptions", activeTagIds);
+
+    setCookie(`filter-${primaryTag}`, activeTagIds.join(","));
+    console.log("client cookie", cookies);
     router.push(url);
+    // setStoredPlaceFilteredOptions(
+    //   storedPlaceFilteredOptions.map((option) => ({
+    //     ...option,
+    //     active: activeTagIds.includes(option.value),
+    //   }))
+    // );
   };
 
   // React.useEffect(() => {
@@ -89,36 +110,37 @@ DataTableFacetedFilterProps<TData, TValue>) {
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-10 border">
           <MixerVerticalIcon className="mr-2 h-4 w-4" />
-          {/* {title} */}
-          {selectedValues?.size > 0 && (
+          {title}
+          {activeTags.length > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-6" />
               <Badge
                 variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
+                className="rounded-sm px-1 font-normal "
               >
-                {selectedValues.size}
+                {" "}
+                {/* lg:hidden  */}
+                {activeTags.length > 4 ? activeTags.length : null}
               </Badge>
-              <div className="hidden space-x-1 lg:flex">
-                {selectedValues.size > 4 ? (
+              <div className="flex space-x-1 lg:flex">
+                {activeTags.length > 4 ? (
                   <Badge
                     variant="secondary"
                     className="rounded-sm px-1 font-normal bg-transparent hover:bg-transparent"
                   >
-                    {selectedValues.size} selected
+                    {/* {activeTags.length} selected */}
+                    selected
                   </Badge>
                 ) : (
-                  storedPlaceFilteredOptions
-                    .filter(({ value, active }) => active === true)
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option.value}
-                        className="rounded-sm px-1 font-normal"
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
+                  activeTags.map((tag) => (
+                    <Badge
+                      variant="secondary"
+                      key={tag}
+                      className="rounded-sm px-1 font-normal"
+                    >
+                      {tag}
+                    </Badge>
+                  ))
                 )}
               </div>
             </>
@@ -131,8 +153,10 @@ DataTableFacetedFilterProps<TData, TValue>) {
           <CommandList>
             {/* <CommandEmpty>No results found.</CommandEmpty> */}
             <CommandGroup>
-              {storedPlaceFilteredOptions?.map((option) => {
-                const isSelected = option.active;
+              {optionsToUse?.map((option) => {
+                const isSelected = activeTagPendingCommit.includes(
+                  option.value
+                );
                 return (
                   <CommandItem
                     key={option.value}
@@ -173,16 +197,16 @@ DataTableFacetedFilterProps<TData, TValue>) {
                     }
 
                     <span>{option.label}</span>
-                    {true && (
+                    {option.active && (
                       <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {null}
+                        {null}A
                       </span>
                     )}
                   </CommandItem>
                 );
               })}
             </CommandGroup>
-            {selectedValues.size > 0 && (
+            {true && (
               <>
                 <CommandSeparator />
                 <CommandGroup>
@@ -198,6 +222,8 @@ DataTableFacetedFilterProps<TData, TValue>) {
                     }
                   >
                     Apply
+                    {/* {JSON.stringify(activeTagPendingCommit)} ::{" "}
+                    {JSON.stringify(activeTags)} */}
                   </CommandItem>
                 </CommandGroup>
               </>

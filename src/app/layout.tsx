@@ -1,10 +1,12 @@
 import { HubContextProvider } from "@/components/HubContext";
 import { PageLayout } from "./components/PageLayout";
+
 import "./globals.css";
 
 import { PropsWithChildren } from "react";
 import { PrimaryKeyType } from "@mswjs/data/lib/glossary";
 import { PrimaryTagType } from "@/lib/tags";
+import { CookiesProvider } from "@/components/Cookies";
 // import { FilterContextProvider } from "@/components/FilterContext";
 
 export const metadata = {
@@ -29,7 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
-          <PageLayout>{children}</PageLayout>
+          <CookiesProvider defaultSetOptions={{ path: "/" }}>
+            <PageLayout>{children}</PageLayout>
+          </CookiesProvider>
         </HubContextProvider>
       </body>
     </html>

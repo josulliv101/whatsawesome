@@ -44,8 +44,8 @@ const components: {
   },
   {
     title: "Boston People",
-    href: "/boston/person",
-    description: "People",
+    href: "/boston/person/sports",
+    description: "People Boston Sports",
   },
   {
     title: "Boston Places",

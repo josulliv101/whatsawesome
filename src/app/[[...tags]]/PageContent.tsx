@@ -12,6 +12,7 @@ export default function PageContent({
   hub,
   primaryTag,
   tags,
+  initialActiveTags,
 }: {
   profilesByTag: Array<{
     tags: string[];
@@ -21,6 +22,7 @@ export default function PageContent({
   hub: string;
   primaryTag: PrimaryTagType;
   tags: string[];
+  initialActiveTags?: string[];
 }) {
   const tagOptions = tagDefinitions[primaryTag].children.map((tag) => ({
     label: tag,
@@ -32,7 +34,9 @@ export default function PageContent({
       <div className="w-full flex items-center justify-between pb-12">
         <TabNav activeTabId={primaryTag} hub={hub} />
         <TagFilter
-          activeTags={tags}
+          initialActiveTags={
+            initialActiveTags?.length ? initialActiveTags : tags
+          }
           // onFilterChange={(tags: string[]) => console.log(tags)}
           // options={tagOptions}
           hub={hub}

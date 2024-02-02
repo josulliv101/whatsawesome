@@ -48,6 +48,10 @@ export const Mocked: Story = {
         }),
       ],
     },
+
+    nextjs: {
+      appDirectory: true,
+    },
   },
 };
 
