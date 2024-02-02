@@ -26,7 +26,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Mocked: Story = {
-  args: { primaryTag: "person", tags: ["sports", "musician"] },
+  args: { primaryTag: "person", tags: ["sports", "musician"], tagsToUse: [] },
   parameters: {
     msw: {
       handlers: [

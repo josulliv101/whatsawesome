@@ -25,15 +25,13 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
   // }
 
   // const profiles = await fetchHubProfiles(hub, primaryTag, [tags[0]]);
-  const fetchPromises = tagsToUse.map(
-    async (tag) => await fetchHubProfiles(hub, primaryTag, [tag])
-  );
-  const fetchedProfileByTag = await Promise.all(fetchPromises);
+
   return (
     <PageContent
-      profilesByTag={fetchedProfileByTag}
+      // profilesByTag={fetchedProfileByTag}
       {...getHubTags(tagsParam)}
       initialActiveTags={filterCookie?.value?.split(",")}
+      tagsToUse={tagsToUse}
     />
   );
 }
