@@ -49,6 +49,8 @@ interface DataTableFacetedFilterProps<TData, TValue> {
   //onFilterChange?: (tags: string[]) => void;
 }
 
+const tagDisplayThreshold = 2;
+
 export function TagFilter<TData, TValue>({
   initialActiveTags = [],
   // column,
@@ -116,20 +118,22 @@ DataTableFacetedFilterProps<TData, TValue>) {
               <Separator orientation="vertical" className="mx-2 h-6" />
               <Badge
                 variant="secondary"
-                className="rounded-sm px-1 font-normal "
+                className="rounded-sm px-1 font-normal lg:hidden"
               >
                 {" "}
                 {/* lg:hidden  */}
-                {activeTags.length > 4 ? activeTags.length : null}
+                {activeTags.length > tagDisplayThreshold
+                  ? activeTags.length
+                  : activeTags.length}
               </Badge>
-              <div className="flex space-x-1 lg:flex">
-                {activeTags.length > 4 ? (
+              <div className="hidden space-x-1 lg:flex">
+                {activeTags.length > tagDisplayThreshold ? (
                   <Badge
                     variant="secondary"
                     className="rounded-sm px-1 font-normal bg-transparent hover:bg-transparent"
                   >
                     {/* {activeTags.length} selected */}
-                    selected
+                    {activeTags.length} selected
                   </Badge>
                 ) : (
                   activeTags.map((tag) => (
