@@ -91,7 +91,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
       </div>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="hidden lg:inline-flex">
             <NavigationMenuTrigger>whats awesome</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -148,7 +148,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="hidden lg:inline-flex">
             <Link href="/docs" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 suggest
