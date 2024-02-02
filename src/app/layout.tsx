@@ -3,6 +3,9 @@ import { PageLayout } from "./components/PageLayout";
 import "./globals.css";
 
 import { PropsWithChildren } from "react";
+import { PrimaryKeyType } from "@mswjs/data/lib/glossary";
+import { PrimaryTagType } from "@/lib/tags";
+// import { FilterContextProvider } from "@/components/FilterContext";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -25,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <HubContextProvider>
+        <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
           <PageLayout>{children}</PageLayout>
         </HubContextProvider>
       </body>

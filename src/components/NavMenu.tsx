@@ -15,6 +15,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import HubLink from "./HubLink";
+import { useParams } from "next/navigation";
+import { config } from "@/lib/config";
+import { Badge } from "./ui/badge";
 
 const components: {
   title: string;
@@ -58,9 +61,11 @@ const components: {
 ];
 
 export default function NavMenu({ children }: React.PropsWithChildren) {
+  const { tags } = useParams();
+  const hub = tags?.length && tags[0];
   return (
     <>
-      <div className="flex lg:flex-1">
+      <div className="flex lg:flex-1 items-center">
         <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
             className="h-8 w-auto"
@@ -69,6 +74,20 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
           />
           <span className="sr-only">whats awesome</span>
         </HubLink>
+
+        {hub && hub !== config.rootHub && (
+          <>
+            <span className="px-2 ml-1">/</span>
+            <Badge>
+              <HubLink
+                hub={tags[0]}
+                className="flex items-center -m-1.5 p-1.5 gap-3"
+              >
+                <span className="font-semibold">{tags[0]}</span>
+              </HubLink>
+            </Badge>
+          </>
+        )}
       </div>
       <NavigationMenu>
         <NavigationMenuList>

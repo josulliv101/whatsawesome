@@ -39,7 +39,7 @@ export default forwardRef(function HubLink(
       href={`/${hub}/${localStoragePrimaryTag}`}
       {...props}
     >
-      {children} / {hub} / {localStoragePrimaryTag}
+      {children}
     </Link>
   );
 });

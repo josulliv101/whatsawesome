@@ -22,7 +22,10 @@ export function HubContextProvider({
   console.log("params changes", params);
 
   const [storedPrimaryTag, setStoredPrimaryTag] =
-    useLocalStorage<PrimaryTagType>("primaryTag", config.defaultPrimaryTag);
+    useLocalStorage<PrimaryTagType>(
+      "primaryTag",
+      initialValue || config.defaultPrimaryTag
+    );
 
   console.log("HubContextProvider storedPrimaryTag", storedPrimaryTag);
 

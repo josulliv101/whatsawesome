@@ -34,7 +34,7 @@ export default function PageContent({
         <TagFilter
           activeTags={tags}
           // onFilterChange={(tags: string[]) => console.log(tags)}
-          options={tagOptions}
+          // options={tagOptions}
           hub={hub}
           primaryTag={primaryTag}
           // tags={tags}
