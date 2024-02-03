@@ -40,7 +40,9 @@ export default async function ProfilePage({
                 .sort()
                 .filter((tag) => !tagDefinitions.all.children.includes(tag))
                 .map((tag) => (
-                  <Badge variant="secondary">{tag}</Badge>
+                  <Badge key={tag} variant="secondary">
+                    {tag}
+                  </Badge>
                 ))}
             </div>
             <div className="text-muted-foreground">{description}</div>
@@ -54,9 +56,9 @@ export default async function ProfilePage({
             Follow
           </Button>
         </div>
-        <div className="opacity-0 px-2 py-1 rounded-md min-w-max absolute bottom-2 right-2 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
-          <img src="/cute-mushroom.png" width={22} height={22} /> {oinks - 32}%
-          awesome
+        <div className="opacity-100 px-2 py-1 rounded-md min-w-max absolute bottom-3 right-4 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
+          <Image alt="vote" src="/cute-mushroom.png" width={22} height={22} />{" "}
+          {oinks - 32}% awesome
         </div>
         {/* <Badge
           variant="outline"
@@ -91,10 +93,10 @@ export default async function ProfilePage({
       </div>
       <div className="flex justify-start items-center mt-12 mb-4  w-full">
         <h1 className="text-2xl text-muted-foreground">
-          What's awesome about {name}?
+          Whats awesome about {name}?
         </h1>
       </div>
-      <div className="grid grid-cols-[1fr_1fr] items-start gap-4 space-y-0">
+      <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_1fr] items-start gap-4 space-y-0">
         {reasons.map((reason) => (
           <Reason
             key={reason.id || reason.reason}
