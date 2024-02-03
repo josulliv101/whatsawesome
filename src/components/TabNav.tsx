@@ -29,6 +29,11 @@ export default function TabNav({
               Places
             </Link>
           </TabsTrigger>
+          {/* <TabsTrigger value="company">
+            <Link href={`/${hub}/company`} className="relative">
+              Companies
+            </Link>
+          </TabsTrigger> */}
         </TabsList>
       </div>
     </Tabs>

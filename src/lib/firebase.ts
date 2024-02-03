@@ -15,6 +15,7 @@ import {
 import { config } from "./config";
 import { PrimaryTagType } from "./tags";
 import { Profile } from "./profile";
+import { generateRandomDecimal } from "./utils";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_API_KEY,
@@ -45,6 +46,7 @@ export async function fetchProfile(profileId: string, uid?: string) {
   const qSnap = await getDocs(subColRef);
   const reasons = qSnap.docs.map((d) => ({
     id: d.id,
+    rating: generateRandomDecimal(1, 5),
     ...d.data(),
   })) as Profile["reasons"];
 

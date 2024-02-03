@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-
+import { ThumbsDownIcon, Globe as NetworkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 // import { Icons } from "@/components/icons"
 import {
@@ -77,13 +77,14 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
 
         {hub && hub !== config.rootHub && (
           <>
-            <span className="px-2 ml-1">/</span>
-            <Badge>
+            <span className="px-3 ml-1">/</span>
+            <Badge className="bg-black ">
               <HubLink
                 hub={tags[0]}
-                className="flex items-center -m-1.5 p-1.5 gap-3"
+                className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
               >
-                <span className="font-semibold">
+                <span className="font-semibold flex items-center gap-2">
+                  <NetworkIcon className="h-3.5 w-3.5 text-white" />
                   {tags[0].replace(/[-]/g, " ")}
                 </span>
               </HubLink>
@@ -93,8 +94,25 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
       </div>
       <NavigationMenu>
         <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>explore whats awesome</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
+                {components.map((component) => (
+                  <ListItem
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
+                    hub={component.hub}
+                  >
+                    {component.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
           <NavigationMenuItem className="hidden lg:inline-flex">
-            <NavigationMenuTrigger>whats awesome</NavigationMenuTrigger>
+            <NavigationMenuTrigger>about</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
@@ -130,23 +148,6 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
                 <ListItem href="/docs/primitives/typography" title="Credits">
                   Find out what technology was used to create this site.
                 </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>explore</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                    hub={component.hub}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>

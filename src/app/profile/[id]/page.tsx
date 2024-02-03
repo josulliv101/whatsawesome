@@ -15,6 +15,7 @@ export default async function ProfilePage({
   const { description, name, pic, oinks, tags, reasons } =
     await fetchProfile(id);
   const rating = oinks - 40;
+  const imgPosition = tags.includes("person") ? "object-top" : "object-center";
   return (
     <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-center justify-start px-4 py-6 lg:px-8 lg:py-12">
       <div className="relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
@@ -26,7 +27,8 @@ export default async function ProfilePage({
             width={240}
             height={240}
             className={cn(
-              "w-full h-auto min-w-full sm:h-[240px] sm:w-[240px] sm:min-w-[240px] opacity-80 rounded-tl-md rounded-bl-md max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square"
+              "w-full h-auto min-w-full sm:h-[240px] sm:w-[240px] sm:min-w-[240px] opacity-80 rounded-tl-md rounded-bl-md max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square " +
+                imgPosition
             )}
           />
         </div>
@@ -102,6 +104,7 @@ export default async function ProfilePage({
             key={reason.id || reason.reason}
             description={reason.reason}
             name={name}
+            rating={reason.rating}
           />
         ))}
       </div>

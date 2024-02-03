@@ -1,7 +1,7 @@
 import Link from "next/link";
 import NavMenu from "./NavMenu";
 import Image from "next/image";
-import { CircleUserIcon } from "lucide-react";
+import { ThumbsDownIcon, Globe as NetworkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   ContextMenu,
@@ -17,6 +17,7 @@ import { Separator } from "./ui/separator";
 import { Badge } from "./ui/badge";
 import Rating from "./Rating";
 import { Profile } from "@/lib/profile";
+import { tags } from "@/lib/tags";
 
 interface ProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
   profile: Profile;
@@ -33,10 +34,11 @@ export default function ProfileCard({
   className,
   ...props
 }: ProfileCardProps) {
+  console.log("profile card!!", profile);
   return (
     <Link href={`/profile/${profile.id}`}>
       <div className={cn("space-y-4", className)} {...props}>
-        <div className="overflow-hidden rounded-md bg-blue-500">
+        <div className="relative overflow-hidden rounded-md bg-blue-500">
           <Image
             priority
             src={profile.pic}
@@ -48,6 +50,11 @@ export default function ProfileCard({
               aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
             )}
           />
+          {false && (
+            <div className="absolute top-2 right-2 flex items-center justify-center rounded-full h-6 w-6 bg-black border-0 border-white shadow-\">
+              <NetworkIcon className="h-3.5 w-3.5 text-white" />
+            </div>
+          )}
         </div>
         <div className="hidden space-y-1 text-sm mb-1">
           <div className="flex flex-col align-end justify-end text-sm text-muted-foreground leading-normal border-0 px-0 py-1">

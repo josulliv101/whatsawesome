@@ -18,6 +18,7 @@ export const db = factory({
     id: primaryKey(faker.internet.userName),
     reason: faker.image.url,
     votes: faker.number.int,
+    rating: faker.number.float,
   },
   item: {
     type: String, // 'post' | 'comment'

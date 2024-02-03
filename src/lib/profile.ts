@@ -28,6 +28,7 @@ export const profileSchema = z.object({
       id: z.string().optional(),
       reason: z.string(),
       votes: z.number(),
+      rating: z.number(),
     })
   ),
 });
