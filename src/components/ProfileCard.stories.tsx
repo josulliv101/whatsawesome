@@ -31,8 +31,10 @@ export const Default: Story = {
       name: "Larry Bird",
       pic: "/larry-bird.jpg",
       oinks: 80,
+      tags: ["person", "sports"],
       description:
         "Larry Bird is an American former professional basketball player, coach, and executive in the National Basketball Association ...",
+      reasons: [{ id: "001", votes: 9, reason: "lorem ipsum" }],
     },
   },
 };

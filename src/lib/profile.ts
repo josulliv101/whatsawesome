@@ -20,31 +20,16 @@ export const profileSchema = z.object({
   description: z.string().max(500).min(4),
   pic: z.string().max(200).min(0),
   oinks: z.coerce.number().min(0).multipleOf(1),
-  /*
-    tags: z
-      .array(
-        z.object({
-          value: z.string(),
-          label: z.string(),
-        })
-      )
-      .transform((val, ctx) => {
-        console.log("transform", val, ctx);
-        const map = {} as Record<TagName, boolean> | Record<TagName, never>;
-  
-        !!val.length &&
-          val.forEach((option) => (map[option.value as TagName] = true));
-        return map;
-      }),
-    
-    reasons: z.array(
-      z.object({
-        id: z.string().optional(),
-        reason: z.string(),
-        votes: z.number(),
-      })
-    ),
-    */
+
+  tags: z.array(z.string()),
+
+  reasons: z.array(
+    z.object({
+      id: z.string().optional(),
+      reason: z.string(),
+      votes: z.number(),
+    })
+  ),
 });
 
 export type Profile = z.infer<typeof profileSchema>;

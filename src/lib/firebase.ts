@@ -39,10 +39,20 @@ export async function fetchProfile(profileId: string, uid?: string) {
 
   const docRef = doc(db, "entity", profileId);
   const docSnap = await getDoc(docRef);
+  const { tagMap, ...data } = docSnap.data() || {};
+
+  const subColRef = collection(db, "entity", profileId, "whyawesome");
+  const qSnap = await getDocs(subColRef);
+  const reasons = qSnap.docs.map((d) => ({
+    id: d.id,
+    ...d.data(),
+  })) as Profile["reasons"];
 
   return {
-    ...(docSnap.data() as Profile),
+    ...(data as Profile),
+    tags: Object.keys(tagMap),
     id: docSnap.id,
+    reasons,
   };
   /*
   const profileSnapshot = await db.collection("entity").doc(profileId).get();

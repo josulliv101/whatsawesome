@@ -2,46 +2,106 @@ import Image from "next/image";
 import { fetchProfile } from "@/lib/firebase";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { tagDefinitions } from "@/lib/tags";
+import Rating from "@/components/Rating";
+import { Reason } from "@/components/Reason";
 
 export default async function ProfilePage({
   params: { id },
 }: {
   params: { id: string };
 }) {
-  const { description, name, pic, oinks } = await fetchProfile(id);
+  const { description, name, pic, oinks, tags, reasons } =
+    await fetchProfile(id);
+  const rating = oinks - 40;
   return (
     <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-center justify-start px-4 py-6 lg:px-8 lg:py-12">
-      <div className="flex items-start gap-8 border bg-white max-w-4xl w-full rounded-tr-md rounded-br-md">
-        <Image
-          priority
-          src={pic}
-          alt={name}
-          width={300}
-          height={300}
-          className={cn(
-            "h-auto w-auto opacity-80 rounded-tl-md rounded-bl-md max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square"
-          )}
-        />
+      <div className="relative max-w-7xl mx-auto flex items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
+        <div className="relative">
+          <Image
+            priority
+            src={pic}
+            alt={name}
+            width={240}
+            height={240}
+            className={cn(
+              "h-[240px] w-[240px] min-w-[240px] opacity-80 rounded-tl-md rounded-bl-md max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square"
+            )}
+          />
+        </div>
         <div className="relative py-8 space-y-2 pr-6">
           <div className="flex flex-col justify-between items-start h-full">
             <div className="flex items-center text-2xl gap-4">
               <span className="font-semibold">{name}</span>
             </div>
+            <div className="flex gap-2 py-4">
+              {tags
+                .sort()
+                .filter((tag) => !tagDefinitions.all.children.includes(tag))
+                .map((tag) => (
+                  <Badge variant="secondary">{tag}</Badge>
+                ))}
+            </div>
             <div className="text-muted-foreground">{description}</div>
           </div>
-          <span className="flex items-center text-lg gap-2">
-            /
-            <img src="/cute-mushroom.png" width={22} height={22} /> {oinks}%
-            awesome
-          </span>
+
           <Button
             size="sm"
             variant={"secondary"}
-            className="absolute top-0 right-4"
+            className="hidden absolute top-0 right-4"
           >
             Follow
           </Button>
         </div>
+        <div className="opacity-0 px-2 py-1 rounded-md min-w-max absolute bottom-2 right-2 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
+          <img src="/cute-mushroom.png" width={22} height={22} /> {oinks - 32}%
+          awesome
+        </div>
+        {/* <Badge
+          variant="outline"
+          className="rounded-sm absolute border-0 bottom-4 right-8 bg-white px-1 inline-flex items-center gap-3"
+        >
+          <img
+            className="h-6 w-auto grayscale opacity-50"
+            src="/cute-mushroom.png"
+            alt="whatsawesome"
+          />
+          <img
+            className="h-6 w-auto grayscale opacity-50"
+            src="/cute-mushroom.png"
+            alt="whatsawesome"
+          />
+          <img
+            className="h-6 w-auto grayscale opacity-50"
+            src="/cute-mushroom.png"
+            alt="whatsawesome"
+          />
+          <img
+            className="h-6 w-auto grayscale opacity-50"
+            src="/cute-mushroom.png"
+            alt="whatsawesome"
+          />
+          <img
+            className="h-6 w-auto grayscale opacity-50"
+            src="/cute-mushroom.png"
+            alt="whatsawesome"
+          />
+        </Badge> */}
+      </div>
+      <div className="flex justify-start items-center mt-12 mb-4  w-full">
+        <h1 className="text-2xl text-muted-foreground">
+          What's awesome about {name}?
+        </h1>
+      </div>
+      <div className="grid grid-cols-[1fr_1fr] items-start gap-4 space-y-0">
+        {reasons.map((reason) => (
+          <Reason
+            key={reason.id || reason.reason}
+            description={reason.reason}
+            name={name}
+          />
+        ))}
       </div>
     </main>
   );

@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { StringModule, faker } from "@faker-js/faker";
 import { drop, factory, manyOf, primaryKey } from "@mswjs/data";
 import { Profile } from "./profile";
 
@@ -11,6 +11,13 @@ export const db = factory({
     description: faker.person.bio,
     pic: faker.image.url,
     oinks: faker.number.int,
+    tags: Array,
+    reasons: manyOf("reason"),
+  },
+  reason: {
+    id: primaryKey(faker.internet.userName),
+    reason: faker.image.url,
+    votes: faker.number.int,
   },
   item: {
     type: String, // 'post' | 'comment'
