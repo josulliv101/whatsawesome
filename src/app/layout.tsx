@@ -29,7 +29,7 @@ export default function RootLayout({
   console.log("tags[1]", tags);
   return (
     <html lang="en">
-      <body>
+      <body className="bg-gray-50">
         <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
           <CookiesProvider defaultSetOptions={{ path: "/" }}>
             <PageLayout>{children}</PageLayout>

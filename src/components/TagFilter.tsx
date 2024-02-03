@@ -49,7 +49,7 @@ interface DataTableFacetedFilterProps<TData, TValue> {
   //onFilterChange?: (tags: string[]) => void;
 }
 
-const tagDisplayThreshold = 2;
+const tagDisplayThreshold = 4;
 
 export function TagFilter<TData, TValue>({
   initialActiveTags = [],

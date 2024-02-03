@@ -5,6 +5,7 @@ import {
   collection,
   doc,
   setDoc,
+  getDoc,
   query,
   where,
   getDocs,
@@ -30,6 +31,72 @@ export const firebaseApp =
 export const auth = getAuth(firebaseApp);
 
 export const db = getFirestore(firebaseApp);
+
+export async function fetchProfile(profileId: string, uid?: string) {
+  if (!profileId) {
+    throw new Error("profile id is required.");
+  }
+
+  const docRef = doc(db, "entity", profileId);
+  const docSnap = await getDoc(docRef);
+
+  return {
+    ...(docSnap.data() as Profile),
+    id: docSnap.id,
+  };
+  /*
+  const profileSnapshot = await db.collection("entity").doc(profileId).get();
+  const reasonsSnapshot = await db
+    .collection(`entity/${profileId}/whyawesome`)
+    .get();
+  console.log("UID", uid, profileId);
+  let userVotesSnapshot;
+  if (uid) {
+    userVotesSnapshot = await db
+      .collection("entity")
+      .doc(profileId)
+      .collection("votes")
+      .doc(uid)
+      .get();
+  }
+
+  const reasons: Profile["reasons"] = [];
+  reasonsSnapshot.forEach((doc: any) =>
+    reasons.push({ id: doc.id, ...doc.data() })
+  );
+
+  const currentUserVotes = userVotesSnapshot ? userVotesSnapshot.data() : {};
+  // console.log("...", JSON.stringify(currentUserVotes));
+  const {
+    description,
+    name,
+    tagMap = {},
+    hubTagMap = {
+      college: true,
+      comedian: true,
+      museum: true,
+      musician: true,
+      nature: true,
+      sports: true,
+      movie: false,
+    },
+    ...rest
+  }: any = profileSnapshot.data() || {};
+  return {
+    ...rest,
+    id: profileId,
+    profileId,
+    description: description,
+    name: name,
+    tags: Object.keys(tagMap).map((tag) => ({ label: tag, value: tag })),
+    reasons: reasons.sort((a, b) => {
+      return b.votes - a.votes;
+    }),
+    currentUserVotes: currentUserVotes,
+    hubTagMap,
+  };
+  */
+}
 
 export async function fetchHubProfiles(
   hub: string,
@@ -65,7 +132,7 @@ export async function fetchHubProfiles(
   try {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      docs.push(doc.data() as Profile);
+      docs.push({ ...(doc.data() as Profile), id: doc.id });
     });
   } catch (err) {
     console.log("err", err);
@@ -91,7 +158,7 @@ export async function fetchEntities(tags: Array<string> = []) {
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     // console.log(doc.id, " => ", doc.data());
-    docs.push(doc.data());
+    docs.push({ ...(doc.data() as Record<string, unknown>), id: doc.id });
   });
 
   return docs;

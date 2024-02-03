@@ -34,23 +34,24 @@ export default function ProfileCard({
   ...props
 }: ProfileCardProps) {
   return (
-    <div className={cn("space-y-4", className)} {...props}>
-      <div className="overflow-hidden rounded-md bg-blue-500">
-        <Image
-          priority
-          src={profile.pic}
-          alt={profile.name}
-          width={width}
-          height={height}
-          className={cn(
-            "h-auto w-auto__ opacity-80 max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105",
-            aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
-          )}
-        />
-      </div>
-      <div className="hidden space-y-1 text-sm mb-1">
-        <div className="flex flex-col align-end justify-end text-sm text-muted-foreground leading-normal border-0 px-0 py-1">
-          {/* <p className="flex items-center justify-between gap-2 mb-2">
+    <Link href={`/profile/${profile.id}`}>
+      <div className={cn("space-y-4", className)} {...props}>
+        <div className="overflow-hidden rounded-md bg-blue-500">
+          <Image
+            priority
+            src={profile.pic}
+            alt={profile.name}
+            width={width}
+            height={height}
+            className={cn(
+              "h-auto w-auto__ opacity-80 max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105",
+              aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
+            )}
+          />
+        </div>
+        <div className="hidden space-y-1 text-sm mb-1">
+          <div className="flex flex-col align-end justify-end text-sm text-muted-foreground leading-normal border-0 px-0 py-1">
+            {/* <p className="flex items-center justify-between gap-2 mb-2">
             <Badge variant={"outline"}>
               <img
                 src="/cute-mushroom.png"
@@ -65,12 +66,13 @@ export default function ProfileCard({
               followers
             </span>
           </p> */}
+          </div>
         </div>
+        <h3 className="relative font-medium leading-normal pb-2 text-sm text-center text-balance">
+          {profile.name}
+          <Rating value={profile.oinks} />
+        </h3>
       </div>
-      <h3 className="relative font-medium leading-normal pb-2 text-sm text-center text-balance">
-        {profile.name}
-        <Rating value={profile.oinks} />
-      </h3>
-    </div>
+    </Link>
   );
 }

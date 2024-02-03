@@ -35,7 +35,7 @@ export default async function Profiles({
           </div>
           <div className="relative w-full">
             <ScrollArea>
-              <div className="flex space-x-4 mt-8 p-4 border border-gray-200">
+              <div className="flex space-x-4 mt-8 p-4 border shadow-md border-gray-200 bg-white">
                 {profiles.map((profile: any) => (
                   <ProfileCard
                     key={profile.name}

@@ -83,7 +83,9 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
                 hub={tags[0]}
                 className="flex items-center -m-1.5 p-1.5 gap-3"
               >
-                <span className="font-semibold">{tags[0]}</span>
+                <span className="font-semibold">
+                  {tags[0].replace(/[-]/g, " ")}
+                </span>
               </HubLink>
             </Badge>
           </>
