@@ -17,8 +17,8 @@ export default async function ProfilePage({
   const rating = oinks - 40;
   return (
     <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-center justify-start px-4 py-6 lg:px-8 lg:py-12">
-      <div className="relative max-w-7xl mx-auto flex items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
-        <div className="relative">
+      <div className="relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
+        <div className="relative w-full sm:w-auto sm:flex-initial">
           <Image
             priority
             src={pic}
@@ -26,11 +26,11 @@ export default async function ProfilePage({
             width={240}
             height={240}
             className={cn(
-              "h-[240px] w-[240px] min-w-[240px] opacity-80 rounded-tl-md rounded-bl-md max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square"
+              "w-full h-auto min-w-full sm:h-[240px] sm:w-[240px] sm:min-w-[240px] opacity-80 rounded-tl-md rounded-bl-md max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square"
             )}
           />
         </div>
-        <div className="relative py-8 space-y-2 pr-6">
+        <div className="relative py-1 px-2 sm:px-0 sm:py-8 space-y-2 pr-6 flex-1">
           <div className="flex flex-col justify-between items-start h-full">
             <div className="flex items-center text-2xl gap-4">
               <span className="font-semibold">{name}</span>
@@ -56,7 +56,7 @@ export default async function ProfilePage({
             Follow
           </Button>
         </div>
-        <div className="opacity-100 px-2 py-1 rounded-md min-w-max absolute bottom-3 right-4 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
+        <div className="opacity-100 px-2 py-1 rounded-md min-w-max static sm:absolute bottom-3 right-4 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
           <Image alt="vote" src="/cute-mushroom.png" width={22} height={22} />{" "}
           {oinks - 32}% awesome
         </div>
