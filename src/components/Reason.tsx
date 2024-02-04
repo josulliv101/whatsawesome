@@ -72,22 +72,31 @@ export function Reason({
                   src="/cute-mushroom.png"
                   alt="whatsawesome"
                 /> */}
-                {[...new Array(1)].map(() => (
-                  <StarIcon className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300" />
+                {[...new Array(1)].map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300"
+                  />
                 ))}
               </DropdownMenuCheckboxItem>
 
               <DropdownMenuCheckboxItem>
                 <div className="flex gap-2">
-                  {[...new Array(2)].map(() => (
-                    <StarIcon className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300" />
+                  {[...new Array(2)].map((_, i) => (
+                    <StarIcon
+                      key={i}
+                      className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300"
+                    />
                   ))}
                 </div>
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem>
                 <div className="flex gap-2">
-                  {[...new Array(3)].map(() => (
-                    <StarIcon className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300" />
+                  {[...new Array(3)].map((_, i) => (
+                    <StarIcon
+                      key={i}
+                      className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300"
+                    />
                   ))}
                 </div>
               </DropdownMenuCheckboxItem>
