@@ -36,7 +36,7 @@ export default function PageContent({
   tagsToUse: string[];
   profile?: Profile;
 }) {
-  const tagOptions = tagDefinitions[primaryTag].children.map((tag) => ({
+  const tagOptions = tagDefinitions[primaryTag]?.children.map((tag) => ({
     label: tag,
     value: tag,
   }));
@@ -50,7 +50,7 @@ export default function PageContent({
           <TabNav activeTabId={primaryTag} hub={hub} profile={profile} />
         </div>
         <div className="flex items-center gap-4">
-          {profile && (
+          {/* {profile && (
             <Button className="relative pl-5 md:pl-0 h-12" variant={"outline"}>
               <Image
                 className="hidden md:block opacity-80 h-12 w-12 rounded-tl-sm rounded-br-sm mr-6"
@@ -84,7 +84,7 @@ export default function PageContent({
               />
               <Square className="h-5 w-5 mr-1 opacity-40" />
             </Button>
-          )}
+          )} */}
           <TagFilter
             initialActiveTags={
               initialActiveTags?.length ? initialActiveTags : tags
@@ -97,16 +97,9 @@ export default function PageContent({
           />
         </div>
       </div>
-      <PageHeading
-        heading={`Discover what's awesome about ${tagDefinitions[primaryTag].plural}${profile && hub !== "all" ? ` in ${profile.name}` : ""}.`}
-        subhead="Inclusion in the what&#39;s awesome catalog is by invitation only. Everyone can vote on what&#39;s awesome."
-      />
-      <Suspense fallback={<LoadingSkeleton />}>
-        <Profiles hub={hub} primaryTag={primaryTag} tagsToUse={tagsToUse} />
-      </Suspense>
-      {profile && (
+      {(primaryTag as string) === "profile" && profile && (
         <>
-          <div className="mt-12 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
+          <div className="mt-0 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
             <div className="relative w-full sm:w-auto sm:flex-initial">
               <Image
                 priority
@@ -153,6 +146,43 @@ export default function PageContent({
           <Separator className="mb-8" />
         </>
       )}
+      {/* {profile && (
+        <Button className="relative pl-5 md:pl-0 h-12" variant={"outline"}>
+          <Image
+            className="hidden md:block opacity-80 h-12 w-12 rounded-tl-sm rounded-br-sm mr-6"
+            alt={hub}
+            src={profile.pic}
+            height={64}
+            width={64}
+          />
+          <div className="flex flex-col items-start pr-4 md:pr-0">
+            <div className="text-sm">{profile.name}</div>
+            <div className="text-xs text-muted-foreground">View Profile</div>
+          </div>
+          <Separator
+            orientation="vertical"
+            className="hidden md:block mx-4 h-6"
+          />
+          <div className="hidden md:flex opacity-100 px-2 py-1 pr-1 rounded-md min-w-max static bg-transparent  items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
+            <Image alt="vote" src="/cute-mushroom.png" width={16} height={16} />{" "}
+            78%
+          </div>
+          <Separator
+            orientation="vertical"
+            className="hidden md:block mx-4 h-6"
+          />
+          <Square className="h-5 w-5 mr-1 opacity-40" />
+        </Button>
+      )} */}
+      {(primaryTag as string) !== "profile" && (
+        <PageHeading
+          heading={`Discover what's awesome about ${tagDefinitions[primaryTag]?.plural}${profile && hub !== "all" ? ` in ${profile.name}` : ""}.`}
+          subhead="Inclusion in the what&#39;s awesome catalog is by invitation only. Everyone can vote on what&#39;s awesome."
+        />
+      )}
+      <Suspense fallback={<LoadingSkeleton />}>
+        <Profiles hub={hub} primaryTag={primaryTag} tagsToUse={tagsToUse} />
+      </Suspense>
     </main>
   );
 }

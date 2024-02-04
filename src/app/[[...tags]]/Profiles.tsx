@@ -17,9 +17,10 @@ export default async function Profiles({
   tagsToUse: string[];
   primaryTag: PrimaryTagType;
 }) {
-  const fetchPromises = tagsToUse.map(
-    async (tag) => await fetchHubProfiles(hub, primaryTag, [tag])
-  );
+  const fetchPromises =
+    tagsToUse?.map(
+      async (tag) => await fetchHubProfiles(hub, primaryTag, [tag])
+    ) || [];
   const fetchedProfileByTag = await Promise.all(fetchPromises);
   return (
     <main className="flex min-h-screen w-full mx-auto flex-col items-start justify-start">

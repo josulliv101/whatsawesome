@@ -28,6 +28,11 @@ export const tagDefinitions = {
     parentTag: "all",
     children: ["museum", "nature", "college", "city"],
   },
+  profile: {
+    plural: "profiles",
+    parentTag: "all",
+    children: [],
+  },
   sports: {
     parentTag: "person",
   },

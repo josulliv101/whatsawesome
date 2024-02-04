@@ -35,13 +35,13 @@ export default function TabNav({
               Places
             </Link>
           </TabsTrigger>
-          {/* {profile && (
-            <TabsTrigger value={profile.id}>
-              <Link href={`/${hub}/company`} className="relative">
-                {profile.name} Profile
+          {profile && (
+            <TabsTrigger value="profile" className="h-11 px-4 text-sm">
+              <Link href={`/${hub}/profile`} className="relative">
+                Profile
               </Link>
             </TabsTrigger>
-          )} */}
+          )}
           {/* <TabsTrigger value="company">
             <Link href={`/${hub}/company`} className="relative">
               Companies
