@@ -37,7 +37,9 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
     : filterOptions
         .filter((option) => option.active)
         .map((option) => option.value);
-
+  const reorderedTags = filterOptions
+    .filter((option) => tagsToUse.includes(option.value))
+    .map((option) => option.value);
   const updatedOptions = filterOptions.map((option) => ({
     ...option,
     active: tagsToUse.includes(option.value),
@@ -53,7 +55,7 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
       // profilesByTag={fetchedProfileByTag}
       {...getHubTags(tagsParam)}
       initialActiveTags={filterCookie?.value?.split(",")}
-      tagsToUse={tagsToUse}
+      tagsToUse={reorderedTags}
       filterOptions={updatedOptions}
       filterId={filterId}
       profile={profile}

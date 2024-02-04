@@ -22,7 +22,7 @@ export function FilterContextProvider({
   const params = useParams();
   console.log("params changes", params);
 
-  const tagOptionsPlace = tagDefinitions.place.children.map((tag) => ({
+  const tagOptionsPlace = tagDefinitions.place.children.map((tag: string) => ({
     label: tag,
     value: tag,
     active: params.tags.includes(tag),
@@ -40,7 +40,7 @@ export function FilterContextProvider({
 
     if (primaryTag === "place") {
       console.log("setStoredPrimaryTag set to", primaryTag);
-      const optionsPlace = tagDefinitions.place.children.map((tag) => ({
+      const optionsPlace = tagDefinitions.place.children.map((tag: string) => ({
         label: tag,
         value: tag,
         active: tags.includes(tag),

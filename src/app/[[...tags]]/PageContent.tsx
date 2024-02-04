@@ -5,7 +5,7 @@ import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "@/lib/profile";
-import { PrimaryTagType, tagDefinitions } from "@/lib/tags";
+import { PrimaryTagType, getPlural, tagDefinitions } from "@/lib/tags";
 import { Fragment, Suspense } from "react";
 import Profiles from "./Profiles";
 import LoadingSkeleton from "./LoadingSkeleton";
@@ -41,10 +41,12 @@ export default function PageContent({
   filterOptions: FilterOptions;
   filterId: string;
 }) {
-  const tagOptions = tagDefinitions[primaryTag]?.children.map((tag) => ({
-    label: tag,
-    value: tag,
-  }));
+  const tagOptions = tagDefinitions[primaryTag]?.children.map(
+    (tag: string) => ({
+      label: tag,
+      value: tag,
+    })
+  );
   const imgPosition = profile?.tags.includes("person")
     ? "object-top"
     : "object-center";
@@ -102,6 +104,7 @@ export default function PageContent({
               hub={hub}
               primaryTag={primaryTag}
               // tags={tags}
+              title={`filter ${getPlural(primaryTag)}`}
             />
           )}
         </div>

@@ -14,7 +14,7 @@ export const tags: Array<string> = [
   "city",
 ];
 
-export const tagDefinitions = {
+export const tagDefinitions: Record<string, any> = {
   all: {
     children: ["person", "place"],
   },
@@ -47,6 +47,8 @@ export const tagDefinitions = {
 export const getPrimaryTags = () => {
   tagDefinitions.all.children;
 };
+
+export const getPlural = (tag: string) => tagDefinitions[tag].plural || tag;
 
 export const getHubTags = (
   tags: string | Array<string> = []

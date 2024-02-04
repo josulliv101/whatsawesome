@@ -68,14 +68,6 @@ export function TagFilter<TData, TValue>({
 DataTableFacetedFilterProps<TData, TValue>) {
   const params = useParams();
 
-  const tagOptionsPlace =
-    options ||
-    tagDefinitions[primaryTag].children.map((tag) => ({
-      label: tag,
-      value: tag,
-      active: initialActiveTags?.includes(tag),
-    }));
-
   const optionsToUse = filterOptions; // tagOptionsPlace; // || storedPlaceFilteredOptions;
   console.log("optionsToUse@@", filterOptions, optionsToUse);
   const cookieName = `filter-${filterId}-${primaryTag}`;
