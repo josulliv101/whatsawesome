@@ -4,7 +4,7 @@ import TabNav from "@/components/TabNav";
 import { cookies } from "next/headers";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { fetchEntities, fetchHubProfiles } from "@/lib/firebase";
+import { fetchEntities, fetchHubProfiles, fetchProfile } from "@/lib/firebase";
 import { getHubTags, getPrimaryTags, tagDefinitions } from "@/lib/tags";
 import { Tags } from "lucide-react";
 import Image from "next/image";
@@ -15,6 +15,7 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
   const { hub, primaryTag, tags } = getHubTags(tagsParam);
   console.log("tags", hub, primaryTag, tags);
 
+  const profile = hub !== "all" ? await fetchProfile(hub) : undefined;
   const cookieStore = cookies();
   const filterCookie = cookieStore.get(`filter-${primaryTag}`);
   console.log("filterCookie", primaryTag, filterCookie?.value);
@@ -32,6 +33,7 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
       {...getHubTags(tagsParam)}
       initialActiveTags={filterCookie?.value?.split(",")}
       tagsToUse={tagsToUse}
+      profile={profile}
     />
   );
 }

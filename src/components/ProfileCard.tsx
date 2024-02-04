@@ -18,6 +18,7 @@ import { Badge } from "./ui/badge";
 import Rating from "./Rating";
 import { Profile } from "@/lib/profile";
 import { tags } from "@/lib/tags";
+import HubLink from "./HubLink";
 
 interface ProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
   profile: Profile;
@@ -34,9 +35,10 @@ export default function ProfileCard({
   className,
   ...props
 }: ProfileCardProps) {
-  console.log("profile card!!", profile);
+  // console.log("profile card!!", profile);
+  const href = profile.isHub ? undefined : `/profile/${profile.id}`;
   return (
-    <Link href={`/profile/${profile.id}`}>
+    <HubLink hub={profile.id} href={href}>
       <div className={cn("space-y-4", className)} {...props}>
         <div className="relative overflow-hidden rounded-md bg-blue-500">
           <Image
@@ -50,8 +52,8 @@ export default function ProfileCard({
               aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
             )}
           />
-          {false && (
-            <div className="absolute top-2 right-2 flex items-center justify-center rounded-full h-6 w-6 bg-black border-0 border-white shadow-\">
+          {profile.isHub && (
+            <div className="absolute top-2 right-2 flex items-center justify-center rounded-full h-6 w-6 bg-black border-0 border-white ">
               <NetworkIcon className="h-3.5 w-3.5 text-white" />
             </div>
           )}
@@ -80,6 +82,6 @@ export default function ProfileCard({
           <Rating value={profile.oinks} />
         </h3>
       </div>
-    </Link>
+    </HubLink>
   );
 }

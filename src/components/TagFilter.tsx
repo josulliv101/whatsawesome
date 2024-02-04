@@ -110,7 +110,7 @@ DataTableFacetedFilterProps<TData, TValue>) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-10 border">
+        <Button variant="outline" size="sm" className="h-12 border">
           <MixerVerticalIcon className="mr-2 h-4 w-4" />
           {title}
           {activeTags.length > 0 && (

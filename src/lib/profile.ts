@@ -23,6 +23,8 @@ export const profileSchema = z.object({
 
   tags: z.array(z.string()),
 
+  isHub: z.boolean().optional(),
+
   reasons: z.array(
     z.object({
       id: z.string().optional(),

@@ -61,7 +61,7 @@ const components: {
 ];
 
 export default function NavMenu({ children }: React.PropsWithChildren) {
-  const { tags } = useParams();
+  const { tags, id: profileId } = useParams();
   const hub = tags?.length && tags[0];
   return (
     <>

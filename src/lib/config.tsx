@@ -6,6 +6,6 @@ export const config = {
   defaultPrimaryTag: "person",
   defaultHubTags: {
     person: ["musician", "sports", "comedian"],
-    place: ["museum", "nature", "college"],
+    place: ["city", "museum", "nature"],
   },
 } as const;

@@ -11,6 +11,7 @@ export const tags: Array<string> = [
   "museum",
   "nature",
   "college",
+  "city",
 ];
 
 export const tagDefinitions = {
@@ -25,7 +26,7 @@ export const tagDefinitions = {
   place: {
     plural: "places",
     parentTag: "all",
-    children: ["museum", "nature", "college"],
+    children: ["museum", "nature", "college", "city"],
   },
   sports: {
     parentTag: "person",
@@ -35,6 +36,7 @@ export const tagDefinitions = {
   museum: { plural: "museums", parentTag: "place" },
   nature: { parentTag: "place" },
   college: { plural: "colleges", parentTag: "place" },
+  city: { plural: "cities", parentTag: "place" },
 };
 
 export const getPrimaryTags = () => {

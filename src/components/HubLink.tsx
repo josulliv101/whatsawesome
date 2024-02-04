@@ -33,6 +33,14 @@ export default forwardRef(function HubLink(
   ref
 ) {
   const localStoragePrimaryTag = useHubContext();
+
+  if (href) {
+    return (
+      <Link className={className} href={href} {...props}>
+        {children}
+      </Link>
+    );
+  }
   return (
     <Link
       className={className}
