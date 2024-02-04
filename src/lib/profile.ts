@@ -23,6 +23,14 @@ export const profileSchema = z.object({
 
   tags: z.array(z.string()),
 
+  hubFilterTags: z
+    .object({
+      person: z.record(z.string(), z.number().nullable()),
+      place: z.record(z.string(), z.number().nullable()),
+    })
+    .optional(),
+  hubFilterId: z.string().optional(),
+
   isHub: z.boolean().optional(),
 
   reasons: z.array(

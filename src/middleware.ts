@@ -19,13 +19,13 @@ export function middleware(request: NextRequest, params: any) {
   const response = NextResponse.next();
   // response.cookies.set("myCookie", "123");
 
-  if (!filterCookie) {
-    response.cookies.set({
-      name: cookieName,
-      value: hubUrl.tags.join(","),
-      path: "/",
-    });
-  }
+  // if (!filterCookie) {
+  //   response.cookies.set({
+  //     name: cookieName,
+  //     value: hubUrl.tags.join(","),
+  //     path: "/",
+  //   });
+  // }
   //   if (false && primaryTag?.value === "place") {
   //     return NextResponse.redirect("http://localhost:3000/all/place");
   //   } else if (primaryTag?.value) {

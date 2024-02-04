@@ -69,7 +69,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
         <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
             className="h-8 w-auto"
-            src="/cute-mushroom.png"
+            src={config.logoPath}
             alt="whatsawesome"
           />
           <span className="sr-only">whats awesome</span>
@@ -95,7 +95,12 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>explore whats awesome</NavigationMenuTrigger>
+            <NavigationMenuTrigger>
+              explore
+              <span className="hidden md:inline-block">
+                &nbsp;whats awesome
+              </span>
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
                 {components.map((component) => (
@@ -125,7 +130,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
                         width="48"
                         height="48"
                         alt="whatsawesome"
-                        src="/cute-mushroom.png"
+                        src={config.logoPath}
                         className="grayscale"
                       />
                       <div className="mb-2 mt-4 text-lg font-medium">

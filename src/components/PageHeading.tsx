@@ -10,7 +10,7 @@ export default function PageHeading({
 }) {
   return (
     <div>
-      <h2 className="flex items-center text-xl lg:text-4xl font-semibold tracking-tight mb-1">
+      <h2 className="flex items-center text-balance text-xl lg:text-4xl font-semibold tracking-tight mb-1">
         {heading}
       </h2>
       {subhead && (

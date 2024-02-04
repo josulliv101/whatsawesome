@@ -1,3 +1,4 @@
+import { config } from "@/lib/config";
 import { Badge } from "./ui/badge";
 
 export default function Rating({ value }: { value: number }) {
@@ -7,7 +8,7 @@ export default function Rating({ value }: { value: number }) {
       variant="outline"
       className="rounded-sm absolute top-[-44px] right-[4px] bg-white px-1 inline-flex items-center gap-1.5"
     >
-      <img className="h-4 w-auto" src="/cute-mushroom.png" alt="whatsawesome" />
+      <img className="h-4 w-auto" src={config.logoPath} alt="whatsawesome" />
       <div className="text-xs relative -left-0.5">{isNaN(val) ? 0 : val}%</div>
       {/* <img className="h-4 w-auto" src="/cute-mushroom.png" alt="whatsawesome" />
       <img className="h-4 w-auto" src="/cute-mushroom.png" alt="whatsawesome" />

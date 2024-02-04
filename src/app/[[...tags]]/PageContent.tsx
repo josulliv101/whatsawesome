@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Square } from "lucide-react";
+import { FilterOptions } from "@/lib/filters";
 
 export default function PageContent({
   // profilesByTag,
@@ -23,6 +24,8 @@ export default function PageContent({
   initialActiveTags,
   tagsToUse,
   profile,
+  filterOptions,
+  filterId,
 }: {
   profilesByTag?: Array<{
     tags: string[];
@@ -35,6 +38,8 @@ export default function PageContent({
   initialActiveTags?: string[];
   tagsToUse: string[];
   profile?: Profile;
+  filterOptions: FilterOptions;
+  filterId: string;
 }) {
   const tagOptions = tagDefinitions[primaryTag]?.children.map((tag) => ({
     label: tag,
@@ -85,21 +90,31 @@ export default function PageContent({
               <Square className="h-5 w-5 mr-1 opacity-40" />
             </Button>
           )} */}
-          <TagFilter
-            initialActiveTags={
-              initialActiveTags?.length ? initialActiveTags : tags
-            }
-            // onFilterChange={(tags: string[]) => console.log(tags)}
-            // options={tagOptions}
-            hub={hub}
-            primaryTag={primaryTag}
-            // tags={tags}
-          />
+          {primaryTag && (primaryTag as string) !== "profile" && (
+            <TagFilter
+              initialActiveTags={
+                initialActiveTags?.length ? initialActiveTags : tags
+              }
+              filterOptions={filterOptions}
+              filterId={filterId}
+              // onFilterChange={(tags: string[]) => console.log(tags)}
+              // options={tagOptions}
+              hub={hub}
+              primaryTag={primaryTag}
+              // tags={tags}
+            />
+          )}
         </div>
       </div>
+      {profile && (primaryTag as string) === "profile" && (
+        <PageHeading
+          heading={`Discover what's awesome about ${profile?.name}.`}
+          subhead={profile.description}
+        />
+      )}
       {(primaryTag as string) === "profile" && profile && (
         <>
-          <div className="mt-0 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
+          <div className="mt-10 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
             <div className="relative w-full sm:w-auto sm:flex-initial">
               <Image
                 priority

@@ -32,7 +32,7 @@ export function HubContextProvider({
   useEffect(() => {
     const { primaryTag = "" } = params.tags ? getHubTags(params.tags) : {};
 
-    if (primaryTag) {
+    if (primaryTag && (primaryTag as string) !== "profile") {
       console.log("setStoredPrimaryTag set to", primaryTag);
       setStoredPrimaryTag(primaryTag);
     }

@@ -15,6 +15,7 @@ import { cookies } from "next/headers";
 import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
 import PageHeading from "@/components/PageHeading";
+import { config } from "@/lib/config";
 
 export default async function ProfilePage({
   params: { id },
@@ -36,8 +37,12 @@ export default async function ProfilePage({
   const initialActiveTags = filterCookie?.value?.split(",");
   return (
     <>
-      <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-center justify-start px-4 py-6 lg:px-8 lg:py-12">
-        <div className="relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
+      <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
+        <PageHeading
+          heading={`Discover what's awesome about ${name}.`}
+          subhead={description}
+        />
+        <div className="mt-10 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
           <div className="relative w-full sm:w-auto sm:flex-initial">
             <Image
               priority
@@ -84,7 +89,7 @@ export default async function ProfilePage({
             )}
           </div>
           <div className="opacity-100 px-2 py-1 rounded-md min-w-max static sm:absolute bottom-3 right-4 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
-            <Image alt="vote" src="/cute-mushroom.png" width={22} height={22} />{" "}
+            <Image alt="vote" src={config.logoPath} width={22} height={22} />{" "}
             {oinks - 32}% awesome
           </div>
         </div>
@@ -103,7 +108,7 @@ export default async function ProfilePage({
             />
           ))}
         </div>
-        {isHub && (
+        {/* {isHub && (
           <Suspense fallback={<LoadingSkeleton />}>
             <div className="w-full flex items-center justify-between pb-12">
               <TabNav activeTabId={primaryTag} hub={id} />
@@ -124,7 +129,7 @@ export default async function ProfilePage({
             />
             <Profiles hub={id} primaryTag={primaryTag} tagsToUse={tagsToUse} />
           </Suspense>
-        )}
+        )} */}
       </main>
     </>
   );

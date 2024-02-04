@@ -1,6 +1,7 @@
 import { PrimaryTagType } from "./tags";
 
 export const config = {
+  logoPath: "/cute-mushroom-blue.png",
   maxNumberOfProfilesInRow: 8,
   rootHub: "all",
   defaultPrimaryTag: "person",

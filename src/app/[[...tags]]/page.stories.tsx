@@ -18,7 +18,11 @@ const meta = {
     // params: { page: 1, tags: ["boston", "place"] },
     hub: "boston",
 
-    profilesByTag: mockProfilesByTag,
+    profilesByTag: undefined, //mockProfilesByTag,
+    // reasons: [{ id: "abc", votes: 1, reason: "foobar", rating: 1 }],
+    tagsToUse: [],
+    filterId: "",
+    filterOptions: [],
   },
 } satisfies Meta<typeof PageContent>;
 export default meta;
@@ -26,7 +30,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Mocked: Story = {
-  args: { primaryTag: "person", tags: ["sports", "musician"], tagsToUse: [] },
+  args: {
+    primaryTag: "person",
+    tags: ["sports", "musician"],
+  },
   parameters: {
     msw: {
       handlers: [

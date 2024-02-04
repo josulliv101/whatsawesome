@@ -31,6 +31,7 @@ import { getHubUrl, tagDefinitions } from "@/lib/tags";
 import { useFilterContext } from "./FilterContext";
 import useLocalStorage from "./useLocalStorage";
 import { useCookies } from "react-cookie";
+import { FilterOptions } from "@/lib/filters";
 
 type TagOptions = Array<{ value: string; label: string; active?: boolean }>;
 
@@ -46,6 +47,8 @@ interface DataTableFacetedFilterProps<TData, TValue> {
   initialActiveTags: string[];
   hub: string;
   primaryTag: "person" | "place";
+  filterOptions: FilterOptions;
+  filterId: string;
   //onFilterChange?: (tags: string[]) => void;
 }
 
@@ -58,6 +61,8 @@ export function TagFilter<TData, TValue>({
   options, // for test & storybook stories
   hub,
   primaryTag,
+  filterOptions,
+  filterId,
   // onFilterChange,
 }: // onChange,
 DataTableFacetedFilterProps<TData, TValue>) {
@@ -71,15 +76,11 @@ DataTableFacetedFilterProps<TData, TValue>) {
       active: initialActiveTags?.includes(tag),
     }));
 
-  // const [storedPlaceFilteredOptions, setStoredPlaceFilteredOptions] =
-  //   useLocalStorage<TagOptions>("placeFilterOptions", tagOptionsPlace);
-  const optionsToUse = tagOptionsPlace; // || storedPlaceFilteredOptions;
-  console.log("optionsToUse@@", optionsToUse);
-  // const options = useFilterContext();
-  // const facets = column?.getFacetedUniqueValues();
-  // const selectedValues = { size: activeTags.length, has: () => true }; //new Set(column?.getFilterValue() as string[]);
+  const optionsToUse = filterOptions; // tagOptionsPlace; // || storedPlaceFilteredOptions;
+  console.log("optionsToUse@@", filterOptions, optionsToUse);
+  const cookieName = `filter-${filterId}-${primaryTag}`;
   const router = useRouter();
-  const [cookies, setCookie] = useCookies([`filter-${primaryTag}`]);
+  const [cookies, setCookie] = useCookies([cookieName]);
   const activeTags =
     optionsToUse
       ?.filter((option) => option.active === true)
@@ -88,25 +89,16 @@ DataTableFacetedFilterProps<TData, TValue>) {
   const [activeTagPendingCommit, onChange] = useState(activeTags);
   console.log("activeTags", activeTags, optionsToUse);
   console.log("activeTagPendingCommit", activeTagPendingCommit);
+
   const onFilterChange = (activeTagIds: string[]) => {
     const url = getHubUrl(hub, primaryTag, activeTagIds);
     console.log("activeTagOptions", activeTagIds);
 
-    setCookie(`filter-${primaryTag}`, activeTagIds.join(","));
+    setCookie(cookieName, activeTagIds.join(","));
     console.log("client cookie", cookies);
     router.push(url);
-    // setStoredPlaceFilteredOptions(
-    //   storedPlaceFilteredOptions.map((option) => ({
-    //     ...option,
-    //     active: activeTagIds.includes(option.value),
-    //   }))
-    // );
   };
 
-  // React.useEffect(() => {
-  //   const url = `/${hub}/${tagPrimary}/${activeTagPendingCommit.join("/")}`;
-  //   router.push(url);
-  // }, [activeTagPendingCommit]);
   return (
     <Popover>
       <PopoverTrigger asChild>

@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -37,8 +37,18 @@ export default function TabNav({
           </TabsTrigger>
           {profile && (
             <TabsTrigger value="profile" className="h-11 px-4 text-sm">
-              <Link href={`/${hub}/profile`} className="relative">
+              <Link
+                href={`/${hub}/profile`}
+                className="relative flex items-center gap-2"
+              >
                 Profile
+                <Image
+                  className={`hidden grayscale opacity-70`}
+                  alt="vote"
+                  src="/cute-mushroom.png"
+                  width={16}
+                  height={16}
+                />
               </Link>
             </TabsTrigger>
           )}

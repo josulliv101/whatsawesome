@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NavMenu from "./NavMenu";
+import { config } from "@/lib/config";
 
 export default function Header() {
   return (
@@ -27,7 +28,7 @@ export default function Header() {
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
-                src="/cute-mushroom.png"
+                src={config.logoPath}
                 alt="whatsawesome"
               />
             </Link>

@@ -44,6 +44,8 @@ export const NoActiveTags: Story = {
     initialActiveTags: [],
     hub: "boston",
     primaryTag: "person",
+    filterId: "",
+    filterOptions: [],
     // onFilterChange: (tags) => console.log("tags", tags),
   },
 };
