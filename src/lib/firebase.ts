@@ -13,7 +13,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { config } from "./config";
-import { PrimaryTagType } from "./tags";
+import { PrimaryTagType, getPlural } from "./tags";
 import { Profile } from "./profile";
 import { generateRandomDecimal } from "./utils";
 
@@ -33,7 +33,8 @@ export const auth = getAuth(firebaseApp);
 
 export const db = getFirestore(firebaseApp);
 
-export async function fetchProfile(profileId: string, uid?: string) {
+export async function fetchProfile(id: string | string[], uid?: string) {
+  const profileId = Array.isArray(id) ? id[0] : id;
   if (!profileId) {
     throw new Error("profile id is required.");
   }
@@ -113,7 +114,8 @@ export async function fetchProfile(profileId: string, uid?: string) {
 export async function fetchHubProfiles(
   hub: string,
   primaryTag: PrimaryTagType,
-  tags: Array<string> = []
+  tags: Array<string> = [],
+  profileLimit: number = config.maxNumberOfProfilesInRow
 ) {
   console.log("fetchHubProfiles", hub, primaryTag, tags);
 
@@ -135,7 +137,7 @@ export async function fetchHubProfiles(
     where(`tagMap.${primaryTag}`, "==", true),
     ...queryTags,
     orderBy("oinks", "desc"),
-    limit(config.maxNumberOfProfilesInRow),
+    limit(profileLimit),
   ];
 
   const q = query.apply(null, args as any);
@@ -150,7 +152,11 @@ export async function fetchHubProfiles(
     console.log("err", err);
   }
 
-  return { tags: [], label: tags.join(" + "), profiles: docs };
+  return {
+    tags: [],
+    label: tags.map((tag) => getPlural(tag)).join(" + "),
+    profiles: docs,
+  };
 }
 
 export async function fetchEntities(tags: Array<string> = []) {

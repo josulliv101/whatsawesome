@@ -3,7 +3,7 @@ import { PageLayout } from "./components/PageLayout";
 
 import "./globals.css";
 
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import { PrimaryKeyType } from "@mswjs/data/lib/glossary";
 import { PrimaryTagType } from "@/lib/tags";
 import { CookiesProvider } from "@/components/Cookies";
@@ -26,7 +26,6 @@ export default function RootLayout({
   children,
   params: { tags = [] },
 }: PropsWithChildren<{ params: { tags: string[] } }>) {
-  console.log("tags[1]", tags);
   return (
     <html lang="en">
       <body className="bg-gray-50">

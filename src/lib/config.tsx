@@ -3,6 +3,7 @@ import { PrimaryTagType } from "./tags";
 export const config = {
   logoPath: "/cute-mushroom-blue.png",
   maxNumberOfProfilesInRow: 8,
+  totalPaginationProfiles: 20,
   rootHub: "all",
   defaultPrimaryTag: "person",
   defaultHubTags: {

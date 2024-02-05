@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { config } from "@/lib/config";
 import { Profile } from "@/lib/profile";
+import { GlobeIcon } from "lucide-react";
 
 export default function TabNav({
   activeTabId,
@@ -39,9 +40,10 @@ export default function TabNav({
             <TabsTrigger value="profile" className="h-11 px-4 text-sm">
               <Link
                 href={`/${hub}/profile`}
-                className="relative flex items-center gap-2"
+                className="relative flex items-center gap-1"
               >
-                Profile
+                <GlobeIcon className="h-3.5 w-3.5 text-gray-400" />
+                {hub}
                 <Image
                   className={`hidden grayscale opacity-70`}
                   alt="vote"

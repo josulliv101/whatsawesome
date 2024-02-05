@@ -51,7 +51,7 @@ export default function PageContent({
     ? "object-top"
     : "object-center";
   return (
-    <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
+    <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-16">
       <div className="w-full flex items-center justify-between pb-16">
         <div className="flex items-center gap-4">
           <TabNav activeTabId={primaryTag} hub={hub} profile={profile} />

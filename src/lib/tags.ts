@@ -26,7 +26,7 @@ export const tagDefinitions: Record<string, any> = {
   place: {
     plural: "places",
     parentTag: "all",
-    children: ["museum", "nature", "college", "city"],
+    children: ["museum", "nature", "college", "city", "restaurant"],
   },
   profile: {
     plural: "profiles",
@@ -42,6 +42,7 @@ export const tagDefinitions: Record<string, any> = {
   nature: { parentTag: "place" },
   college: { plural: "colleges", parentTag: "place" },
   city: { plural: "cities", parentTag: "place" },
+  restaurant: { plural: "restaurants", parentTag: "place" },
 };
 
 export const getPrimaryTags = () => {
@@ -83,4 +84,32 @@ export const getHubUrl = (
   tags: string[] = []
 ) => {
   return `/${hub}/${primaryTag}/${tags.join("/")}`;
+};
+
+export const tagDefinitionsFood: Record<string, any> = {
+  all: {
+    children: ["food"],
+  },
+  food: {
+    children: ["app", "entree", "salad", "dessert"],
+  },
+  app: {
+    plural: "apps",
+    parentTag: "food",
+    children: ["comedian", "musician", "sports"],
+  },
+  entree: {
+    plural: "entrees",
+    parentTag: "food",
+    children: ["museum", "nature", "college", "city", "restaurant"],
+  },
+  salad: {
+    plural: "salads",
+    parentTag: "food",
+    children: [],
+  },
+  dessert: {
+    plural: "dessert",
+    parentTag: "food",
+  },
 };

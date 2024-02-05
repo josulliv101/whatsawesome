@@ -26,35 +26,33 @@ const components: {
   description: string;
 }[] = [
   {
-    title: "Cities",
-    hub: "boston",
-    description: "Check out what's awesome in Boston, NYC & Chicago.",
+    title: "By City",
+    href: "/view/all/place/city",
+    description: "Explore people & places within a city.",
   },
   {
-    title: "Colleges & Universities",
-    hub: "tufts-university",
-    description:
-      "For sighted users to preview content available behind a link.",
+    title: "By College",
+    href: "/view/all/place/college",
+    description: "Explore people & places within a college.",
   },
   {
-    title: "Chicago",
-    hub: "chicago",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+    title: "People in Sports",
+    href: "/view/all/person/sports",
+    description: "Explore by sport. Filter by category.",
   },
   {
-    title: "Boston People",
-    href: "/boston/person/sports",
-    description: "People Boston Sports",
+    title: "People in Comedy",
+    href: "/view/all/person/comedian",
+    description: "Explore whose who in comedy.",
   },
   {
-    title: "Boston Places",
-    href: "/boston/place",
-    description: "Places",
+    title: "By Tag",
+    href: "/boston/place/museum",
+    description: "Explore by mixing and matching tags.",
   },
   {
     title: "NYC",
-    hub: "new-york-city",
+    href: "/new-york-city/person/comedian",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },

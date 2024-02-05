@@ -9,8 +9,7 @@ import Rating from "@/components/Rating";
 import { Reason } from "@/components/Reason";
 import HubLink from "@/components/HubLink";
 import { Suspense } from "react";
-import LoadingSkeleton from "@/app/[[...tags]]/LoadingSkeleton";
-import Profiles from "@/app/[[...tags]]/Profiles";
+
 import { cookies } from "next/headers";
 import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
@@ -18,7 +17,7 @@ import PageHeading from "@/components/PageHeading";
 import { config } from "@/lib/config";
 
 export default async function ProfilePage({
-  params: { id },
+  params: { id, ...rest },
 }: {
   params: { id: string };
 }) {

@@ -19,7 +19,7 @@ export default async function Home({ params: { tags: tagsParam = [] } }) {
   const profile = hub !== "all" ? await fetchProfile(hub) : undefined;
   const cookieStore = cookies();
 
-  console.log("tags", hub, primaryTag, profile?.tags || []);
+  console.log("tags!!!", hub, primaryTag, profile?.tags || []);
 
   const { filterOptions, filterId } = useFilterOptions(
     profile?.tags || [],
