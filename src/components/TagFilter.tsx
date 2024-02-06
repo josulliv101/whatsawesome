@@ -96,7 +96,7 @@ DataTableFacetedFilterProps<TData, TValue>) {
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-12 border">
           <MixerVerticalIcon className="mr-2 h-4 w-4" />
-          {title}
+          <span className="hidden md:inline-block">{title}</span>
           {activeTags.length > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-6" />

@@ -48,7 +48,7 @@ export default function ProfileCard({
             width={width}
             height={height}
             className={cn(
-              "h-auto w-auto__ opacity-80 max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105",
+              "h-auto w-auto__ opacity-80 max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105",
               aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
             )}
           />

@@ -26,7 +26,7 @@ export default async function ViewAll({
   console.log("tags", tagsParam, hub, primaryTag);
 
   return (
-    <div className="mt-10 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 w-full">
+    <div className="px-4 py-6 lg:px-8 mt-10 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 w-full">
       <div>
         <Suspense fallback={<div>loading...</div>}>
           <Profiles hub={hub} primaryTag={primaryTag} tagsToUse={tags} />

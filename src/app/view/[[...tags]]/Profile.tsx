@@ -35,7 +35,7 @@ export default async function Profiles({
         heading={`${label}`}
         subhead={`${hub} / ${label} / ${fetchedProfileByTag.profiles.length} total profiles`}
       />
-      <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 sm:gap-4">
+      <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 sm:gap-4">
         {fetchedProfileByTag.profiles.map((profile: any) => (
           <ProfileCard
             key={profile.name}

@@ -22,6 +22,7 @@ export default function TabNav({
   return (
     <Tabs
       value={activeTabId}
+      activationMode="manual"
       className={`border border-gray-200 h-full space-y-6 ${className}`}
     >
       <div className="space-between flex items-center h-12">
