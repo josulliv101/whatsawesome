@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useCallback, useRef, useState } from "react";
 import { config } from "@/lib/config";
 import { Profile } from "@/lib/profile";
 import { GlobeIcon } from "lucide-react";
@@ -38,14 +38,20 @@ export default function TabNav({
     refTab2,
     refTab3
   );
+
+  const router = useRouter();
+
+  const onValueChange: (val: string) => void = useCallback((val) => {
+    setActiveTabId(val);
+    console.log(val);
+    !!val && router.push(`/${hub}/${val}`);
+  }, []);
+
   console.log("style", style);
   return (
     <Tabs
       value={activeTabId}
-      onValueChange={(val) => {
-        setActiveTabId(val);
-        console.log(val);
-      }}
+      onValueChange={onValueChange}
       activationMode="manual"
       className={`border border-gray-200 h-full space-y-6 ${className}`}
     >
@@ -60,18 +66,14 @@ export default function TabNav({
             value="person"
             className="relative z-0 h-11 px-4 text-sm"
           >
-            <Link href={`/${hub}/person`} className="relative">
-              People
-            </Link>
+            People
           </TabsTrigger>
           <TabsTrigger
             ref={refTab2}
             value="place"
             className="relative z-0 h-11 px-4 text-sm"
           >
-            <Link href={`/${hub}/place`} className="relative">
-              Places
-            </Link>
+            Places
           </TabsTrigger>
           {profile && (
             <TabsTrigger
@@ -79,8 +81,8 @@ export default function TabNav({
               value="profile"
               className="relative z-0 h-11 px-4 text-sm"
             >
-              <Link
-                href={`/${hub}/profile`}
+              <span
+                // href={`/${hub}/profile`}
                 className="relative flex items-center gap-1"
               >
                 <GlobeIcon className="h-3.5 w-3.5 text-gray-400" />
@@ -92,7 +94,7 @@ export default function TabNav({
                   width={16}
                   height={16}
                 />
-              </Link>
+              </span>
             </TabsTrigger>
           )}
           {/* <TabsTrigger value="company">

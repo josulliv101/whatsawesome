@@ -1,4 +1,4 @@
-import { RefObject, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { useSafeLayoutEffect } from "./useSafeLayoutEffect";
 
 export function useTabIndicator(
@@ -22,6 +22,19 @@ export function useTabIndicator(
   });
 
   const [hasMeasured, setHasMeasured] = useState(false);
+  // const [resizeCount, setResizeCount] = useState(0);
+
+  // const handleResize = () => {
+  //   setResizeCount(resizeCount + 1);
+  //   console.log("RESIZE", resizeCount);
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   // Update the selected tab rect when the selectedIndex changes
   useSafeLayoutEffect(() => {
