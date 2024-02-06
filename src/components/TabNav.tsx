@@ -44,7 +44,7 @@ export default function TabNav({
   const onValueChange: (val: string) => void = useCallback((val) => {
     setActiveTabId(val);
     console.log(val);
-    !!val && router.push(`/${hub}/${val}`);
+    !!val && setTimeout(() => router.push(`/${hub}/${val}`), 200);
   }, []);
 
   console.log("style", style);

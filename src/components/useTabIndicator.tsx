@@ -79,7 +79,7 @@ export function useTabIndicator(
   return {
     position: "absolute",
     transitionProperty: "left, right, top, bottom, height, width",
-    transitionDuration: hasMeasured ? "200ms" : "0ms",
+    transitionDuration: hasMeasured ? "100ms" : "0ms",
     transitionTimingFunction: "cubic-bezier(0, 0, 0.2, 1)",
     ...rect,
   };
