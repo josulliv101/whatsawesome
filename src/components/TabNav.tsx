@@ -9,7 +9,7 @@ import { Profile } from "@/lib/profile";
 import { GlobeIcon } from "lucide-react";
 
 export default function TabNav({
-  activeTabId,
+  activeTabId: initialActiveTabId,
   hub,
   profile,
   className = "",
@@ -19,9 +19,14 @@ export default function TabNav({
   hub: string;
   profile?: Profile;
 }) {
+  const [activeTabId, setActiveTabId] = useState(initialActiveTabId);
   return (
     <Tabs
       value={activeTabId}
+      onValueChange={(val) => {
+        setActiveTabId(val);
+        console.log(val);
+      }}
       activationMode="manual"
       className={`border border-gray-200 h-full space-y-6 ${className}`}
     >
