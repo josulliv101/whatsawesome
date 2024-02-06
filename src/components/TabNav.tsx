@@ -3,10 +3,18 @@ import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { config } from "@/lib/config";
 import { Profile } from "@/lib/profile";
 import { GlobeIcon } from "lucide-react";
+import { useTabIndicator } from "./useTabIndicator";
+import { number } from "zod";
+
+const tabNames: Record<string, number> = {
+  person: 0,
+  place: 1,
+  profile: 2,
+};
 
 export default function TabNav({
   activeTabId: initialActiveTabId,
@@ -20,6 +28,17 @@ export default function TabNav({
   profile?: Profile;
 }) {
   const [activeTabId, setActiveTabId] = useState(initialActiveTabId);
+  const refTab1 = useRef<HTMLButtonElement>(null);
+  const refTab2 = useRef<HTMLButtonElement>(null);
+  const refTab3 = useRef<HTMLButtonElement>(null);
+
+  const style = useTabIndicator(
+    tabNames[activeTabId],
+    refTab1,
+    refTab2,
+    refTab3
+  );
+  console.log("style", style);
   return (
     <Tabs
       value={activeTabId}
@@ -32,18 +51,34 @@ export default function TabNav({
     >
       <div className="space-between flex items-center h-12">
         <TabsList className="h-12 px-0.5">
-          <TabsTrigger value="person" className="h-11 px-4 text-sm">
+          <div
+            className="__tab-indicator relative h-1 -z-0 rounded-sm bg-background"
+            style={style}
+          ></div>
+          <TabsTrigger
+            ref={refTab1}
+            value="person"
+            className="relative z-0 h-11 px-4 text-sm"
+          >
             <Link href={`/${hub}/person`} className="relative">
               People
             </Link>
           </TabsTrigger>
-          <TabsTrigger value="place" className="h-11 px-4 text-sm">
+          <TabsTrigger
+            ref={refTab2}
+            value="place"
+            className="relative z-0 h-11 px-4 text-sm"
+          >
             <Link href={`/${hub}/place`} className="relative">
               Places
             </Link>
           </TabsTrigger>
           {profile && (
-            <TabsTrigger value="profile" className="h-11 px-4 text-sm">
+            <TabsTrigger
+              ref={refTab3}
+              value="profile"
+              className="relative z-0 h-11 px-4 text-sm"
+            >
               <Link
                 href={`/${hub}/profile`}
                 className="relative flex items-center gap-1"
