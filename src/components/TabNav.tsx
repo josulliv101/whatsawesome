@@ -85,8 +85,8 @@ export default function TabNav({
                 // href={`/${hub}/profile`}
                 className="relative flex items-center gap-1"
               >
-                <GlobeIcon className="h-3.5 w-3.5 text-gray-400" />
-                {hub}
+                {/* <GlobeIcon className="h-3.5 w-3.5 text-gray-400" /> */}
+                Profile
                 <Image
                   className={`hidden grayscale opacity-70`}
                   alt="vote"

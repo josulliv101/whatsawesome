@@ -27,7 +27,7 @@ export default async function ProfilePage({
 
   const cookieStore = cookies();
   const filterCookie = cookieStore.get(`filter-${primaryTag}`);
-  console.log("filterCookie", primaryTag, filterCookie?.value);
+  console.log("filterCookie", id, primaryTag, filterCookie?.value);
 
   const tagsToUse = filterCookie?.value ? filterCookie?.value.split(",") : tags;
 
@@ -81,7 +81,7 @@ export default async function ProfilePage({
                 >
                   <span className="font-semibold flex items-center gap-2 ">
                     <Globe className="h-3.5 w-3.5 text-white" />
-                    {id.replace(/[-]/g, " ")}
+                    {id?.replace(/[-]/g, " ")}
                   </span>
                 </HubLink>
               </Badge>

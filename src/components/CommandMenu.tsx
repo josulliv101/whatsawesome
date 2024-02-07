@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import debounce from "lodash.debounce";
 import { DialogProps } from "@radix-ui/react-alert-dialog";
 import {
@@ -23,11 +23,15 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandItemLink,
   CommandList,
   CommandSeparator,
+  CommandShortcut,
 } from "@/components/ui/command";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchSearchResults } from "@/lib/search";
+import { config } from "@/lib/config";
+import { CreditCard, LinkIcon, Settings, User } from "lucide-react";
 
 const docsConfig = {
   mainNav: [
@@ -53,6 +57,7 @@ const docsConfig = {
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Array<{ name: string; id: string }>>(
@@ -75,7 +80,13 @@ export function CommandMenu({ ...props }: DialogProps) {
   //   []
   // );
 
-  React.useEffect(() => {
+  useEffect(() => {
+    console.log(`Route changed to: ${pathname}`);
+    setOpen(false);
+    clearState();
+  }, [pathname]);
+
+  useEffect(() => {
     const handleSearchChange = async (val: string = "") => {
       const results = await fetchSearchResults(val);
       console.log("handle search", val, results);
@@ -109,11 +120,14 @@ export function CommandMenu({ ...props }: DialogProps) {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
+  const clearState = () => {
+    setValue("");
+    setResults([]);
+  };
   const handleSelect = React.useCallback(
     (item: { name: string; id: string }) => {
       setOpen(false);
-      setValue("");
-      setResults([]);
+      clearState();
       console.log(item);
       router.push(`/profile/${item.id}`);
     },
@@ -127,7 +141,10 @@ export function CommandMenu({ ...props }: DialogProps) {
         className={cn(
           "relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-30 lg:w-60"
         )}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          clearState();
+          setOpen(true);
+        }}
         {...props}
       >
         <span className="hidden lg:inline-flex">Search...</span>
@@ -139,24 +156,67 @@ export function CommandMenu({ ...props }: DialogProps) {
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
           // ref={inputRef}
-          placeholder="Search..."
+          placeholder="Search for people & places"
           // value={value}
           defaultValue={value}
           onValueChange={debouncedSetValue}
         />
         <CommandList>
-          {/* <CommandEmpty>No results found.</CommandEmpty> */}
-          <CommandGroup heading="Results">
-            {results.map((item) => (
-              <CommandItem
-                key={item.id}
-                value={item.name}
-                onSelect={() => handleSelect(item)}
-              >
-                <FileIcon className="mr-2 h-4 w-4" />
-                {item.name}
-              </CommandItem>
-            ))}
+          {value && !results.length && (
+            <>
+              <CommandEmpty>No results found.</CommandEmpty>
+            </>
+          )}
+
+          {!!results.length && (
+            <>
+              <CommandGroup heading={`Results: ${results.length}`}>
+                {results.map((item) => (
+                  <CommandItem
+                    key={item.id}
+                    value={item.name}
+                    onSelect={() => handleSelect(item)}
+                    className="flex items-center gap-3"
+                  >
+                    <img
+                      className="h-3.5  w-auto grayscale"
+                      src={config.logoPath}
+                      alt="whatsawesome"
+                    />
+                    {item.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+              <CommandSeparator />
+            </>
+          )}
+          <CommandGroup heading="Hubs">
+            <CommandItemLink
+              href="/view/all/place/city"
+              // onClickCapture={clearState}
+            >
+              <LinkIcon className="mr-2 h-3 w-3" />
+              <span>Cities</span>
+            </CommandItemLink>
+            <CommandItemLink href="/view/all/place/college">
+              <LinkIcon className="mr-2 h-3 w-3" />
+              <span>Colleges & Universities</span>
+            </CommandItemLink>
+          </CommandGroup>
+          {/* <CommandSeparator /> */}
+          <CommandGroup heading="Company">
+            <CommandItemLink href="/about">
+              <LinkIcon className="mr-2 h-3 w-3" />
+              <span>About</span>
+            </CommandItemLink>
+            <CommandItemLink href="/faq">
+              <LinkIcon className="mr-2 h-3 w-3" />
+              <span>FAQ</span>
+            </CommandItemLink>
+            <CommandItemLink href="/suggest">
+              <LinkIcon className="mr-2 h-3 w-3" />
+              <span>Suggest</span>
+            </CommandItemLink>
           </CommandGroup>
         </CommandList>
       </CommandDialog>
