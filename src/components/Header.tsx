@@ -13,7 +13,7 @@ export default function Header() {
       >
         <NavMenu />
 
-        <div className="items-center gap-5 hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="items-center gap-5 flex flex-1 lg:justify-end">
           <CommandMenu />
           <Link
             href="/login"
