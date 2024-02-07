@@ -14,3 +14,7 @@ export function generateRandomDecimal(min: number, max: number): number {
 
   return Math.round(randomNumber * 10) / 10;
 }
+
+export function roundToDecimal(n: number) {
+  return Math.round(n * 1) / 1;
+}

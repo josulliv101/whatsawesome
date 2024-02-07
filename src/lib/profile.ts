@@ -32,6 +32,7 @@ export const profileSchema = z.object({
   hubFilterId: z.string().optional(),
 
   isHub: z.boolean().optional(),
+  rating: z.number().optional(),
 
   reasons: z.array(
     z.object({
