@@ -14,7 +14,7 @@ export default function PageHeading({
   return (
     <div>
       {typeof heading === "string" && (
-        <h2 className="flex items-center text-balance text-xl lg:text-4xl font-semibold tracking-tight gap-2 mb-1">
+        <h2 className="flex items-center text-balance text-xl lg:text-4xl font-semibold tracking-tight gap-2 mb-2">
           {heading}
         </h2>
       )}

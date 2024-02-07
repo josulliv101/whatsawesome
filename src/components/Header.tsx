@@ -2,7 +2,7 @@ import Link from "next/link";
 import NavMenu from "./NavMenu";
 import { config } from "@/lib/config";
 import { CommandMenu } from "./CommandMenu";
-import { UserIcon } from "lucide-react";
+import { UserCircle2 as UserIcon } from "lucide-react";
 
 export default function Header() {
   return (
@@ -17,10 +17,10 @@ export default function Header() {
           <CommandMenu />
           <Link
             href="/login"
-            className="text-sm font-semibold leading-6 text-gray-600"
+            className="text-sm font-semibold leading-6 text-muted-foreground"
           >
             <span className="sr-only">login</span>
-            <UserIcon className="h-6 w-6" />
+            <UserIcon className="h-6 w-6 stroke-1" />
           </Link>
         </div>
       </nav>
