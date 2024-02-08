@@ -83,11 +83,11 @@ const config: Config = {
           },
 
           "30%": {
-            transform: "scale3d(1.25, 0.75, 1)",
+            transform: "scale3d(1.125, 0.875, 1)",
           },
 
           "40%": {
-            transform: "scale3d(0.75, 1.25, 1)",
+            transform: "scale3d(0.875, 1.125, 1)",
           },
 
           "50%": {
