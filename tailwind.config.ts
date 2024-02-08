@@ -70,10 +70,47 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        heartBeat: {
+          "0%": { transform: "scale(1);" },
+          "14%": { transform: "scale(1.3);" },
+          "28%": { transform: "scale(1);" },
+          "42%": { transform: "scale(1.3);" },
+          "70%": { transform: "scale(1);" },
+        },
+        rubberBand: {
+          from: {
+            transform: "scale3d(1, 1, 1)",
+          },
+
+          "30%": {
+            transform: "scale3d(1.25, 0.75, 1)",
+          },
+
+          "40%": {
+            transform: "scale3d(0.75, 1.25, 1)",
+          },
+
+          "50%": {
+            transform: "scale3d(1.15, 0.85, 1)",
+          },
+
+          "65%": {
+            transform: "scale3d(0.95, 1.05, 1)",
+          },
+
+          "75%": {
+            transform: "scale3d(1.05, 0.95, 1)",
+          },
+          to: {
+            transform: "scale3d(1, 1, 1)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        heartBeat: "heartBeat 1s 1",
+        rubberBand: "rubberBand 1s 1",
       },
     },
   },

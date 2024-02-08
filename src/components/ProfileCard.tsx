@@ -39,7 +39,7 @@ export default function ProfileCard({
   const href = profile.isHub ? undefined : `/profile/${profile.id}`;
   return (
     <HubLink hub={profile.id} href={href}>
-      <div className={cn("space-y-4", className)} {...props}>
+      <div className={cn("space-y-4 group", className)} {...props}>
         <div className="relative overflow-hidden rounded-md bg-blue-500">
           <Image
             priority
@@ -48,7 +48,7 @@ export default function ProfileCard({
             width={width}
             height={height}
             className={cn(
-              "h-auto w-auto__ opacity-80 max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105",
+              "h-auto w-auto__ opacity-80 max-h-[300px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-100",
               aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
             )}
           />
