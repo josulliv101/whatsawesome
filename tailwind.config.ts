@@ -72,9 +72,9 @@ const config: Config = {
         },
         heartBeat: {
           "0%": { transform: "scale(1);" },
-          "14%": { transform: "scale(1.3);" },
+          "14%": { transform: "scale(1.03);" },
           "28%": { transform: "scale(1);" },
-          "42%": { transform: "scale(1.3);" },
+          "42%": { transform: "scale(1.02);" },
           "70%": { transform: "scale(1);" },
         },
         rubberBand: {
@@ -142,13 +142,85 @@ const config: Config = {
             transform: "scale3d(1, 1, 1)",
           },
         },
+        rubberBandJump: {
+          from: {
+            transform: "translateY(0px) scale3d(1, 1, 1)",
+          },
+
+          "30%": {
+            transform: "translateY(1px) scale3d(1.125, 0.8075, 1)",
+          },
+          // "38%": {
+          //   transform: "translateY(-4px)",
+          // },
+          "40%": {
+            transform: "translateY(-6px) scale3d(0.875, 1.25, 1)",
+            "animation-timing-function": "ease-in-out",
+          },
+          // "42%": {
+          //   transform: "translateY(-4px)",
+          // },
+          "50%": {
+            transform: "translateY(.5px) scale3d(1.15, 0.85, 1)",
+          },
+
+          "65%": {
+            transform: "translateY(0px) scale3d(0.95, 1.05, 1)",
+          },
+
+          "75%": {
+            transform: "translateY(0px) scale3d(1.05, 0.95, 1)",
+          },
+          to: {
+            transform: "translateY(0px) scale3d(1, 1, 1)",
+          },
+        },
+        rubberBandJumpShadow: {
+          from: {
+            opacity: "1",
+            transform: "scale3d(1, 1, 1)",
+          },
+
+          "30%": {
+            opacity: ".95",
+            transform: "scale3d(1.1, 1, 1)",
+          },
+
+          "40%": {
+            opacity: ".70",
+            transform: "scale3d(.86, .92, 1)",
+            "animation-timing-function": "ease-in-out",
+          },
+
+          "50%": {
+            opacity: ".95",
+            transform: "scale3d(1.03, 1, 1)",
+          },
+
+          "65%": {
+            opacity: "1",
+            transform: "scale3d(.99, 1, 1)",
+          },
+
+          "75%": {
+            opacity: "1",
+            transform: "scale3d(1.02, 1, 1)",
+          },
+          to: {
+            opacity: "1",
+            transform: "scale3d(1, 1, 1)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         heartBeat: "heartBeat 1s 1",
         rubberBand: "rubberBand 1s 1",
+        rubberBandQuick: "rubberBand .4s 1",
         rubberBandIntro: "rubberBandIntro 5s 1",
+        rubberBandJump: "rubberBandJump 1.4s 3 3s",
+        rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 3s",
       },
     },
   },

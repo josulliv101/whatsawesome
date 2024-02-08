@@ -66,10 +66,11 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
       <div className="relative flex lg:flex-0 items-center">
         <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
-            className="h-8 w-auto animate-rubberBandIntro hover:animate-rubberBand origin-bottom "
-            src={config.logoPath}
+            className="h-8 w-auto animate-rubberBandJump origin-bottom "
+            src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
           />
+          <div className="animate-rubberBandJumpShadow bg-black h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
           <span className="sr-only">whats awesome</span>
         </HubLink>
 
