@@ -66,7 +66,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
       <div className="relative flex lg:flex-0 items-center">
         <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
-            className="h-8 w-auto hover:animate-rubberBand origin-bottom"
+            className="h-8 w-auto animate-rubberBandIntro hover:animate-rubberBand origin-bottom "
             src={config.logoPath}
             alt="whatsawesome"
           />

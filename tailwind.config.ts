@@ -105,12 +105,50 @@ const config: Config = {
             transform: "scale3d(1, 1, 1)",
           },
         },
+        rubberBandIntro: {
+          from: {
+            transform: "scale3d(1, 1, 1)",
+          },
+
+          "80%": {
+            transform: "scale3d(1, 1, 1)",
+          },
+
+          "86%": {
+            // 6% 86%
+            transform: "scale3d(1.125, 0.875, 1)",
+          },
+
+          "88%": {
+            // 8% 88%
+            transform: "scale3d(0.875, 1.125, 1)",
+          },
+
+          "90%": {
+            // 10% 90%
+            transform: "scale3d(1.15, 0.85, 1)",
+          },
+
+          "93%": {
+            // 93%
+            transform: "scale3d(0.95, 1.05, 1)",
+          },
+
+          "95%": {
+            // 15% 95%
+            transform: "scale3d(1.05, 0.95, 1)",
+          },
+          to: {
+            transform: "scale3d(1, 1, 1)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         heartBeat: "heartBeat 1s 1",
         rubberBand: "rubberBand 1s 1",
+        rubberBandIntro: "rubberBandIntro 5s 1",
       },
     },
   },
