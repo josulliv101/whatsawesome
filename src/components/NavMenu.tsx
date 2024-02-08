@@ -63,7 +63,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
   const hub = tags?.length && tags[0];
   return (
     <>
-      <div className="flex lg:flex-1 items-center">
+      <div className="relative flex lg:flex-1 items-center">
         <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
             className="h-8 w-auto"
@@ -76,12 +76,12 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
         {hub && hub !== config.rootHub && (
           <>
             <span className="px-3 ml-1">/</span>
-            <Badge className="bg-black ">
+            <Badge className="absolute top-[4px] left-[68px] rounded-sm z-20 bg-black whitespace-nowrap">
               <HubLink
                 hub={tags[0]}
                 className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
               >
-                <span className="font-semibold flex items-center gap-2">
+                <span className="font-semibold flex items-center gap-2 pr-1">
                   <NetworkIcon className="h-3.5 w-3.5 text-white" />
                   {tags[0].replace(/[-]/g, " ")}
                 </span>
@@ -90,7 +90,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
           </>
         )}
       </div>
-      <NavigationMenu>
+      <NavigationMenu className="hidden lg:block">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>
@@ -209,7 +209,7 @@ const ListItem = ({
     );
   }
   return (
-    <li>
+    <li className="">
       <NavigationMenuLink asChild>
         <HubLink
           // ref={ref}

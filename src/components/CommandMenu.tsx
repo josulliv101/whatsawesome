@@ -139,7 +139,7 @@ export function CommandMenu({ ...props }: DialogProps) {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-30 lg:w-60"
+          "relative max-w-[320px] w-30 sm:w-40 lg:w-60 h-8 justify-between rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 "
         )}
         onClick={() => {
           clearState();

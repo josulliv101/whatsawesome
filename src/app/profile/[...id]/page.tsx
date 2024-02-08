@@ -37,10 +37,7 @@ export default async function ProfilePage({
   return (
     <>
       <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
-        <PageHeading
-          heading={`Discover what's awesome about ${name}.`}
-          subhead={description}
-        />
+        <PageHeading className="mt-8" heading={name} subhead={description} />
         <div className="mt-10 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
           <div className="relative w-full sm:w-auto sm:flex-initial">
             <Image

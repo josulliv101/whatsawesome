@@ -52,7 +52,7 @@ export default function PageContent({
     : "object-center";
   console.log("TABNAV render");
   return (
-    <main className="flex min-h-screen px-4 py-6 lg:px-8 max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-16">
+    <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4  lg:px-8 py-16">
       <div className="w-full flex items-center justify-between pb-16">
         <div className="flex items-center gap-4">
           <TabNav activeTabId={primaryTag} hub={hub} profile={profile} />

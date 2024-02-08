@@ -38,6 +38,7 @@ export default async function ProfilePage({
     <>
       <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
         <PageHeading
+          className="mt-28"
           heading={`Discover what's awesome about ${name}.`}
           subhead={description}
         />

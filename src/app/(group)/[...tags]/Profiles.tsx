@@ -7,6 +7,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { fetchHubProfiles } from "@/lib/firebase";
 import { Profile } from "@/lib/profile";
 import { PrimaryTagType, tagDefinitions } from "@/lib/tags";
+import { GlobeIcon } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -31,7 +32,11 @@ export default async function Profiles({
           <div className="mt-20 first:mt-8 space-y-1 w-full">
             <h2 className="w-full flex items-center justify-between text-2xl font-semibold tracking-tight">
               <div>
-                {hub} / {label}
+                <span className="font-semibold inline-flex items-center gap-2">
+                  <GlobeIcon className="h-4 w-4" />
+                  {hub.replace(/[-]/g, " ")}
+                </span>{" "}
+                / {label}
               </div>
               <Button size="sm" variant={"secondary"} asChild>
                 <Link
