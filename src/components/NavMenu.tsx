@@ -78,7 +78,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
             <span className="px-3 ml-1">/</span>
             <Badge
               variant={hub !== config.rootHub ? "default" : "secondary"}
-              className="absolute top-[4px] left-[68px] rounded-sm z-20  whitespace-nowrap"
+              className="w-auto absolute top-[4px] left-[68px] transition-all duration-500 delay-500 ease-out rounded-sm z-20  whitespace-nowrap"
             >
               <HubLink
                 hub={tags[0]}
