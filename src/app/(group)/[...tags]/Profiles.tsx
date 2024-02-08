@@ -4,11 +4,13 @@ import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { config } from "@/lib/config";
 import { fetchHubProfiles } from "@/lib/firebase";
 import { Profile } from "@/lib/profile";
 import { PrimaryTagType, tagDefinitions } from "@/lib/tags";
 import { GlobeIcon } from "lucide-react";
 import Link from "next/link";
+
 import { Fragment } from "react";
 
 export default async function Profiles({
@@ -32,11 +34,17 @@ export default async function Profiles({
           <div className="mt-20 first:mt-8 space-y-1 w-full">
             <h2 className="w-full flex items-center justify-between text-2xl font-semibold tracking-tight">
               <div>
-                <span className="font-semibold inline-flex items-center gap-2">
-                  <GlobeIcon className="h-4 w-4" />
-                  {hub.replace(/[-]/g, " ")}
+                <span className="font-semibold inline-flex items-center gap-2 pr-2">
+                  {" "}
+                  {hub !== config.rootHub && (
+                    <>
+                      <GlobeIcon className="h-4 w-4" />{" "}
+                      {hub.replace(/[-]/g, " ")}
+                    </>
+                  )}
                 </span>{" "}
-                / {label}
+                /&nbsp;&nbsp;
+                {label}
               </div>
               <Button size="sm" variant={"secondary"} asChild>
                 <Link

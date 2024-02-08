@@ -73,17 +73,24 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
           <span className="sr-only">whats awesome</span>
         </HubLink>
 
-        {hub && hub !== config.rootHub && (
+        {hub && (
           <>
             <span className="px-3 ml-1">/</span>
-            <Badge className="absolute top-[4px] left-[68px] rounded-sm z-20 bg-black whitespace-nowrap">
+            <Badge
+              variant={hub !== config.rootHub ? "default" : "secondary"}
+              className="absolute top-[4px] left-[68px] rounded-sm z-20  whitespace-nowrap"
+            >
               <HubLink
                 hub={tags[0]}
                 className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
               >
                 <span className="font-semibold flex items-center gap-2 pr-1">
-                  <NetworkIcon className="h-3.5 w-3.5 text-white" />
-                  {tags[0].replace(/[-]/g, " ")}
+                  {hub !== config.rootHub && (
+                    <NetworkIcon className="h-3.5 w-3.5 text-gray-100" />
+                  )}
+                  {hub !== config.rootHub
+                    ? tags[0].replace(/[-]/g, " ")
+                    : "whats awesome"}
                 </span>
               </HubLink>
             </Badge>
