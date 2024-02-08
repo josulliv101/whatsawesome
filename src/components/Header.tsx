@@ -20,7 +20,7 @@ export default function Header() {
             className="text-sm font-semibold leading-6 text-muted-foreground"
           >
             <span className="sr-only">login</span>
-            <UserIcon className="h-6 w-6 stroke-1" />
+            <UserIcon className="h-6 w-6 stroke-1 opacity-100 md:opacity-50" />
           </Link>
         </div>
       </nav>
