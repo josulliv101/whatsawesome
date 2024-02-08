@@ -64,14 +64,14 @@ export default function TabNav({
           <TabsTrigger
             ref={refTab1}
             value="person"
-            className="relative z-0 h-11 px-4 text-sm"
+            className="relative z-0 h-11 px-4 text-sm font-light"
           >
             People
           </TabsTrigger>
           <TabsTrigger
             ref={refTab2}
             value="place"
-            className="relative z-0 h-11 px-4 text-sm"
+            className="relative z-0 h-11 px-4 text-sm font-light"
           >
             Places
           </TabsTrigger>
@@ -83,7 +83,7 @@ export default function TabNav({
             >
               <span
                 // href={`/${hub}/profile`}
-                className="relative flex items-center gap-1"
+                className="relative flex items-center gap-1 font-light"
               >
                 {/* <GlobeIcon className="h-3.5 w-3.5 text-gray-400" /> */}
                 Profile

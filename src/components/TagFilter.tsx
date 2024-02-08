@@ -95,8 +95,8 @@ DataTableFacetedFilterProps<TData, TValue>) {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-12 border">
-          <MixerVerticalIcon className="mr-2 h-4 w-4" />
-          <span className="hidden md:inline-block font-normal">{title}</span>
+          <MixerVerticalIcon className="mr-2 h-4 w-4 stroke-1" />
+          <span className="hidden md:inline-block font-light">{title}</span>
           {activeTags.length > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-6" />
@@ -124,7 +124,7 @@ DataTableFacetedFilterProps<TData, TValue>) {
                     <Badge
                       variant="secondary"
                       key={tag}
-                      className="rounded-sm px-1 font-normal"
+                      className="rounded-sm px-1 font-light"
                     >
                       {tag}
                     </Badge>

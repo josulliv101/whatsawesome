@@ -155,7 +155,7 @@ export function CommandMenu({ ...props }: DialogProps) {
           <TextSearch className="mr-0 md:mr-2 h-5 w-5 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
           <span className="hidden md:block">Search...</span>
         </span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 md:flex">
+        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-80 md:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
