@@ -16,7 +16,8 @@ import { FilterByIdType } from "@/lib/filters";
 export default async function Home({ params: { tags: tagsParam = [] } }) {
   const { hub, primaryTag, tags } = getHubTags(tagsParam);
 
-  const profile = hub !== "all" ? await fetchProfile(hub) : undefined;
+  const profile =
+    hub !== "all" && hub !== "index" ? await fetchProfile(hub) : undefined;
   const cookieStore = cookies();
 
   console.log("tags!!!", hub, primaryTag, profile?.tags || []);

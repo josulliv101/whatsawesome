@@ -14,7 +14,7 @@ export default function LoginButton() {
   const handleLogout = async () => {
     const isSuccess = await signOut();
     if (isSuccess) {
-      // router.push("/boston/person?logout", {});
+      router.push("/", {});
     }
   };
 
