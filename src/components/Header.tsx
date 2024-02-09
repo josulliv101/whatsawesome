@@ -3,10 +3,11 @@ import NavMenu from "./NavMenu";
 import { config } from "@/lib/config";
 import { CommandMenu } from "./CommandMenu";
 import { UserCircle2 as UserIcon } from "lucide-react";
+import LoginButton from "./LoginButton";
 
 export default function Header() {
   return (
-    <header className="bg-white border-b">
+    <header className="bg-white border-b sticky top-0 z-50">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
         aria-label="Global"
@@ -15,13 +16,7 @@ export default function Header() {
 
         <div className="items-center gap-5 flex flex-0 justify-between lg:justify-end">
           <CommandMenu />
-          <Link
-            href="/login"
-            className="text-sm font-semibold leading-6 text-muted-foreground"
-          >
-            <span className="sr-only">login</span>
-            <UserIcon className="h-6 w-6 stroke-1 opacity-100 md:opacity-50" />
-          </Link>
+          <LoginButton />
         </div>
       </nav>
       <div className="hidden lg:hidden" role="dialog" aria-modal="true">

@@ -1,6 +1,13 @@
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {
+  Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword as vendorSignInWithEmailAndPassword,
+} from "firebase/auth";
+
+import {
   getFirestore,
   collection,
   doc,
@@ -25,6 +32,12 @@ const firebaseConfig = {
   messagingSenderId: "360517790730",
   appId: "1:360517790730:web:0488ed0f086ee54e26c3f3",
 };
+
+export { type User, onAuthStateChanged } from "firebase/auth";
+
+export type APIResponse<T = object> =
+  | { success: true; data: T }
+  | { success: false; error: string };
 
 export const firebaseApp =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
@@ -180,4 +193,53 @@ export async function fetchEntities(tags: Array<string> = []) {
   });
 
   return docs;
+}
+
+export async function signInWithEmailAndPassword(
+  auth: Auth,
+  email: string,
+  password: string
+) {
+  try {
+    const userCreds = await vendorSignInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const idToken = await userCreds.user.getIdToken();
+
+    const response = await fetch("/api/auth/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ idToken }),
+    });
+    const resBody = (await response.json()) as unknown as APIResponse<string>;
+    if (response.ok && resBody.success) {
+      return true;
+    } else return false;
+  } catch (error) {
+    console.error("Error signing in with Google", error);
+    return false;
+  }
+}
+
+export async function signOut() {
+  try {
+    await auth.signOut();
+
+    const response = await fetch("/api/auth/sign-out", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const resBody = (await response.json()) as unknown as APIResponse<string>;
+    if (response.ok && resBody.success) {
+      return true;
+    } else return false;
+  } catch (error) {
+    console.error("Error signing out with Google", error);
+    return false;
+  }
 }

@@ -1,10 +1,18 @@
-import PageHeading from "@/components/PageHeading";
-import Image from "next/image";
+import { Metadata } from "next";
+import { use } from "react";
 
-export default function Login() {
+import { CardsCreateAccount } from "./CreateAccount";
+// import { Button } from "@/components/ui/button";
+
+export const metadata: Metadata = {
+  title: "Login",
+  description: "Login to vote on whats awesome.",
+};
+
+export default function AuthenticationPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <PageHeading heading="Login" subhead="" />
-    </main>
+    <div className="max-w-md h-screen flex items-start justify-center mt-32 mx-auto">
+      <CardsCreateAccount />
+    </div>
   );
 }
