@@ -11,7 +11,7 @@ export default function Loading() {
       {[...new Array(2)].map((_, i) => (
         <div key={i} className="">
           <Skeleton className={`h-6 ${getHeaderWidth(i)} mt-14`} />
-          <div className="flex items-center justify-start border border-gray-100 rounded-sm pl-4 py-4 mt-5">
+          <div className="flex items-center justify-start border border-gray-100 dark:border-gray-800 rounded-sm pl-4 py-4 mt-5">
             {[...Array(4)].map((_, j) => (
               <Skeleton
                 key={j}

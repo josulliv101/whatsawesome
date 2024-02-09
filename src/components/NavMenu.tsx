@@ -88,7 +88,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
                   className={`font-semibold flex items-center gap-2 ${hub !== config.rootHub ? "pr-[0px]" : "pr-0"}`}
                 >
                   {!isRootHub(hub) && (
-                    <NetworkIcon className="h-3.5 w-3.5 text-gray-100" />
+                    <NetworkIcon className="h-3.5 w-3.5 text-gray-100 dark:text-gray-900" />
                   )}
                   {!isRootHub(hub)
                     ? tags[0].replace(/[-]/g, " ")
