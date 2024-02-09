@@ -7,6 +7,7 @@ import { PrimaryTagType } from "@/lib/tags";
 import { getCurrentUser } from "@/lib/auth";
 import { AuthContextProvider } from "@/components/AuthContext";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -28,13 +29,17 @@ export default async function RootLayout({
 }: PropsWithChildren<{ params: { tags: string[] } }>) {
   const user = await getCurrentUser();
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased bg-gray-50`}>
-        <AuthContextProvider user={user?.toJSON()}>
-          <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
-            <PageLayout>{children}</PageLayout>
-          </HubContextProvider>
-        </AuthContextProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.className} antialiased bg-gray-50 dark:bg-black`}
+      >
+        <ThemeProvider attribute="class">
+          <AuthContextProvider user={user?.toJSON()}>
+            <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
+              <PageLayout>{children}</PageLayout>
+            </HubContextProvider>
+          </AuthContextProvider>{" "}
+        </ThemeProvider>
       </body>
     </html>
   );

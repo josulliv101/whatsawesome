@@ -118,7 +118,7 @@ export default function PageContent({
       )}
       {(primaryTag as string) === "profile" && profile && (
         <>
-          <div className="mt-10 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
+          <div className="mt-10 mb-8 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white dark:bg-gray-700 w-full rounded-tr-md rounded-br-md">
             <div className="relative w-full sm:w-auto sm:flex-initial">
               <Image
                 priority

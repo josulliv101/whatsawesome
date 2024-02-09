@@ -53,7 +53,7 @@ export default function TabNav({
       value={activeTabId}
       onValueChange={onValueChange}
       activationMode="manual"
-      className={`border border-gray-200 h-full space-y-6 ${className}`}
+      className={`border border-gray-200 dark:border-gray-800 h-full space-y-6 ${className}`}
     >
       <div className="space-between flex items-center h-12">
         <TabsList className="h-12 px-0.5">

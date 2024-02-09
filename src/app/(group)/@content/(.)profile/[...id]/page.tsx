@@ -88,7 +88,7 @@ export default async function ProfilePage({
               </Badge>
             )}
           </div>
-          <div className="opacity-100 px-2 py-1 rounded-md min-w-max static sm:absolute bottom-3 right-4 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
+          <div className="opacity-100 px-2 py-1 rounded-md min-w-max static sm:absolute bottom-3 right-4 bg-white dark:bg-gray-800 flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
             <Image alt="vote" src={config.logoPath} width={22} height={22} />{" "}
             {oinks - 32}% awesome
           </div>

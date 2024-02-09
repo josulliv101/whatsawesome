@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import HubLink from "./HubLink";
 import { useParams } from "next/navigation";
-import { config } from "@/lib/config";
+import { config, isRootHub } from "@/lib/config";
 import { Badge } from "./ui/badge";
 
 const components: {
@@ -60,7 +60,7 @@ const components: {
 
 export default function NavMenu({ children }: React.PropsWithChildren) {
   const { tags, id: profileId } = useParams();
-  const hub = tags?.length && tags[0];
+  const hub = tags?.length ? tags[0] : "all";
   return (
     <>
       <div className="relative flex lg:flex-0 items-center">
@@ -70,11 +70,10 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
             src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
           />
-          <div className="animate-rubberBandJumpShadow bg-black h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
+          <div className="animate-rubberBandJumpShadow bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
           <span className="sr-only">whats awesome</span>
         </HubLink>
-
-        {hub && (
+        {
           <>
             <span className="px-3 ml-1">/</span>
             <Badge
@@ -82,23 +81,23 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
               className="w-auto absolute top-[4px] left-[68px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
             >
               <HubLink
-                hub={tags[0]}
+                hub={hub}
                 className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
               >
                 <span
                   className={`font-semibold flex items-center gap-2 ${hub !== config.rootHub ? "pr-[0px]" : "pr-0"}`}
                 >
-                  {hub !== config.rootHub && (
+                  {!isRootHub(hub) && (
                     <NetworkIcon className="h-3.5 w-3.5 text-gray-100" />
                   )}
-                  {hub !== config.rootHub
+                  {!isRootHub(hub)
                     ? tags[0].replace(/[-]/g, " ")
                     : "whats awesome"}
                 </span>
               </HubLink>
             </Badge>
           </>
-        )}
+        }
       </div>
       <NavigationMenu className="hidden lg:block ml-[16%]">
         <NavigationMenuList>
@@ -130,7 +129,7 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
                   <NavigationMenuLink asChild>
                     <Link
                       className="flex items-center h-full w-full select-none flex-col justify-between rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                      href="/"
+                      href="/about"
                     >
                       <img
                         width="80"
@@ -150,13 +149,13 @@ export default function NavMenu({ children }: React.PropsWithChildren) {
                     </Link>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="What is this?">
+                <ListItem href="/about" title="What is this?">
                   Learn why this site was created.
                 </ListItem>
-                <ListItem href="/docs/installation" title="FAQ">
+                <ListItem href="/faq" title="FAQ">
                   Got questions? Find answers here.
                 </ListItem>
-                <ListItem href="/docs/primitives/typography" title="Credits">
+                <ListItem href="/about/technology" title="Technology">
                   Find out what technology was used to create this site.
                 </ListItem>
               </ul>

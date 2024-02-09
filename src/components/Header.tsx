@@ -4,10 +4,11 @@ import { config } from "@/lib/config";
 import { CommandMenu } from "./CommandMenu";
 import { UserCircle2 as UserIcon } from "lucide-react";
 import LoginButton from "./LoginButton";
+import ThemeToggle from "./Themetoggle";
 
 export default function Header() {
   return (
-    <header className="bg-white border-b sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-950 border-b sticky top-0 z-50">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
         aria-label="Global"
@@ -17,6 +18,7 @@ export default function Header() {
         <div className="items-center gap-5 flex flex-0 justify-between lg:justify-end">
           <CommandMenu />
           <LoginButton />
+          <ThemeToggle />
         </div>
       </nav>
       <div className="hidden lg:hidden" role="dialog" aria-modal="true">

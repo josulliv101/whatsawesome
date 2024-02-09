@@ -38,7 +38,7 @@ export default async function ProfilePage({
     <>
       <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
         <PageHeading className="mt-8" heading={name} subhead={description} />
-        <div className="mt-10 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white w-full rounded-tr-md rounded-br-md">
+        <div className="mt-10 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white  dark:bg-gray-950 w-full rounded-tr-md rounded-br-md">
           <div className="relative w-full sm:w-auto sm:flex-initial">
             <Image
               priority
@@ -62,7 +62,7 @@ export default async function ProfilePage({
                   .sort()
                   .filter((tag) => !tagDefinitions.all.children.includes(tag))
                   .map((tag) => (
-                    <Badge key={tag} variant="secondary">
+                    <Badge key={tag} variant="outline">
                       {tag}
                     </Badge>
                   ))}
@@ -84,7 +84,7 @@ export default async function ProfilePage({
               </Badge>
             )}
           </div>
-          <div className="opacity-100 px-2 py-1 rounded-md min-w-max static sm:absolute bottom-3 right-4 bg-white flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
+          <div className="opacity-100 px-2 py-1 rounded-md min-w-max static sm:absolute bottom-3 right-4 bg-white dark:bg-black flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
             <Image alt="vote" src={config.logoPath} width={22} height={22} />{" "}
             {oinks - 32}% awesome
           </div>
