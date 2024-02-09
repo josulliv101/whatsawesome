@@ -8,6 +8,11 @@ import {
 
 const items = [
   {
+    question: "What is the whats awesome rating - what does it mean?",
+    response:
+      "The whats awesome rating is a percentage that measures the pureness of something's awesomeness.",
+  },
+  {
     question: "What is the purpose of the site?",
     response: "...",
   },
@@ -44,7 +49,7 @@ export default async function FAQ({ params }: { params: {} }) {
     <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
       <PageHeading
         heading="FAQ"
-        subhead="Find answers to commonly asked questions."
+        subhead="Find answers to frequently asked questions."
       />
       <Accordion type="single" collapsible className="w-full">
         {items.map((item, i) => (
