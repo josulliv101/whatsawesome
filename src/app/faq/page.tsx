@@ -15,7 +15,10 @@ export default async function FAQ({ params }: { params: {} }) {
         </li>
         <li>How can I add a profile to the catalog?</li>
         <li>What does the awesome rating mean?</li>
-        <li>What is the difference between a "hub" and a "profile"?</li>
+        <li>
+          What is the difference between a &quot;hub&quot; and a
+          &quot;profile&quot;?
+        </li>
       </ul>
     </main>
   );
