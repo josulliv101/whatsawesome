@@ -24,8 +24,6 @@ import {
 import { useEffect, useState } from "react";
 import { Sun, MoonStar } from "lucide-react";
 
-type Checked = DropdownMenuCheckboxItemProps["checked"];
-
 function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -35,12 +33,19 @@ function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return null;
+    return (
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-8 w-8"
+        title="toggle theme"
+      ></Button>
+    );
   }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="h-8 w-8">
+        <Button variant="ghost" size="icon" className="h-8 w-8">
           {theme === "light" ? (
             <Sun className="stroke-1 h-4 w-auto" />
           ) : (

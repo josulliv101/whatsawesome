@@ -10,6 +10,11 @@ const items = [
   {
     question: "What is the whats awesome rating - what does it mean?",
     response:
+      "The whats awesome rating rates the level of awesome in someone or something.",
+  },
+  {
+    question: "What is the whats awesome rating - what does it mean?",
+    response:
       "The whats awesome rating is a percentage that measures the pureness of something's awesomeness.",
   },
   {
@@ -40,6 +45,11 @@ const items = [
   {
     question:
       "What is the difference between a &quot;hub&quot; and a &quot;profile&quot;?",
+    response: "...",
+  },
+  {
+    question:
+      "What can be done if someone is not comfortable with having a whats awesome rating?",
     response: "...",
   },
 ];

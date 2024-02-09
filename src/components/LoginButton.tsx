@@ -21,7 +21,7 @@ export default function LoginButton() {
   if (!user) {
     return (
       <>
-        <Button className="h-8 w-8" variant={"outline"} size={"icon"} asChild>
+        <Button className="h-8 w-8" variant={"ghost"} size={"icon"} asChild>
           <Link
             href="/login"
             // className="text-sm font-semibold leading-6 text-muted-foreground"
@@ -37,7 +37,7 @@ export default function LoginButton() {
     <Button
       className="h-8 text-xs"
       onClick={handleLogout}
-      variant={"outline"}
+      variant={"ghost"}
       size={"sm"}
     >
       Logout

@@ -9,6 +9,13 @@ const serviceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string
 );
 
+export interface User {
+  displayName: string;
+  photoUrl?: string;
+  id: string;
+  isAdmin?: boolean;
+}
+
 export const firebaseApp =
   getApps().find((it) => it.name === "whatsawesome-admin-app") ||
   initializeApp(

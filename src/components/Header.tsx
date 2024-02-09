@@ -4,7 +4,9 @@ import { config } from "@/lib/config";
 import { CommandMenu } from "./CommandMenu";
 import { UserCircle2 as UserIcon } from "lucide-react";
 import LoginButton from "./LoginButton";
-import ThemeToggle from "./Themetoggle";
+import ThemeToggle from "./ThemeToggle";
+import SettingsButton from "./SettingsButton";
+import { SettingsOptions } from "./SettingsOptions";
 
 export default function Header() {
   return (
@@ -15,10 +17,11 @@ export default function Header() {
       >
         <NavMenu />
 
-        <div className="items-center gap-4 flex flex-0 justify-between lg:justify-end">
+        <div className="items-center gap-2 flex flex-0 justify-between lg:justify-end">
           <CommandMenu />
-          <LoginButton />
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
+          {/* <LoginButton /> */}
+          <SettingsOptions />
         </div>
       </nav>
       <div className="hidden lg:hidden" role="dialog" aria-modal="true">

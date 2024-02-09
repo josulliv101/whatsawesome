@@ -243,3 +243,23 @@ export async function signOut() {
     return false;
   }
 }
+
+export async function getCurrentUser() {
+  const user = await auth.currentUser?.getIdTokenResult();
+  console.log("client getCurrentUser", user);
+  return user;
+}
+// firebase.auth().currentUser.getIdTokenResult()
+//   .then((idTokenResult) => {
+//      // Confirm the user is an Admin.
+//      if (!!idTokenResult.claims.admin) {
+//        // Show admin UI.
+//        showAdminUI();
+//      } else {
+//        // Show regular user UI.
+//        showRegularUI();
+//      }
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });

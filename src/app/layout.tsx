@@ -29,18 +29,18 @@ export default async function RootLayout({
 }: PropsWithChildren<{ params: { tags: string[] } }>) {
   const user = await getCurrentUser();
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} antialiased bg-gray-50 dark:bg-black`}
-      >
-        <ThemeProvider attribute="class">
-          <AuthContextProvider user={user?.toJSON()}>
+    <AuthContextProvider user={user?.toJSON()}>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${inter.className} antialiased bg-gray-50 dark:bg-black`}
+        >
+          <ThemeProvider attribute="class">
             <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
               <PageLayout>{children}</PageLayout>
             </HubContextProvider>
-          </AuthContextProvider>{" "}
-        </ThemeProvider>
-      </body>
-    </html>
+          </ThemeProvider>
+        </body>
+      </html>
+    </AuthContextProvider>
   );
 }
