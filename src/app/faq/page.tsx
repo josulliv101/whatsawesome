@@ -48,7 +48,7 @@ export default async function FAQ({ params }: { params: {} }) {
       />
       <Accordion type="single" collapsible className="w-full">
         {items.map((item, i) => (
-          <AccordionItem value={`item-${i}`}>
+          <AccordionItem key={i} value={`item-${i}`}>
             <AccordionTrigger>{item.question}</AccordionTrigger>
             <AccordionContent>{item.response}</AccordionContent>
           </AccordionItem>
