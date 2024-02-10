@@ -1,5 +1,3 @@
-"use client";
-
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import {
@@ -64,8 +62,22 @@ export function SettingsOptions({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="ml-auto h-8 w-8">
-          <MoreVerticalIcon className="h-4 w-4" />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="ml-auto h-8 w-8 px-0 py-0 items-center justify-center"
+        >
+          {!user && <MoreVerticalIcon className="h-4 w-4" />}
+          {user && (
+            <Avatar className="mr-0 flex items-center w-8">
+              <AvatarImage
+                className="h-8 w-8"
+                src={user.photoUrl}
+                alt={user.displayName ?? ""}
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80">
@@ -73,10 +85,11 @@ export function SettingsOptions({
           <>
             <DropdownMenuLabel className="bg-muted text-muted-foreground text-sm flex items-center gap-6 px-4 py-3">
               {user.photoUrl && (
-                <Avatar>
+                <Avatar className="w-12 h-12">
                   <AvatarImage
                     src={user.photoUrl}
                     alt={user.displayName ?? ""}
+                    className="w-12 h-12"
                   />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>

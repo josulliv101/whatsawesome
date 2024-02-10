@@ -10,8 +10,6 @@ export function ProfileEditButton({ className }: { className?: string }) {
   const { id } = useParams();
   const user = useAuthContext();
 
-  console.log("ProfileEditButton", user);
-
   if (!user?.isAdmin) {
     return null;
   }

@@ -32,7 +32,7 @@ export default function Header() {
           setForcePlayAnimation={setForcePlayAnimation}
         />
 
-        <div className="items-center gap-2 flex flex-0 justify-between lg:justify-end">
+        <div className="items-center gap-4 flex flex-0 justify-between lg:justify-end">
           <CommandMenu />
           {/* <ThemeToggle /> */}
           {/* <LoginButton /> */}
