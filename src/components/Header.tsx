@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import NavMenu from "./NavMenu";
 import { config } from "@/lib/config";
@@ -7,21 +9,40 @@ import LoginButton from "./LoginButton";
 import ThemeToggle from "./ThemeToggle";
 import SettingsButton from "./SettingsButton";
 import { SettingsOptions } from "./SettingsOptions";
+import useLocalStorage from "./useLocalStorage";
+import { useIsMounted } from "./useIsMounted";
+import { useState } from "react";
 
 export default function Header() {
+  const isMounted = useIsMounted();
+  const [forcePlayAnimation, setForcePlayAnimation] = useState(false);
+  const [storedEnableLogoAnimation, setStoredEnableLogoAnimation] =
+    useLocalStorage("enableLogoAnimation", false);
+  console.log("storedEnableLogoAnimation", storedEnableLogoAnimation);
+  console.log("forcePlayAnimation", forcePlayAnimation);
   return (
     <header className="bg-white dark:bg-gray-950 border-b sticky top-0 z-50">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
         aria-label="Global"
       >
-        <NavMenu />
+        <NavMenu
+          forcePlayAnimation={forcePlayAnimation}
+          enableLogoAnimation={storedEnableLogoAnimation}
+          setForcePlayAnimation={setForcePlayAnimation}
+        />
 
         <div className="items-center gap-2 flex flex-0 justify-between lg:justify-end">
           <CommandMenu />
           {/* <ThemeToggle /> */}
           {/* <LoginButton /> */}
-          <SettingsOptions />
+          <SettingsOptions
+            enableLogoAnimation={storedEnableLogoAnimation}
+            onEnableLogoAnimationChange={setStoredEnableLogoAnimation}
+            onPlayAnimation={() => ""}
+            forcePlayAnimation={forcePlayAnimation}
+            setForcePlayAnimation={setForcePlayAnimation}
+          />
         </div>
       </nav>
       <div className="hidden lg:hidden" role="dialog" aria-modal="true">

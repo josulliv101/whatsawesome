@@ -2,7 +2,12 @@
 
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
-import { UserIcon, MoreVerticalIcon } from "lucide-react";
+import {
+  UserIcon,
+  MoreVerticalIcon,
+  PlayIcon,
+  PlayCircleIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,6 +18,7 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuPlayItem,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
 import { useAuthContext } from "./AuthContext";
@@ -20,8 +26,22 @@ import { getCurrentUser, signOut } from "@/lib/firebase";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 
-export function SettingsOptions({}) {
+export function SettingsOptions({
+  enableLogoAnimation,
+  onEnableLogoAnimationChange,
+  onPlayAnimation,
+  forcePlayAnimation,
+  setForcePlayAnimation,
+}: {
+  enableLogoAnimation?: boolean;
+  onEnableLogoAnimationChange: (b: boolean) => void;
+  onPlayAnimation: () => void;
+  forcePlayAnimation?: boolean;
+  setForcePlayAnimation: Dispatch<SetStateAction<boolean>>;
+}) {
+  const refPlayButton = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
   const user = useAuthContext();
   const pathName = usePathname();
@@ -33,6 +53,13 @@ export function SettingsOptions({}) {
       router.push("/", {});
     }
   };
+
+  useEffect(() => {
+    if (!forcePlayAnimation) {
+      refPlayButton.current?.focus();
+    }
+  }, [forcePlayAnimation]);
+
   console.log("useruser", user);
   return (
     <DropdownMenu>
@@ -62,10 +89,14 @@ export function SettingsOptions({}) {
         {!user && (
           <>
             <DropdownMenuItem
-              className="bg-muted text-lg font-semibold cursor-pointer text-muted-foreground flex justify-center px-3 py-4"
+              className="bg-primary hover:bg-primary/90 focus:bg-primary/90 focus-visible:bg-primary/90 text-primary-foreground hover:text-primary-foreground focus:text-primary-foreground focus-visible:text-primary-foreground cursor-pointer"
               asChild
             >
-              <Link href="/login">Login</Link>
+              <Button className="" asChild>
+                <Link className="" href="/login">
+                  Login
+                </Link>
+              </Button>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
           </>
@@ -75,12 +106,49 @@ export function SettingsOptions({}) {
         </DropdownMenuLabel>
 
         <DropdownMenuCheckboxItem
-          className="capitalize text-sm"
-          checked={true}
-          onCheckedChange={(value) => console.log(value)}
+          className="capitalize text-sm justify-between items-center"
+          checked={enableLogoAnimation}
+          onCheckedChange={(val, ...rest) => {
+            onEnableLogoAnimationChange(val);
+          }}
         >
           Logo animation enabled
         </DropdownMenuCheckboxItem>
+        {/* <DropdownMenuLabel className="text-muted-foreground text-xs">
+          <Button
+            disabled={!!forcePlayAnimation}
+            size={"sm"}
+            onClick={(ev) => {
+              ev.stopPropagation();
+              ev.preventDefault();
+              setForcePlayAnimation(true);
+            }}
+            variant="secondary"
+            className="gap-2 py-0 px-2 h-8 border"
+          >
+            <PlayIcon className="h-4 w-4 text-gray-500" /> play
+          </Button>
+        </DropdownMenuLabel> */}
+        <DropdownMenuItem
+          ref={refPlayButton}
+          className="capitalize text-sm justify-between items-center px-0"
+          asChild
+        >
+          <Button
+            disabled={!!forcePlayAnimation}
+            size={"sm"}
+            onClick={(ev) => {
+              ev.stopPropagation();
+              ev.preventDefault();
+              setForcePlayAnimation(true);
+            }}
+            style={{ outline: "none", boxShadow: "none" }}
+            variant="secondary"
+            className="focus-visible:ring-0:focus-visible ring-0 ring-offset-0 focus-visible:ring-offset-0 select-none focus-visible:outline-none hover:outline-none capitalize gap-3 py-0 px-2 h-8 border-0 focus-visible:border-0 hover:border-0 w-full justify-start rounded-sm bg-transparent hover:bg-secondary/80 outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-normal"
+          >
+            <PlayIcon className="h-3 w-3 text-gray-500" /> Play logo animation
+          </Button>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
 
         <DropdownMenuLabel className="text-muted-foreground text-xs">

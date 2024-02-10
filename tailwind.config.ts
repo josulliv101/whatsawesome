@@ -150,16 +150,12 @@ const config: Config = {
           "30%": {
             transform: "translateY(1px) scale3d(1.125, 0.8075, 1)",
           },
-          // "38%": {
-          //   transform: "translateY(-4px)",
-          // },
+
           "40%": {
             transform: "translateY(-6px) scale3d(0.875, 1.25, 1)",
             "animation-timing-function": "ease-in-out",
           },
-          // "42%": {
-          //   transform: "translateY(-4px)",
-          // },
+
           "50%": {
             transform: "translateY(.5px) scale3d(1.15, 0.85, 1)",
           },
@@ -220,6 +216,7 @@ const config: Config = {
         rubberBandQuick: "rubberBand .4s 1",
         rubberBandIntro: "rubberBandIntro 5s 1",
         rubberBandJump: "rubberBandJump 1.4s 3 3s",
+        rubberBandJumpNoDelay: "rubberBandJump 1.4s 3 0s",
         rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 3s",
       },
     },

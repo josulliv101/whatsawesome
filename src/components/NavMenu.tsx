@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import Link from "next/link";
 import { ThumbsDownIcon, Globe as NetworkIcon } from "lucide-react";
@@ -18,6 +16,15 @@ import HubLink from "./HubLink";
 import { useParams } from "next/navigation";
 import { config, isRootHub } from "@/lib/config";
 import { Badge } from "./ui/badge";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useIsMounted } from "./useIsMounted";
 
 const components: {
   title: string;
@@ -58,17 +65,45 @@ const components: {
   },
 ];
 
-export default function NavMenu({ children }: React.PropsWithChildren) {
+export default function NavMenu({
+  enableLogoAnimation,
+  forcePlayAnimation,
+  setForcePlayAnimation,
+  children,
+}: React.PropsWithChildren<{
+  enableLogoAnimation?: boolean;
+  forcePlayAnimation?: boolean;
+  setForcePlayAnimation: Dispatch<SetStateAction<boolean>>;
+}>) {
   const { tags, id: profileId } = useParams();
+  const isMountedFn = useIsMounted();
+  const isMounted = isMountedFn();
+  const [animationState, setAnimationState] = useState(
+    "" //, enableLogoAnimation ? "" : "disabled"
+  );
+  const refLogo = useRef(null);
   const hub = tags?.length ? tags[0] : "all";
+
+  useEffect(() => {
+    if (isMounted) {
+      setAnimationState(enableLogoAnimation ? "" : "disabled");
+    }
+  }, [isMounted]);
+
   return (
     <>
       <div className="relative flex lg:flex-0 items-center">
         <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
-            className="h-8 w-auto animate-rubberBandJump origin-bottom "
+            ref={refLogo}
+            className={`h-8 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
             src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
+            onAnimationEnd={(ev) => {
+              console.log("animation", ev);
+              setAnimationState("done");
+              setForcePlayAnimation(false);
+            }}
           />
           <div className="animate-rubberBandJumpShadow bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
           <span className="sr-only">whats awesome</span>
