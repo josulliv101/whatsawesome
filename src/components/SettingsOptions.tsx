@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
 import { useAuthContext } from "./AuthContext";
-import { getCurrentUser, signOut } from "@/lib/firebase";
+import { signOut } from "@/lib/firebase";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
@@ -89,7 +89,7 @@ export function SettingsOptions({
         {!user && (
           <>
             <DropdownMenuItem
-              className="bg-primary hover:bg-primary/90 focus:bg-primary/90 focus-visible:bg-primary/90 text-primary-foreground hover:text-primary-foreground focus:text-primary-foreground focus-visible:text-primary-foreground cursor-pointer"
+              className="h-16 text-lg bg-primary hover:bg-primary/90 focus:bg-primary/90 focus-visible:bg-primary/90 text-primary-foreground hover:text-primary-foreground focus:text-primary-foreground focus-visible:text-primary-foreground cursor-pointer"
               asChild
             >
               <Button className="" asChild>
@@ -102,7 +102,7 @@ export function SettingsOptions({
           </>
         )}
         <DropdownMenuLabel className="text-muted-foreground text-xs">
-          Settings
+          Logo Animation
         </DropdownMenuLabel>
 
         <DropdownMenuCheckboxItem
@@ -112,7 +112,7 @@ export function SettingsOptions({
             onEnableLogoAnimationChange(val);
           }}
         >
-          Logo animation enabled
+          Play Once on Page Load
         </DropdownMenuCheckboxItem>
         {/* <DropdownMenuLabel className="text-muted-foreground text-xs">
           <Button
@@ -146,7 +146,7 @@ export function SettingsOptions({
             variant="secondary"
             className="focus-visible:ring-0:focus-visible ring-0 ring-offset-0 focus-visible:ring-offset-0 select-none focus-visible:outline-none hover:outline-none capitalize gap-3 py-0 px-2 h-8 border-0 focus-visible:border-0 hover:border-0 w-full justify-start rounded-sm bg-transparent hover:bg-secondary/80 outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-normal"
           >
-            <PlayIcon className="h-3 w-3 text-gray-500" /> Play logo animation
+            <PlayIcon className="h-3 w-3 text-gray-500" /> Play now
           </Button>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

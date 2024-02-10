@@ -8,6 +8,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { AuthContextProvider } from "@/components/AuthContext";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import useAuthentication from "@/components/useAuthentication";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -23,13 +24,12 @@ const inter = Inter({ subsets: ["latin"] });
 //   themeColor: "#ffa52a",
 // };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params: { tags = [] },
 }: PropsWithChildren<{ params: { tags: string[] } }>) {
-  const user = await getCurrentUser();
   return (
-    <AuthContextProvider user={user?.toJSON()}>
+    <AuthContextProvider>
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${inter.className} antialiased bg-gray-50 dark:bg-black`}

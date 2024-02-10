@@ -15,6 +15,7 @@ import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
 import PageHeading from "@/components/PageHeading";
 import { config } from "@/lib/config";
+import { ProfileEditButton } from "./ProfileEditButton";
 
 export default async function ProfilePage({
   params: { id, ...rest },
@@ -36,7 +37,8 @@ export default async function ProfilePage({
   const initialActiveTags = filterCookie?.value?.split(",");
   return (
     <>
-      <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
+      <main className="relative flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12">
+        <ProfileEditButton className="absolute top-8 right-8" />
         <PageHeading className="mt-8" heading={name} subhead={description} />
         <div className="mt-10 relative max-w-7xl mx-auto flex flex-col sm:flex-row items-start gap-8 border bg-white  dark:bg-gray-950 w-full rounded-tr-md rounded-br-md">
           <div className="relative w-full sm:w-auto sm:flex-initial">
