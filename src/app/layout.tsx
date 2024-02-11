@@ -32,7 +32,7 @@ export default function RootLayout({
     <AuthContextProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${inter.className} antialiased bg-gray-50 dark:bg-black`}
+          className={`${inter.className} antialiased bg-gray-50 dark:bg-black bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black`}
         >
           <ThemeProvider attribute="class">
             <HubContextProvider initialValue={tags[1] as PrimaryTagType}>

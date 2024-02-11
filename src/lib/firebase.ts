@@ -18,10 +18,11 @@ import {
   getDocs,
   orderBy,
   limit,
+  addDoc,
 } from "firebase/firestore";
 import { config } from "./config";
 import { PrimaryTagType, getPlural } from "./tags";
-import { Profile } from "./profile";
+import { Profile, Reason } from "./profile";
 import { generateRandomDecimal } from "./utils";
 
 const firebaseConfig = {
@@ -263,3 +264,39 @@ export async function getCurrentUser() {
 //   .catch((error) => {
 //     console.log(error);
 //   });
+
+export async function addProfile({
+  id,
+  reasons = [],
+  ...profile
+}: Partial<Profile>) {
+  console.log("formData", id, profile);
+  if (!id) {
+    throw new Error("profile id is required.");
+  }
+
+  // const refEntity = collection(db, "entity");
+  // const refDoc = doc(refEntity, id);
+  const docRef = doc(db, "entity", id);
+
+  // Add or update the document
+  await setDoc(docRef, profile);
+  // await db.collection("entity").doc(profileId).set(profile);
+
+  const subColRef = collection(db, "entity", id, "whyawesome");
+
+  // Add any new reasons to the collection
+  reasons
+    .filter((reason) => !reason?.id)
+    .forEach(async (reason) => {
+      // const whyawesomeRef = collection(refDoc, "whyawesome");
+      addDoc(subColRef, reason);
+
+      // await db
+      //   .collection("entity")
+      //   .doc(profileId)
+      //   .collection("whyawesome")
+      //   .add(reason);
+    });
+  console.log(`reasons added.`);
+}

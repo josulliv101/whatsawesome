@@ -178,8 +178,10 @@ export function SettingsOptions({
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Admin
             </DropdownMenuLabel>
-            <DropdownMenuItem className="capitalize text-sm">
-              create new profile
+            <DropdownMenuItem className="capitalize text-sm" asChild>
+              <Link className="" href="/add/profile">
+                Create Profile
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="capitalize text-sm">
               manage tags
