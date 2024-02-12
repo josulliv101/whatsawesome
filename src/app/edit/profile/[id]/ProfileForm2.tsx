@@ -72,6 +72,7 @@ export const profileFormSchema = z.object({
     return map;
   }),
   oinks: z.coerce.number().min(0).multipleOf(1),
+  rating: z.coerce.number().min(0).max(100),
   reasons: z.array(
     z.object({
       id: z.string().optional(),
@@ -88,6 +89,7 @@ const defaultValues: Partial<ProfileFormValues> = {
   id: "",
   description: "",
   oinks: 0,
+  rating: 0,
   tags: [] as any, // Record<TagName, boolean>,
   reasons: [],
 };
@@ -184,6 +186,22 @@ export function ProfileForm({ addProfile, profile }: any) {
                 </FormControl>
                 <FormDescription>
                   This is the public display name of the profile.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="rating"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rating</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" />
+                </FormControl>
+                <FormDescription>
+                  The whats awesome rating - from 0 to 100.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

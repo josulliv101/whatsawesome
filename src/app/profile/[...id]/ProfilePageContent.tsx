@@ -26,6 +26,8 @@ export default async function ProfilePageContent({
   params: { id: string };
 }) {
   const id = Array.isArray(idProp) && idProp.length ? idProp[0] : idProp;
+  const p = await fetchProfile(id);
+  console.log("profile p", p);
   const {
     description,
     name,
@@ -35,7 +37,7 @@ export default async function ProfilePageContent({
     reasons,
     rating = 75,
     isHub,
-  } = await fetchProfile(id);
+  } = p;
   const primaryTag = "person";
 
   const cookieStore = cookies();
@@ -110,7 +112,7 @@ export default async function ProfilePageContent({
             Whats awesome about {name}?
           </h1>
         </div>
-        <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_1fr] items-start gap-4 space-y-0">
+        <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
           {reasons.map((reason) => (
             <Reason
               key={reason.id || reason.reason}

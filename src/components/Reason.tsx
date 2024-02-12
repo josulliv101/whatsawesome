@@ -35,83 +35,16 @@ export function Reason({
   rating: number;
 }) {
   return (
-    <Card className="w-full min-h-[200px]">
-      <CardHeader className="grid grid-cols-[1fr] sm:grid-cols-[1fr_110px] items-start gap-4 space-y-0">
+    <Card className="w-full min-h-[20px]">
+      <CardHeader className="px-6 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
           <CardDescription className="text-xl leading-relaxed">
             {description}
           </CardDescription>
         </div>
-        <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
-          <Button variant="secondary" className="px-0 shadow-none pl-3 flex-1">
-            <StarIcon className="mr-2 h-4 w-4 opacity-50" />
-            {/* <img
-              className="h-6 w-auto grayscale opacity-30"
-              src="/cute-mushroom.png"
-              alt="whatsawesome"
-            /> */}
-            <span className="text-muted-foreground px-0">rate</span>
-          </Button>
-          <Separator orientation="vertical" className="h-[20px]" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" className="px-2 shadow-none">
-                <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              alignOffset={-5}
-              className="w-[200px]"
-              forceMount
-            >
-              <DropdownMenuCheckboxItem>
-                {/* <img
-                  className="h-4 w-auto  opacity-100"
-                  src="/cute-mushroom.png"
-                  alt="whatsawesome"
-                /> */}
-                {[...new Array(1)].map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300"
-                  />
-                ))}
-              </DropdownMenuCheckboxItem>
-
-              <DropdownMenuCheckboxItem>
-                <div className="flex gap-2">
-                  {[...new Array(2)].map((_, i) => (
-                    <StarIcon
-                      key={i}
-                      className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300"
-                    />
-                  ))}
-                </div>
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem>
-                <div className="flex gap-2">
-                  {[...new Array(3)].map((_, i) => (
-                    <StarIcon
-                      key={i}
-                      className="mr-0 h-4 w-4 opacity-100 text-yellow-500 fill-yellow-300"
-                    />
-                  ))}
-                </div>
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuCheckboxItem>
-                <div className="flex gap-2 items-center opacity-60">
-                  <ThumbsDownIcon className="h-4 w-4 relative top-px" />I
-                  disagree
-                </div>
-              </DropdownMenuCheckboxItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pb-4 pt-1">
         <div className="flex space-x-4 text-sm text-muted-foreground">
           {/* <div className="flex items-center">
             <img
