@@ -341,8 +341,14 @@ export function ProfileForm({ addProfile, profile }: any) {
               </Dialog>
             </div>
           </div>
-
-          <Button type="submit">Update profile</Button>
+          <div className="flex items-center gap-6">
+            <Button type="submit">Update profile</Button>
+            {!!profile && (
+              <Button asChild>
+                <Link href={`/profile/${profile.id}`}>View profile</Link>
+              </Button>
+            )}
+          </div>
         </form>
       </Form>
     </>

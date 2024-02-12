@@ -157,9 +157,12 @@ export function SettingsOptions({
             }}
             style={{ outline: "none", boxShadow: "none" }}
             variant="secondary"
-            className="focus-visible:ring-0:focus-visible ring-0 ring-offset-0 focus-visible:ring-offset-0 select-none focus-visible:outline-none hover:outline-none capitalize gap-3 py-0 px-2 h-8 border-0 focus-visible:border-0 hover:border-0 w-full justify-start rounded-sm bg-transparent hover:bg-secondary/80 outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-normal"
+            className="gap-2 focus-visible:ring-0:focus-visible ring-0 ring-offset-0 focus-visible:ring-offset-0 select-none focus-visible:outline-none hover:outline-none capitalize  py-0 px-2 h-8 border-0 focus-visible:border-0 hover:border-0 w-full justify-start rounded-sm bg-transparent hover:bg-secondary/80 outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-normal"
           >
-            <PlayIcon className="h-3 w-3 text-gray-500" /> Play now
+            <div className="w-6 h-6 border ml-[-7px] inline-flex items-center justify-center rounded-full">
+              <PlayIcon className="h-3 w-3 text-gray-500 relative ml-[2px]" />
+            </div>{" "}
+            Play now
           </Button>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
