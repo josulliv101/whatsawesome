@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Globe } from "lucide-react";
 import { fetchProfile } from "@/lib/firebase";
-import { cn } from "@/lib/utils";
+import { cn, roundToDecimal } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tagDefinitions } from "@/lib/tags";
@@ -57,16 +57,16 @@ export default async function ProfilePageContent({
         )}
       >
         <ProfileEditButton className="absolute top-0 right-8" />
-        <div className="flex items-start gap-8 mb-6">
+        <div className="max-h-[200px] flex items-start gap-8 mb-6 animate-vflip__">
           <div className="relative w-full sm:w-auto sm:flex-initial">
             <Image
               priority
               src={pic}
               alt={name}
-              width={168}
-              height={168}
+              width={200}
+              height={200}
               className={cn(
-                "w-full h-auto min-w-full sm:h-[168px] sm:w-[168px] sm:min-w-[168px] opacity-80 rounded-md max-h-[168px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square " +
+                "w-full h-auto min-w-full sm:h-[200px] sm:w-[200px] sm:min-w-[200px] opacity-80 rounded-sm max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square " +
                   imgPosition
               )}
             />
@@ -74,17 +74,17 @@ export default async function ProfilePageContent({
           <PageHeading
             className=""
             heading={
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 pt-4">
                 <Heading>{name}</Heading>
                 <span className="text-2xl ml-2 mt-[-6px]">/</span>
-                <div className="opacity-100 px-2 py-1 rounded-md min-w-max relative top-[-3px] bg-white dark:bg-black flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-3">
+                <div className="opacity-100 px-2 py-1 rounded-md min-w-max relative top-[-3px]  flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-3">
                   <Image
                     alt="vote"
                     src={config.logoPath}
                     width={24}
                     height={24}
-                  />{" "}
-                  {rating}% awesome
+                  />
+                  {roundToDecimal(rating)}% awesome
                 </div>
               </div>
             }
@@ -119,6 +119,7 @@ export default async function ProfilePageContent({
               description={reason.reason}
               name={name}
               rating={reason.rating}
+              photoUrl={reason.photoUrl}
             />
           ))}
         </div>

@@ -40,6 +40,7 @@ export const profileSchema = z.object({
       reason: z.string(),
       votes: z.number(),
       rating: z.number(),
+      photoUrl: z.string().optional(),
     })
   ),
 });

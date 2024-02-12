@@ -207,6 +207,12 @@ const config: Config = {
             transform: "scale3d(1, 1, 1)",
           },
         },
+        flipHorizontal: {
+          "50%": { transform: "rotateY(180deg)" },
+        },
+        flipVertical: {
+          "50%": { transform: "rotateX(180deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -218,6 +224,8 @@ const config: Config = {
         rubberBandJump: "rubberBandJump 1.4s 3 3s",
         rubberBandJumpNoDelay: "rubberBandJump 1.4s 3 0s",
         rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 3s",
+        hflip: "flipHorizontal 2s 1",
+        vflip: "flipVertical 2s 1",
       },
     },
   },

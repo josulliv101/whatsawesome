@@ -5,7 +5,7 @@ import {
   StarFilledIcon as StarIcon,
 } from "@radix-ui/react-icons";
 import { ThumbsDownIcon, NetworkIcon } from "lucide-react";
-
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,14 +29,27 @@ export function Reason({
   description,
   name,
   rating,
+  photoUrl,
 }: {
   description: string;
   name: string;
   rating: number;
+  photoUrl?: string;
 }) {
   return (
-    <Card className="w-full min-h-[20px]">
-      <CardHeader className="px-6 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
+    <Card className="w-full min-h-[20px] flex items-center gap-4 py-0 ">
+      {photoUrl && (
+        <div className="bg-blue-800 ">
+          <Image
+            className="object-cover h-[135px] max-w-[135px] w-auto min-h-full min-w-[200px] overflow-hidden opacity-80"
+            width="180"
+            height="135"
+            src={photoUrl}
+            alt=""
+          />
+        </div>
+      )}
+      <CardHeader className="flex-1 px-6 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
           <CardDescription className="text-xl leading-relaxed">
@@ -45,7 +58,7 @@ export function Reason({
         </div>
       </CardHeader>
       <CardContent className="pb-4 pt-1">
-        <div className="flex space-x-4 text-sm text-muted-foreground">
+        <div className="flex space-x-6 text-sm text-muted-foreground">
           {/* <div className="flex items-center">
             <img
               className="h-4 w-auto  opacity-100 pr-1.5"
@@ -54,11 +67,11 @@ export function Reason({
             />
             {rating} rating
           </div> */}
-          <div className="flex items-center">
+          <div className="flex items-center w-20">
             <StarIcon className="mr-1 h-3 w-3 text-yellow-500" />
             {rating} rating
           </div>
-          <div>created April 2023 by @josulliv101</div>
+          <div className="w-44">created April 2023 by @josulliv101</div>
         </div>
       </CardContent>
     </Card>
