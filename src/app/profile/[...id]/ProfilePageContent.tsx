@@ -57,8 +57,8 @@ export default async function ProfilePageContent({
         )}
       >
         <ProfileEditButton className="absolute top-0 right-8" />
-        <div className="max-h-[200px] flex items-start gap-8 mb-6 animate-vflip__">
-          <div className="relative w-full sm:w-auto sm:flex-initial bg-blue-800">
+        <div className="md:max-h-[200px] flex flex-col md:flex-row items-start gap-8 mb-6 animate-vflip__">
+          <div className="relative w-full md:w-auto md:flex-initial bg-blue-800">
             <Image
               priority
               src={pic}
@@ -66,7 +66,7 @@ export default async function ProfilePageContent({
               width={200}
               height={200}
               className={cn(
-                "grayscale__ hover:grayscale-0__ w-full h-auto min-w-full sm:h-[200px] sm:w-[200px] sm:min-w-[200px] opacity-80 rounded-sm max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square " +
+                "grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[200px] md:w-[200px] md:min-w-[200px] opacity-80 rounded-sm md:max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
                   imgPosition
               )}
             />

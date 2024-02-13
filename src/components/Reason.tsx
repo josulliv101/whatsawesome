@@ -37,11 +37,11 @@ export function Reason({
   photoUrl?: string;
 }) {
   return (
-    <Card className="w-full min-h-[20px] flex items-center gap-4 py-0 ">
+    <Card className="w-full min-h-[20px] flex flex-col md:flex-row items-center gap-4 py-0 ">
       {photoUrl && (
-        <div className="bg-blue-800 ">
+        <div className="bg-blue-800 w-full md:w-auto">
           <Image
-            className="grayscale__ hover:grayscale-0__ object-cover h-[135px] max-w-[135px] w-auto min-h-full min-w-[200px] overflow-hidden opacity-80"
+            className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[135px] md:max-w-[135px] md:w-auto min-h-full md:min-w-[200px] overflow-hidden opacity-80"
             width="180"
             height="135"
             src={photoUrl}
@@ -71,7 +71,9 @@ export function Reason({
             <StarIcon className="mr-1 h-3 w-3 text-yellow-500" />
             {rating} rating
           </div>
-          <div className="w-44">created April 2023 by @josulliv101</div>
+          <div className="w-44 whitespace-nowrap md:whitespace-normal">
+            created April 2023 by @josulliv101
+          </div>
         </div>
       </CardContent>
     </Card>
