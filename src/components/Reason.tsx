@@ -41,7 +41,7 @@ export function Reason({
       {photoUrl && (
         <div className="bg-blue-800 w-full md:w-auto">
           <Image
-            className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[135px] md:max-w-[135px] md:w-auto min-h-full md:min-w-[200px] overflow-hidden opacity-80"
+            className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80"
             width="180"
             height="135"
             src={photoUrl}
@@ -52,7 +52,7 @@ export function Reason({
       <CardHeader className="flex-1 px-6 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
-          <CardDescription className="text-xl leading-relaxed">
+          <CardDescription className="text-xl lg:text-2xl leading-relaxed">
             {description}
           </CardDescription>
         </div>

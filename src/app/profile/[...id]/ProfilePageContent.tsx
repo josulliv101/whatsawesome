@@ -63,10 +63,10 @@ export default async function ProfilePageContent({
               priority
               src={pic}
               alt={name}
-              width={200}
-              height={200}
+              width={220}
+              height={220}
               className={cn(
-                "grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[200px] md:w-[200px] md:min-w-[200px] opacity-80 rounded-sm md:max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
+                "grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px] opacity-80 rounded-sm md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
                   imgPosition
               )}
             />
@@ -106,10 +106,10 @@ export default async function ProfilePageContent({
             </div>
           </PageHeading>
         </div>
-        <Separator />
+        <Separator className="mt-8" />
         <div className="flex justify-start items-center mt-8 mb-8  w-full">
-          <h1 className="text-2xl text-muted-foreground">
-            Whats awesome about {name}?
+          <h1 className="text-2xl text-muted-foreground mb-4">
+            Whats awesome about {name}? Give your input below.
           </h1>
         </div>
         <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
