@@ -41,7 +41,7 @@ export function Reason({
       {photoUrl && (
         <div className="bg-blue-800 ">
           <Image
-            className="grayscale hover:grayscale-0 object-cover h-[135px] max-w-[135px] w-auto min-h-full min-w-[200px] overflow-hidden opacity-80"
+            className="grayscale__ hover:grayscale-0__ object-cover h-[135px] max-w-[135px] w-auto min-h-full min-w-[200px] overflow-hidden opacity-80"
             width="180"
             height="135"
             src={photoUrl}

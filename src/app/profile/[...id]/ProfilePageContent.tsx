@@ -66,7 +66,7 @@ export default async function ProfilePageContent({
               width={200}
               height={200}
               className={cn(
-                "grayscale hover:grayscale-0 w-full h-auto min-w-full sm:h-[200px] sm:w-[200px] sm:min-w-[200px] opacity-80 rounded-sm max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square " +
+                "grayscale__ hover:grayscale-0__ w-full h-auto min-w-full sm:h-[200px] sm:w-[200px] sm:min-w-[200px] opacity-80 rounded-sm max-h-[200px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105 aspect-square " +
                   imgPosition
               )}
             />
