@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Globe } from "lucide-react";
-import { fetchProfile } from "@/lib/firebase";
+import { fetchProfile, fetchUserRatingsForProfile } from "@/lib/firebase";
 import { cn, roundToDecimal } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,7 @@ import PageHeading, { Heading } from "@/components/PageHeading";
 import { config } from "@/lib/config";
 import { ProfileEditButton } from "./ProfileEditButton";
 import { Separator } from "@/components/ui/separator";
+import { getCurrentUser } from "@/lib/auth";
 
 export default async function ProfilePageContent({
   className = "",
@@ -26,8 +27,13 @@ export default async function ProfilePageContent({
   params: { id: string };
 }) {
   const id = Array.isArray(idProp) && idProp.length ? idProp[0] : idProp;
+  const user = await getCurrentUser();
   const p = await fetchProfile(id);
+  const userProfileRatings = user?.uid
+    ? await fetchUserRatingsForProfile(id, user?.uid)
+    : null;
   console.log("profile p", p);
+  console.log("userProfileRatings", userProfileRatings);
   const {
     description,
     name,
@@ -57,7 +63,7 @@ export default async function ProfilePageContent({
         )}
       >
         <ProfileEditButton className="absolute top-0 right-8" />
-        <div className="md:max-h-[200px] flex flex-col md:flex-row items-start gap-8 mb-6 animate-vflip__">
+        <div className="relative md:max-h-[200px] flex flex-col md:flex-row items-start gap-8 mb-6 animate-vflip__">
           <div className="relative w-full md:w-auto md:flex-initial bg-blue-800">
             <Image
               priority
@@ -77,12 +83,12 @@ export default async function ProfilePageContent({
               <div className="flex items-center gap-4 pt-4">
                 <Heading>{name}</Heading>
                 <span className="text-2xl ml-2 mt-[-6px]">/</span>
-                <div className="opacity-100 px-2 py-1 rounded-md min-w-max relative top-[-3px]  flex items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-3">
+                <div className="opacity-100 px-2 py-1 rounded-md min-w-max relative top-[-3px]  flex items-center flex-nowrap text-nowrap whitespace-nowrap text-lg gap-3">
                   <Image
                     alt="vote"
                     src={config.logoPath}
-                    width={24}
-                    height={24}
+                    width={32}
+                    height={32}
                   />
                   {roundToDecimal(rating)}% awesome
                 </div>
@@ -105,21 +111,29 @@ export default async function ProfilePageContent({
                 ))}
             </div>
           </PageHeading>
+          <Button variant={"secondary"} className="absolute -bottom-6 right-0">
+            Follow
+          </Button>
         </div>
         <Separator className="mt-8" />
         <div className="flex justify-start items-center mt-8 mb-8  w-full">
           <h1 className="text-2xl text-muted-foreground mb-4">
-            Whats awesome about {name}? Give your input below.
+            <strong>Whats awesome about {name}?</strong> Give your input below.
           </h1>
         </div>
         <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
           {reasons.map((reason) => (
             <Reason
+              id={reason.id}
               key={reason.id || reason.reason}
               description={reason.reason}
               name={name}
               rating={reason.rating}
               photoUrl={reason.photoUrl}
+              profileId={id}
+              userRating={
+                reason.id ? userProfileRatings?.[reason.id] : undefined
+              }
             />
           ))}
         </div>

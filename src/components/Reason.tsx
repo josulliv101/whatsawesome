@@ -24,20 +24,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import RateReason from "./RateReason";
 
 export function Reason({
+  id,
   description,
   name,
   rating,
   photoUrl,
+  profileId,
+  userRating,
 }: {
+  id?: string;
   description: string;
   name: string;
   rating: number;
   photoUrl?: string;
+  profileId: string;
+  userRating?: number;
 }) {
   return (
-    <Card className="w-full min-h-[20px] flex flex-col md:flex-row items-center gap-4 py-0 ">
+    <Card className="relative w-full min-h-[20px] flex flex-col md:flex-row items-center gap-4 py-0 ">
       {photoUrl && (
         <div className="bg-blue-800 w-full md:w-auto">
           <Image
@@ -58,7 +65,7 @@ export function Reason({
         </div>
       </CardHeader>
       <CardContent className="pb-4 pt-1">
-        <div className="flex space-x-6 text-sm text-muted-foreground">
+        <div className="flex__ hidden space-x-6 text-sm text-muted-foreground">
           {/* <div className="flex items-center">
             <img
               className="h-4 w-auto  opacity-100 pr-1.5"
@@ -67,13 +74,22 @@ export function Reason({
             />
             {rating} rating
           </div> */}
-          <div className="flex items-center w-20">
+          <div className="hidden flex__ items-center w-20">
             <StarIcon className="mr-1 h-3 w-3 text-yellow-500" />
             {rating} rating
           </div>
           <div className="w-44 whitespace-nowrap md:whitespace-normal">
-            created April 2023 by @josulliv101
+            created by @josulliv101
           </div>
+        </div>
+        <div className="absolute top-4 right-6">
+          {id && (
+            <RateReason
+              profileId={profileId}
+              reasonId={id}
+              userRating={userRating}
+            />
+          )}
         </div>
       </CardContent>
     </Card>

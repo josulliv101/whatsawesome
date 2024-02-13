@@ -47,6 +47,23 @@ export const auth = getAuth(firebaseApp);
 
 export const db = getFirestore(firebaseApp);
 
+export async function fetchUserRatingsForProfile(
+  profileId: string,
+  userId: string
+): Promise<Record<string, number> | null> {
+  if (!profileId) {
+    throw new Error("profile id is required.");
+  }
+
+  if (!userId) {
+    throw new Error("user id is required.");
+  }
+
+  const docRef = doc(db, "entity", profileId, "votes", userId);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() : null;
+}
+
 export async function fetchProfile(id: string | string[], uid?: string) {
   const profileId = Array.isArray(id) ? id[0] : id;
   if (!profileId) {
@@ -299,4 +316,21 @@ export async function addProfile({
       //   .add(reason);
     });
   console.log(`reasons added.`);
+}
+
+export async function rateReason(
+  userId: string,
+  profileId: string,
+  reasonId: string,
+  rating: number = 0
+): Promise<boolean> {
+  const subColRef = collection(db, "entity", profileId, "votes");
+  const docRef = doc(db, "entity", profileId, "votes", userId);
+  const snapshot = await setDoc(
+    docRef,
+    { [reasonId]: rating },
+    { merge: true }
+  );
+
+  return true;
 }

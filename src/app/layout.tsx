@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import { HubContextProvider } from "@/components/HubContext";
 import { PageLayout } from "./components/PageLayout";
 import { PropsWithChildren, ReactNode } from "react";
@@ -39,6 +40,7 @@ export default function RootLayout({
               <PageLayout>{children}</PageLayout>
             </HubContextProvider>
           </ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </AuthContextProvider>
