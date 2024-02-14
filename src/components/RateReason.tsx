@@ -50,7 +50,7 @@ export default function RateReason({
   const handleSelect = async (val: any) => {
     console.log(val);
     if (!user || !user.id) {
-      toast("Authentication required.", {
+      return toast("Authentication required.", {
         description: "Please login to leave a rating.",
         action: {
           label: "Login",
@@ -93,7 +93,7 @@ export default function RateReason({
             </div>
           )}
           {userRating === 1 && (
-            <div className="flex flex-row items-center justify-center  basis-20 gap-2 ml-0">
+            <div className="grayscale flex flex-row items-center justify-center  basis-20 gap-2 ml-0">
               <Image alt="vote" src={config.logoPath} width={18} height={18} />
             </div>
           )}
@@ -106,7 +106,7 @@ export default function RateReason({
           <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 w-[440px] grayscale" align="end">
+      <PopoverContent className="p-0 w-[440px] " align="end">
         <Command>
           {/* <CommandInput placeholder="Select new role..." /> */}
           <CommandList>
@@ -151,7 +151,7 @@ export default function RateReason({
                 onSelect={handleSelect}
                 className="teamaspace-y-1 flex items-center gap-4"
               >
-                <div className="flex flex-row items-center justify-center basis-20 gap-2 ml-0">
+                <div className=" flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -178,7 +178,7 @@ export default function RateReason({
                 onSelect={handleSelect}
                 className="teamaspace-y-1 flex items-center gap-4"
               >
-                <div className="flex flex-row items-center justify-center basis-20 gap-2 ml-0">
+                <div className="grayscale flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <Image
                     alt="vote"
                     src={config.logoPath}
