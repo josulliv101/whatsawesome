@@ -136,6 +136,7 @@ export function AnalyticsDialog({
                 left: -30,
                 bottom: 5,
               }}
+              layout="horizontal"
               barSize={40}
             >
               <CartesianGrid strokeDasharray="3 3" />

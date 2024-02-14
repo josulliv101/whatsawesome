@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Globe } from "lucide-react";
+import { BarChart2Icon, Globe } from "lucide-react";
 import { fetchProfile, fetchUserRatingsForProfile } from "@/lib/firebase";
 import { cn, roundToDecimal } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -81,7 +81,7 @@ export default async function ProfilePageContent({
           <PageHeading
             className=""
             heading={
-              <div className="flex flex-col items-start gap-4 pt-4">
+              <div className="flex flex-col items-start gap-4 pt-1">
                 <Heading className="mb-0">{name}</Heading>
                 <span className="hidden text-2xl ml-2 mt-[-6px]">/</span>
                 <div className="opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex items-center flex-nowrap text-nowrap whitespace-nowrap text-lg gap-3">
@@ -104,7 +104,7 @@ export default async function ProfilePageContent({
                 .map((tag) => (
                   <Badge
                     key={tag}
-                    variant="secondary"
+                    variant="outline"
                     className="px-4 py-1 text-md"
                   >
                     {tag}
@@ -122,20 +122,30 @@ export default async function ProfilePageContent({
             <strong className="font-semibold">
               What&#39;s awesome about {name}?
             </strong>
-            {!user && (
-              <span className="text-lg">
-                <Button
-                  variant={"link"}
-                  size={"sm"}
-                  className="text-lg px-0 text-muted-foreground underline"
-                  asChild
-                >
-                  <Link href="/login">Login</Link>
-                </Button>{" "}
-                to give your input below.
-              </span>
-            )}
-            {user && <span className="text-lg">Give your input below.</span>}
+            <div className="flex items-center gap-1">
+              {!user && (
+                <span className="text-lg">
+                  <Button
+                    variant={"link"}
+                    size={"sm"}
+                    className="text-lg px-0 text-muted-foreground underline"
+                    asChild
+                  >
+                    <Link href="/login">Login</Link>
+                  </Button>{" "}
+                  to give your input below.
+                </span>
+              )}
+              {user && <span className="text-lg">Give your input below.</span>}
+              <Separator
+                orientation="vertical"
+                className="bg-gray-300 h-6 ml-3"
+              />
+              <Button variant={"secondary"} size="sm">
+                <BarChart2Icon className="mr-1 h-4 w-4" />
+                View Analytics
+              </Button>
+            </div>
           </h4>
         </div>
         <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
