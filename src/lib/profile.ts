@@ -41,6 +41,7 @@ export const profileSchema = z.object({
       votes: z.number(),
       rating: z.number(),
       photoUrl: z.string().optional(),
+      ratings: z.record(z.string(), z.number()).optional(),
     })
   ),
 });

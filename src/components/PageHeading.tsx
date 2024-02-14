@@ -1,9 +1,18 @@
 import Link from "next/link";
 import { PropsWithChildren, ReactNode, isValidElement } from "react";
 import NavMenu from "./NavMenu";
+import { cn } from "@/lib/utils";
 
-export const Heading = ({ children }: PropsWithChildren) => (
-  <h2 className="flex items-center text-balance text-xl lg:text-4xl font-semibold tracking-tight gap-2 mb-2">
+export const Heading = ({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) => (
+  <h2
+    className={cn(
+      "flex items-center text-balance text-xl lg:text-4xl font-semibold tracking-tight gap-2 mb-2",
+      className
+    )}
+  >
     {children}
   </h2>
 );

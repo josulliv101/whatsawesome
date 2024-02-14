@@ -4,7 +4,13 @@ import {
   PlusIcon,
   StarFilledIcon as StarIcon,
 } from "@radix-ui/react-icons";
-import { ThumbsDownIcon, NetworkIcon } from "lucide-react";
+import {
+  ThumbsDownIcon,
+  NetworkIcon,
+  BarChart3Icon,
+  BarChart2Icon,
+  BarChartIcon,
+} from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import RateReason from "./RateReason";
+import { AnalyticsDialog } from "./AnalyticsDialog";
 
 export function Reason({
   id,
@@ -34,6 +41,7 @@ export function Reason({
   photoUrl,
   profileId,
   userRating,
+  ratings,
 }: {
   id?: string;
   description: string;
@@ -42,6 +50,7 @@ export function Reason({
   photoUrl?: string;
   profileId: string;
   userRating?: number;
+  ratings?: Record<string, number>;
 }) {
   return (
     <Card className="relative w-full min-h-[20px] flex flex-col md:flex-row items-center gap-4 py-0 ">
@@ -91,6 +100,20 @@ export function Reason({
             />
           )}
         </div>
+        <div className="absolute bottom-2 left-[250px]">
+          <AnalyticsDialog ratings={ratings} description={description} />
+        </div>
+
+        {/* <div className="flex space-x-4 text-sm text-muted-foreground">
+          <div className="flex items-center">
+            <BarChartIcon className="mr-1 h-3 w-3 fill-sky-400 text-sky-400" />
+            Analytics
+          </div>
+          <div className="hidden _flex items-center">
+            <StarIcon className="mr-1 h-3 w-3" />
+            20k
+          </div>
+        </div> */}
       </CardContent>
     </Card>
   );

@@ -106,7 +106,7 @@ export default function RateReason({
           <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 w-[440px] " align="end">
+      <PopoverContent className="p-0 w-[400px] " align="end">
         <Command>
           {/* <CommandInput placeholder="Select new role..." /> */}
           <CommandList>
@@ -115,7 +115,7 @@ export default function RateReason({
               <CommandItem
                 value="3"
                 onSelect={handleSelect}
-                className="teamaspace-y-1 flex items-center gap-4"
+                className="teamaspace-y-1 flex items-center gap-0"
               >
                 <div className="flex flex-row items-center justify-center  basis-20 gap-2 ml-0">
                   <Image
@@ -137,11 +137,10 @@ export default function RateReason({
                     height={18}
                   />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-2  gap-0.5">
-                  <p>I strongly agree.</p>
+                <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
+                  <p className="hidden">I strongly agree.</p>
                   <p className="text-sm text-muted-foreground">
-                    This is one of the major factors that adds to the overall
-                    awesomeness.
+                    Major factor that adds to the overall awesomeness.
                   </p>
                 </div>
               </CommandItem>
@@ -149,7 +148,7 @@ export default function RateReason({
               <CommandItem
                 value="2"
                 onSelect={handleSelect}
-                className="teamaspace-y-1 flex items-center gap-4"
+                className="teamaspace-y-1 flex items-center gap-0"
               >
                 <div className=" flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <Image
@@ -165,10 +164,10 @@ export default function RateReason({
                     height={18}
                   />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-2  gap-0.5">
-                  <p>I agree.</p>
+                <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
+                  <p className="hidden">I agree.</p>
                   <p className="text-sm text-muted-foreground">
-                    This is a factor that adds to the overall awesomeness.
+                    Adds something to the overall awesomeness.
                   </p>
                 </div>
               </CommandItem>
@@ -176,7 +175,7 @@ export default function RateReason({
               <CommandItem
                 value="1"
                 onSelect={handleSelect}
-                className="teamaspace-y-1 flex items-center gap-4"
+                className="teamaspace-y-1 flex items-center gap-0"
               >
                 <div className="grayscale flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <Image
@@ -186,10 +185,10 @@ export default function RateReason({
                     height={18}
                   />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-2  gap-0.5">
-                  <p>Yeah but...</p>
+                <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
+                  <p className="hidden">Yeah but...</p>
                   <p className="text-sm text-muted-foreground">
-                    This is accurate but does not contribute much to the overall
+                    Accurate but does not contribute much to the overall
                     awesomeness.
                   </p>
                 </div>
@@ -197,13 +196,13 @@ export default function RateReason({
               <CommandItem
                 value="0"
                 onSelect={handleSelect}
-                className="teamaspace-y-1 flex items-center gap-4"
+                className="teamaspace-y-1 flex items-center gap-0"
               >
                 <div className="flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <MehIcon className="h-5 w-5 text-muted-foreground ml-0" />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-2 gap-0.5">
-                  <p>I do not know.</p>
+                <div className="flex flex-col flex-1 items-start px-4 py-5 gap-0.5">
+                  <p className="hidden">I do not know.</p>
                   <p className="text-sm text-muted-foreground">
                     I have no experience with this.
                   </p>
@@ -213,13 +212,13 @@ export default function RateReason({
               <CommandItem
                 value="-1"
                 onSelect={handleSelect}
-                className="teamaspace-y-1 flex items-center gap-4"
+                className="teamaspace-y-1 flex items-center gap-0"
               >
                 <div className="flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <ThumbsDownIcon className="h-5 w-5 text-muted-foreground ml-0" />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-2 gap-0.5">
-                  <p>I disagree.</p>
+                <div className="flex flex-col flex-1 items-start px-4 py-5 gap-0.5">
+                  <p className="hidden">I disagree.</p>
                   <p className="text-sm text-muted-foreground">
                     This statement is not accurate.
                   </p>

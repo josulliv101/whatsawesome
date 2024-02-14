@@ -18,6 +18,7 @@ import { config } from "@/lib/config";
 import { ProfileEditButton } from "./ProfileEditButton";
 import { Separator } from "@/components/ui/separator";
 import { getCurrentUser } from "@/lib/auth";
+import Link from "next/link";
 
 export default async function ProfilePageContent({
   className = "",
@@ -80,15 +81,15 @@ export default async function ProfilePageContent({
           <PageHeading
             className=""
             heading={
-              <div className="flex items-center gap-4 pt-4">
-                <Heading>{name}</Heading>
-                <span className="text-2xl ml-2 mt-[-6px]">/</span>
-                <div className="opacity-100 px-2 py-1 rounded-md min-w-max relative top-[-3px]  flex items-center flex-nowrap text-nowrap whitespace-nowrap text-lg gap-3">
+              <div className="flex flex-col items-start gap-4 pt-4">
+                <Heading className="mb-0">{name}</Heading>
+                <span className="hidden text-2xl ml-2 mt-[-6px]">/</span>
+                <div className="opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex items-center flex-nowrap text-nowrap whitespace-nowrap text-lg gap-3">
                   <Image
                     alt="vote"
                     src={config.logoPath}
-                    width={32}
-                    height={32}
+                    width={24}
+                    height={24}
                   />
                   {roundToDecimal(rating)}% awesome
                 </div>
@@ -115,11 +116,24 @@ export default async function ProfilePageContent({
             Follow
           </Button>
         </div>
-        <Separator className="mt-8" />
-        <div className="flex justify-start items-center mt-8 mb-8  w-full">
-          <h1 className="text-2xl text-muted-foreground mb-4">
-            <strong>Whats awesome about {name}?</strong> Give your input below.
-          </h1>
+        {/* <Separator className="mt-8" /> */}
+        <div className="flex justify-start items-center mt-12 mb-0  w-full">
+          <h4 className="rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-4 w-full flex items-center justify-between">
+            <strong className="font-semibold">
+              What&#39;s awesome about {name}?
+            </strong>
+            <span className="text-lg">
+              <Button
+                variant={"link"}
+                size={"sm"}
+                className="text-lg px-0 text-muted-foreground underline"
+                asChild
+              >
+                <Link href="/login">Login</Link>
+              </Button>{" "}
+              to give your input below.
+            </span>
+          </h4>
         </div>
         <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
           {reasons.map((reason) => (
@@ -134,6 +148,7 @@ export default async function ProfilePageContent({
               userRating={
                 reason.id ? userProfileRatings?.[reason.id] : undefined
               }
+              ratings={reason.ratings}
             />
           ))}
         </div>
