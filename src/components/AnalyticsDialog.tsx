@@ -115,7 +115,7 @@ export function AnalyticsDialog({
           View Analytics
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full">
+      <DialogContent className="w-full min-h-[640px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 mb-3">
             <BarChart2Icon className="h-5 w-5" /> Analytics
@@ -157,17 +157,17 @@ export function AnalyticsDialog({
             <div className=" flex flex-col items-center justify-start">
               <MehIcon className="h-5 w-5 text-muted-foreground ml-2" />
             </div>
-            <div className=" flex flex-col items-center justify-start grayscale -ml-1">
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
+            <div className=" flex items-center justify-start grayscale ml-6 pl-0.5">
+              <Image alt="vote" src={config.logoPath} width={16} height={16} />
             </div>
-            <div className=" flex flex-col items-center justify-start gap-2 -ml-4">
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
+            <div className=" flex items-center justify-start gap-2 ml-2.5">
+              <Image alt="vote" src={config.logoPath} width={16} height={16} />
+              <Image alt="vote" src={config.logoPath} width={16} height={16} />
             </div>
-            <div className=" flex flex-col items-center justify-start gap-2 -ml-7">
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
+            <div className=" flex items-center justify-start gap-2 -ml-2">
+              <Image alt="vote" src={config.logoPath} width={16} height={16} />
+              <Image alt="vote" src={config.logoPath} width={16} height={16} />
+              <Image alt="vote" src={config.logoPath} width={16} height={16} />
             </div>
           </div>
         </div>

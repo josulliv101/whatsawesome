@@ -112,9 +112,9 @@ export default async function ProfilePageContent({
                 ))}
             </div>
           </PageHeading>
-          <Button variant={"secondary"} className="absolute -bottom-6 right-0">
+          {/* <Button variant={"secondary"} className="absolute -bottom-6 right-0">
             Follow
-          </Button>
+          </Button> */}
         </div>
         {/* <Separator className="mt-8" /> */}
         <div className="flex justify-start items-center mt-12 mb-0  w-full">
@@ -122,17 +122,20 @@ export default async function ProfilePageContent({
             <strong className="font-semibold">
               What&#39;s awesome about {name}?
             </strong>
-            <span className="text-lg">
-              <Button
-                variant={"link"}
-                size={"sm"}
-                className="text-lg px-0 text-muted-foreground underline"
-                asChild
-              >
-                <Link href="/login">Login</Link>
-              </Button>{" "}
-              to give your input below.
-            </span>
+            {!user && (
+              <span className="text-lg">
+                <Button
+                  variant={"link"}
+                  size={"sm"}
+                  className="text-lg px-0 text-muted-foreground underline"
+                  asChild
+                >
+                  <Link href="/login">Login</Link>
+                </Button>{" "}
+                to give your input below.
+              </span>
+            )}
+            {user && <span className="text-lg">Give your input below.</span>}
           </h4>
         </div>
         <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">

@@ -91,7 +91,7 @@ export function Reason({
             created by @josulliv101
           </div>
         </div>
-        <div className="absolute top-4 right-6">
+        <div className="absolute top-4 right-4">
           {id && (
             <RateReason
               profileId={profileId}
@@ -100,7 +100,7 @@ export function Reason({
             />
           )}
         </div>
-        <div className="absolute bottom-2 left-[250px]">
+        <div className="absolute bottom-1 left-[250px]">
           <AnalyticsDialog ratings={ratings} description={description} />
         </div>
 

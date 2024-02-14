@@ -39,11 +39,10 @@ export default async function Profiles({
                   {hub !== config.rootHub && (
                     <>
                       <GlobeIcon className="h-4 w-4" />{" "}
-                      {hub.replace(/[-]/g, " ")}
+                      {hub.replace(/[-]/g, " ")} <span className="pl-1">/</span>
                     </>
                   )}
-                </span>{" "}
-                /&nbsp;&nbsp;
+                </span>
                 {label}
               </div>
               <Button size="sm" variant={"secondary"} asChild>
@@ -54,13 +53,13 @@ export default async function Profiles({
                 </Link>
               </Button>
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="hidden text-sm text-muted-foreground">
               Your personal playlists. Updated daily. / {tagsToUse.join(" / ")}
             </p>
           </div>
           <div className="relative w-full">
             <ScrollArea>
-              <div className="flex space-x-4 mt-8 p-4 border shadow-md border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+              <div className="flex space-x-4 mt-2 p-4 border shadow-md border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
                 {profiles.map((profile: any) => (
                   <ProfileCard
                     key={profile.name}
