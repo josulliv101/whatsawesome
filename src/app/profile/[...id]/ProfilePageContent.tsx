@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { BarChart2Icon, Globe } from "lucide-react";
 import { fetchProfile, fetchUserRatingsForProfile } from "@/lib/firebase";
-import { cn, roundToDecimal } from "@/lib/utils";
+import { cn, roundToInteger } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tagDefinitions } from "@/lib/tags";
@@ -92,7 +92,10 @@ export default async function ProfilePageContent({
                     width={24}
                     height={24}
                   />
-                  {roundToDecimal(rating)}% awesome
+                  {roundToInteger(rating)}% awesome
+                  <span className="text-muted-foreground text-sm">
+                    (more on the overall rating.)
+                  </span>
                 </div>
               </div>
             }
@@ -140,12 +143,12 @@ export default async function ProfilePageContent({
               {user && <span className="text-lg">Give your input below.</span>}
               <Separator
                 orientation="vertical"
-                className="bg-gray-300 h-6 ml-3"
+                className="bg-gray-300 h-6 ml-3 hidden"
               />
               <Button
                 variant={"secondary"}
                 size="sm"
-                className="text-muted-foreground"
+                className="text-muted-foreground hidden"
               >
                 <BarChart2Icon className="mr-1 h-4 w-4" />
                 View Analytics

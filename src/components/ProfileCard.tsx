@@ -2,7 +2,7 @@ import Link from "next/link";
 import NavMenu from "./NavMenu";
 import Image from "next/image";
 import { ThumbsDownIcon, Globe as NetworkIcon } from "lucide-react";
-import { cn, roundToDecimal } from "@/lib/utils";
+import { cn, roundToInteger } from "@/lib/utils";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -79,7 +79,7 @@ export default function ProfileCard({
         </div>
         <h3 className="relative font-medium leading-normal pb-2 text-sm text-center text-balance">
           {profile.name}
-          <Rating value={roundToDecimal(profile.rating || profile.oinks)} />
+          <Rating value={roundToInteger(profile.rating || profile.oinks)} />
         </h3>
       </div>
     </HubLink>

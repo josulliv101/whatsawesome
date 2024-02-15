@@ -47,7 +47,12 @@ import {
 import { Separator } from "@/components/ui/separator";
 import RateReason from "./RateReason";
 import { AnalyticsDialog } from "./AnalyticsDialog";
-import { generateRandomDecimal } from "@/lib/utils";
+import {
+  generateRandomDecimal,
+  roundToDecimal,
+  roundToInteger,
+  roundToNearestHalf,
+} from "@/lib/utils";
 import { useState } from "react";
 import { config } from "@/lib/config";
 
@@ -76,33 +81,44 @@ export function Reason({
   const ratings = [
     {
       name: "disagree",
-      value: ratingsProp["-1"] || generateRandomDecimal(1, 20),
+      value: ratingsProp["-1"] || generateRandomDecimal(0, 3),
     },
     {
       name: "no experience",
-      value: ratingsProp["0"] || generateRandomDecimal(1, 20),
+      value: ratingsProp["0"] || generateRandomDecimal(0, 3),
     },
     {
       name: "accurate",
-      value: ratingsProp["1"] || generateRandomDecimal(1, 20),
+      value: ratingsProp["1"] || generateRandomDecimal(0, 3),
     },
-    { name: "major", value: ratingsProp["2"] || generateRandomDecimal(1, 20) },
+    { name: "major", value: ratingsProp["2"] || generateRandomDecimal(0, 3) },
     {
       name: "one of many",
-      value: ratingsProp["3"] || generateRandomDecimal(1, 20),
+      value: ratingsProp["3"] || generateRandomDecimal(0, 3),
     },
   ];
+  const score =
+    ratings.reduce((acc, item) => {
+      return acc + item.value;
+    }, 0) / ratings.length;
   return (
     <Card className="group relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
-      {photoUrl && (
-        <div className="bg-blue-800 w-full md:w-auto">
-          <Image
-            className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80"
-            width="180"
-            height="135"
-            src={photoUrl}
-            alt=""
-          />
+      {
+        <div className="bg-gray-50 w-full md:w-auto">
+          {photoUrl && (
+            <Image
+              className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80"
+              width="180"
+              height="135"
+              src={photoUrl}
+              alt=""
+            />
+          )}
+          {!photoUrl && (
+            <div
+              className={`grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] ${isAnalyticsView ? "max-w-full" : "max-w-0"}  ${isAnalyticsView ? "md:max-w-[220px]" : "md:max-w-0"} block ${isAnalyticsView ? "min-w-full" : "min-w-0"} md:h-[220px]  ${isAnalyticsView ? "md:w-auto" : "md:w-0"} min-h-full ${isAnalyticsView ? "md:min-w-[220px]" : "md:min-w-0"} overflow-hidden opacity-80 transition-all duration-500 ease-in-out`}
+            />
+          )}
           {isAnalyticsView && (
             <div className="bg-white absolute top-0 left-0 h-[220px] w-[220px]">
               <div className="absolute left-[-62px] top-0 w-full grid grid-cols-1 gap-6 px-0 max-w-[44px]">
@@ -120,7 +136,7 @@ export function Reason({
                     height={16}
                   />
                 </div>
-                <div className=" flex items-center justify-end gap-2">
+                <div className=" flex items-center justify-end gap-0.5">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -134,7 +150,7 @@ export function Reason({
                     height={16}
                   />
                 </div>
-                <div className=" flex items-center justify-end gap-2">
+                <div className=" flex items-center justify-end gap-0.5">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -221,8 +237,8 @@ export function Reason({
             </div>
           )}
         </div>
-      )}
-      <CardHeader className="flex-1 px-16 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
+      }
+      <CardHeader className="flex-1 px-16 pt-0 pb-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
           <CardDescription className="text-xl lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
@@ -248,7 +264,7 @@ export function Reason({
             created by @josulliv101
           </div>
         </div>
-        <div className="absolute top-2 right-2">
+        <div className="absolute top-2 right-4">
           {id && (
             <RateReason
               profileId={profileId}
@@ -257,21 +273,52 @@ export function Reason({
             />
           )}
         </div>
-        <div className=" absolute bottom-1 left-[250px] hidden group-hover:block">
-          <Button
-            size="sm"
-            variant={"ghost"}
-            onClick={() => setIsAnalyticsView(!isAnalyticsView)}
-          >
-            <BarChartIcon className="mr-1 h-3 w-3" />
-            results
-          </Button>
+        <div className=" absolute bottom-2 right-4 _left-[250px] hidden_ group-hover:block">
+          <div className="flex items-center flex-row space-x-2 text-sm text-muted-foreground">
+            <div>{roundToInteger(generateRandomDecimal(1, 200))} people</div>
+            <Separator
+              orientation="vertical"
+              className="h-4 bg-gray-300 hidden"
+            />
+            <span>/</span>
+            <div className="flex items-center gap-0.5">
+              {[...new Array(roundToInteger(Math.min(score, 3)))].map(() => (
+                <Image
+                  alt="vote"
+                  src={config.logoPath}
+                  width={16}
+                  height={16}
+                />
+              ))}
+              <Image
+                alt="vote"
+                src={"/cute-mushroom-blue-half2.png"}
+                width={16}
+                height={16}
+              />
+            </div>
+            <Separator
+              orientation="vertical"
+              className="h-4 bg-gray-300 hidden"
+            />
+
+            <Button
+              onClick={() => setIsAnalyticsView(!isAnalyticsView)}
+              className="flex items-center font-normal"
+              variant={"ghost"}
+              size="sm"
+            >
+              <BarChart2Icon className="mr-1 h-4 w-4" />
+              more
+            </Button>
+          </div>
+
           {/* <AnalyticsDialog ratings={ratingsProp} description={description} /> */}
         </div>
 
         {/* <div className="flex space-x-4 text-sm text-muted-foreground">
           <div className="flex items-center">
-            <BarChartIcon className="mr-1 h-3 w-3 fill-sky-400 text-sky-400" />
+            
             Analytics
           </div>
           <div className="hidden _flex items-center">
