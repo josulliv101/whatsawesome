@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ChevronDownIcon,
   CircleIcon,
@@ -5,11 +7,24 @@ import {
   StarFilledIcon as StarIcon,
 } from "@radix-ui/react-icons";
 import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Rectangle,
+} from "recharts";
+import {
   ThumbsDownIcon,
   NetworkIcon,
   BarChart3Icon,
   BarChart2Icon,
   BarChartIcon,
+  MehIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -32,6 +47,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 import RateReason from "./RateReason";
 import { AnalyticsDialog } from "./AnalyticsDialog";
+import { generateRandomDecimal } from "@/lib/utils";
+import { useState } from "react";
+import { config } from "@/lib/config";
 
 export function Reason({
   id,
@@ -41,7 +59,8 @@ export function Reason({
   photoUrl,
   profileId,
   userRating,
-  ratings,
+  ratings: ratingsProp = {},
+  isAnalytcisView,
 }: {
   id?: string;
   description: string;
@@ -51,9 +70,30 @@ export function Reason({
   profileId: string;
   userRating?: number;
   ratings?: Record<string, number>;
+  isAnalytcisView?: boolean;
 }) {
+  const [isAnalyticsView, setIsAnalyticsView] = useState(false);
+  const ratings = [
+    {
+      name: "disagree",
+      value: ratingsProp["-1"] || generateRandomDecimal(1, 20),
+    },
+    {
+      name: "no experience",
+      value: ratingsProp["0"] || generateRandomDecimal(1, 20),
+    },
+    {
+      name: "accurate",
+      value: ratingsProp["1"] || generateRandomDecimal(1, 20),
+    },
+    { name: "major", value: ratingsProp["2"] || generateRandomDecimal(1, 20) },
+    {
+      name: "one of many",
+      value: ratingsProp["3"] || generateRandomDecimal(1, 20),
+    },
+  ];
   return (
-    <Card className="relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
+    <Card className="group relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {photoUrl && (
         <div className="bg-blue-800 w-full md:w-auto">
           <Image
@@ -63,6 +103,123 @@ export function Reason({
             src={photoUrl}
             alt=""
           />
+          {isAnalyticsView && (
+            <div className="bg-white absolute top-0 left-0 h-[220px] w-[220px]">
+              <div className="absolute left-[-62px] top-0 w-full grid grid-cols-1 gap-6 px-0 max-w-[44px]">
+                <div className=" flex flex-col items-end justify-start">
+                  <ThumbsDownIcon className="h-5 w-5 text-muted-foreground relative top-[9px]" />
+                </div>
+                <div className=" flex flex-col items-end justify-start">
+                  <MehIcon className="h-5 w-5 text-muted-foreground relative top-[3px]" />
+                </div>
+                <div className=" flex items-center justify-end grayscale">
+                  <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                  />
+                </div>
+                <div className=" flex items-center justify-end gap-2">
+                  <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                  />
+                  <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                  />
+                </div>
+                <div className=" flex items-center justify-end gap-2">
+                  <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                  />
+                  <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                  />
+                  <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                  />
+                </div>
+              </div>
+              <ResponsiveContainer width="100%" height="100%" maxHeight={220}>
+                <BarChart
+                  width={220}
+                  height={220}
+                  data={ratings}
+                  layout="vertical"
+                  margin={{
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    bottom: 0,
+                  }}
+                  // barSize={8}
+                  // barCategoryGap={40}
+                  // barGap={40}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    // offset={"20px"}
+                    type="number"
+                    // alignmentBaseline="after-edge"
+                    className="mt-10 relative top-10"
+                    // cy={200}
+                    // dy={10}
+                    // horizOriginX={100}
+                    // padding={{ top: 20 }}
+                    spacing={20}
+                    // y={20}
+                    // style={{ paddingTop: 100 }}
+                  />
+                  <YAxis type="category" width={0} dataKey="name" />
+                  {/* <Tooltip /> */}
+                  <Bar dataKey="value" maxBarSize={12}>
+                    {ratings.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={"black"} />
+                    ))}
+                  </Bar>
+                </BarChart>
+                {/* <BarChart
+              width={300}
+              height={300}
+              data={ratings}
+              margin={{
+                top: 5,
+                right: 0,
+                left: -30,
+                bottom: 5,
+              }}
+              layout="horizontal"
+              barSize={40}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              
+              <YAxis />
+              <Tooltip />
+            
+              <Bar
+                dataKey="value"
+                fill="#000"
+                activeBar={<Rectangle fill="lightblue" stroke="gray" />}
+              />
+            </BarChart> */}
+              </ResponsiveContainer>
+            </div>
+          )}
         </div>
       )}
       <CardHeader className="flex-1 px-16 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
@@ -100,8 +257,16 @@ export function Reason({
             />
           )}
         </div>
-        <div className="hidden absolute bottom-1 left-[250px]">
-          <AnalyticsDialog ratings={ratings} description={description} />
+        <div className=" absolute bottom-1 left-[250px] hidden group-hover:block">
+          <Button
+            size="sm"
+            variant={"ghost"}
+            onClick={() => setIsAnalyticsView(!isAnalyticsView)}
+          >
+            <BarChartIcon className="mr-1 h-3 w-3" />
+            results
+          </Button>
+          {/* <AnalyticsDialog ratings={ratingsProp} description={description} /> */}
         </div>
 
         {/* <div className="flex space-x-4 text-sm text-muted-foreground">

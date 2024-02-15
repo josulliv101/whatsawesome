@@ -124,9 +124,46 @@ export function AnalyticsDialog({
             {description}
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 pt-4 pb-0 min-h-[400px]">
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="grid gap-4 pt-4 pb-0 min-h-[400px] max-w-[220px]">
+          <ResponsiveContainer width="100%" height="100%" maxHeight={200}>
             <BarChart
+              width={220}
+              height={200}
+              data={ratings}
+              layout="vertical"
+              margin={{
+                top: 0,
+                right: 0,
+                left: 0,
+                bottom: 0,
+              }}
+              // barSize={8}
+              // barCategoryGap={40}
+              // barGap={40}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                // offset={"20px"}
+                type="number"
+                // alignmentBaseline="after-edge"
+                className="mt-10 relative top-10"
+                // cy={200}
+                // dy={10}
+                // horizOriginX={100}
+                // padding={{ top: 20 }}
+                spacing={20}
+                // y={20}
+                // style={{ paddingTop: 100 }}
+              />
+              <YAxis type="category" width={0} dataKey="name" />
+              {/* <Tooltip /> */}
+              <Bar dataKey="value" maxBarSize={20}>
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={"black"} />
+                ))}
+              </Bar>
+            </BarChart>
+            {/* <BarChart
               width={300}
               height={300}
               data={ratings}
@@ -140,16 +177,16 @@ export function AnalyticsDialog({
               barSize={40}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              {/* <XAxis dataKey="value" /> */}
+              
               <YAxis />
               <Tooltip />
-              {/* <Legend /> */}
+            
               <Bar
                 dataKey="value"
                 fill="#000"
                 activeBar={<Rectangle fill="lightblue" stroke="gray" />}
               />
-            </BarChart>
+            </BarChart> */}
           </ResponsiveContainer>
           <div className=" w-full grid grid-cols-5 gap-6 px-3 ml-4">
             <div className=" flex flex-col items-center justify-start">
