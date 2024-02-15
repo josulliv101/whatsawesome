@@ -147,6 +147,7 @@ DataTableFacetedFilterProps<TData, TValue>) {
                 );
                 return (
                   <CommandItem
+                    className="py-4 md:py-2"
                     key={option.value}
                     onSelect={() => {
                       // router.push("/");

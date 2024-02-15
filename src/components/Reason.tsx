@@ -53,7 +53,7 @@ export function Reason({
   ratings?: Record<string, number>;
 }) {
   return (
-    <Card className="relative w-full min-h-[20px] flex flex-col md:flex-row items-center gap-4 py-0 ">
+    <Card className="relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {photoUrl && (
         <div className="bg-blue-800 w-full md:w-auto">
           <Image
@@ -65,10 +65,10 @@ export function Reason({
           />
         </div>
       )}
-      <CardHeader className="flex-1 px-6 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
+      <CardHeader className="flex-1 px-16 pt-4 pb-2 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
-          <CardDescription className="text-xl lg:text-2xl leading-relaxed">
+          <CardDescription className="text-xl lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>

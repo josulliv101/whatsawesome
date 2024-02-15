@@ -50,6 +50,7 @@ export default function RateReason({
   const handleSelect = async (val: any) => {
     console.log(val);
     if (!user || !user.id) {
+      setIsOpen(false);
       return toast("Authentication required.", {
         description: "Please login to leave a rating.",
         action: {
@@ -75,7 +76,7 @@ export default function RateReason({
         <Button
           variant="secondary"
           size={"sm"}
-          className={`ml-auto ${className}`}
+          className={`ml-auto text-muted-foreground ${className}`}
           onClick={() => setIsOpen(true)}
         >
           {typeof userRating === "undefined" && "Rate This"}
@@ -140,7 +141,7 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
                   <p className="hidden">I strongly agree.</p>
                   <p className="text-sm text-muted-foreground">
-                    Major factor that adds to the overall awesomeness.
+                    A major factor that adds to the overall awesomeness.
                   </p>
                 </div>
               </CommandItem>

@@ -59,10 +59,11 @@ export default async function ProfilePageContent({
     <>
       <main
         className={cn(
-          "relative flex min-h-screen max-w-7xl mx-auto mt-8 flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12",
+          "relative flex min-h-screen max-w-7xl mx-auto mt-0 flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12",
           className
         )}
       >
+        {/* <div className="hidden lg:block absolute z-0 bg-blue-50 h-[300px] w-[200%] top-0 left-[-400px]"></div> */}
         <ProfileEditButton className="absolute top-0 right-8" />
         <div className="relative md:max-h-[200px] flex flex-col md:flex-row items-start gap-8 mb-6 animate-vflip__">
           <div className="relative w-full md:w-auto md:flex-initial bg-blue-800">
@@ -79,7 +80,7 @@ export default async function ProfilePageContent({
             />
           </div>
           <PageHeading
-            className=""
+            className="pl-8"
             heading={
               <div className="flex flex-col items-start gap-4 pt-1">
                 <Heading className="mb-0">{name}</Heading>
@@ -105,7 +106,7 @@ export default async function ProfilePageContent({
                   <Badge
                     key={tag}
                     variant="outline"
-                    className="px-4 py-1 text-md"
+                    className="px-4 py-1 text-md border-muted-foreground/3 text-muted-foreground"
                   >
                     {tag}
                   </Badge>
@@ -141,7 +142,11 @@ export default async function ProfilePageContent({
                 orientation="vertical"
                 className="bg-gray-300 h-6 ml-3"
               />
-              <Button variant={"secondary"} size="sm">
+              <Button
+                variant={"secondary"}
+                size="sm"
+                className="text-muted-foreground"
+              >
                 <BarChart2Icon className="mr-1 h-4 w-4" />
                 View Analytics
               </Button>
