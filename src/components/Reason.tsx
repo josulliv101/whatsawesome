@@ -282,14 +282,17 @@ export function Reason({
             />
             <span>/</span>
             <div className="flex items-center gap-0.5">
-              {[...new Array(roundToInteger(Math.min(score, 3)))].map(() => (
-                <Image
-                  alt="vote"
-                  src={config.logoPath}
-                  width={16}
-                  height={16}
-                />
-              ))}
+              {[...new Array(roundToInteger(Math.min(score, 3)))].map(
+                (_, i) => (
+                  <Image
+                    key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                  />
+                )
+              )}
               <Image
                 alt="vote"
                 src={"/cute-mushroom-blue-half2.png"}
