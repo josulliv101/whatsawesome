@@ -6,13 +6,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateRandomDecimal(min: number, max: number): number {
-  if (min >= max) {
-    throw new Error("Minimum value must be less than maximum value.");
-  }
+  return 1;
+  // if (min >= max) {
+  //   throw new Error("Minimum value must be less than maximum value.");
+  // }
 
-  const randomNumber = Math.random() * (max - min) + min;
+  // const randomNumber = Math.random() * (max - min) + min;
 
-  return Math.round(randomNumber * 10) / 10;
+  // return Math.round(randomNumber * 10) / 10;
 }
 
 export function roundToInteger(n: number) {
