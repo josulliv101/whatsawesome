@@ -74,7 +74,7 @@ export default function RateReason({
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="secondary"
+          variant="ghost"
           size={"sm"}
           className={`ml-auto text-muted-foreground ${className}`}
           onClick={() => setIsOpen(true)}
@@ -104,10 +104,10 @@ export default function RateReason({
           {userRating === -1 && (
             <ThumbsDownIcon className="h-5 w-5 text-muted-foreground ml-0" />
           )}
-          <ChevronDownIcon className="ml-2 h-4 w-4 text-muted-foreground" />
+          <ChevronDownIcon className="flex-1 ml-2 h-4 w-4 min-w-4 min-h-4 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 w-[400px] " align="end">
+      <PopoverContent className="p-0 w-[360px] " align="end">
         <Command>
           {/* <CommandInput placeholder="Select new role..." /> */}
           <CommandList>
@@ -118,7 +118,7 @@ export default function RateReason({
                 onSelect={handleSelect}
                 className="teamaspace-y-1 flex items-center gap-0"
               >
-                <div className="flex flex-row items-center justify-center  basis-20 gap-2 ml-0">
+                <div className="flex flex-row items-center justify-center  basis-20 gap-1 ml-0">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -141,7 +141,7 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
                   <p className="hidden">I strongly agree.</p>
                   <p className="text-sm text-muted-foreground">
-                    A major factor that adds to the overall awesomeness.
+                    This is a major factor that adds to the overall awesomeness.
                   </p>
                 </div>
               </CommandItem>
@@ -151,7 +151,7 @@ export default function RateReason({
                 onSelect={handleSelect}
                 className="teamaspace-y-1 flex items-center gap-0"
               >
-                <div className=" flex flex-row items-center justify-center basis-20 gap-2 ml-0">
+                <div className=" flex flex-row items-center justify-center basis-20 gap-1 ml-0">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -168,7 +168,7 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
                   <p className="hidden">I agree.</p>
                   <p className="text-sm text-muted-foreground">
-                    Adds something to the overall awesomeness.
+                    This adds something to the overall awesomeness.
                   </p>
                 </div>
               </CommandItem>
@@ -189,8 +189,7 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
                   <p className="hidden">Yeah but...</p>
                   <p className="text-sm text-muted-foreground">
-                    Accurate but does not contribute much to the overall
-                    awesomeness.
+                    Accurate but does not contribute to the overall awesomeness.
                   </p>
                 </div>
               </CommandItem>

@@ -25,7 +25,7 @@ export default async function Profiles({
     hub,
     primaryTag,
     tagsToUse,
-    config.totalPaginationProfiles
+    99 || config.totalPaginationProfiles
   );
   const label = tagsToUse.map((tag) => getPlural(tag)).join(" / ");
   return (

@@ -42,6 +42,7 @@ export default async function ProfilePageContent({
     oinks,
     tags,
     reasons,
+    reasonsUser,
     rating = 75,
     isHub,
   } = p;
@@ -94,7 +95,7 @@ export default async function ProfilePageContent({
                   />
                   {roundToInteger(rating)}% awesome
                   <span className="text-muted-foreground text-sm">
-                    (more on the overall rating.)
+                    [ what&#39;s this rating? ]
                   </span>
                 </div>
               </div>
@@ -195,6 +196,36 @@ export default async function ProfilePageContent({
             <Profiles hub={id} primaryTag={primaryTag} tagsToUse={tagsToUse} />
           </Suspense>
         )} */}
+        <div className="flex justify-start items-center mt-12 mb-0  w-full">
+          <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-4 w-full flex items-center justify-between">
+            <strong className="font-semibold">
+              User Submissions
+              <Badge
+                className="hidden rounded-sm right-4 top-[-12px] absolute"
+                variant={"default"}
+              >
+                user submissions
+              </Badge>
+            </strong>
+          </h4>
+        </div>
+        <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
+          {reasonsUser.map((reason) => (
+            <Reason
+              id={reason.id}
+              key={reason.id || reason.reason}
+              description={reason.reason}
+              name={name}
+              rating={reason.rating}
+              photoUrl={reason.photoUrl}
+              profileId={id}
+              userRating={
+                reason.id ? userProfileRatings?.[reason.id] : undefined
+              }
+              ratings={reason.ratings}
+            />
+          ))}
+        </div>
       </main>
     </>
   );

@@ -1,5 +1,16 @@
 import * as z from "zod";
 
+const reasonSchema = z.object({
+  id: z.string().optional(),
+  reason: z.string(),
+  votes: z.number(),
+  rating: z.number(),
+  totalRespondants: z.coerce.number().min(0).multipleOf(1).optional(),
+  photoUrl: z.string().optional(),
+  ratings: z.record(z.string(), z.number()).optional(),
+  isUserSubmission: z.boolean().optional(),
+});
+
 export const profileSchema = z.object({
   id: z
     .string()
@@ -34,17 +45,8 @@ export const profileSchema = z.object({
   isHub: z.boolean().optional(),
   rating: z.number().optional(),
 
-  reasons: z.array(
-    z.object({
-      id: z.string().optional(),
-      reason: z.string(),
-      votes: z.number(),
-      rating: z.number(),
-      totalRespondants: z.coerce.number().min(0).multipleOf(1).optional(),
-      photoUrl: z.string().optional(),
-      ratings: z.record(z.string(), z.number()).optional(),
-    })
-  ),
+  reasons: z.array(reasonSchema),
+  reasonsUser: z.array(reasonSchema),
 });
 
 export type Profile = z.infer<typeof profileSchema>;

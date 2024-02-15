@@ -75,10 +75,18 @@ export async function fetchProfile(id: string | string[], uid?: string) {
   const { tagMap, ...data } = docSnap.data() || {};
 
   const subColRef = collection(db, "entity", profileId, "whyawesome");
+
   const qSnap = await getDocs(subColRef);
   const reasons = qSnap.docs.map((d) => ({
     id: d.id,
     rating: generateRandomDecimal(1, 5),
+    ratings: d.data().ratings || {
+      "-1": generateRandomDecimal(1, 99),
+      0: generateRandomDecimal(1, 99),
+      1: generateRandomDecimal(1, 99),
+      2: generateRandomDecimal(1, 99),
+      3: generateRandomDecimal(1, 99),
+    },
     ...d.data(),
   })) as Profile["reasons"];
 
@@ -86,7 +94,8 @@ export async function fetchProfile(id: string | string[], uid?: string) {
     ...(data as Profile),
     tags: Object.keys(tagMap),
     id: docSnap.id,
-    reasons,
+    reasons: reasons.filter((item) => !item.isUserSubmission),
+    reasonsUser: reasons.filter((item) => !!item.isUserSubmission),
   };
   /*
   const profileSnapshot = await db.collection("entity").doc(profileId).get();

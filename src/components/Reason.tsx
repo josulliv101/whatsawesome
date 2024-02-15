@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ChatBubbleIcon,
   ChevronDownIcon,
   CircleIcon,
   PlusIcon,
@@ -81,26 +82,36 @@ export function Reason({
   const ratings = [
     {
       name: "disagree",
-      value: ratingsProp["-1"] || generateRandomDecimal(0, 3),
+      value: ratingsProp["-1"],
+      rank: -1,
     },
     {
       name: "no experience",
-      value: ratingsProp["0"] || generateRandomDecimal(0, 3),
+      value: ratingsProp["0"],
+      rank: 1,
     },
     {
       name: "accurate",
-      value: ratingsProp["1"] || generateRandomDecimal(0, 3),
+      value: ratingsProp["1"],
+      rank: 2,
     },
-    { name: "major", value: ratingsProp["2"] || generateRandomDecimal(0, 3) },
+    { name: "major", value: ratingsProp["2"] },
     {
       name: "one of many",
-      value: ratingsProp["3"] || generateRandomDecimal(0, 3),
+      value: ratingsProp["3"],
+      rank: 3,
     },
   ];
+  const totalPeople = ratings.reduce((acc, item) => {
+    return acc + item.value;
+  }, 0);
   const score =
-    ratings.reduce((acc, item) => {
-      return acc + item.value;
-    }, 0) / ratings.length;
+    ratings
+      .filter((item) => (item?.rank || 0) > -1)
+      .reduce((acc, item) => {
+        return acc + item.value * Math.max(1, item?.rank || 1);
+      }, 0) / totalPeople;
+
   return (
     <Card className="group relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {
@@ -171,7 +182,12 @@ export function Reason({
                   />
                 </div>
               </div>
-              <ResponsiveContainer width="100%" height="100%" maxHeight={220}>
+              <ResponsiveContainer
+                width="100%"
+                height="100%"
+                maxHeight={220}
+                className={"relative left-[2px]"}
+              >
                 <BarChart
                   width={220}
                   height={220}
@@ -274,13 +290,16 @@ export function Reason({
           )}
         </div>
         <div className=" absolute bottom-2 right-4 _left-[250px] hidden_ group-hover:block">
-          <div className="flex items-center flex-row space-x-2 text-sm text-muted-foreground">
-            <div>{roundToInteger(generateRandomDecimal(1, 200))} people</div>
+          <div className="flex items-center flex-row space-x-0 text-sm text-muted-foreground">
             <Separator
               orientation="vertical"
               className="h-4 bg-gray-300 hidden"
             />
-            <span>/</span>
+            <div className="pl-1 flex_ items-center pr-8 hidden">
+              <ChatBubbleIcon className="mr-1 h-4 w-4 text-gray-900" />
+              {roundToInteger(totalPeople)} comments
+            </div>
+            <span className="pr-2 hidden">/</span>
             <div className="flex items-center gap-0.5">
               {[...new Array(roundToInteger(Math.min(score, 3)))].map(
                 (_, i) => (
@@ -300,6 +319,10 @@ export function Reason({
                 height={16}
               />
             </div>
+            <span>/</span>
+            <div className="pl-1 pr-8">
+              {roundToInteger(totalPeople)} people
+            </div>
             <Separator
               orientation="vertical"
               className="h-4 bg-gray-300 hidden"
@@ -307,11 +330,11 @@ export function Reason({
 
             <Button
               onClick={() => setIsAnalyticsView(!isAnalyticsView)}
-              className="flex items-center font-normal"
+              className="flex items-center font-normal "
               variant={"ghost"}
               size="sm"
             >
-              <BarChart2Icon className="mr-1 h-4 w-4" />
+              <BarChart2Icon className="mr-1 h-4 w-4 fill-blue-500 text-gray-900" />
               more
             </Button>
           </div>

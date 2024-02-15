@@ -176,10 +176,9 @@ export default function NavMenu({
                       {/* <div className="hidden mb-2 mt-4 text-lg font-medium">
                         whats awesome
                       </div> */}
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Find out what is awesome about people and places. Vote
-                        on what you think is awesome or add you own awesome
-                        items.
+                      <p className="text-md leading-snug text-muted-foreground">
+                        The what&#39;s awesome mission is to answer the question
+                        of what makes stuff awesome.
                       </p>
                     </Link>
                   </NavigationMenuLink>
