@@ -9,6 +9,7 @@ const reasonSchema = z.object({
   photoUrl: z.string().optional(),
   ratings: z.record(z.string(), z.number()).optional(),
   isUserSubmission: z.boolean().optional(),
+  userId: z.string().optional(),
 });
 
 export const profileSchema = z.object({

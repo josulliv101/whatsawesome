@@ -213,6 +213,10 @@ const config: Config = {
         flipVertical: {
           "50%": { transform: "rotateX(180deg)" },
         },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -226,6 +230,7 @@ const config: Config = {
         rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 3s",
         hflip: "flipHorizontal 2s 1",
         vflip: "flipVertical 2s 1",
+        fadeIn: "fadeIn .5s ease-in",
       },
     },
   },

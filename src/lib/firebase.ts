@@ -1,5 +1,6 @@
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getCountFromServer, serverTimestamp } from "firebase/firestore";
 import {
   Auth,
   GoogleAuthProvider,
@@ -94,8 +95,8 @@ export async function fetchProfile(id: string | string[], uid?: string) {
     ...(data as Profile),
     tags: Object.keys(tagMap),
     id: docSnap.id,
-    reasons: reasons.filter((item) => !item.isUserSubmission),
-    reasonsUser: reasons.filter((item) => !!item.isUserSubmission),
+    reasons: reasons.filter((item) => !item.userId),
+    reasonsUser: reasons.filter((item) => !!item.userId),
   };
   /*
   const profileSnapshot = await db.collection("entity").doc(profileId).get();
@@ -290,6 +291,33 @@ export async function getCurrentUser() {
 //   .catch((error) => {
 //     console.log(error);
 //   });
+
+export async function addReasonToProfile(
+  profileId: string,
+  userId: string,
+  reason: string
+) {
+  if (!profileId) {
+    throw new Error("profile id is required.");
+  }
+
+  if (!userId) {
+    throw new Error("user id is required.");
+  }
+
+  const subColRef = collection(db, "entity", profileId, "whyawesome");
+  const createdAt = serverTimestamp();
+
+  const q = query(subColRef, where("userId", "==", userId));
+  const snapshot = await getCountFromServer(q);
+  console.log("count: ", snapshot.data().count);
+  if (snapshot.data().count > 0) {
+    throw new Error("Users may only add 1 item.");
+  }
+
+  addDoc(subColRef, { createdAt, reason, userId });
+  console.log(`reasons added.`);
+}
 
 export async function addProfile({
   id,

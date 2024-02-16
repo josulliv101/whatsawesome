@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { BarChart2Icon, Globe } from "lucide-react";
-import { fetchProfile, fetchUserRatingsForProfile } from "@/lib/firebase";
+import {
+  addReasonToProfile,
+  fetchProfile,
+  fetchUserRatingsForProfile,
+} from "@/lib/firebase";
 import { cn, roundToInteger } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +23,10 @@ import { ProfileEditButton } from "./ProfileEditButton";
 import { Separator } from "@/components/ui/separator";
 import { getCurrentUser } from "@/lib/auth";
 import Link from "next/link";
+import { AnalyticsContextProvider } from "@/components/useAnalytics";
+import { AnalyticsButton } from "./AnalyticsButton";
+import { AddReason } from "./AddReason";
+import { revalidatePath } from "next/cache";
 
 export default async function ProfilePageContent({
   className = "",
@@ -56,8 +64,16 @@ export default async function ProfilePageContent({
 
   const imgPosition = tags.includes("person") ? "object-top" : "object-center";
   const initialActiveTags = filterCookie?.value?.split(",");
+
+  async function handleSubmitReason(data: any) {
+    "use server";
+    console.log("handleSubmitReason", data.reason, id, user?.uid);
+    user?.uid && (await addReasonToProfile(id, user.uid, data.reason));
+    revalidatePath(`/profile/${id}`);
+  }
+
   return (
-    <>
+    <AnalyticsContextProvider>
       <main
         className={cn(
           "relative flex min-h-screen max-w-7xl mx-auto mt-0 flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12",
@@ -127,7 +143,7 @@ export default async function ProfilePageContent({
             <strong className="font-semibold">
               What&#39;s awesome about {name}?
             </strong>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-4">
               {!user && (
                 <span className="text-lg">
                   <Button
@@ -144,16 +160,9 @@ export default async function ProfilePageContent({
               {user && <span className="text-lg">Give your input below.</span>}
               <Separator
                 orientation="vertical"
-                className="bg-gray-300 h-6 ml-3 hidden"
+                className="bg-gray-300 h-6 ml-3"
               />
-              <Button
-                variant={"secondary"}
-                size="sm"
-                className="text-muted-foreground hidden"
-              >
-                <BarChart2Icon className="mr-1 h-4 w-4" />
-                View Analytics
-              </Button>
+              <AnalyticsButton />
             </div>
           </h4>
         </div>
@@ -223,10 +232,19 @@ export default async function ProfilePageContent({
                 reason.id ? userProfileRatings?.[reason.id] : undefined
               }
               ratings={reason.ratings}
+              userId={reason.userId}
             />
           ))}
         </div>
+        {user?.uid && (
+          <AddReason
+            name={name}
+            profileId={id}
+            userId={user.uid}
+            onSubmit={handleSubmitReason}
+          />
+        )}
       </main>
-    </>
+    </AnalyticsContextProvider>
   );
 }
