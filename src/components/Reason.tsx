@@ -277,7 +277,7 @@ export function Reason({
           </div>
         </div>
       }
-      <CardHeader className="relative z-50 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
+      <CardHeader className="relative z-10 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
           <CardDescription className="text-xl mt-[-36px] lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">

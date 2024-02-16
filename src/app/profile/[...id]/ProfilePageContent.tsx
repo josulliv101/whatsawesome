@@ -68,7 +68,7 @@ export default async function ProfilePageContent({
   async function handleSubmitReason(data: any) {
     "use server";
     console.log("handleSubmitReason", data.reason, id, user?.uid);
-    user?.uid && (await addReasonToProfile(id, user.uid, data.reason));
+    user?.uid && (await addReasonToProfile(id, user?.uid, data.reason));
     revalidatePath(`/profile/${id}`);
   }
 
@@ -240,7 +240,7 @@ export default async function ProfilePageContent({
           <AddReason
             name={name}
             profileId={id}
-            userId={user.uid}
+            userId={user?.uid}
             onSubmit={handleSubmitReason}
           />
         )}
