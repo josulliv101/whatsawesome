@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { HubContextProvider } from "@/components/HubContext";
 import { PageLayout } from "./components/PageLayout";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode, StrictMode } from "react";
 import { PrimaryKeyType } from "@mswjs/data/lib/glossary";
 import { PrimaryTagType } from "@/lib/tags";
 import { getCurrentUser } from "@/lib/auth";
@@ -30,19 +30,21 @@ export default function RootLayout({
   params: { tags = [] },
 }: PropsWithChildren<{ params: { tags: string[] } }>) {
   return (
-    <AuthContextProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${inter.className} antialiased bg-gray-50 dark:bg-black bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black`}
-        >
-          <ThemeProvider attribute="class">
-            <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
-              <PageLayout>{children}</PageLayout>
-            </HubContextProvider>
-          </ThemeProvider>
-          <Toaster />
-        </body>
-      </html>
-    </AuthContextProvider>
+    <StrictMode>
+      <AuthContextProvider>
+        <html lang="en" suppressHydrationWarning>
+          <body
+            className={`${inter.className} antialiased bg-gray-50 dark:bg-black bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black`}
+          >
+            <ThemeProvider attribute="class">
+              <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
+                <PageLayout>{children}</PageLayout>
+              </HubContextProvider>
+            </ThemeProvider>
+            <Toaster />
+          </body>
+        </html>
+      </AuthContextProvider>
+    </StrictMode>
   );
 }

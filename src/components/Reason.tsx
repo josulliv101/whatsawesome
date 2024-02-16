@@ -115,7 +115,7 @@ export function Reason({
   return (
     <Card className="group relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {
-        <div className="bg-gray-50 w-full md:w-auto">
+        <div className=" w-full md:w-auto">
           {photoUrl && (
             <Image
               className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80"
@@ -131,7 +131,7 @@ export function Reason({
             />
           )}
           {isAnalyticsView && (
-            <div className="bg-white absolute top-0 left-0 h-[220px] w-[220px]">
+            <div className="bg-gray-50 absolute top-0 left-0 h-[220px] w-[220px]">
               <div className="absolute left-[-62px] top-0 w-full grid grid-cols-1 gap-6 px-0 max-w-[44px]">
                 <div className=" flex flex-col items-end justify-start">
                   <ThumbsDownIcon className="h-5 w-5 text-muted-foreground relative top-[9px]" />
@@ -195,15 +195,15 @@ export function Reason({
                   layout="vertical"
                   margin={{
                     top: 0,
-                    right: 0,
+                    right: 10,
                     left: 0,
                     bottom: 0,
                   }}
+
                   // barSize={8}
                   // barCategoryGap={40}
                   // barGap={40}
                 >
-                  <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
                     // offset={"20px"}
                     type="number"
@@ -219,7 +219,12 @@ export function Reason({
                   />
                   <YAxis type="category" width={0} dataKey="name" />
                   {/* <Tooltip /> */}
-                  <Bar dataKey="value" maxBarSize={12}>
+                  <Bar
+                    dataKey="value"
+                    maxBarSize={12}
+                    animationEasing="ease-out"
+                    animationBegin={!photoUrl ? 400 : 0}
+                  >
                     {ratings.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={"black"} />
                     ))}
@@ -254,10 +259,10 @@ export function Reason({
           )}
         </div>
       }
-      <CardHeader className="flex-1 px-16 pt-0 pb-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
+      <CardHeader className="relative z-50 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
-          <CardDescription className="text-xl lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
+          <CardDescription className="text-xl mt-[-36px] lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>
@@ -280,7 +285,7 @@ export function Reason({
             created by @josulliv101
           </div>
         </div>
-        <div className="absolute top-2 right-4">
+        <div className="absolute bottom-2 right-8">
           {id && (
             <RateReason
               profileId={profileId}
@@ -289,18 +294,28 @@ export function Reason({
             />
           )}
         </div>
-        <div className=" absolute bottom-2 right-4 _left-[250px] hidden_ group-hover:block">
+        <div
+          className={` absolute bottom-2 right-4_ ${!isAnalyticsView && !photoUrl ? "left-[60px]" : "left-[284px]"} transition-all duration-500 hidden_ group-hover:block`}
+        >
           <div className="flex items-center flex-row space-x-0 text-sm text-muted-foreground">
+            <Button
+              onClick={() => setIsAnalyticsView(!isAnalyticsView)}
+              className="flex items-center font-normal "
+              variant={"ghost"}
+              size="icon"
+            >
+              <BarChart2Icon className="mr-1 h-4 w-4 fill-blue-500 text-gray-900" />
+            </Button>
             <Separator
               orientation="vertical"
-              className="h-4 bg-gray-300 hidden"
+              className="h-4 bg-gray-300 mx-4 hidden"
             />
             <div className="pl-1 flex_ items-center pr-8 hidden">
               <ChatBubbleIcon className="mr-1 h-4 w-4 text-gray-900" />
               {roundToInteger(totalPeople)} comments
             </div>
             <span className="pr-2 hidden">/</span>
-            <div className="flex items-center gap-0.5">
+            <div className="flex items-center gap-0.5 pl-4">
               {[...new Array(roundToInteger(Math.min(score, 3)))].map(
                 (_, i) => (
                   <Image
@@ -319,7 +334,9 @@ export function Reason({
                 height={16}
               />
             </div>
-            <span>/</span>
+            <span>
+              / {roundToNearestHalf(Math.min(score, 3))} of 3 rating /
+            </span>
             <div className="pl-1 pr-8">
               {roundToInteger(totalPeople)} people
             </div>
@@ -327,16 +344,6 @@ export function Reason({
               orientation="vertical"
               className="h-4 bg-gray-300 hidden"
             />
-
-            <Button
-              onClick={() => setIsAnalyticsView(!isAnalyticsView)}
-              className="flex items-center font-normal "
-              variant={"ghost"}
-              size="sm"
-            >
-              <BarChart2Icon className="mr-1 h-4 w-4 fill-blue-500 text-gray-900" />
-              more
-            </Button>
           </div>
 
           {/* <AnalyticsDialog ratings={ratingsProp} description={description} /> */}
