@@ -46,7 +46,7 @@ export const profileSchema = z.object({
   rating: z.number().optional(),
 
   reasons: z.array(reasonSchema),
-  reasonsUser: z.array(reasonSchema),
+  reasonsUser: z.array(reasonSchema).optional(),
 });
 
 export type Profile = z.infer<typeof profileSchema>;
