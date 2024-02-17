@@ -64,7 +64,7 @@ export function AddReason({
   }
 
   return (
-    <div className="flex justify-center mt-12 w-full min-h-[220px] bg-muted text-muted-foreground px-8 py-8">
+    <div className="flex justify-center  w-full min-h-[220px] bg-muted text-muted-foreground px-8 py-8">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onFoobar)}

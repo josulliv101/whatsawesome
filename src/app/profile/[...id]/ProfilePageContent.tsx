@@ -167,20 +167,28 @@ export default async function ProfilePageContent({
           </h4>
         </div>
         <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
-          {reasons.map((reason) => (
-            <Reason
-              id={reason.id}
-              key={reason.id || reason.reason}
-              description={reason.reason}
-              name={name}
-              rating={reason.rating}
-              photoUrl={reason.photoUrl}
-              profileId={id}
-              userRating={
-                reason.id ? userProfileRatings?.[reason.id] : undefined
-              }
-              ratings={reason.ratings}
-            />
+          {reasons.map((reason, i) => (
+            <>
+              {/* {i === 5 && (
+                <div className="bg-muted text-muted-foreground p-4 flex items-center justify-between">
+                  Boston Burger Round-up{" "}
+                  <Button variant={"secondary"}>View Now</Button>
+                </div>
+              )} */}
+              <Reason
+                id={reason.id}
+                key={reason.id || reason.reason}
+                description={reason.reason}
+                name={name}
+                rating={reason.rating}
+                photoUrl={reason.photoUrl}
+                profileId={id}
+                userRating={
+                  reason.id ? userProfileRatings?.[reason.id] : undefined
+                }
+                ratings={reason.ratings}
+              />
+            </>
           ))}
         </div>
         {/* {isHub && (
@@ -219,21 +227,23 @@ export default async function ProfilePageContent({
           </h4>
         </div>
         <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
-          {reasonsUser.map((reason) => (
-            <Reason
-              id={reason.id}
-              key={reason.id || reason.reason}
-              description={reason.reason}
-              name={name}
-              rating={reason.rating}
-              photoUrl={reason.photoUrl}
-              profileId={id}
-              userRating={
-                reason.id ? userProfileRatings?.[reason.id] : undefined
-              }
-              ratings={reason.ratings}
-              userId={reason.userId}
-            />
+          {reasonsUser.map((reason, i) => (
+            <>
+              <Reason
+                id={reason.id}
+                key={reason.id || reason.reason}
+                description={reason.reason}
+                name={name}
+                rating={reason.rating}
+                photoUrl={reason.photoUrl}
+                profileId={id}
+                userRating={
+                  reason.id ? userProfileRatings?.[reason.id] : undefined
+                }
+                ratings={reason.ratings}
+                userId={reason.userId}
+              />
+            </>
           ))}
         </div>
         {user?.uid && (
