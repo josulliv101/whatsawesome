@@ -29,6 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/(group)/@content/(.)profile/[...id]/loading.tsx__",
+    "src/app/(group)/[...tags]/layout.tsx__",
   ],
   "exclude": ["node_modules"],
 }

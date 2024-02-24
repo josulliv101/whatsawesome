@@ -3,12 +3,21 @@ import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useOptimistic,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { config } from "@/lib/config";
 import { Profile } from "@/lib/profile";
 import { GlobeIcon } from "lucide-react";
 import { useTabIndicator } from "./useTabIndicator";
 import { number } from "zod";
+import { PrimaryTagType, getHubTags, getHubUrl } from "@/lib/tags";
+import useDisablePageStore from "./useDisablePageStore";
 
 const tabNames: Record<string, number> = {
   person: 0,
@@ -17,23 +26,28 @@ const tabNames: Record<string, number> = {
 };
 
 export default function TabNav({
-  activeTabId: initialActiveTabId,
-  hub,
   profile,
   className = "",
 }: {
-  activeTabId: string;
   className?: string;
-  hub: string;
+
   profile?: Profile;
 }) {
-  const [activeTabId, setActiveTabId] = useState(initialActiveTabId);
+  const params = useParams();
+  const disablePageStore = useDisablePageStore();
+  const [isPending, startTransition] = useTransition();
+  const { hub, primaryTag: activeTabId, tags } = getHubTags(params.tags);
+  const [optimisticActiveTabId, updateToOptimistic] = useOptimistic(
+    activeTabId,
+    (state, newId: PrimaryTagType) => newId
+  );
+  // const [activeTabId, setActiveTabId] = useState(initialActiveTabId);
   const refTab1 = useRef<HTMLButtonElement>(null);
   const refTab2 = useRef<HTMLButtonElement>(null);
   const refTab3 = useRef<HTMLButtonElement>(null);
 
   const style = useTabIndicator(
-    tabNames[activeTabId],
+    tabNames[optimisticActiveTabId],
     refTab1,
     refTab2,
     refTab3
@@ -42,15 +56,20 @@ export default function TabNav({
   const router = useRouter();
 
   const onValueChange: (val: string) => void = useCallback((val) => {
-    setActiveTabId(val);
+    // setActiveTabId(val);
+    startTransition(() => updateToOptimistic(val as PrimaryTagType));
     console.log(val);
     !!val && router.push(`/${hub}/${val}`); // setTimeout(() => router.push(`/${hub}/${val}`), 40);
   }, []);
 
+  useEffect(() => {
+    isPending ? disablePageStore.disable() : disablePageStore.enable();
+  }, [isPending]);
+
   console.log("style", style);
   return (
     <Tabs
-      value={activeTabId}
+      value={optimisticActiveTabId}
       onValueChange={onValueChange}
       activationMode="manual"
       className={`border border-gray-200 dark:border-gray-800 h-full space-y-6 ${className}`}

@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Square } from "lucide-react";
 import { FilterOptions } from "@/lib/filters";
 import ProfilePageContent from "@/app/profile/[...id]/ProfilePageContent";
+import DisablePage from "@/components/DisablePage";
 
 export default function PageContent({
   // profilesByTag,
@@ -67,9 +68,11 @@ export default function PageContent({
           subhead="Inclusion in the what&#39;s awesome catalog is by invitation only. Everyone can vote on what&#39;s awesome."
         />
       )}
-      <Suspense fallback={<LoadingSkeleton />}>
-        <Profiles hub={hub} primaryTag={primaryTag} tagsToUse={tagsToUse} />
-      </Suspense>
+      <DisablePage>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <Profiles hub={hub} primaryTag={primaryTag} tagsToUse={tagsToUse} />
+        </Suspense>
+      </DisablePage>
     </>
   );
 }
