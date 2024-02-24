@@ -28,7 +28,7 @@ export default async function Profiles({
     ) || [];
   const fetchedProfileByTag = await Promise.all(fetchPromises);
   return (
-    <main className="flex min-h-screen w-full mx-auto flex-col items-start justify-start">
+    <main className="flex min-h-screen w-full max-w-full mx-auto flex-col items-start justify-start">
       {fetchedProfileByTag.map(({ profiles, label }, tagIndex) => (
         <Fragment key={tagsToUse[tagIndex]}>
           <div className="mt-20 first:mt-8 space-y-1 w-full">
