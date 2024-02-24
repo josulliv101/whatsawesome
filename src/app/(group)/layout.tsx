@@ -6,13 +6,11 @@ export default function Layout({
   params,
 }: PropsWithChildren<{ params: any; content: ReactNode }>) {
   return (
-    <div>
+    <>
       {/* <div>params: {JSON.stringify(content)}</div> */}
 
-      <div>
-        {content}
-        {children}
-      </div>
-    </div>
+      {content}
+      {children}
+    </>
   );
 }

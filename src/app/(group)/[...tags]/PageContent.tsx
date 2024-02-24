@@ -53,64 +53,7 @@ export default function PageContent({
     : "object-center";
   console.log("TABNAV render");
   return (
-    <main className="flex min-h-screen max-w-7xl mx-auto flex-col items-start justify-start px-4  lg:px-8 py-16 ">
-      <div className="w-full flex items-center justify-between pb-16">
-        <div className="flex items-center gap-4">
-          <TabNav activeTabId={primaryTag} hub={hub} profile={profile} />
-        </div>
-        <div className="flex items-center gap-4">
-          {/* {profile && (
-            <Button className="relative pl-5 md:pl-0 h-12" variant={"outline"}>
-              <Image
-                className="hidden md:block opacity-80 h-12 w-12 rounded-tl-sm rounded-br-sm mr-6"
-                alt={hub}
-                src={profile.pic}
-                height={64}
-                width={64}
-              />
-              <div className="flex flex-col items-start pr-4 md:pr-0">
-                <div className="text-sm">{profile.name}</div>
-                <div className="text-xs text-muted-foreground">
-                  View Profile
-                </div>
-              </div>
-              <Separator
-                orientation="vertical"
-                className="hidden md:block mx-4 h-6"
-              />
-              <div className="hidden md:flex opacity-100 px-2 py-1 pr-1 rounded-md min-w-max static bg-transparent  items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-2">
-                <Image
-                  alt="vote"
-                  src="/cute-mushroom.png"
-                  width={16}
-                  height={16}
-                />{" "}
-                78%
-              </div>
-              <Separator
-                orientation="vertical"
-                className="hidden md:block mx-4 h-6"
-              />
-              <Square className="h-5 w-5 mr-1 opacity-40" />
-            </Button>
-          )} */}
-          {primaryTag && (primaryTag as string) !== "profile" && (
-            <TagFilter
-              initialActiveTags={
-                initialActiveTags?.length ? initialActiveTags : tags
-              }
-              filterOptions={filterOptions}
-              filterId={filterId}
-              // onFilterChange={(tags: string[]) => console.log(tags)}
-              // options={tagOptions}
-              hub={hub}
-              primaryTag={primaryTag}
-              // tags={tags}
-              title={`filter ${getPlural(primaryTag)}`}
-            />
-          )}
-        </div>
-      </div>
+    <>
       {profile && (primaryTag as string) === "profile" && (
         <ProfilePageContent
           params={{ id: hub }}
@@ -127,6 +70,6 @@ export default function PageContent({
       <Suspense fallback={<LoadingSkeleton />}>
         <Profiles hub={hub} primaryTag={primaryTag} tagsToUse={tagsToUse} />
       </Suspense>
-    </main>
+    </>
   );
 }
