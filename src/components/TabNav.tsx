@@ -55,12 +55,15 @@ export default function TabNav({
 
   const router = useRouter();
 
-  const onValueChange: (val: string) => void = useCallback((val) => {
-    // setActiveTabId(val);
-    startTransition(() => updateToOptimistic(val as PrimaryTagType));
-    console.log(val);
-    !!val && router.push(`/${hub}/${val}`); // setTimeout(() => router.push(`/${hub}/${val}`), 40);
-  }, []);
+  const onValueChange: (val: string) => void = useCallback(
+    (val) => {
+      // setActiveTabId(val);
+      startTransition(() => updateToOptimistic(val as PrimaryTagType));
+      console.log(val);
+      !!val && router.push(`/${hub}/${val}`); // setTimeout(() => router.push(`/${hub}/${val}`), 40);
+    },
+    [hub]
+  );
 
   useEffect(() => {
     isPending ? disablePageStore.disable() : disablePageStore.enable();

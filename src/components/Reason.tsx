@@ -25,7 +25,8 @@ import {
   BarChart3Icon,
   BarChart2Icon,
   BarChartIcon,
-  MehIcon,
+  // MehIcon,
+  MessageCircleQuestion as MehIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -57,6 +58,7 @@ import {
 import { useState } from "react";
 import { config } from "@/lib/config";
 import { useAnalyticsContext } from "./useAnalytics";
+import { Badge } from "./ui/badge";
 
 export function Reason({
   id,
@@ -69,6 +71,7 @@ export function Reason({
   ratings: ratingsProp = {},
   isAnalytcisView,
   userId,
+  tags = [],
 }: {
   id?: string;
   description: string;
@@ -80,6 +83,7 @@ export function Reason({
   ratings?: Record<string, number>;
   isAnalytcisView?: boolean;
   userId?: string;
+  tags: string[];
 }) {
   const [isAnalyticsView_, setIsAnalyticsView] = useState(false);
   const { state: isAnalyticsView } = useAnalyticsContext();
@@ -121,6 +125,14 @@ export function Reason({
     <Card className="group relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {
         <div className=" w-full md:w-auto">
+          {isAnalyticsView && photoUrl && (
+            <img
+              className="object-cover shadow-md absolute top-[-24px] right-[-12px] rounded-full w-[80px] h-[80px]"
+              src={photoUrl}
+              width="80"
+              height="80"
+            />
+          )}
           {!userId && photoUrl && (
             <Image
               className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80"
@@ -352,16 +364,28 @@ export function Reason({
                 height={16}
               />
             </div>
-            <span>
+            <span className="hidden">
               / {roundToNearestHalf(Math.min(score, 3))} of 3 rating /
             </span>
-            <div className="pl-1 pr-8">
+            <div className="hidden pl-1 pr-8">
               {roundToInteger(totalPeople)} people
             </div>
-            <Separator
-              orientation="vertical"
-              className="h-4 bg-gray-300 hidden"
-            />
+            <div className="text-muted-foreground flex items-center gap-1.5 pl-6">
+              <ThumbsDownIcon className="h-3.5 w-3.5 text-muted-foreground relative top-px" />
+              {roundToInteger(ratings[0].value)}
+            </div>
+
+            <div className="relative top-0 left-8 flex items-center gap-2">
+              {tags.map((tag) => (
+                <Badge
+                  key={tag}
+                  className={`text-muted-foreground`}
+                  variant={"outline"}
+                >
+                  {tag}
+                </Badge>
+              ))}
+            </div>
           </div>
 
           {/* <AnalyticsDialog ratings={ratingsProp} description={description} /> */}

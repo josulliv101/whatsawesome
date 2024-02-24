@@ -27,6 +27,8 @@ import { AnalyticsContextProvider } from "@/components/useAnalytics";
 import { AnalyticsButton } from "./AnalyticsButton";
 import { AddReason } from "./AddReason";
 import { revalidatePath } from "next/cache";
+import { ReasonVisibility } from "./ReasonVisibility";
+import ReasonTagsFilter from "./ReasonTagsFilter";
 
 export default async function ProfilePageContent({
   className = "",
@@ -72,6 +74,15 @@ export default async function ProfilePageContent({
     revalidatePath(`/profile/${id}`);
   }
 
+  const allReasonTags = reasons.reduce((acc: string[], reason) => {
+    if (reason.tags) {
+      return acc.concat(reason.tags);
+    }
+    return acc;
+  }, []);
+
+  const uniqueReasonTags = [...new Set(allReasonTags)].sort();
+
   return (
     <AnalyticsContextProvider>
       <main
@@ -91,7 +102,7 @@ export default async function ProfilePageContent({
               width={220}
               height={220}
               className={cn(
-                "grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px] opacity-80 rounded-sm md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
+                " shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px] opacity-80 rounded-sm md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
                   imgPosition
               )}
             />
@@ -139,9 +150,9 @@ export default async function ProfilePageContent({
         </div>
         {/* <Separator className="mt-8" /> */}
         <div className="flex justify-start items-center mt-12 mb-0  w-full">
-          <h4 className="rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-4 w-full flex items-center justify-between">
+          <h4 className="rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
             <strong className="font-semibold">
-              What&#39;s awesome about {name}?
+              Discover what&#39;s awesome about {name}?
             </strong>
             <div className="flex items-center gap-4">
               {!user && (
@@ -166,7 +177,8 @@ export default async function ProfilePageContent({
             </div>
           </h4>
         </div>
-        <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
+        <ReasonTagsFilter tags={uniqueReasonTags} />
+        <div className="w-full grid grid-cols-[1fr] items-start gap-8 space-y-0">
           {reasons.map((reason, i) => (
             <>
               {/* {i === 5 && (
@@ -175,19 +187,22 @@ export default async function ProfilePageContent({
                   <Button variant={"secondary"}>View Now</Button>
                 </div>
               )} */}
-              <Reason
-                id={reason.id}
-                key={reason.id || reason.reason}
-                description={reason.reason}
-                name={name}
-                rating={reason.rating}
-                photoUrl={reason.photoUrl}
-                profileId={id}
-                userRating={
-                  reason.id ? userProfileRatings?.[reason.id] : undefined
-                }
-                ratings={reason.ratings}
-              />
+              <ReasonVisibility tags={reason.tags || []}>
+                <Reason
+                  id={reason.id}
+                  key={reason.id || reason.reason}
+                  description={reason.reason}
+                  name={name}
+                  rating={reason.rating}
+                  photoUrl={reason.photoUrl}
+                  profileId={id}
+                  userRating={
+                    reason.id ? userProfileRatings?.[reason.id] : undefined
+                  }
+                  ratings={reason.ratings}
+                  tags={reason.tags || []}
+                />
+              </ReasonVisibility>
             </>
           ))}
         </div>
@@ -242,6 +257,7 @@ export default async function ProfilePageContent({
                 }
                 ratings={reason.ratings}
                 userId={reason.userId}
+                tags={[]}
               />
             </>
           ))}

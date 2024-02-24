@@ -89,6 +89,7 @@ export async function fetchProfile(id: string | string[], uid?: string) {
       3: generateRandomDecimal(1, 99),
     },
     ...d.data(),
+    tags: Object.keys(d.data()?.tagMap || {}),
   })) as Profile["reasons"];
 
   return {

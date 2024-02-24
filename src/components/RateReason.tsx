@@ -19,7 +19,8 @@ import {
 import {
   ChevronDownIcon,
   CloudDrizzleIcon,
-  MehIcon,
+  // MehIcon,
+  MessageCircleQuestion as MehIcon,
   ThumbsDownIcon,
   ThumbsUpIcon,
 } from "lucide-react";
@@ -81,28 +82,28 @@ export default function RateReason({
         >
           {typeof userRating === "undefined" && "Rate This"}
           {userRating === 3 && (
-            <div className="flex flex-row items-center justify-center  basis-20 gap-2 ml-0">
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
+            <div className="flex flex-row items-center justify-center  basis-20 gap-1 ml-0">
+              <Image alt="vote" src={config.logoPath} width={14} height={14} />
+              <Image alt="vote" src={config.logoPath} width={14} height={14} />
+              <Image alt="vote" src={config.logoPath} width={14} height={14} />
             </div>
           )}
           {userRating === 2 && (
-            <div className="flex flex-row items-center justify-center  basis-20 gap-2 ml-0">
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
+            <div className="flex flex-row items-center justify-center  basis-20 gap-1 ml-0">
+              <Image alt="vote" src={config.logoPath} width={14} height={14} />
+              <Image alt="vote" src={config.logoPath} width={14} height={14} />
             </div>
           )}
           {userRating === 1 && (
             <div className="grayscale flex flex-row items-center justify-center  basis-20 gap-2 ml-0">
-              <Image alt="vote" src={config.logoPath} width={18} height={18} />
+              <Image alt="vote" src={config.logoPath} width={14} height={14} />
             </div>
           )}
           {userRating === 0 && (
-            <MehIcon className="h-5 w-5 text-muted-foreground ml-0" />
+            <MehIcon className="h-3.5 w-3.5 text-muted-foreground ml-0" />
           )}
           {userRating === -1 && (
-            <ThumbsDownIcon className="h-5 w-5 text-muted-foreground ml-0" />
+            <ThumbsDownIcon className="h-3.5 w-3.5 text-muted-foreground ml-0" />
           )}
           <ChevronDownIcon className="flex-1 ml-2 h-4 w-4 min-w-4 min-h-4 text-muted-foreground" />
         </Button>

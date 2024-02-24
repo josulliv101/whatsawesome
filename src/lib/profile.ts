@@ -10,6 +10,7 @@ const reasonSchema = z.object({
   ratings: z.record(z.string(), z.number()).optional(),
   isUserSubmission: z.boolean().optional(),
   userId: z.string().optional(),
+  tags: z.array(z.string()).optional(),
 });
 
 export const profileSchema = z.object({
