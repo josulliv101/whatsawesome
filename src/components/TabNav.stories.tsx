@@ -19,8 +19,5 @@ type Story = StoryObj<typeof meta>;
 // export const Home: Story = {};
 
 export const Default: Story = {
-  args: {
-    activeTabId: "person",
-    hub: "boston",
-  },
+  args: {},
 };
