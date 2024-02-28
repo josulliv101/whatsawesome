@@ -22,6 +22,8 @@ export let all: FilterType = {
     nature: 10,
     museum: 3,
     city: 20,
+    hotel: 30,
+    nonprofit: 40,
   },
 };
 

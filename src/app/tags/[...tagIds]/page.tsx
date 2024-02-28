@@ -54,7 +54,10 @@ export default async function Page({
       <h2 className="text-3xl mb-12">{tagIds.join(" / ")}</h2>
       <div className="flex flex-col gap-4">
         {data.map((reason) => (
-          <div className="bg-muted text-muted-foreground px-2 pb-2 rounded-md border">
+          <div
+            key={reason.id}
+            className="bg-muted text-muted-foreground px-2 pb-2 rounded-md border"
+          >
             <div className="px-4 py-4 flex items-center justify-start">
               {reason.parentId}
             </div>

@@ -60,7 +60,7 @@ export default async function Layout({ children }: PropsWithChildren) {
       <div className="flex_ hidden flex-row flex-wrap gap-4 px-4 py-6 lg:px-8 lg:py-12">
         places:{" "}
         {tags.sort().map((tag) => (
-          <Button size="sm" asChild>
+          <Button key={tag} size="sm" asChild>
             <Link href={`/tags/${tag}`}>{tag}</Link>
           </Button>
         ))}
@@ -68,7 +68,7 @@ export default async function Layout({ children }: PropsWithChildren) {
       <div className="flex_ hidden flex-row flex-wrap gap-4 px-4 py-6 lg:px-8 lg:py-12">
         people:{" "}
         {peopleTags.sort().map((tag) => (
-          <Button size="sm" asChild>
+          <Button key={tag} size="sm" asChild>
             <Link href={`/tags/${tag}`}>{tag}</Link>
           </Button>
         ))}
