@@ -12,7 +12,7 @@ export function ReasonVisibility({
   const [tag] = activeTags;
 
   if (!tag || tag === "all" || tags.includes(tag)) {
-    return <div>{children}</div>;
+    return <div className="animate-fadeIn">{children}</div>;
   }
   return null;
 }

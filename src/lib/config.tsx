@@ -1,6 +1,7 @@
 import { PrimaryTagType } from "./tags";
 
 export const config = {
+  org: "blue mushroom",
   logoPath: "/cute-mushroom-blue.png",
   maxNumberOfProfilesInRow: 8,
   totalPaginationProfiles: 20,
@@ -9,7 +10,7 @@ export const config = {
   defaultPrimaryTag: "person",
   defaultHubTags: {
     person: ["musician", "sports", "comedian"],
-    place: ["city", "museum", "nature"],
+    place: ["museum", "business", "nature", "college"],
   },
 } as const;
 

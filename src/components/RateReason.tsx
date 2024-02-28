@@ -17,10 +17,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import {
+  BanIcon,
   ChevronDownIcon,
   CloudDrizzleIcon,
-  // MehIcon,
-  MessageCircleQuestion as MehIcon,
+  MehIcon,
+  // MessageCircleQuestion as MehIcon,
   ThumbsDownIcon,
   ThumbsUpIcon,
 } from "lucide-react";
@@ -108,7 +109,10 @@ export default function RateReason({
           <ChevronDownIcon className="flex-1 ml-2 h-4 w-4 min-w-4 min-h-4 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 w-[360px] " align="end">
+      <PopoverContent className="p-0 w-[410px] " align="end">
+        <div className="bg-muted text-muted-foreground p-4">
+          What was your experience?
+        </div>
         <Command>
           {/* <CommandInput placeholder="Select new role..." /> */}
           <CommandList>
@@ -139,14 +143,14 @@ export default function RateReason({
                     height={18}
                   />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
+                <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
                   <p className="hidden">I strongly agree.</p>
-                  <p className="text-sm text-muted-foreground">
-                    This is a major factor that adds to the overall awesomeness.
+                  <p className="text-lg text-muted-foreground">
+                    This was a major factor that added to the overall
+                    excellence.
                   </p>
                 </div>
               </CommandItem>
-
               <CommandItem
                 value="2"
                 onSelect={handleSelect}
@@ -166,20 +170,19 @@ export default function RateReason({
                     height={18}
                   />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
+                <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
                   <p className="hidden">I agree.</p>
-                  <p className="text-sm text-muted-foreground">
-                    This adds something to the overall awesomeness.
+                  <p className="text-lg text-muted-foreground">
+                    This added a good amount to the overall excellence.
                   </p>
                 </div>
               </CommandItem>
-
               <CommandItem
                 value="1"
                 onSelect={handleSelect}
                 className="teamaspace-y-1 flex items-center gap-0"
               >
-                <div className="grayscale flex flex-row items-center justify-center basis-20 gap-2 ml-0">
+                <div className="grayscale_ flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -187,13 +190,38 @@ export default function RateReason({
                     height={18}
                   />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-5  gap-0.5">
+                <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
                   <p className="hidden">Yeah but...</p>
-                  <p className="text-sm text-muted-foreground">
-                    Accurate but does not contribute to the overall awesomeness.
+                  <p className="text-lg text-muted-foreground">
+                    This was a minor factor that added to the overall
+                    excellence.
                   </p>
                 </div>
               </CommandItem>
+              <CommandItem
+                value="-1"
+                onSelect={handleSelect}
+                className="teamaspace-y-1 flex items-center gap-0"
+              >
+                <div className="rotate-180_ grayscale_ flex flex-row items-center justify-center basis-20 gap-2 ml-0">
+                  <div className="relative">
+                    <Image
+                      alt="vote"
+                      src={config.logoPath}
+                      width={18}
+                      height={18}
+                      className="grayscale opacity-50"
+                    />
+                    <BanIcon className="text-gray-500 opacity-60 h-8 w-8 text-muted-foreground ml-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                  </div>
+                </div>
+                <div className="flex flex-col flex-1 items-start px-4 py-3.5 gap-0.5">
+                  <p className="hidden">I disagree.</p>
+                  <p className="text-lg text-muted-foreground">
+                    This did not contribute to the overall excellence.
+                  </p>
+                </div>
+              </CommandItem>{" "}
               <CommandItem
                 value="0"
                 onSelect={handleSelect}
@@ -202,26 +230,10 @@ export default function RateReason({
                 <div className="flex flex-row items-center justify-center basis-20 gap-2 ml-0">
                   <MehIcon className="h-5 w-5 text-muted-foreground ml-0" />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-5 gap-0.5">
+                <div className="flex flex-col flex-1 items-start px-4 py-3.5 gap-0.5">
                   <p className="hidden">I do not know.</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     I have no experience with this.
-                  </p>
-                </div>
-              </CommandItem>
-
-              <CommandItem
-                value="-1"
-                onSelect={handleSelect}
-                className="teamaspace-y-1 flex items-center gap-0"
-              >
-                <div className="flex flex-row items-center justify-center basis-20 gap-2 ml-0">
-                  <ThumbsDownIcon className="h-5 w-5 text-muted-foreground ml-0" />
-                </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-5 gap-0.5">
-                  <p className="hidden">I disagree.</p>
-                  <p className="text-sm text-muted-foreground">
-                    This statement is not accurate.
                   </p>
                 </div>
               </CommandItem>

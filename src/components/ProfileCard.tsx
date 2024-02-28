@@ -40,7 +40,7 @@ export default function ProfileCard({
   return (
     <HubLink hub={profile.id} href={href}>
       <div className={cn("space-y-4 group", className)} {...props}>
-        <div className="relative overflow-hidden rounded-md bg-blue-500">
+        <div className="relative overflow-hidden rounded-md bg-gray-200 border">
           <Image
             priority
             src={profile.pic}
@@ -79,7 +79,7 @@ export default function ProfileCard({
         </div>
         <h3 className="relative font-medium leading-normal pb-2 text-sm text-center text-balance">
           {profile.name}
-          <Rating value={roundToInteger(profile.rating || profile.oinks)} />
+          {/* <Rating value={roundToInteger(profile.rating || profile.oinks)} /> */}
         </h3>
       </div>
     </HubLink>

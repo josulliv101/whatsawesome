@@ -80,7 +80,7 @@ export async function fetchProfile(id: string | string[], uid?: string) {
   const qSnap = await getDocs(subColRef);
   const reasons = qSnap.docs.map((d) => ({
     id: d.id,
-    rating: generateRandomDecimal(1, 5),
+    rating: generateRandomDecimal(0, 3),
     ratings: d.data().ratings || {
       "-1": generateRandomDecimal(1, 99),
       0: generateRandomDecimal(1, 99),
@@ -94,7 +94,7 @@ export async function fetchProfile(id: string | string[], uid?: string) {
 
   return {
     ...(data as Profile),
-    tags: Object.keys(tagMap),
+    tags: Object.keys(tagMap || {}),
     id: docSnap.id,
     reasons: reasons.filter((item) => !item.userId),
     reasonsUser: reasons.filter((item) => !!item.userId),
@@ -174,7 +174,7 @@ export async function fetchHubProfiles(
 
   const args = [
     collection(db, "entity"),
-    where("oinks", ">", 0),
+    // where("oinks", ">", 0),
     ...queryHub,
     where(`tagMap.${primaryTag}`, "==", true),
     ...queryTags,

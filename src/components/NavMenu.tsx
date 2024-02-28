@@ -54,7 +54,7 @@ const components: {
   },
   {
     title: "By Tag",
-    href: "/boston/place/museum",
+    href: "/tags",
     description: "Explore by mixing and matching tags.",
   },
   {
@@ -125,9 +125,7 @@ export default function NavMenu({
                   {!isRootHub(hub) && (
                     <NetworkIcon className="h-3.5 w-3.5 text-gray-100 dark:text-gray-900" />
                   )}
-                  {!isRootHub(hub)
-                    ? tags[0].replace(/[-]/g, " ")
-                    : "whats awesome"}
+                  {!isRootHub(hub) ? tags[0].replace(/[-]/g, " ") : config.org}
                 </span>
               </HubLink>
             </Badge>

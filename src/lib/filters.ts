@@ -10,15 +10,18 @@ export type FilterOptions = Array<{
 
 export let all: FilterType = {
   person: {
-    comedian: -1,
+    comedian: 3,
     sports: 1,
     musician: 2,
   },
   place: {
-    college: -2,
-    nature: -1,
-    museum: 2,
-    city: 3,
+    restaurant: 4,
+    technology: 2,
+    brand: 1,
+    college: 4,
+    nature: 10,
+    museum: 3,
+    city: 20,
   },
 };
 

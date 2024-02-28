@@ -27,6 +27,7 @@ import {
   BarChartIcon,
   // MehIcon,
   MessageCircleQuestion as MehIcon,
+  BanIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -55,24 +56,26 @@ import {
   roundToInteger,
   roundToNearestHalf,
 } from "@/lib/utils";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { config } from "@/lib/config";
 import { useAnalyticsContext } from "./useAnalytics";
 import { Badge } from "./ui/badge";
+import Link from "next/link";
 
 export function Reason({
   id,
   description,
   name,
   rating,
-  photoUrl,
+  photoUrl: photoUrlProp,
   profileId,
   userRating,
   ratings: ratingsProp = {},
   isAnalytcisView,
   userId,
   tags = [],
-}: {
+  children,
+}: PropsWithChildren<{
   id?: string;
   description: string;
   name: string;
@@ -84,7 +87,9 @@ export function Reason({
   isAnalytcisView?: boolean;
   userId?: string;
   tags: string[];
-}) {
+}>) {
+  const photoUrl = photoUrlProp || config.logoPath;
+  const isDefaultImage = !photoUrlProp;
   const [isAnalyticsView_, setIsAnalyticsView] = useState(false);
   const { state: isAnalyticsView } = useAnalyticsContext();
 
@@ -125,9 +130,9 @@ export function Reason({
     <Card className="group relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {
         <div className=" w-full md:w-auto">
-          {isAnalyticsView && photoUrl && (
+          {isAnalyticsView && photoUrl && !isDefaultImage && (
             <img
-              className="object-cover shadow-md absolute top-[-24px] right-[-12px] rounded-full w-[80px] h-[80px]"
+              className="object-cover shadow-md absolute top-[-18px] right-[-6px] rounded-md w-[68px] h-[68px]"
               src={photoUrl}
               width="80"
               height="80"
@@ -135,11 +140,14 @@ export function Reason({
           )}
           {!userId && photoUrl && (
             <Image
-              className="grayscale__ hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80"
+              className={`${isDefaultImage ? "grayscale opacity-5 bg-gray-500 object-contain" : ""} hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80`}
               width="180"
               height="135"
               src={photoUrl}
               alt=""
+              style={{
+                padding: isDefaultImage ? "4rem" : "",
+              }}
             />
           )}
           {userId && (
@@ -346,45 +354,156 @@ export function Reason({
             </div>
             <span className="pr-2 hidden">/</span>
             <div className="flex items-center gap-0.5 pl-0">
-              {[...new Array(roundToInteger(Math.min(score, 3)))].map(
-                (_, i) => (
+              {/* {[...new Array(Math.floor(rating))].map((_, i) => (
+                <Image
+                  key={i}
+                  alt="vote"
+                  src={config.logoPath}
+                  width={24}
+                  height={24}
+                />
+              ))}
+              {rating % 1 > 0.25 && rating % 1 < 0.75 && (
+                <Image
+                  alt="vote"
+                  src={"/cute-mushroom-blue-half2.png"}
+                  width={24}
+                  height={24}
+                />
+              )} */}
+              {rating < 0.249 && (
+                <div className="relative mr-2">
                   <Image
-                    key={i}
                     alt="vote"
                     src={config.logoPath}
-                    width={16}
-                    height={16}
+                    width={18}
+                    height={18}
+                    className="grayscale opacity-50"
                   />
-                )
+                  <BanIcon className="text-gray-500 opacity-60 h-8 w-8 text-muted-foreground ml-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                </div>
               )}
-              <Image
-                alt="vote"
-                src={"/cute-mushroom-blue-half2.png"}
-                width={16}
-                height={16}
-              />
+
+              {rating > 0.249 && rating < 0.749 && (
+                <Image
+                  alt="vote"
+                  src={"/cute-mushroom-blue-half2.png"}
+                  width={24}
+                  height={24}
+                />
+              )}
+
+              {rating > 0.749 && rating < 1.249 && (
+                <Image
+                  // key={i}
+                  alt="vote"
+                  src={config.logoPath}
+                  width={24}
+                  height={24}
+                />
+              )}
+              {rating > 1.249 && rating < 1.749 && (
+                <>
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    alt="vote"
+                    src={"/cute-mushroom-blue-half2.png"}
+                    width={24}
+                    height={24}
+                  />
+                </>
+              )}
+              {rating > 1.749 && rating < 2.249 && (
+                <>
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                </>
+              )}
+              {rating > 2.249 && rating < 2.749 && (
+                <>
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    alt="vote"
+                    src={"/cute-mushroom-blue-half2.png"}
+                    width={24}
+                    height={24}
+                  />
+                </>
+              )}
+              {rating > 2.749 && (
+                <>
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                  />
+                </>
+              )}
             </div>
-            <span className="hidden">
-              / {roundToNearestHalf(Math.min(score, 3))} of 3 rating /
+            <span className="px-3">/</span>
+            <span className="pl-0">
+              {rating < 0.249 && "no factor"}
+              {rating > 0.249 && rating < 0.749 && "barely a factor"}
+              {rating > 0.749 && rating < 1.249 && "small factor"}
+              {rating > 1.249 && rating < 1.749 && "fairly big factor"}
+              {rating > 1.749 && rating < 2.249 && "big factor"}
+              {rating > 2.249 && rating < 2.749 && "very big factor"}
+              {rating > 2.749 && "huge factor"}{" "}
+              {isAnalyticsView && ` / average of ${rating} from 99 responses)`}
             </span>
             <div className="hidden pl-1 pr-8">
               {roundToInteger(totalPeople)} people
             </div>
-            <div className="text-muted-foreground flex items-center gap-1.5 pl-6">
+            <div className="hidden text-muted-foreground _flex items-center gap-1.5 pl-6">
               <ThumbsDownIcon className="h-3.5 w-3.5 text-muted-foreground relative top-px" />
               {roundToInteger(ratings[0].value)}
-            </div>
-
-            <div className="relative top-0 left-8 flex items-center gap-2">
-              {tags.map((tag) => (
-                <Badge
-                  key={tag}
-                  className={`text-muted-foreground`}
-                  variant={"outline"}
-                >
-                  {tag}
-                </Badge>
-              ))}
             </div>
           </div>
 
@@ -401,6 +520,19 @@ export function Reason({
             20k
           </div>
         </div> */}
+        <div className="absolute top-1 right-1 flex items-center gap-2">
+          {tags.map((tag) => (
+            <Button
+              key={tag}
+              className={`text-muted-foreground rounded-full`}
+              variant={"ghost"}
+              size="sm"
+              asChild
+            >
+              <Link href={`/tags/${tag}`}>#{tag}</Link>
+            </Button>
+          ))}
+        </div>
       </CardContent>
     </Card>
   );

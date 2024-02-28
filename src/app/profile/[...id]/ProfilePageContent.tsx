@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BarChart2Icon, Globe } from "lucide-react";
+import { BarChart2Icon, Globe, StarIcon } from "lucide-react";
 import {
   addReasonToProfile,
   fetchProfile,
@@ -94,7 +94,7 @@ export default async function ProfilePageContent({
         {/* <div className="hidden lg:block absolute z-0 bg-blue-50 h-[300px] w-[200%] top-0 left-[-400px]"></div> */}
         <ProfileEditButton className="absolute top-0 right-8" />
         <div className="relative md:max-h-[200px] flex flex-col md:flex-row items-start gap-8 mb-6 animate-vflip__">
-          <div className="relative w-full md:w-auto md:flex-initial bg-blue-800">
+          <div className="relative w-full md:w-auto md:flex-initial bg-gray-400">
             <Image
               priority
               src={pic}
@@ -110,16 +110,22 @@ export default async function ProfilePageContent({
           <PageHeading
             className="pl-8"
             heading={
-              <div className="flex flex-col items-start gap-4 pt-1">
-                <Heading className="mb-0">{name}</Heading>
+              <div className="flex flex-col items-start gap-4 pt-8">
+                <Heading className="mb-4">{name}</Heading>
                 <span className="hidden text-2xl ml-2 mt-[-6px]">/</span>
-                <div className="opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex items-center flex-nowrap text-nowrap whitespace-nowrap text-lg gap-3">
+                <div className="hidden opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex_ items-center flex-nowrap text-nowrap whitespace-nowrap text-lg gap-3">
                   <Image
                     alt="vote"
                     src={config.logoPath}
                     width={24}
                     height={24}
                   />
+                  {/* <div className="absolute top-[3px] left-[10px] border-none bg-transparent ">
+                    <StarIcon className="scale-120 h-3 w-3  fill-white stroke-white stroke-2" />
+                  </div>
+                  <div className="opacity-100 absolute top-[2px] left-[11px] border-none bg-transparent ">
+                    <StarIcon className="h-3 w-3  fill-yellow-300 stroke-2" />
+                  </div> */}
                   {roundToInteger(rating)}% awesome
                   <span className="text-muted-foreground text-sm">
                     [ what&#39;s this rating? ]
@@ -129,7 +135,7 @@ export default async function ProfilePageContent({
             }
             subhead={description}
           >
-            <div className="flex gap-2 mt-6">
+            <div className="flex_ gap-2 mt-6 hidden">
               {tags
                 .sort()
                 .filter((tag) => !tagDefinitions.all.children.includes(tag))
@@ -152,7 +158,7 @@ export default async function ProfilePageContent({
         <div className="flex justify-start items-center mt-12 mb-0  w-full">
           <h4 className="rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
             <strong className="font-semibold">
-              Discover what&#39;s awesome about {name}?
+              What contributes to {name}'s excellence?
             </strong>
             <div className="flex items-center gap-4">
               {!user && (
@@ -194,7 +200,7 @@ export default async function ProfilePageContent({
                   description={reason.reason}
                   name={name}
                   rating={reason.rating}
-                  photoUrl={reason.photoUrl}
+                  photoUrl={reason.photoUrl || pic}
                   profileId={id}
                   userRating={
                     reason.id ? userProfileRatings?.[reason.id] : undefined

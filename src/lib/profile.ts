@@ -11,6 +11,7 @@ const reasonSchema = z.object({
   isUserSubmission: z.boolean().optional(),
   userId: z.string().optional(),
   tags: z.array(z.string()).optional(),
+  parentId: z.string().optional(),
 });
 
 export const profileSchema = z.object({

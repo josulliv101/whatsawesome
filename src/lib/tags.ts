@@ -3,15 +3,15 @@ import { config } from "./config";
 export type PrimaryTagType = "person" | "place";
 
 export const tags: Array<string> = [
-  "person",
-  "place",
+  //"person",
+  //"place",
   "sports",
   "comedian",
   "musician",
   "museum",
   "nature",
   "college",
-  "city",
+  //"city",
 ];
 
 export const tagDefinitions: Record<string, any> = {
@@ -26,7 +26,14 @@ export const tagDefinitions: Record<string, any> = {
   place: {
     plural: "places",
     parentTag: "all",
-    children: ["museum", "nature", "college", "city", "restaurant"],
+    children: [
+      "museum",
+      "brand",
+      "nature",
+      "college",
+      "restaurant",
+      "technology",
+    ],
   },
   profile: {
     plural: "profiles",
@@ -43,6 +50,8 @@ export const tagDefinitions: Record<string, any> = {
   college: { plural: "colleges", parentTag: "place" },
   city: { plural: "cities", parentTag: "place" },
   restaurant: { plural: "restaurants", parentTag: "place" },
+  technology: { plural: "technology", parentTag: "place" },
+  brand: { plural: "brands", parentTag: "place" },
 };
 
 export const getPrimaryTags = () => {
