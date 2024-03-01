@@ -5,7 +5,7 @@ import {
   fetchProfile,
   fetchUserRatingsForProfile,
 } from "@/lib/firebase";
-import { cn, roundToInteger } from "@/lib/utils";
+import { cn, roundToDecimal, roundToInteger } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tagDefinitions } from "@/lib/tags";
@@ -110,26 +110,34 @@ export default async function ProfilePageContent({
           <PageHeading
             className="pl-8"
             heading={
-              <div className="flex flex-col items-start gap-4 pt-8">
-                <Heading className="mb-4">{name}</Heading>
+              <div className="flex flex-col items-start gap-4 pt-8 mb-2">
+                <Heading className="mb-2">{name}</Heading>
                 <span className="hidden text-2xl ml-2 mt-[-6px]">/</span>
-                <div className="hidden opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex_ items-center flex-nowrap text-nowrap whitespace-nowrap text-lg gap-3">
-                  <Image
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                  />
+                <div className="flex_ hidden items-flex text-muted-foreground opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex_ items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-3">
+                  <div className="flex gap-1">
+                    <Image
+                      alt="vote"
+                      src={config.logoPath}
+                      width={36}
+                      height={36}
+                    />
+                    <Image
+                      alt="vote"
+                      src={config.logoPath}
+                      width={36}
+                      height={36}
+                    />
+                  </div>
                   {/* <div className="absolute top-[3px] left-[10px] border-none bg-transparent ">
                     <StarIcon className="scale-120 h-3 w-3  fill-white stroke-white stroke-2" />
                   </div>
                   <div className="opacity-100 absolute top-[2px] left-[11px] border-none bg-transparent ">
                     <StarIcon className="h-3 w-3  fill-yellow-300 stroke-2" />
-                  </div> */}
-                  {roundToInteger(rating)}% awesome
-                  <span className="text-muted-foreground text-sm">
-                    [ what&#39;s this rating? ]
+                  </div> */}{" "}
+                  <span className="px-2.5 ml-2 bg-gray-200/60 rounded-sm py-1">
+                    overall excellence 2.4
                   </span>
+                  <span className="text-inherit"></span>
                 </div>
               </div>
             }
@@ -200,7 +208,7 @@ export default async function ProfilePageContent({
                   description={reason.reason}
                   name={name}
                   rating={reason.rating}
-                  photoUrl={reason.photoUrl || pic}
+                  photoUrl={reason.photoUrl}
                   profileId={id}
                   userRating={
                     reason.id ? userProfileRatings?.[reason.id] : undefined

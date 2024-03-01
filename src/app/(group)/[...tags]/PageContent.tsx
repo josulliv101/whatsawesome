@@ -64,7 +64,7 @@ export default function PageContent({
 
       {(primaryTag as string) !== "profile" && (
         <PageHeading
-          heading={`Discover & celebrate excellence.`} // what's awesome about ${tagDefinitions[primaryTag]?.plural}${profile && hub !== "all" ? ` in ${profile.name}` : ""}
+          heading={`Discover excellence.`} // what's awesome about ${tagDefinitions[primaryTag]?.plural}${profile && hub !== "all" ? ` in ${profile.name}` : ""}
           subhead="Inclusion in the blue mushroom catalog is by invitation only. There's no fee, it's free." // on what&#39;s awesome
         />
       )}

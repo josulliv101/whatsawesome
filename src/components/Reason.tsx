@@ -75,6 +75,7 @@ export function Reason({
   userId,
   tags = [],
   children,
+  isForceRatingToShow,
 }: PropsWithChildren<{
   id?: string;
   description: string;
@@ -87,8 +88,9 @@ export function Reason({
   isAnalytcisView?: boolean;
   userId?: string;
   tags: string[];
+  isForceRatingToShow?: boolean;
 }>) {
-  const photoUrl = photoUrlProp || config.logoPath;
+  const photoUrl = photoUrlProp; // || config.logoPath;
   const isDefaultImage = !photoUrlProp;
   const [isAnalyticsView_, setIsAnalyticsView] = useState(false);
   const { state: isAnalyticsView } = useAnalyticsContext();
@@ -324,18 +326,24 @@ export function Reason({
           </div>
         </div>
         <div className="absolute bottom-2 right-8">
-          {id && (
+          {id && !isAnalyticsView && (
             <RateReason
               profileId={profileId}
               reasonId={id}
               userRating={userRating}
+              tag={tags[0]}
             />
           )}
         </div>
         <div
           className={` absolute bottom-4 right-[144px]- ${!isAnalyticsView && !photoUrl && !userId ? "left-[60px]" : "left-[284px]"} transition-all duration-500 hidden_ group-hover:block`}
         >
-          <div className="flex items-center flex-row space-x-0 text-sm text-muted-foreground">
+          {!isAnalyticsView && (
+            <span className="text-muted-foreground">{`${rating} / 3`}</span>
+          )}
+          <div
+            className={`${isAnalyticsView || isForceRatingToShow ? "flex" : "hidden"} items-center flex-row space-x-0 text-sm text-muted-foreground`}
+          >
             {/* <Button
               onClick={() => setIsAnalyticsView(!isAnalyticsView)}
               className="flex items-center font-normal mr-2"
@@ -380,7 +388,7 @@ export function Reason({
                     height={18}
                     className="grayscale opacity-50"
                   />
-                  <BanIcon className="text-gray-500 opacity-60 h-8 w-8 text-muted-foreground ml-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                  <BanIcon className="text-gray-400 opacity-60 h-8 w-8 text-muted-foreground ml-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                 </div>
               )}
 
@@ -489,13 +497,13 @@ export function Reason({
             </div>
             <span className="px-3">/</span>
             <span className="pl-0">
-              {rating < 0.249 && "no factor"}
+              {rating < 0.249 && "not a factor"}
               {rating > 0.249 && rating < 0.749 && "barely a factor"}
               {rating > 0.749 && rating < 1.249 && "small factor"}
               {rating > 1.249 && rating < 1.749 && "fairly big factor"}
               {rating > 1.749 && rating < 2.249 && "big factor"}
               {rating > 2.249 && rating < 2.749 && "very big factor"}
-              {rating > 2.749 && "huge factor"}{" "}
+              {rating > 2.749 && "huge factor"} in overall excellence
               {isAnalyticsView && ` / average of ${rating} from 99 responses)`}
             </span>
             <div className="hidden pl-1 pr-8">
@@ -520,7 +528,7 @@ export function Reason({
             20k
           </div>
         </div> */}
-        <div className="absolute top-1 right-1 flex items-center gap-2">
+        <div className="absolute top-1 right-20 flex items-center gap-2">
           {tags.map((tag) => (
             <Button
               key={tag}

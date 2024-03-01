@@ -39,6 +39,7 @@ import { tags } from "@/lib/tags";
 import { addProfile } from "@/lib/firebase";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import TagDialog from "./TagDialog";
 
 const OPTIONS: Option[] = tags.map((tag) => ({
   label: tag,
@@ -78,6 +79,7 @@ export const profileFormSchema = z.object({
       id: z.string().optional(),
       reason: z.string(),
       votes: z.number(),
+      tagMap: z.record(z.boolean()).optional(),
     })
   ),
 });
@@ -113,6 +115,10 @@ export function ProfileForm({ addProfile, profile }: any) {
     control: form.control,
     // keyName: "value",
   });
+
+  const handleTagEdit = (d: any) => {
+    console.log("handleTagEdit", d);
+  };
 
   async function onSubmit(data: ProfileFormValues) {
     await addProfile(data);
@@ -296,7 +302,7 @@ export function ProfileForm({ addProfile, profile }: any) {
                     </FormDescription>
                     <FormControl>
                       <div className="flex w-full items-center space-x-2">
-                        <Input {...field} className="" />
+                        <Textarea {...field} className="" />
                         <Button
                           id={String(index)}
                           onClick={(ev) => {
@@ -307,6 +313,12 @@ export function ProfileForm({ addProfile, profile }: any) {
                         >
                           delete
                         </Button>
+                        <TagDialog
+                          profileId={profile.id}
+                          reasonId={fields[index].id}
+                          options={OPTIONS}
+                          tags={Object.keys(fields[index].tagMap || {})}
+                        />
                       </div>
                     </FormControl>
                     <FormMessage />

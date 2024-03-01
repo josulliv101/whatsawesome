@@ -35,6 +35,7 @@ export const tagDefinitions: Record<string, any> = {
       "technology",
       "hotel",
       "nonprofit",
+      "movie",
     ],
   },
   profile: {
@@ -50,12 +51,13 @@ export const tagDefinitions: Record<string, any> = {
   museum: { plural: "museums", parentTag: "place" },
   nature: { parentTag: "place" },
   college: { plural: "colleges", parentTag: "place" },
-  city: { plural: "cities", parentTag: "place" },
+  city: { plural: "locales", parentTag: "place" },
   restaurant: { plural: "restaurants", parentTag: "place" },
-  technology: { plural: "technology", parentTag: "place" },
+  technology: { plural: "tech companies", parentTag: "place" },
   brand: { plural: "brands", parentTag: "place" },
   hotel: { plural: "hotels", parentTag: "place" },
-  nonprofit: { plural: "nonprofits", parentTag: "place" },
+  nonprofit: { plural: "non-profits", parentTag: "place" },
+  movie: { plural: "movies", parentTag: "place" },
 };
 
 export const getPrimaryTags = () => {

@@ -16,11 +16,11 @@ export function AnalyticsButton({ className }: { className?: string }) {
       <Button
         variant={state ? "default" : "secondary"}
         size="sm"
-        className=""
+        className={state ? "text-primary-foreground" : "text-muted-foreground"}
         onClick={() => setState && setState(!state)}
       >
-        <BarChart2Icon className="mr-1 h-4 w-4" />
-        <span className="sr-only">View Analytics</span>
+        <BarChart2Icon className="mr-2 h-4 w-4" />
+        <span className="sr-only_">View Analytics</span>
       </Button>
     </>
   );

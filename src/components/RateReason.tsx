@@ -36,12 +36,14 @@ export default function RateReason({
   reasonId,
   profileId,
   userRating: initialUserRating,
+  tag,
   // onRatingOptionSelected,
 }: PropsWithChildren<{
   className?: string;
   reasonId: string;
   profileId: string;
   userRating?: number;
+  tag?: string;
   // onRatingOptionSelected?: (val: number) => void;
 }>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +83,7 @@ export default function RateReason({
           className={`ml-auto text-muted-foreground ${className}`}
           onClick={() => setIsOpen(true)}
         >
-          {typeof userRating === "undefined" && "Rate This"}
+          {typeof userRating === "undefined" && `Rate`}
           {userRating === 3 && (
             <div className="flex flex-row items-center justify-center  basis-20 gap-1 ml-0">
               <Image alt="vote" src={config.logoPath} width={14} height={14} />
@@ -109,9 +111,10 @@ export default function RateReason({
           <ChevronDownIcon className="flex-1 ml-2 h-4 w-4 min-w-4 min-h-4 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 w-[410px] " align="end">
-        <div className="bg-muted text-muted-foreground p-4">
-          What was your experience?
+      <PopoverContent className="p-0 w-[230px] " align="end">
+        <div className="bg-primary text-primary-foreground font-semibold text-sm px-6 py-4">
+          <div className="mb-0.5">Level of Excellence</div>
+          {tag && <div className="text-sm opacity-80 font-normal">#{tag}</div>}
         </div>
         <Command>
           {/* <CommandInput placeholder="Select new role..." /> */}
@@ -146,8 +149,9 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
                   <p className="hidden">I strongly agree.</p>
                   <p className="text-lg text-muted-foreground">
-                    This was a major factor that added to the overall
-                    excellence.
+                    {/* This was a major factor that added to the overall
+                    excellence. */}
+                    High
                   </p>
                 </div>
               </CommandItem>
@@ -173,7 +177,8 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
                   <p className="hidden">I agree.</p>
                   <p className="text-lg text-muted-foreground">
-                    This added a good amount to the overall excellence.
+                    {/* This added a good amount to the overall excellence. */}
+                    medium
                   </p>
                 </div>
               </CommandItem>
@@ -193,8 +198,9 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
                   <p className="hidden">Yeah but...</p>
                   <p className="text-lg text-muted-foreground">
-                    This was a minor factor that added to the overall
-                    excellence.
+                    {/* This was a minor factor that added to the overall
+                    excellence. */}
+                    low
                   </p>
                 </div>
               </CommandItem>
@@ -218,22 +224,23 @@ export default function RateReason({
                 <div className="flex flex-col flex-1 items-start px-4 py-3.5 gap-0.5">
                   <p className="hidden">I disagree.</p>
                   <p className="text-lg text-muted-foreground">
-                    This did not contribute to the overall excellence.
+                    {/* This did not contribute to the overall excellence. */}
+                    none
                   </p>
                 </div>
               </CommandItem>{" "}
               <CommandItem
                 value="0"
                 onSelect={handleSelect}
-                className="teamaspace-y-1 flex items-center gap-0"
+                className="teamaspace-y-1 flex items-center gap-0 hidden"
               >
                 <div className="flex flex-row items-center justify-center basis-20 gap-2 ml-0">
-                  <MehIcon className="h-5 w-5 text-muted-foreground ml-0" />
+                  <ThumbsDownIcon className="h-5 w-5 text-muted-foreground ml-0" />
                 </div>
                 <div className="flex flex-col flex-1 items-start px-4 py-3.5 gap-0.5">
                   <p className="hidden">I do not know.</p>
                   <p className="text-lg text-muted-foreground">
-                    I have no experience with this.
+                    {/* I have no experience with this. */}I disagree.
                   </p>
                 </div>
               </CommandItem>

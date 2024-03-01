@@ -15,15 +15,16 @@ export let all: FilterType = {
     musician: 2,
   },
   place: {
-    restaurant: 4,
+    restaurant: 6,
     technology: 2,
-    brand: 1,
-    college: 4,
-    nature: 10,
+    brand: 50,
+    college: 8,
+    nature: 60,
     museum: 3,
-    city: 20,
+    city: -20,
     hotel: 30,
-    nonprofit: 40,
+    movie: 40,
+    nonprofit: 7,
   },
 };
 

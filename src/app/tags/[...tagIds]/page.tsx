@@ -1,5 +1,5 @@
 import { Reason } from "@/components/Reason";
-import { db } from "@/lib/firebase";
+import { db, fetchProfile } from "@/lib/firebase";
 import { Reason as ReasonType } from "@/lib/profile";
 import { cn, generateRandomDecimal } from "@/lib/utils";
 import {
@@ -26,10 +26,18 @@ export default async function Page({
     limit(10)
   );
   const querySnapshot = await getDocs(reasons);
+
+  const promises = [];
   querySnapshot.forEach((doc) => {
     const refParent = doc.ref.parent.parent;
     console.log(doc.id, " => ", doc.data());
     console.log("parent id", refParent?.id);
+
+    if (!!refParent?.id) {
+      // promises.push(await fetchProfile([refParent?.id]));
+    }
+
+    // console.log("profile", profile);
     data.push({
       ...doc.data(),
       id: doc.id,
@@ -42,6 +50,7 @@ export default async function Page({
         3: generateRandomDecimal(1, 99),
       },
       tags: Object.keys(doc.data().tagMap || {}),
+      photoUrl: refParent?.id ? `/${refParent?.id}.jpg` : undefined,
     });
   });
 
@@ -68,6 +77,8 @@ export default async function Page({
               rating={1}
               tags={[]}
               profileId="1"
+              isForceRatingToShow
+              // photoUrl={profile?.pic}
             ></Reason>
           </div>
         ))}

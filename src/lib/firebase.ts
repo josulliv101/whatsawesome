@@ -96,7 +96,9 @@ export async function fetchProfile(id: string | string[], uid?: string) {
     ...(data as Profile),
     tags: Object.keys(tagMap || {}),
     id: docSnap.id,
-    reasons: reasons.filter((item) => !item.userId),
+    reasons: reasons
+      .filter((item) => !item.userId)
+      .sort((a, b) => b.rating - a.rating),
     reasonsUser: reasons.filter((item) => !!item.userId),
   };
   /*
@@ -367,6 +369,29 @@ export async function rateReason(
   const snapshot = await setDoc(
     docRef,
     { [reasonId]: rating },
+    { merge: true }
+  );
+
+  return true;
+}
+
+export async function updateReasonTag(
+  profileId: string,
+  reasonId: string,
+  tags: string[]
+): Promise<boolean> {
+  const docRef = doc(db, "entity", profileId, "whyawesome", reasonId);
+
+  const map = tags.reduce((acc, tag) => {
+    return { ...acc, [tag]: true };
+  }, {});
+
+  console.log("map", map);
+  const snapshot = await setDoc(
+    docRef,
+    {
+      tagMap: map,
+    },
     { merge: true }
   );
 
