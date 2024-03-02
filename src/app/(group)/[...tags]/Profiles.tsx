@@ -28,15 +28,23 @@ export default async function Profiles({
     ) || [];
 
   const fetchPromises2 =
-    ["sports", "musician", "comedian"]?.map(
-      async (tag) => await fetchHubProfiles(hub, "person", [tag])
+    tagDefinitions.person.children?.map(
+      async (tag: string) => await fetchHubProfiles(hub, "person", [tag])
     ) || [];
   const fetchedProfileByTag = await Promise.all(fetchPromises);
   const fetchedProfileByTag2 = await Promise.all(fetchPromises2);
+
+  const profilesByTag = fetchedProfileByTag.reduce((acc: any, item, i) => {
+    if (i > -1 && i % 2 === 0) {
+      return [...acc, item, fetchedProfileByTag2[i / 2]];
+    }
+    return [...acc, item];
+  }, []);
   return (
     <main className="flex min-h-screen w-full max-w-full mx-auto flex-col items-start justify-start">
-      {[...fetchedProfileByTag, ...fetchedProfileByTag2].map(
-        ({ profiles, label }, tagIndex) => (
+      {[...((profilesByTag as any) || {})]
+        .filter((item) => !!item)
+        .map(({ profiles, label }, tagIndex) => (
           <Fragment key={tagsToUse[tagIndex]}>
             <div className="mt-20 first:mt-8 space-y-1 w-full">
               <h2 className="w-full flex items-center justify-between text-2xl font-semibold tracking-tight">
@@ -84,8 +92,7 @@ export default async function Profiles({
               </ScrollArea>
             </div>
           </Fragment>
-        )
-      )}
+        ))}
     </main>
   );
 }

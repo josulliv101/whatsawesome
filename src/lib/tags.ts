@@ -8,6 +8,7 @@ export const tags: Array<string> = [
   "sports",
   "comedian",
   "musician",
+  "teacher",
   "museum",
   "nature",
   "college",
@@ -21,7 +22,7 @@ export const tagDefinitions: Record<string, any> = {
   person: {
     plural: "people",
     parentTag: "all",
-    children: ["comedian", "musician", "sports"],
+    children: ["teacher", "sports", "musician", "hero", "comedian"],
   },
   place: {
     plural: "places",
@@ -36,6 +37,10 @@ export const tagDefinitions: Record<string, any> = {
       "hotel",
       "nonprofit",
       "movie",
+      "coffeehouse",
+      "dessert",
+      "bbq",
+      "outdoors",
     ],
   },
   profile: {
@@ -46,6 +51,8 @@ export const tagDefinitions: Record<string, any> = {
   sports: {
     parentTag: "person",
   },
+  teacher: { plural: "teachers k-12", parentTag: "person" },
+  hero: { plural: "local heroes", parentTag: "person" },
   comedian: { plural: "comedians", parentTag: "person" },
   musician: { plural: "musicians", parentTag: "person" },
   museum: { plural: "museums", parentTag: "place" },
@@ -58,6 +65,10 @@ export const tagDefinitions: Record<string, any> = {
   hotel: { plural: "hotels", parentTag: "place" },
   nonprofit: { plural: "non-profits", parentTag: "place" },
   movie: { plural: "movies", parentTag: "place" },
+  coffeehouse: { plural: "coffeehouse", parentTag: "place" },
+  dessert: { plural: "desserts", parentTag: "place" },
+  bbq: { plural: "restaurants > bbq", parentTag: "place" },
+  outdoors: { plural: "outdoors", parentTag: "place" },
 };
 
 export const getPrimaryTags = () => {
