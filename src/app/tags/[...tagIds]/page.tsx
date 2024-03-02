@@ -50,7 +50,7 @@ export default async function Page({
         3: generateRandomDecimal(1, 99),
       },
       tags: Object.keys(doc.data().tagMap || {}),
-      photoUrl: refParent?.id ? `/${refParent?.id}.jpg` : undefined,
+      // photoUrl: refParent?.id ? `/${refParent?.id}.jpg` : undefined,
     });
   });
 

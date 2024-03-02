@@ -78,7 +78,7 @@ export default function RateReason({
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="ghost"
+          variant="secondary"
           size={"sm"}
           className={`ml-auto text-muted-foreground ${className}`}
           onClick={() => setIsOpen(true)}

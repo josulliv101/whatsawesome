@@ -165,8 +165,9 @@ export default async function ProfilePageContent({
         {/* <Separator className="mt-8" /> */}
         <div className="flex justify-start items-center mt-12 mb-0  w-full">
           <h4 className="rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
-            <strong className="font-semibold">
-              What contributes to {name}&#39;s excellence?
+            <strong className="font-[500]">
+              What contributes to the excellence{" "}
+              {tags.includes("person") ? "of" : "at"} {name}?
             </strong>
             <div className="flex items-center gap-4">
               {!user && (
@@ -215,6 +216,7 @@ export default async function ProfilePageContent({
                   }
                   ratings={reason.ratings}
                   tags={reason.tags || []}
+                  isForceRatingToShow
                 />
               </ReasonVisibility>
             </>

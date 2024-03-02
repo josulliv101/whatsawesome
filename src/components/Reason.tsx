@@ -129,7 +129,7 @@ export function Reason({
       }, 0) / totalPeople;
 
   return (
-    <Card className="group relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
+    <Card className="group border-l-[0px] border-l-black relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {
         <div className=" w-full md:w-auto">
           {isAnalyticsView && photoUrl && !isDefaultImage && (
@@ -339,7 +339,7 @@ export function Reason({
           className={` absolute bottom-4 right-[144px]- ${!isAnalyticsView && !photoUrl && !userId ? "left-[60px]" : "left-[284px]"} transition-all duration-500 hidden_ group-hover:block`}
         >
           {!isAnalyticsView && (
-            <span className="text-muted-foreground">{`${rating} / 3`}</span>
+            <span className="hidden text-muted-foreground">{`${rating} / 3`}</span>
           )}
           <div
             className={`${isAnalyticsView || isForceRatingToShow ? "flex" : "hidden"} items-center flex-row space-x-0 text-sm text-muted-foreground`}
@@ -361,7 +361,7 @@ export function Reason({
               {roundToInteger(totalPeople)} comments
             </div>
             <span className="pr-2 hidden">/</span>
-            <div className="flex items-center gap-0.5 pl-0">
+            <div className="flex items-center gap-2 pl-0">
               {/* {[...new Array(Math.floor(rating))].map((_, i) => (
                 <Image
                   key={i}
@@ -398,6 +398,7 @@ export function Reason({
                   src={"/cute-mushroom-blue-half2.png"}
                   width={24}
                   height={24}
+                  className="opacity-100"
                 />
               )}
 
@@ -408,6 +409,7 @@ export function Reason({
                   src={config.logoPath}
                   width={24}
                   height={24}
+                  className="opacity-100"
                 />
               )}
               {rating > 1.249 && rating < 1.749 && (
@@ -418,12 +420,14 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="opacity-100"
                   />
                   <Image
                     alt="vote"
                     src={"/cute-mushroom-blue-half2.png"}
                     width={24}
                     height={24}
+                    className="relative _top-[-3px] opacity-100"
                   />
                 </>
               )}
@@ -435,6 +439,7 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="opacity-100"
                   />
                   <Image
                     // key={i}
@@ -442,6 +447,7 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="relative _top-[-3px] opacity-100"
                   />
                 </>
               )}
@@ -453,6 +459,7 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="opacity-100"
                   />
                   <Image
                     // key={i}
@@ -460,12 +467,14 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="relative _top-[-3px] opacity-100"
                   />
                   <Image
                     alt="vote"
                     src={"/cute-mushroom-blue-half2.png"}
                     width={24}
                     height={24}
+                    className="relative _top-[-6px]"
                   />
                 </>
               )}
@@ -477,6 +486,7 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="opacity-100"
                   />
                   <Image
                     // key={i}
@@ -484,6 +494,7 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="relative _top-[-3px] opacity-100"
                   />
                   <Image
                     // key={i}
@@ -491,12 +502,13 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
+                    className="relative _top-[-6px] animate-rubberBandJumpNoDelay_"
                   />
                 </>
               )}
             </div>
-            <span className="px-3">/</span>
-            <span className="pl-0">
+            <span className="px-3 hidden">/</span>
+            <span className="pl-0 hidden">
               {rating < 0.249 && "not a factor"}
               {rating > 0.249 && rating < 0.749 && "barely a factor"}
               {rating > 0.749 && rating < 1.249 && "small factor"}
