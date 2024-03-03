@@ -142,7 +142,7 @@ export function Reason({
           )}
           {!userId && photoUrl && (
             <Image
-              className={`${isDefaultImage ? "grayscale opacity-5 bg-gray-500 object-contain" : ""} hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80`}
+              className={`${isDefaultImage ? "grayscale opacity-5 bg-gray-500 object-contain" : ""} hover:grayscale-0__ object-cover w-full h-full max-h-[300px] max-w-full block min-w-full md:h-[220px] md:max-w-[220px] md:w-auto min-h-full md:min-w-[220px] overflow-hidden opacity-80 border-r`}
               width="180"
               height="135"
               src={photoUrl}
@@ -302,7 +302,7 @@ export function Reason({
       <CardHeader className="relative z-10 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
-          <CardDescription className="text-xl mt-[-36px] lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
+          <CardDescription className="text-xl text-balance text-center pr-4 mt-[-36px] lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>
@@ -325,7 +325,7 @@ export function Reason({
             created by @josulliv101
           </div>
         </div>
-        <div className="absolute bottom-2 right-8">
+        <div className="absolute bottom-4 right-8">
           {id && !isAnalyticsView && (
             <RateReason
               profileId={profileId}
@@ -336,7 +336,7 @@ export function Reason({
           )}
         </div>
         <div
-          className={` absolute bottom-4 right-[144px]- ${!isAnalyticsView && !photoUrl && !userId ? "left-[60px]" : "left-[284px]"} transition-all duration-500 hidden_ group-hover:block`}
+          className={` absolute bottom-4 right-[144px]- ${!isAnalyticsView && !photoUrl && !userId ? "left-[60px]" : "left-[260px]"} transition-all duration-500 hidden_ group-hover:block`}
         >
           {!isAnalyticsView && (
             <span className="hidden text-muted-foreground">{`${rating} / 3`}</span>
@@ -393,24 +393,55 @@ export function Reason({
               )}
 
               {rating > 0.249 && rating < 0.749 && (
-                <Image
-                  alt="vote"
-                  src={"/cute-mushroom-blue-half2.png"}
-                  width={24}
-                  height={24}
-                  className="opacity-100"
-                />
+                <>
+                  <HalfMushroom />
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                    className="opacity-10 grayscale"
+                  />{" "}
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                    className="opacity-10 grayscale"
+                  />
+                </>
               )}
 
               {rating > 0.749 && rating < 1.249 && (
-                <Image
-                  // key={i}
-                  alt="vote"
-                  src={config.logoPath}
-                  width={24}
-                  height={24}
-                  className="opacity-100"
-                />
+                <>
+                  {" "}
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                    className="opacity-100"
+                  />
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                    className="opacity-10 grayscale"
+                  />{" "}
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                    className="opacity-10 grayscale"
+                  />
+                </>
               )}
               {rating > 1.249 && rating < 1.749 && (
                 <>
@@ -422,12 +453,14 @@ export function Reason({
                     height={24}
                     className="opacity-100"
                   />
+                  <HalfMushroom />
                   <Image
+                    // key={i}
                     alt="vote"
-                    src={"/cute-mushroom-blue-half2.png"}
+                    src={config.logoPath}
                     width={24}
                     height={24}
-                    className="relative _top-[-3px] opacity-100"
+                    className="opacity-10 grayscale"
                   />
                 </>
               )}
@@ -449,6 +482,14 @@ export function Reason({
                     height={24}
                     className="relative _top-[-3px] opacity-100"
                   />
+                  <Image
+                    // key={i}
+                    alt="vote"
+                    src={config.logoPath}
+                    width={24}
+                    height={24}
+                    className="opacity-10 grayscale"
+                  />
                 </>
               )}
               {rating > 2.249 && rating < 2.749 && (
@@ -469,13 +510,7 @@ export function Reason({
                     height={24}
                     className="relative _top-[-3px] opacity-100"
                   />
-                  <Image
-                    alt="vote"
-                    src={"/cute-mushroom-blue-half2.png"}
-                    width={24}
-                    height={24}
-                    className="relative _top-[-6px]"
-                  />
+                  <HalfMushroom />
                 </>
               )}
               {rating > 2.749 && (
@@ -507,16 +542,18 @@ export function Reason({
                 </>
               )}
             </div>
-            <span className="px-3 hidden">/</span>
-            <span className="pl-0 hidden">
-              {rating < 0.249 && "not a factor"}
-              {rating > 0.249 && rating < 0.749 && "barely a factor"}
-              {rating > 0.749 && rating < 1.249 && "small factor"}
-              {rating > 1.249 && rating < 1.749 && "fairly big factor"}
-              {rating > 1.749 && rating < 2.249 && "big factor"}
-              {rating > 2.249 && rating < 2.749 && "very big factor"}
-              {rating > 2.749 && "huge factor"} in overall excellence
-              {isAnalyticsView && ` / average of ${rating} from 99 responses)`}
+            <span className={`px-3 ${isAnalyticsView ? "inline" : "hidden"}`}>
+              /
+            </span>
+            <span className={isAnalyticsView ? "inline" : "hidden"}>
+              {rating < 0.249 && "no"}
+              {rating > 0.249 && rating < 0.749 && "low"}
+              {rating > 0.749 && rating < 1.249 && "low"}
+              {rating > 1.249 && rating < 1.749 && "medium"}
+              {rating > 1.749 && rating < 2.249 && "medium"}
+              {rating > 2.249 && rating < 2.749 && "high"}
+              {rating > 2.749 && "high"} excellence
+              {isAnalyticsView && ` /  ${rating} average  /  99 responses`}
             </span>
             <div className="hidden pl-1 pr-8">
               {roundToInteger(totalPeople)} people
@@ -540,20 +577,44 @@ export function Reason({
             20k
           </div>
         </div> */}
-        <div className="absolute top-1 right-20 flex items-center gap-2">
-          {tags.map((tag) => (
-            <Button
-              key={tag}
-              className={`text-muted-foreground rounded-full`}
-              variant={"ghost"}
-              size="sm"
-              asChild
-            >
-              <Link href={`/tags/${tag}`}>#{tag}</Link>
-            </Button>
-          ))}
-        </div>
+        {!isAnalyticsView && (
+          <div className="absolute top-2 right-8 flex items-center gap-2">
+            {tags.map((tag) => (
+              <Button
+                key={tag}
+                className={`text-muted-foreground rounded-full`}
+                variant={"ghost"}
+                size="sm"
+                asChild
+              >
+                <Link href={`/tags/${tag}`}>#{tag}</Link>
+              </Button>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
+  );
+}
+
+function HalfMushroom() {
+  return (
+    <div className="relative">
+      <Image
+        alt="vote"
+        src={"/cute-mushroom-blue-half2.png"}
+        width={24}
+        height={24}
+        className="opacity-100 relative z-10"
+      />
+      <Image
+        // key={i}
+        alt="vote"
+        src={config.logoPath}
+        width={24}
+        height={24}
+        className="opacity-5 hidden grayscale absolute top-0 left-0 z-0"
+      />
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 import PageHeading from "@/components/PageHeading";
 import ProfileCard from "@/components/ProfileCard";
+import SponsorCard from "@/components/SponsorCard";
 import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
 import { Button } from "@/components/ui/button";
@@ -91,6 +92,29 @@ export default async function Profiles({
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
             </div>
+            {!!tagIndex && tagIndex % 3 === 0 && (
+              <div className="bg-gray-200 w-full mt-20 opacity-100">
+                <div className="relative w-full flex_ max-w-7xl mx-auto items-center justify-between px-2 py-2">
+                  <div className="flex items-center justify-between gap-4">
+                    {/* <TabNav profile={undefined} /> */}
+                    <SponsorCard
+                      name="Constant Contact, Inc"
+                      pic="/constant-contact.png"
+                    />
+                    <SponsorCard
+                      name="Boston Dynamics"
+                      pic="/boston-dynamics.svg"
+                    />
+                    <SponsorCard name="Toast, Inc" pic="/toast.png" />
+                    <SponsorCard name="Akamai Technologies" pic="/akamai.jpg" />
+                  </div>
+                  <p className=" absolute -top-6 right-0 text-sm text-muted-foreground px-2 text-right">
+                    Thank you to all the sponsors who make blue mushroom Boston
+                    possible.
+                  </p>
+                </div>
+              </div>
+            )}
           </Fragment>
         ))}
     </main>
