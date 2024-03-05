@@ -23,7 +23,7 @@ import mapStyleSimple from "./mapStyleSimple";
 import { config } from "@/lib/config";
 
 let map;
-const API_KEY = "AIzaSyB5vkllZzrzoS4TgKD-wOw5XC6m4gGW3xw";
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
 export default function GoogleMap({ markers = [] }: { markers: Array<any> }) {
   return (
@@ -45,6 +45,7 @@ export default function GoogleMap({ markers = [] }: { markers: Array<any> }) {
           >
             {markers.map((marker, i) => (
               <AdvancedMarker
+                key={i}
                 position={{ lat: marker[0], lng: marker[1] }}
                 title={"AdvancedMarker with custom html content."}
                 onClick={() => alert("marker was clicked!")}
@@ -82,12 +83,12 @@ export default function GoogleMap({ markers = [] }: { markers: Array<any> }) {
               <CommandGroup heading="Discover Excellence: Burgers North of Boston">
                 <CommandItem>Capital Grille</CommandItem>
                 <CommandItem>The Bancroft</CommandItem>
-                <CommandItem>Tony C's</CommandItem>
+                <CommandItem>Tony C&#39;s</CommandItem>
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Settings">
                 <CommandItem>Eddie Vs</CommandItem>
-                <CommandItem>Not Your Average Joe's</CommandItem>
+                <CommandItem>Not Your Average Joe&#39;s</CommandItem>
                 <CommandItem>Burtons Grille & Bar</CommandItem>
                 <CommandItem>Row 34</CommandItem>
                 <CommandItem>Buffalo Wild Wings</CommandItem>
