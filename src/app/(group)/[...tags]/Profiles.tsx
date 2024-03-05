@@ -108,7 +108,7 @@ export default async function Profiles({
                     <SponsorCard name="Toast, Inc" pic="/toast.png" />
                     <SponsorCard name="Akamai Technologies" pic="/akamai.jpg" />
                   </div>
-                  <p className=" absolute -top-6 right-0 text-sm text-muted-foreground px-2 text-right">
+                  <p className=" absolute -top-6 left-0 text-sm text-muted-foreground px-2 text-right">
                     Thank you to all the sponsors who make blue mushroom Boston
                     possible.
                   </p>

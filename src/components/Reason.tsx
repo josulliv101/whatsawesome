@@ -394,7 +394,7 @@ export function Reason({
 
               {rating > 0.249 && rating < 0.749 && (
                 <>
-                  <HalfMushroom />
+                  <HalfMushroom className="grayscale opacity-60" />
                   <Image
                     // key={i}
                     alt="vote"
@@ -423,7 +423,7 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
-                    className="opacity-100"
+                    className="opacity-60 grayscale"
                   />
                   <Image
                     // key={i}
@@ -451,9 +451,9 @@ export function Reason({
                     src={config.logoPath}
                     width={24}
                     height={24}
-                    className="opacity-100"
+                    className="opacity-60 grayscale"
                   />
-                  <HalfMushroom />
+                  <HalfMushroom className="grayscale opacity-60" />
                   <Image
                     // key={i}
                     alt="vote"
@@ -597,9 +597,9 @@ export function Reason({
   );
 }
 
-function HalfMushroom() {
+function HalfMushroom({ className = "" }) {
   return (
-    <div className="relative">
+    <div className={`relative ${className}`}>
       <Image
         alt="vote"
         src={"/cute-mushroom-blue-half2.png"}

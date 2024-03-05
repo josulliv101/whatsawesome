@@ -178,7 +178,7 @@ export default function RateReason({
                   <p className="hidden">I agree.</p>
                   <p className="text-lg text-muted-foreground">
                     {/* This added a good amount to the overall excellence. */}
-                    medium
+                    Moderate
                   </p>
                 </div>
               </CommandItem>
@@ -193,6 +193,7 @@ export default function RateReason({
                     src={config.logoPath}
                     width={18}
                     height={18}
+                    className="grayscale"
                   />
                 </div>
                 <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
@@ -200,7 +201,7 @@ export default function RateReason({
                   <p className="text-lg text-muted-foreground">
                     {/* This was a minor factor that added to the overall
                     excellence. */}
-                    low
+                    Minimal
                   </p>
                 </div>
               </CommandItem>
