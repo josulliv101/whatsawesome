@@ -12,7 +12,7 @@ const reasonSchema = z.object({
   userId: z.string().optional(),
   tags: z.array(z.string()).optional(),
   parentId: z.string().optional(),
-  latlng: z.array(z.number()).optional(),
+  latlng: z.object({ lat: z.number(), lng: z.number() }).optional(),
 });
 
 export const profileSchema = z.object({

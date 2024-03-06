@@ -11,10 +11,15 @@ import {
   or,
   and,
   orderBy,
+  GeoPoint,
 } from "firebase/firestore";
-import GoogleMap from "./GoogleMap";
+import GoogleMap, { ClientAPIProvider } from "./GoogleMap";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import PageContent from "./PageContent";
+import { APIProvider } from "@vis.gl/react-google-maps";
+
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
 export default async function Page({
   params: { tagIds },
@@ -55,14 +60,19 @@ export default async function Page({
         3: generateRandomDecimal(1, 99),
       },
       tags: Object.keys(doc.data().tagMap || {}),
-      latlng: doc.data().latlng ? Object.values(doc.data().latlng) : undefined,
+      latlng: !!doc.data().latlng
+        ? {
+            lat: (doc.data().latlng as GeoPoint)?.latitude,
+            lng: (doc.data().latlng as GeoPoint)?.longitude,
+          }
+        : undefined,
       // photoUrl: refParent?.id ? `/${refParent?.id}.jpg` : undefined,
     });
+    console.log("data", data);
   });
 
-  const markers = data
-    .filter((item) => !!item.latlng)
-    .map((item) => item.latlng);
+  const results = data.filter((item) => !!item.latlng);
+  // .map((item) => item.latlng);
 
   return (
     <main
@@ -70,40 +80,12 @@ export default async function Page({
         "relative flex min-h-screen max-w-7xl mx-auto mt-0 flex-col items-start justify-start px-4 py-0"
       )}
     >
-      <GoogleMap markers={markers} />
-      <h2 className="flex items-center justify-between text-3xl mb-12 w-full">
-        <span>Burgers North of Boston.</span>
-        <span className="text-lg text-muted-foreground">
-          Discover excellence.
-        </span>
-      </h2>
-      <div className="flex flex-col gap-4 relative z-[0] ">
-        {data.map((reason) => (
-          <div
-            key={reason.id}
-            className="bg-muted text-muted-foreground px-2 pb-2 rounded-md border "
-          >
-            <div className="px-4 py-4 flex items-center justify-between">
-              <span className="text-primary text-lg">{reason.parentId}</span>
-              <Button asChild>
-                <Link href={`/profile/${reason.parentId}`}>
-                  View Full Profile
-                </Link>
-              </Button>
-            </div>
-            <Reason
-              description={reason?.reason || ""}
-              name={reason.id || ""}
-              {...reason}
-              rating={reason.rating || 1}
-              tags={[]}
-              profileId="1"
-              isForceRatingToShow
-              // photoUrl={profile?.pic}
-            ></Reason>
-          </div>
-        ))}
-      </div>
+      <ClientAPIProvider apiKey={API_KEY}>
+        <PageContent
+          title={tagIds.join(" / ").replace(/[-_]/g, " ")}
+          results={results}
+        />
+      </ClientAPIProvider>
     </main>
   );
 }
