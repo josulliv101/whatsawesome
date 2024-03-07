@@ -70,6 +70,10 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "legend-slide-in": {
+          from: { bottom: "-72px", opacity: "0" },
+          to: { bottom: "0", opacity: "1" },
+        },
         heartBeat: {
           "0%": { transform: "scale(1);" },
           "14%": { transform: "scale(1.03);" },
@@ -231,6 +235,7 @@ const config: Config = {
         hflip: "flipHorizontal 2s 1",
         vflip: "flipVertical 2s 1",
         fadeIn: "fadeIn .5s ease-in",
+        legendSlideIn: "legend-slide-in 0.6s ease-out 1s forwards",
       },
     },
   },

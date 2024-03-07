@@ -77,13 +77,14 @@ export default async function Page({
   return (
     <main
       className={cn(
-        "relative flex min-h-screen max-w-7xl mx-auto mt-0 flex-col items-start justify-start px-4 py-0"
+        "relative flex min-h-screen max-w-7xl w-full mx-auto mt-0 flex-col items-start justify-start px-4 py-0"
       )}
     >
       <ClientAPIProvider apiKey={API_KEY}>
         <PageContent
           title={tagIds.join(" / ").replace(/[-_]/g, " ")}
           results={results}
+          // onCompareChange={handleAddEntityToCompare}
         />
       </ClientAPIProvider>
     </main>

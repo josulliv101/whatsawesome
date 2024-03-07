@@ -41,6 +41,7 @@ export const tagDefinitions: Record<string, any> = {
       "dessert",
       "bbq",
       "outdoors",
+      // events?
     ],
   },
   profile: {

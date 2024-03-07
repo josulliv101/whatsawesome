@@ -51,6 +51,8 @@ export const profileSchema = z.object({
 
   reasons: z.array(reasonSchema),
   reasonsUser: z.array(reasonSchema).optional(),
+  primaryColor: z.string().optional(),
+  primaryColorForeground: z.string().optional(),
 });
 
 export type Profile = z.infer<typeof profileSchema>;

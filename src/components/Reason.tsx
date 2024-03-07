@@ -61,6 +61,7 @@ import { config } from "@/lib/config";
 import { useAnalyticsContext } from "./useAnalytics";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
+import Rating from "./Rating";
 
 export function Reason({
   id,
@@ -361,187 +362,12 @@ export function Reason({
               {roundToInteger(totalPeople)} comments
             </div>
             <span className="pr-2 hidden">/</span>
-            <div className="flex items-center gap-2 pl-0">
-              {/* {[...new Array(Math.floor(rating))].map((_, i) => (
-                <Image
-                  key={i}
-                  alt="vote"
-                  src={config.logoPath}
-                  width={24}
-                  height={24}
-                />
-              ))}
-              {rating % 1 > 0.25 && rating % 1 < 0.75 && (
-                <Image
-                  alt="vote"
-                  src={"/cute-mushroom-blue-half2.png"}
-                  width={24}
-                  height={24}
-                />
-              )} */}
-              {rating < 0.249 && (
-                <div className="relative mr-2">
-                  <Image
-                    alt="vote"
-                    src={config.logoPath}
-                    width={18}
-                    height={18}
-                    className="grayscale opacity-50"
-                  />
-                  <BanIcon className="text-gray-400 opacity-60 h-8 w-8 text-muted-foreground ml-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                </div>
-              )}
-
-              {rating > 0.249 && rating < 0.749 && (
-                <>
-                  <HalfMushroom className="grayscale opacity-60" />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-10 grayscale"
-                  />{" "}
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-10 grayscale"
-                  />
-                </>
-              )}
-
-              {rating > 0.749 && rating < 1.249 && (
-                <>
-                  {" "}
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-60 grayscale"
-                  />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-10 grayscale"
-                  />{" "}
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-10 grayscale"
-                  />
-                </>
-              )}
-              {rating > 1.249 && rating < 1.749 && (
-                <>
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-60 grayscale"
-                  />
-                  <HalfMushroom className="grayscale opacity-60" />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-10 grayscale"
-                  />
-                </>
-              )}
-              {rating > 1.749 && rating < 2.249 && (
-                <>
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-100"
-                  />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="relative _top-[-3px] opacity-100"
-                  />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-10 grayscale"
-                  />
-                </>
-              )}
-              {rating > 2.249 && rating < 2.749 && (
-                <>
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-100"
-                  />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="relative _top-[-3px] opacity-100"
-                  />
-                  <HalfMushroom />
-                </>
-              )}
-              {rating > 2.749 && (
-                <>
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="opacity-100"
-                  />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="relative _top-[-3px] opacity-100"
-                  />
-                  <Image
-                    // key={i}
-                    alt="vote"
-                    src={config.logoPath}
-                    width={24}
-                    height={24}
-                    className="relative _top-[-6px] animate-rubberBandJumpNoDelay_"
-                  />
-                </>
-              )}
-            </div>
+            <Rating rating={rating} />
+            {!isAnalyticsView && (
+              <div className="pl-4 inline-block text-muted-foreground">
+                #{tags.join(" / ")} excellence ({rating})
+              </div>
+            )}
             <span className={`px-3 ${isAnalyticsView ? "inline" : "hidden"}`}>
               /
             </span>

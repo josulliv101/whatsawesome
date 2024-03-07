@@ -151,7 +151,7 @@ export default function RateReason({
                   <p className="text-lg text-muted-foreground">
                     {/* This was a major factor that added to the overall
                     excellence. */}
-                    High
+                    Exceptional
                   </p>
                 </div>
               </CommandItem>
@@ -178,7 +178,7 @@ export default function RateReason({
                   <p className="hidden">I agree.</p>
                   <p className="text-lg text-muted-foreground">
                     {/* This added a good amount to the overall excellence. */}
-                    Moderate
+                    Substantial
                   </p>
                 </div>
               </CommandItem>
@@ -196,7 +196,7 @@ export default function RateReason({
                     className="grayscale"
                   />
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-3.5  gap-0.5">
+                <div className="flex flex-col flex-1 items-start justify-start px-4 py-3.5  gap-0.5">
                   <p className="hidden">Yeah but...</p>
                   <p className="text-lg text-muted-foreground">
                     {/* This was a minor factor that added to the overall
@@ -222,7 +222,7 @@ export default function RateReason({
                     <BanIcon className="text-gray-500 opacity-60 h-8 w-8 text-muted-foreground ml-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                   </div>
                 </div>
-                <div className="flex flex-col flex-1 items-start px-4 py-3.5 gap-0.5">
+                <div className="flex flex-col flex-1 items-start justify-start px-4 py-3.5 gap-0.5">
                   <p className="hidden">I disagree.</p>
                   <p className="text-lg text-muted-foreground">
                     {/* This did not contribute to the overall excellence. */}

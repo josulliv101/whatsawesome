@@ -26,6 +26,7 @@ import {
 import mapStyleSimple from "./mapStyleSimple";
 import { config } from "@/lib/config";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
+import Rating from "@/components/Rating";
 
 let map;
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
@@ -35,11 +36,17 @@ export { APIProvider as ClientAPIProvider } from "@vis.gl/react-google-maps";
 export default function GoogleMap({
   activeItemId,
   setActiveItemId,
+  activeItemHoverId,
+  setActiveItemHoverId,
   markers = [],
+  tag,
 }: {
   activeItemId: string | null;
   setActiveItemId: Dispatch<SetStateAction<string | null>>;
+  activeItemHoverId: string | null;
+  setActiveItemHoverId: Dispatch<SetStateAction<string | null>>;
   markers: Array<any>;
+  tag?: string;
 }) {
   const map = useMap();
 
@@ -103,7 +110,7 @@ export default function GoogleMap({
             defaultCenter={initialBounds}
             // defaultBounds={initialBounds}
             gestureHandling={"greedy"}
-            // disableDefaultUI={true}
+            disableDefaultUI={true}
             mapTypeId={"roadmap"}
             // mapId={"739af084373f96fe"}
             mapId={"bf51a910020fa25a"}
@@ -111,8 +118,9 @@ export default function GoogleMap({
           >
             {markers.map((marker, i) => {
               const isActiveMarker = marker.id === activeItemId;
+              const isActivelyHoveredMarker = marker.id === activeItemHoverId;
               const ll = coreLib ? new coreLib.LatLng(marker.latlng) : null;
-              const size = isActiveMarker ? 24 : 24;
+              const size = isActivelyHoveredMarker ? 32 : 24;
               if (!ll) return null;
               console.log(
                 "is active m",
@@ -139,18 +147,21 @@ export default function GoogleMap({
                         // background: "#1dbe80",
                         // border: "2px solid #0e6443",
                         // borderRadius: "50%",
-                        transform: "translate(-50%, -50%)",
+                        // transform: "translate(-50%, -50%)",
                       }}
-                      className={`drop-shadow-md_ transition-all duration-500  flex gap-0.5 items-center ${!isActiveMarker ? "grayscale-0 rounded-full" : "grayscale rounded-none"}`}
+                      className={`drop-shadow-md_ origin-bottom-right transition-all duration-500  flex gap-0.5 items-center ${!isActiveMarker ? "grayscale-0 rounded-full" : "grayscale-0 rounded-none"}`}
                     >
                       <Image
+                        // onMouseOver={(ev) => console.log(ev)}
                         // key={i}
+                        onMouseOver={() => setActiveItemHoverId(marker.id)}
+                        onMouseOut={() => setActiveItemHoverId(null)}
                         id={marker.id}
                         alt="vote"
                         src={config.logoPath}
                         width={size}
                         height={size}
-                        className={`relative ${i === 0 ? "animate-rubberBandJumpNoDelay" : "grayscale-0"} _top-[-3px] opacity-100 transition-all duration-500 `}
+                        className={`relative origin-bottom-right ${isActivelyHoveredMarker || isActiveMarker ? "z-50 grayscale-0" : "grayscale-0"} _top-[-3px] opacity-100 transition-all duration-500 `}
                       />
                     </div>
                   </AdvancedMarker>
@@ -175,28 +186,43 @@ export default function GoogleMap({
         )}
         {!initialBounds && <div className="bg-gray-100 w-full h-full"></div>}
         <Command className="max-w-96">
-          <CommandInput placeholder="Type a command or search..." />
+          {/* <CommandInput placeholder="Type a command or search..." /> */}
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Discover Excellence: Burgers North of Boston">
+            {/* <CommandEmpty>No results found.</CommandEmpty> */}
+            <CommandGroup
+              className="text-right pr-0"
+              heading={
+                <div className="flex items-center justify-between">
+                  <span className="opacity-100 text-primary relative capitalize">{`${tag} Roundup`}</span>
+                  <span className="opacity-100 text-primary relative left-[-12px]">{`#${tag} `}</span>
+                </div>
+              }
+            >
               {markers.map((item) => {
                 return (
                   <CommandItem
                     key={item.id}
                     value={item.id}
-                    onSelect={(id) => !!id && setActiveItemId(item.id)}
-                    className={`w-full flex items-center justify-between py-1 ${item.id === activeItemId ? "bg-primary text-primary-foreground" : ""} hover:bg-inherit_ aria-selected:bg-primary aria-selected:text-primary-foreground`}
+                    onMouseOver={() => setActiveItemHoverId(item.id)}
+                    onMouseOut={() => setActiveItemHoverId(null)}
+                    onSelect={(id) =>
+                      !!id &&
+                      setActiveItemId(item.id === activeItemId ? null : item.id)
+                    }
+                    className={`w-full cursor-pointer flex items-center justify-between py-1 ${item.id === activeItemId || item.id === activeItemHoverId ? "bg-muted text-secondary-foreground" : ""} hover:bg-inherit_ aria-selected:bg-muted aria-selected:text-secondary-foreground`}
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 capitalize">
                       <Image
                         width="28"
                         height="28"
                         alt={item.parentId}
                         src={`/${item.parentId}.jpg`}
+                        className="border rounded-md"
                       />
-                      {item.parentId}
+                      {item.parentId.replace(/[-_]/g, " ")}
                     </div>
-                    <span className="flex flex-row-reverse items-center gap-1">
+                    <Rating rating={item.rating} size={16} />
+                    {/* <span className="flex flex-row-reverse items-center gap-1">
                       <Image
                         // key={i}
                         id={item.id}
@@ -207,7 +233,7 @@ export default function GoogleMap({
                         className={`relative ${false ? "animate-rubberBandJumpNoDelay" : "grayscale-0"} _top-[-3px] opacity-100 transition-all duration-500 `}
                       />{" "}
                       {item.rating}
-                    </span>
+                    </span> */}
                   </CommandItem>
                 );
               })}

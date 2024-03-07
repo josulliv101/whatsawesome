@@ -8,6 +8,7 @@ import { Reason } from "@/components/Reason";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import GoogleMap from "./GoogleMap";
+import Legend from "@/components/Legend";
 
 export default function PageContent({
   children,
@@ -19,6 +20,9 @@ export default function PageContent({
   title: string;
   results: Array<any>;
 }>) {
+  const [activeItemHoverId, setActiveItemHoverId] = useState<string | null>(
+    null
+  );
   const [activeItemId, setActiveItemId] = useState<string | null>(null);
   const activeItemRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,10 +40,13 @@ export default function PageContent({
         markers={results}
         activeItemId={activeItemId}
         setActiveItemId={setActiveItemId}
+        activeItemHoverId={activeItemHoverId}
+        setActiveItemHoverId={setActiveItemHoverId}
+        tag={title}
       />
 
-      <h2 className="flex items-center justify-between text-3xl mb-12 w-full">
-        <span className="capitalize">{title} North of Boston.</span>
+      <h2 className="flex flex-col-reverse items-start gap-1 justify-between text-3xl mb-12 w-full">
+        <span className="capitalize">{title} Roundup / North of Boston.</span>
         <span className="text-lg text-muted-foreground">
           Discover excellence.
         </span>
@@ -79,13 +86,15 @@ export default function PageContent({
               name={reason.id || ""}
               {...reason}
               rating={reason.rating || 1}
-              tags={[]}
+              tags={reason.tags}
               profileId="1"
               isForceRatingToShow
+
               // photoUrl={profile?.pic}
             ></Reason>
           </div>
         ))}
+        <Legend />
       </div>
     </>
   );

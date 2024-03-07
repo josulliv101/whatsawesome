@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BarChart2Icon, Globe, StarIcon } from "lucide-react";
+import { BanIcon, BarChart2Icon, Globe, StarIcon } from "lucide-react";
 import {
   addReasonToProfile,
   fetchProfile,
@@ -29,6 +29,7 @@ import { AddReason } from "./AddReason";
 import { revalidatePath } from "next/cache";
 import { ReasonVisibility } from "./ReasonVisibility";
 import ReasonTagsFilter from "./ReasonTagsFilter";
+import Legend from "@/components/Legend";
 
 export default async function ProfilePageContent({
   className = "",
@@ -55,6 +56,7 @@ export default async function ProfilePageContent({
     reasonsUser,
     rating = 75,
     isHub,
+    primaryColor = "#000",
   } = p;
   const primaryTag = "person";
 
@@ -102,7 +104,7 @@ export default async function ProfilePageContent({
               width={220}
               height={220}
               className={cn(
-                " shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px] opacity-80 rounded-sm md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
+                " shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px] opacity-80 rounded-md md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
                   imgPosition
               )}
             />
@@ -164,18 +166,19 @@ export default async function ProfilePageContent({
         </div>
         {/* <Separator className="mt-8" /> */}
         <div className="flex justify-start items-center mt-12 mb-0  w-full">
-          <h4 className="rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
+          <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
             <strong className="font-[500]">
-              What contributes to the excellence{" "}
+              What contributes most to the excellence{" "}
               {tags.includes("person") ? "of" : "at"} {name}?
             </strong>
+
             <div className="flex items-center gap-4">
               {!user && (
-                <span className="text-lg">
+                <span className="text-sm font-medium">
                   <Button
                     variant={"link"}
                     size={"sm"}
-                    className="text-lg px-0 text-muted-foreground underline"
+                    className="text-sm px-0 text-muted-foreground underline"
                     asChild
                   >
                     <Link href="/login">Login</Link>
@@ -183,7 +186,11 @@ export default async function ProfilePageContent({
                   to give your input below.
                 </span>
               )}
-              {user && <span className="text-lg">Give your input below.</span>}
+              {user && (
+                <span className="text-sm font-medium">
+                  Give your input below.
+                </span>
+              )}
               <Separator
                 orientation="vertical"
                 className="bg-gray-300 h-6 ml-3"
@@ -192,8 +199,13 @@ export default async function ProfilePageContent({
             </div>
           </h4>
         </div>
+
         <ReasonTagsFilter tags={uniqueReasonTags} />
-        <div className="w-full grid grid-cols-[1fr] items-start gap-8 space-y-0">
+
+        <div
+          className="w-full grid grid-cols-[1fr] items-start gap-2 space-y-0 p-2 rounded-md"
+          style={{ backgroundColor: primaryColor }}
+        >
           {reasons.map((reason, i) => (
             <>
               {/* {i === 5 && (
@@ -244,7 +256,7 @@ export default async function ProfilePageContent({
             <Profiles hub={id} primaryTag={primaryTag} tagsToUse={tagsToUse} />
           </Suspense>
         )} */}
-        <div className="flex justify-start items-center mt-12 mb-0  w-full">
+        <div className="flex_ hidden justify-start items-center mt-12 mb-0  w-full">
           <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-4 w-full flex items-center justify-between">
             <strong className="font-semibold">
               User Submissions
@@ -257,7 +269,7 @@ export default async function ProfilePageContent({
             </strong>
           </h4>
         </div>
-        <div className="w-full grid grid-cols-[1fr] items-start gap-4 space-y-0">
+        <div className="w-full hidden _grid grid-cols-[1fr] items-start gap-0 space-y-0">
           {reasonsUser.map((reason, i) => (
             <>
               <Reason
@@ -278,7 +290,7 @@ export default async function ProfilePageContent({
             </>
           ))}
         </div>
-        {user?.uid && (
+        {false && user?.uid && (
           <AddReason
             name={name}
             profileId={id}
@@ -286,6 +298,7 @@ export default async function ProfilePageContent({
             onSubmit={handleSubmitReason}
           />
         )}
+        <Legend />
       </main>
     </AnalyticsContextProvider>
   );
