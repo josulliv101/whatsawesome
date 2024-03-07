@@ -290,14 +290,14 @@ export default async function ProfilePageContent({
             </>
           ))}
         </div>
-        {false && user?.uid && (
+        {/* {user?.uid && (
           <AddReason
             name={name}
             profileId={id}
             userId={user?.uid}
             onSubmit={handleSubmitReason}
           />
-        )}
+        )} */}
         <Legend />
       </main>
     </AnalyticsContextProvider>
