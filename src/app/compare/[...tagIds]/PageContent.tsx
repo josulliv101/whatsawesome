@@ -116,13 +116,14 @@ export default function PageContent({
                     (reason: any) => reason.parentId === uniqueId
                   );
                   return (
-                    <div className="mb-6 last:mb-0">
+                    <div key={uniqueId} className="mb-6 last:mb-0">
                       {reasonsPerParent.map((reason: any, index: number) => {
                         const entity = entities.find(
                           (entity) => entity.id === reason.parentId
                         );
                         return (
                           <div
+                            key={reason.id}
                             className={`p-4 rounded-md `}
                             style={{
                               backgroundColor: entity?.primaryColor || "#444",
