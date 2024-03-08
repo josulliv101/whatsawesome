@@ -3,14 +3,19 @@ import { db, fetchProfile } from "@/lib/firebase";
 import { Reason as ReasonType } from "@/lib/profile";
 import { cn, generateRandomDecimal } from "@/lib/utils";
 import {
-  collectionGroup,
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDoc,
   query,
   where,
   getDocs,
-  limit,
-  or,
-  and,
   orderBy,
+  limit,
+  collectionGroup,
+  addDoc,
+  and,
   GeoPoint,
 } from "firebase/firestore";
 import GoogleMap, { ClientAPIProvider } from "./GoogleMap";
@@ -18,6 +23,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import PageContent from "./PageContent";
 import { APIProvider } from "@vis.gl/react-google-maps";
+import { Item } from "@radix-ui/react-accordion";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -36,12 +42,17 @@ export default async function Page({
     orderBy("rating", "desc")
   );
   const querySnapshot = await getDocs(reasons);
-
+  console.log("querySnapshot", querySnapshot.size, tagIds);
   const promises = [];
-  querySnapshot.forEach((doc) => {
-    const refParent = doc.ref.parent.parent;
-    console.log(doc.id, " => ", doc.data());
+  querySnapshot.forEach((docA) => {
+    const refParent = docA.ref.parent.parent;
+
+    console.log(docA.id, " => ", docA.data());
     console.log("parent id", refParent?.id);
+
+    // const docRef = doc(db, "entity", refParent?.id || "");
+    // const docSnap = getDoc(docRef).then((data) => data.data());
+    // const parentLatLng = docSnap?.data()?.latlng as GeoPoint;
 
     if (!!refParent?.id) {
       // promises.push(await fetchProfile([refParent?.id]));
@@ -49,31 +60,39 @@ export default async function Page({
 
     // console.log("profile", profile);
     data.push({
-      ...doc.data(),
-      id: doc.id,
+      ...docA.data(),
+      id: docA.id,
       parentId: refParent?.id,
-      ratings: doc.data().ratings || {
+      ratings: docA.data().ratings || {
         "-1": generateRandomDecimal(1, 99),
         0: generateRandomDecimal(1, 99),
         1: generateRandomDecimal(1, 99),
         2: generateRandomDecimal(1, 99),
         3: generateRandomDecimal(1, 99),
       },
-      tags: Object.keys(doc.data().tagMap || {}),
-      latlng: !!doc.data().latlng
+      tags: Object.keys(docA.data().tagMap || {}),
+      latlng: !!docA?.data()?.latlng
         ? {
-            lat: (doc.data().latlng as GeoPoint)?.latitude,
-            lng: (doc.data().latlng as GeoPoint)?.longitude,
+            lat: (docA.data().latlng as GeoPoint)?.latitude,
+            lng: (docA.data().latlng as GeoPoint)?.longitude,
           }
         : undefined,
       // photoUrl: refParent?.id ? `/${refParent?.id}.jpg` : undefined,
     });
-    console.log("data", data);
+    console.log("data...", data[0]);
   });
-
+  console.log("LOOP");
+  const ps = data.map((item) => {
+    const docRef = doc(db, "entity", item.parentId || "");
+    return getDoc(docRef);
+  });
+  const parentData = (await Promise.all(ps)).map((item) => ({
+    ...item.data(),
+    id: item.id,
+  }));
   const results = data.filter((item) => !!item.latlng);
   // .map((item) => item.latlng);
-
+  console.log("results", data.length);
   return (
     <main
       className={cn(

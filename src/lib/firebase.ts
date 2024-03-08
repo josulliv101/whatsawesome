@@ -1,6 +1,10 @@
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getCountFromServer, serverTimestamp } from "firebase/firestore";
+import {
+  GeoPoint,
+  getCountFromServer,
+  serverTimestamp,
+} from "firebase/firestore";
 import {
   Auth,
   GoogleAuthProvider,
@@ -100,6 +104,10 @@ export async function fetchProfile(id: string | string[], uid?: string) {
       .filter((item) => !item.userId)
       .sort((a, b) => b.rating - a.rating),
     reasonsUser: reasons.filter((item) => !!item.userId),
+    latlng: {
+      lat: (data.latlng as GeoPoint)?.latitude,
+      lng: (data.latlng as GeoPoint)?.longitude,
+    },
   };
   /*
   const profileSnapshot = await db.collection("entity").doc(profileId).get();
@@ -347,7 +355,7 @@ export async function addProfile({
     .filter((reason) => !reason?.id)
     .forEach(async (reason) => {
       // const whyawesomeRef = collection(refDoc, "whyawesome");
-      addDoc(subColRef, reason);
+      addDoc(subColRef, { ...reason, rating: reason.rating ?? 1 });
 
       // await db
       //   .collection("entity")

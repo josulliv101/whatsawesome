@@ -112,9 +112,13 @@ export default function RateReason({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-[230px] " align="end">
-        <div className="bg-primary text-primary-foreground font-semibold text-sm px-6 py-4">
-          <div className="mb-0.5">Level of Excellence</div>
-          {tag && <div className="text-sm opacity-80 font-normal">#{tag}</div>}
+        <div className="bg-primary text-primary-foreground font-semibold text-lg px-6 py-4">
+          <div className="mb-0.5 capitalize">{tag}</div>
+          {
+            <div className="text-sm opacity-80 font-normal">
+              Level of Excellence
+            </div>
+          }
         </div>
         <Command>
           {/* <CommandInput placeholder="Select new role..." /> */}

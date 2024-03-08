@@ -104,71 +104,77 @@ export default function PageContent({
               <div
                 id={tagId}
                 key={tagId}
-                className="relative bg-muted text-muted-foreground px-8 pb-8 rounded-md border "
+                className={`relative bg-muted text-muted-foreground px-8 pb-8 rounded-md border`}
               >
                 <div className="pl-0 py-2 flex items-center justify-between">
                   <span className="flex items-center gap-4 text-primary text-lg capitalize font-semibold px-3 py-2">
                     {tagId?.replace(/[-_]/g, " ")}
                   </span>
                 </div>
-                {uniqueEntityIds.map((uniqueId: any) => {
-                  const reasonsPerParent = reasonsMap[tagId].filter(
-                    (reason: any) => reason.parentId === uniqueId
-                  );
-                  return (
-                    <div key={uniqueId} className="mb-6 last:mb-0">
-                      {reasonsPerParent.map((reason: any, index: number) => {
-                        const entity = entities.find(
-                          (entity) => entity.id === reason.parentId
-                        );
-                        return (
-                          <div
-                            key={reason.id}
-                            className={`p-4 rounded-md `}
-                            style={{
-                              backgroundColor: entity?.primaryColor || "#444",
-                              color: entity?.primaryColorForeground || "#fff",
-                            }}
-                          >
-                            {index === 0 && (
-                              <div className="py-2 text-inherit flex items-center gap-4">
-                                <div className="flex items-center gap-4 w-full">
-                                  <Image
-                                    className={`rounded-md hover:grayscale-0__ object-cover w-full h-full max-h-[48px] max-w-full block min-w-full md:h-[48px] md:max-w-[48px] md:w-auto min-h-full md:min-w-[48px] overflow-hidden opacity-100 border-r-0`}
-                                    width="48"
-                                    height="48"
-                                    src={entity.pic}
-                                    alt=""
-                                  />
-                                  <div className="text-xl font-sem'">
-                                    {entity.name}
+                <div>
+                  {uniqueEntityIds.map((uniqueId: any) => {
+                    const reasonsPerParent = reasonsMap[tagId].filter(
+                      (reason: any) => reason.parentId === uniqueId
+                    );
+                    return (
+                      <div key={uniqueId} className="mb-6 last:mb-0">
+                        {reasonsPerParent
+                          .slice(0, 1)
+                          .map((reason: any, index: number) => {
+                            const entity = entities.find(
+                              (entity) => entity.id === reason.parentId
+                            );
+                            return (
+                              <div
+                                key={reason.id}
+                                className={`p-4 rounded-md `}
+                                style={{
+                                  backgroundColor:
+                                    entity?.primaryColor || "#444",
+                                  color:
+                                    entity?.primaryColorForeground || "#fff",
+                                }}
+                              >
+                                {index === 0 && (
+                                  <div className="py-2 text-inherit flex items-center gap-4">
+                                    <div className="flex items-center gap-4 w-full">
+                                      <Image
+                                        className={`rounded-md hover:grayscale-0__ object-cover w-full h-full max-h-[48px] max-w-full block min-w-full md:h-[48px] md:max-w-[48px] md:w-auto min-h-full md:min-w-[48px] overflow-hidden opacity-100 border-r-0`}
+                                        width="48"
+                                        height="48"
+                                        src={entity.pic}
+                                        alt=""
+                                      />
+                                      <div className="text-xl font-sem'">
+                                        {entity.name}
+                                      </div>
+                                    </div>
+                                    <Button asChild>
+                                      <Link href={`/profile/${entity.id}`}>
+                                        View Full Profile
+                                      </Link>
+                                    </Button>
                                   </div>
-                                </div>
-                                <Button asChild>
-                                  <Link href={`/profile/${entity.id}`}>
-                                    View Full Profile
-                                  </Link>
-                                </Button>
-                              </div>
-                            )}
-                            <Reason
-                              key={reason.id}
-                              description={reason?.reason || ""}
-                              name={reason.id || ""}
-                              {...reason}
-                              rating={reason.rating || 1}
-                              tags={reason.tags}
-                              profileId="1"
-                              isForceRatingToShow
+                                )}
+                                <Reason
+                                  key={reason.id}
+                                  description={reason?.reason || ""}
+                                  name={reason.id || ""}
+                                  {...reason}
+                                  rating={reason.rating || 1}
+                                  tags={reason.tags}
+                                  profileId="1"
+                                  isForceRatingToShow
 
-                              // photoUrl={profile?.pic}
-                            ></Reason>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  );
-                })}
+                                  // photoUrl={profile?.pic}
+                                ></Reason>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}

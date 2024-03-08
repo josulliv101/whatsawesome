@@ -56,7 +56,7 @@ export default async function ProfilePageContent({
     reasonsUser,
     rating = 75,
     isHub,
-    primaryColor = "#000",
+    primaryColor = "#f1f5f9",
   } = p;
   const primaryTag = "person";
 
@@ -203,7 +203,7 @@ export default async function ProfilePageContent({
         <ReasonTagsFilter tags={uniqueReasonTags} />
 
         <div
-          className="w-full grid grid-cols-[1fr] items-start gap-2 space-y-0 p-2 rounded-md"
+          className="w-full grid grid-cols-[1fr] items-start gap-2 space-y-0 p-4 rounded-md"
           style={{ backgroundColor: primaryColor }}
         >
           {reasons.map((reason, i) => (

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, useFormState } from "react-hook-form";
 import * as z from "zod";
 import {
   Dialog,
@@ -36,10 +36,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import MultipleSelector, { Option } from "@/components/MultipleSelector";
 import { tags } from "@/lib/tags";
-import { addProfile } from "@/lib/firebase";
+import { addProfile, firebaseApp } from "@/lib/firebase";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import TagDialog from "./TagDialog";
+import { latlngSchema } from "@/lib/profile";
+import GoogleMap from "./GoogleMap";
+import { GeoPoint, getFirestore } from "firebase/firestore";
 
 const OPTIONS: Option[] = tags.map((tag) => ({
   label: tag,
@@ -78,10 +81,23 @@ export const profileFormSchema = z.object({
     z.object({
       id: z.string().optional(),
       reason: z.string(),
-      votes: z.number(),
+      votes: z.number().optional(),
       tagMap: z.record(z.boolean()).optional(),
     })
   ),
+  latlng: latlngSchema
+    .nullable()
+    .optional()
+    .transform((val, ctx) => {
+      console.log("ll", val, ctx);
+      if (val) {
+        const geo = new GeoPoint(val.lat, val.lng);
+
+        return geo;
+        // return [val.lat, val.lng];
+      }
+      return null;
+    }),
 });
 
 export type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -94,6 +110,7 @@ const defaultValues: Partial<ProfileFormValues> = {
   rating: 0,
   tags: [] as any, // Record<TagName, boolean>,
   reasons: [],
+  latlng: null,
 };
 
 export function ProfileForm({ addProfile, profile }: any) {
@@ -104,6 +121,8 @@ export function ProfileForm({ addProfile, profile }: any) {
     mode: "onChange",
   });
 
+  // const foobar = useFormState({ name: "latlng", control: form.control });
+  console.log("form", form.formState.errors);
   const { fields, append, remove } = useFieldArray({
     name: "reasons",
     control: form.control,
@@ -121,6 +140,7 @@ export function ProfileForm({ addProfile, profile }: any) {
   };
 
   async function onSubmit(data: ProfileFormValues) {
+    console.log("data ...", JSON.stringify(data, null, 2));
     await addProfile(data);
     toast(
       <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
@@ -172,6 +192,26 @@ export function ProfileForm({ addProfile, profile }: any) {
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Larry Bird" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is the public display name of the profile.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="latlng"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <GoogleMap
+                    latlng={form.getValues().latlng || { lat: 0, lng: 0 }}
+                    onChange={form.setValue}
+                  />
                 </FormControl>
                 <FormDescription>
                   This is the public display name of the profile.

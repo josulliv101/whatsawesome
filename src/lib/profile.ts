@@ -1,5 +1,7 @@
 import * as z from "zod";
 
+export const latlngSchema = z.object({ lat: z.number(), lng: z.number() });
+
 const reasonSchema = z.object({
   id: z.string().optional(),
   reason: z.string(),
@@ -12,7 +14,7 @@ const reasonSchema = z.object({
   userId: z.string().optional(),
   tags: z.array(z.string()).optional(),
   parentId: z.string().optional(),
-  latlng: z.object({ lat: z.number(), lng: z.number() }).optional(),
+  latlng: latlngSchema.optional(),
 });
 
 export const profileSchema = z.object({
@@ -53,6 +55,7 @@ export const profileSchema = z.object({
   reasonsUser: z.array(reasonSchema).optional(),
   primaryColor: z.string().optional(),
   primaryColorForeground: z.string().optional(),
+  latlng: latlngSchema.optional(),
 });
 
 export type Profile = z.infer<typeof profileSchema>;
