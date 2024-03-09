@@ -355,7 +355,11 @@ export async function addProfile({
     .filter((reason) => !reason?.id)
     .forEach(async (reason) => {
       // const whyawesomeRef = collection(refDoc, "whyawesome");
-      addDoc(subColRef, { ...reason, rating: reason.rating ?? 1 });
+      addDoc(subColRef, {
+        ...reason,
+        latlng: profile.latlng || reason.latlng,
+        rating: reason.rating ?? 1,
+      });
 
       // await db
       //   .collection("entity")
