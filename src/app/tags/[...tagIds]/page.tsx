@@ -71,12 +71,7 @@ export default async function Page({
         3: generateRandomDecimal(1, 99),
       },
       tags: Object.keys(docA.data().tagMap || {}),
-      latlng: !!docA?.data()?.latlng
-        ? {
-            lat: (docA.data().latlng as GeoPoint)?.latitude,
-            lng: (docA.data().latlng as GeoPoint)?.longitude,
-          }
-        : undefined,
+      latlng: !!docA?.data()?.latlng ? docA?.data()?.latlng : undefined,
       // photoUrl: refParent?.id ? `/${refParent?.id}.jpg` : undefined,
     });
     console.log("data...", data[0]);
@@ -86,13 +81,27 @@ export default async function Page({
     const docRef = doc(db, "entity", item.parentId || "");
     return getDoc(docRef);
   });
-  const parentData = (await Promise.all(ps)).map((item) => ({
+  const parentData: Array<any> = (await Promise.all(ps)).map((item) => ({
     ...item.data(),
     id: item.id,
   }));
-  const results = data.filter((item) => !!item.latlng);
-  // .map((item) => item.latlng);
-  console.log("results", data.length);
+  const results = data
+    .map((item) => {
+      const pdata = parentData.find((obj) => obj.id === item.parentId);
+      console.log("pdata", pdata);
+      return {
+        ...item,
+        photoUrl: pdata?.pic || item.photoUrl,
+        latlng: pdata?.latlng
+          ? {
+              lat: pdata?.latlng.latitude || pdata?.latlng.lat,
+              lng: pdata?.latlng.longitude || pdata?.latlng.lng,
+            }
+          : null,
+      };
+    })
+    .filter((o) => !!o.latlng);
+  console.log("parentData", parentData);
   return (
     <main
       className={cn(

@@ -53,7 +53,7 @@ export default function GoogleMap({
   const coreLib = useMapsLibrary("core");
 
   const [initialBounds, setInitialBounds] =
-    useState<google.maps.LatLngLiteral>();
+    useState<google.maps.LatLngBoundsLiteral>();
 
   useEffect(() => {
     if (!coreLib) return;
@@ -69,8 +69,8 @@ export default function GoogleMap({
       );
     }
 
-    const initialBounds = bounds.getCenter().toJSON();
-    // debugger;
+    const initialBounds = bounds.toJSON();
+
     setInitialBounds(initialBounds);
   }, [coreLib, markers]);
 
@@ -106,9 +106,9 @@ export default function GoogleMap({
       >
         {initialBounds && (
           <Map
-            defaultZoom={13}
-            defaultCenter={initialBounds}
-            // defaultBounds={initialBounds}
+            // defaultZoom={13}
+            // defaultCenter={initialBounds}
+            defaultBounds={initialBounds}
             gestureHandling={"greedy"}
             disableDefaultUI={true}
             mapTypeId={"roadmap"}
@@ -216,7 +216,7 @@ export default function GoogleMap({
                         width="28"
                         height="28"
                         alt={item.parentId}
-                        src={`/${item.parentId}.jpg`}
+                        src={item.photoUrl || `/${item.parentId}.jpg`}
                         className="border rounded-md"
                       />
                       {item.parentId.replace(/[-_]/g, " ")}

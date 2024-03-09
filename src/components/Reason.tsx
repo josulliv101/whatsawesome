@@ -62,6 +62,8 @@ import { useAnalyticsContext } from "./useAnalytics";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
 import Rating from "./Rating";
+import { ReasonEdit } from "./ReasonEdit";
+import { profile } from "console";
 
 export function Reason({
   id,
@@ -77,6 +79,8 @@ export function Reason({
   tags = [],
   children,
   isForceRatingToShow,
+  isEditable = false,
+  latlng,
 }: PropsWithChildren<{
   id?: string;
   description: string;
@@ -90,10 +94,15 @@ export function Reason({
   userId?: string;
   tags: string[];
   isForceRatingToShow?: boolean;
+  isEditable?: boolean;
+  latlng?: {
+    lat: number;
+    lng: number;
+  };
 }>) {
   const photoUrl = photoUrlProp; // || config.logoPath;
   const isDefaultImage = !photoUrlProp;
-  const [isAnalyticsView_, setIsAnalyticsView] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const { state: isAnalyticsView } = useAnalyticsContext();
 
   const ratings = [
@@ -416,6 +425,17 @@ export function Reason({
                 <Link href={`/tags/${tag}`}>#{tag}</Link>
               </Button>
             ))}
+            {isEditable && id && (
+              <ReasonEdit
+                id={id}
+                profileId={profileId}
+                description={description}
+                latlng={latlng}
+                rating={rating}
+                photoUrl={photoUrl}
+                tags={tags}
+              />
+            )}
           </div>
         )}
       </CardContent>

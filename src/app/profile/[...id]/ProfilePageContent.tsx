@@ -226,9 +226,11 @@ export default async function ProfilePageContent({
                   userRating={
                     reason.id ? userProfileRatings?.[reason.id] : undefined
                   }
+                  latlng={reason.latlng}
                   ratings={reason.ratings}
                   tags={reason.tags || []}
                   isForceRatingToShow
+                  isEditable
                 />
               </ReasonVisibility>
             </>

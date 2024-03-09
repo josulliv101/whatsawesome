@@ -29,6 +29,7 @@ import { config } from "./config";
 import { PrimaryTagType, getPlural } from "./tags";
 import { Profile, Reason } from "./profile";
 import { generateRandomDecimal } from "./utils";
+import { revalidatePath } from "next/cache";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_API_KEY,
@@ -383,6 +384,28 @@ export async function rateReason(
     { [reasonId]: rating },
     { merge: true }
   );
+
+  return true;
+}
+
+export async function updateReason(
+  profileId: string,
+  reasonId: string,
+  data: any
+): Promise<boolean> {
+  const docRef = doc(db, "entity", profileId, "whyawesome", reasonId);
+  const { tags = [], rating, id, description, ...dataNoTags } = data;
+  const tagMap = tags.reduce((acc: Record<string, true>, tag: string) => {
+    return { ...acc, [tag]: true };
+  }, {});
+
+  console.log("tag map / dataNoTags", tagMap, dataNoTags);
+  const snapshot = await setDoc(
+    docRef,
+    { ...dataNoTags, tagMap, rating: Number(rating), reason: description },
+    { merge: false }
+  );
+  revalidatePath(`/profile/${profileId}`);
 
   return true;
 }

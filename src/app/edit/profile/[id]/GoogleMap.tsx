@@ -38,9 +38,11 @@ export { APIProvider as ClientAPIProvider } from "@vis.gl/react-google-maps";
 export default function GoogleMap({
   latlng,
   onChange,
+  className = "",
 }: {
   latlng: any;
   onChange: any;
+  className?: string;
 }) {
   const map = useMap();
 
@@ -52,7 +54,7 @@ export default function GoogleMap({
     <>
       <div
         id="map"
-        className="opacity-100 sticky_ flex items-center top-[72px] z-[1] w-full h-[420px] mb-12 border bg-gray-100 rounded-md p-2"
+        className={`opacity-100 sticky_ flex_ items-center top-[72px] z-[1] w-full h-[420px] mb-12 border bg-gray-100 rounded-md p-2 ${className}`}
       >
         <Map
           defaultZoom={13}

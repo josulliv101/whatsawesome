@@ -46,7 +46,7 @@ export default function PageContent({
       />
 
       <h2 className="flex flex-col-reverse items-start gap-1 justify-between text-3xl mb-12 w-full">
-        <span className="capitalize">{title} Roundup / North of Boston.</span>
+        <span className="capitalize">{title} Roundup</span>
         <span className="text-lg text-muted-foreground">
           Discover excellence.
         </span>
@@ -66,13 +66,15 @@ export default function PageContent({
             </div>
             <div className="pl-0 py-2 flex items-center justify-between">
               <span className="flex items-center gap-4 text-primary text-lg capitalize font-semibold">
-                <Image
-                  width="64"
-                  height="64"
-                  alt={reason.parentId}
-                  src={`/${reason.parentId}.jpg`}
-                  className="object-cover rounded-md absolute top-[221px] left-[-2px] z-50 border"
-                />
+                {reason?.photoUrl && (
+                  <Image
+                    width="64"
+                    height="64"
+                    alt={reason.parentId}
+                    src={`/${reason.parentId}.jpg`}
+                    className="object-cover rounded-md absolute top-[221px] left-[-2px] z-50 border"
+                  />
+                )}
                 {reason.parentId?.replace(/[-_]/g, " ")}
               </span>
               <Button asChild>
@@ -89,8 +91,7 @@ export default function PageContent({
               tags={reason.tags}
               profileId="1"
               isForceRatingToShow
-
-              // photoUrl={profile?.pic}
+              photoUrl={reason?.photoUrl || `/${reason.parentId}.jpg`}
             ></Reason>
           </div>
         ))}
