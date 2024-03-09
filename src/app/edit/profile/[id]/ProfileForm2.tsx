@@ -41,7 +41,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import TagDialog from "./TagDialog";
 import { latlngSchema } from "@/lib/profile";
-import GoogleMap from "./GoogleMap";
+import GoogleMap, { API_KEY, ClientAPIProvider } from "./GoogleMap";
 import { GeoPoint, getFirestore } from "firebase/firestore";
 
 const OPTIONS: Option[] = tags.map((tag) => ({
@@ -164,7 +164,7 @@ export function ProfileForm({ addProfile, profile }: any) {
   };
 
   return (
-    <>
+    <ClientAPIProvider apiKey={API_KEY}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -421,6 +421,6 @@ export function ProfileForm({ addProfile, profile }: any) {
           </div>
         </form>
       </Form>
-    </>
+    </ClientAPIProvider>
   );
 }
