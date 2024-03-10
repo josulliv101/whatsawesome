@@ -104,7 +104,7 @@ export default function GoogleMap({
     <>
       <div
         id="map"
-        className="opacity-100 sticky flex items-center top-[72px] z-[1] w-full h-[420px] mb-12 border bg-gray-100 rounded-md p-2"
+        className=" opacity-100 sticky flex items-center top-[75px] z-[1] w-full h-[420px] mb-12 border bg-gray-100 rounded-md p-2"
       >
         {initialBounds && (
           <Map
@@ -240,13 +240,13 @@ export default function GoogleMap({
                 );
               })}
             </CommandGroup>
-            <div className="absolute flex items-center bottom-0 right-0 bg-gray-100 w-full">
-              <Button size="sm" variant={"secondary"} asChild>
-                <Link href={`/compare/${tag}`}>Compare head-to-head</Link>
-              </Button>
-            </div>
           </CommandList>
         </Command>
+        <div className="absolute flex items-center bottom-0 right-0 bg-gray-100 w-full">
+          <Button size="sm" variant={"secondary"} asChild>
+            <Link href={`/compare/${tag}`}>Enable head-to-head</Link>
+          </Button>
+        </div>
       </div>
     </>
   );

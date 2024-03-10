@@ -105,8 +105,8 @@ export default function NavMenu({
               setForcePlayAnimation(false);
             }}
           />
-          <div className="animate-rubberBandJumpShadow bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
-          <span className="sr-only">whats awesome</span>
+          <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
+          <span className="sr-only">Blue Mushroom</span>
         </HubLink>
         {
           <>

@@ -78,6 +78,7 @@ export default function PageContent({
 
   const tags: string[] = Object.keys(reasonsMap).sort();
   console.log("tags", tags);
+  const isAnySelected = Object.keys(reasonsMap).length > 0;
   return (
     <>
       <GoogleMap
@@ -100,8 +101,13 @@ export default function PageContent({
         </span>
       </h2>
       <div className="">
-        <ReasonTagsFilter tags={tags} />
+        {isAnySelected && <ReasonTagsFilter tags={tags} />}
       </div>
+      {!isAnySelected && (
+        <div className="bg-muted px-4 py-3 text-muted-foreground">
+          Select at least 2 items to compare them head-to-head.
+        </div>
+      )}
       <div className="flex flex-col gap-10 relative z-[0] ">
         {Object.keys(reasonsMap)
           .sort()

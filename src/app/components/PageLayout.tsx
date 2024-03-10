@@ -14,7 +14,6 @@ export function PageLayout({ children }: PropsWithChildren) {
       {/* <Breadcrumb /> */}
       {children}
       <Footer />
-      <SystemInfo />
     </>
   );
 }

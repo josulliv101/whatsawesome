@@ -183,7 +183,8 @@ const config: Config = {
 
           "30%": {
             opacity: ".95",
-            transform: "scale3d(1.1, 1, 1)",
+            transform: "scale3d(2.1, 1, 1)",
+            // transform: "scale3d(1.1, 1, 1)",
           },
 
           "40%": {
@@ -229,9 +230,12 @@ const config: Config = {
         rubberBand: "rubberBand 1s 1",
         rubberBandQuick: "rubberBand .4s 1",
         rubberBandIntro: "rubberBandIntro 5s 1",
-        rubberBandJump: "rubberBandJump 1.4s 3 3s",
+
         rubberBandJumpNoDelay: "rubberBandJump 1.4s 3 0s",
-        rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 3s",
+
+        rubberBandJump: "rubberBandJump 1.4s 3 0s",
+        rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 0s",
+
         hflip: "flipHorizontal 2s 1",
         vflip: "flipVertical 2s 1",
         fadeIn: "fadeIn .5s ease-in",

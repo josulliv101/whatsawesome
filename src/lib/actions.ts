@@ -3,7 +3,7 @@
 import { fetchProfile, updateReason } from "./firebase";
 
 export async function handleAddEntityToCompare(entityId: string) {
-  console.log("server logging...");
+  console.log("server logging...", entityId);
   const profile = await fetchProfile(entityId);
   return profile;
 }
