@@ -13,7 +13,7 @@ export default function SponsorCard({
         width="32"
         height="32"
         src={pic}
-        className="object-cover"
+        className="object-cover h-[32px] w-[32px]"
       />
       <div>
         <a

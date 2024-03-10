@@ -92,10 +92,10 @@ export default async function Profiles({
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
             </div>
-            {!!tagIndex && tagIndex % 3 === 0 && (
+            {!!tagIndex && tagIndex === 2 && (
               <div className="bg-gray-200 w-full mt-20 opacity-100">
                 <div className="relative w-full flex_ max-w-7xl mx-auto items-center justify-between px-2 py-2">
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center justify-between gap-1">
                     {/* <TabNav profile={undefined} /> */}
                     <SponsorCard
                       name="Constant Contact, Inc"
@@ -107,6 +107,29 @@ export default async function Profiles({
                     />
                     <SponsorCard name="Toast, Inc" pic="/toast.png" />
                     <SponsorCard name="Akamai Technologies" pic="/akamai.jpg" />
+                  </div>
+                  <div className="flex items-center justify-between gap-1">
+                    {/* <TabNav profile={undefined} /> */}
+                    <SponsorCard name="Apple, Inc" pic="/apple.jpg" />
+                    <SponsorCard name="Google, Inc" pic="/google.png" />
+                    <SponsorCard name="Nvidia, Inc" pic="/nvidia.png" />
+                    <SponsorCard
+                      name="Boston Childrens Hospital"
+                      pic="/boston-childrens.jpg"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between gap-1">
+                    {/* <TabNav profile={undefined} /> */}
+                    <SponsorCard name="HubSpot, Inc" pic="/hubspot.jpg" />
+                    <SponsorCard
+                      name="Greater Boston Foodbank"
+                      pic="/greater-boston-foodbank.jpg"
+                    />
+                    <SponsorCard name="The Jimmy Fund" pic="/jimmy-fund.jpg" />
+                    <SponsorCard
+                      name="Tavern In The Square"
+                      pic="/tavern-in-the-square.png"
+                    />
                   </div>
                   <p className=" absolute -top-6 left-0 text-sm text-muted-foreground px-2 text-right">
                     Thank you to all the sponsors who make blue mushroom Boston

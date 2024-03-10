@@ -71,7 +71,6 @@ export default async function Page({
       },
       tags: Object.keys(docA.data().tagMap || {}),
       latlng: !!docA?.data()?.latlng ? docA?.data()?.latlng : undefined,
-      // photoUrl: refParent?.id ? `/${refParent?.id}.jpg` : undefined,
     });
     console.log("data...", data[0]);
   });

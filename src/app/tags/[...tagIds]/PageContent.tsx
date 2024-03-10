@@ -71,7 +71,7 @@ export default function PageContent({
                     width="64"
                     height="64"
                     alt={reason.parentId}
-                    src={`/${reason.parentId}.jpg`}
+                    src={reason.parentPhotoUrl}
                     className="object-cover h-[64px] w-[64px] rounded-md absolute top-[221px] left-[-2px] z-50 border"
                   />
                 )}

@@ -233,8 +233,8 @@ const config: Config = {
 
         rubberBandJumpNoDelay: "rubberBandJump 1.4s 3 0s",
 
-        rubberBandJump: "rubberBandJump 1.4s 3 0s",
-        rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 0s",
+        rubberBandJump: "rubberBandJump 1.4s 3 2s",
+        rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 2s",
 
         hflip: "flipHorizontal 2s 1",
         vflip: "flipVertical 2s 1",
