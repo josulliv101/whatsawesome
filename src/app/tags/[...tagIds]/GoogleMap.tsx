@@ -27,6 +27,8 @@ import mapStyleSimple from "./mapStyleSimple";
 import { config } from "@/lib/config";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import Rating from "@/components/Rating";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 let map;
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
@@ -187,7 +189,7 @@ export default function GoogleMap({
         {!initialBounds && <div className="bg-gray-100 w-full h-full"></div>}
         <Command className="max-w-96">
           {/* <CommandInput placeholder="Type a command or search..." /> */}
-          <CommandList>
+          <CommandList className="relative">
             {/* <CommandEmpty>No results found.</CommandEmpty> */}
             <CommandGroup
               className="text-right pr-0"
@@ -213,11 +215,11 @@ export default function GoogleMap({
                   >
                     <div className="flex items-center gap-2 capitalize">
                       <Image
-                        width="28"
-                        height="28"
+                        width="36"
+                        height="36"
                         alt={item.parentId}
-                        src={item.photoUrl || `/${item.parentId}.jpg`}
-                        className="border rounded-md"
+                        src={item.parentPhotoUrl || item.photoUrl}
+                        className="border rounded-md w-[36px] h-[36px] object-cover"
                       />
                       {item.parentId.replace(/[-_]/g, " ")}
                     </div>
@@ -238,6 +240,11 @@ export default function GoogleMap({
                 );
               })}
             </CommandGroup>
+            <div className="absolute flex items-center bottom-0 right-0 bg-gray-100 w-full">
+              <Button size="sm" variant={"secondary"} asChild>
+                <Link href={`/compare/${tag}`}>Compare head-to-head</Link>
+              </Button>
+            </div>
           </CommandList>
         </Command>
       </div>

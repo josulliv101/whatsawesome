@@ -29,6 +29,7 @@ import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import Rating from "@/components/Rating";
 import { Checkbox } from "@/components/ui/checkbox";
 import { handleAddEntityToCompare } from "@/lib/actions";
+import Link from "next/link";
 
 let map;
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";

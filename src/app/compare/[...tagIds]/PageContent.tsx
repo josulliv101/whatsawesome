@@ -16,6 +16,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import GoogleMap from "./GoogleMap";
 import Legend from "@/components/Legend";
+import { tagDefinitions } from "@/lib/tags";
+import { Badge } from "@/components/ui/badge";
+import ReasonTagsFilter from "@/app/profile/[...id]/ReasonTagsFilter";
 
 function customizer(objValue: any, srcValue: any) {
   if (Array.isArray(objValue)) {
@@ -72,6 +75,9 @@ export default function PageContent({
   ] as any);
 
   console.log("reasonsMap", reasonsMap);
+
+  const tags: string[] = Object.keys(reasonsMap).sort();
+  console.log("tags", tags);
   return (
     <>
       <GoogleMap
@@ -93,6 +99,9 @@ export default function PageContent({
           Discover excellence.
         </span>
       </h2>
+      <div className="">
+        <ReasonTagsFilter tags={tags} />
+      </div>
       <div className="flex flex-col gap-10 relative z-[0] ">
         {Object.keys(reasonsMap)
           .sort()
@@ -117,61 +126,63 @@ export default function PageContent({
                       (reason: any) => reason.parentId === uniqueId
                     );
                     return (
-                      <div key={uniqueId} className="mb-6 last:mb-0">
-                        {reasonsPerParent
-                          .slice(0, 1)
-                          .map((reason: any, index: number) => {
-                            const entity = entities.find(
-                              (entity) => entity.id === reason.parentId
-                            );
-                            return (
-                              <div
-                                key={reason.id}
-                                className={`p-4 rounded-md `}
-                                style={{
-                                  backgroundColor:
-                                    entity?.primaryColor || "#444",
-                                  color:
-                                    entity?.primaryColorForeground || "#fff",
-                                }}
-                              >
-                                {index === 0 && (
-                                  <div className="py-2 text-inherit flex items-center gap-4">
-                                    <div className="flex items-center gap-4 w-full">
-                                      <Image
-                                        className={`rounded-md hover:grayscale-0__ object-cover w-full h-full max-h-[48px] max-w-full block min-w-full md:h-[48px] md:max-w-[48px] md:w-auto min-h-full md:min-w-[48px] overflow-hidden opacity-100 border-r-0`}
-                                        width="48"
-                                        height="48"
-                                        src={entity.pic}
-                                        alt=""
-                                      />
-                                      <div className="text-xl font-sem'">
-                                        {entity.name}
-                                      </div>
-                                    </div>
-                                    <Button asChild>
-                                      <Link href={`/profile/${entity.id}`}>
-                                        View Full Profile
-                                      </Link>
-                                    </Button>
-                                  </div>
-                                )}
-                                <Reason
+                      <>
+                        <div key={uniqueId} className="mb-6 last:mb-0">
+                          {reasonsPerParent
+                            .slice(0, 1)
+                            .map((reason: any, index: number) => {
+                              const entity = entities.find(
+                                (entity) => entity.id === reason.parentId
+                              );
+                              return (
+                                <div
                                   key={reason.id}
-                                  description={reason?.reason || ""}
-                                  name={reason.id || ""}
-                                  {...reason}
-                                  rating={reason.rating || 1}
-                                  tags={reason.tags}
-                                  profileId="1"
-                                  isForceRatingToShow
+                                  className={`p-4 rounded-md `}
+                                  style={{
+                                    backgroundColor:
+                                      entity?.primaryColor || "#444",
+                                    color:
+                                      entity?.primaryColorForeground || "#fff",
+                                  }}
+                                >
+                                  {index === 0 && (
+                                    <div className="py-2 text-inherit flex items-center gap-4">
+                                      <div className="flex items-center gap-4 w-full">
+                                        <Image
+                                          className={`rounded-md hover:grayscale-0__ object-cover w-full h-full max-h-[48px] max-w-full block min-w-full md:h-[48px] md:max-w-[48px] md:w-auto min-h-full md:min-w-[48px] overflow-hidden opacity-100 border-r-0`}
+                                          width="48"
+                                          height="48"
+                                          src={entity.pic}
+                                          alt=""
+                                        />
+                                        <div className="text-xl font-sem'">
+                                          {entity.name}
+                                        </div>
+                                      </div>
+                                      <Button asChild>
+                                        <Link href={`/profile/${entity.id}`}>
+                                          View Full Profile
+                                        </Link>
+                                      </Button>
+                                    </div>
+                                  )}
+                                  <Reason
+                                    key={reason.id}
+                                    description={reason?.reason || ""}
+                                    name={reason.id || ""}
+                                    {...reason}
+                                    rating={reason.rating || 1}
+                                    tags={reason.tags}
+                                    profileId="1"
+                                    isForceRatingToShow
 
-                                  // photoUrl={profile?.pic}
-                                ></Reason>
-                              </div>
-                            );
-                          })}
-                      </div>
+                                    // photoUrl={profile?.pic}
+                                  ></Reason>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </>
                     );
                   })}
                 </div>

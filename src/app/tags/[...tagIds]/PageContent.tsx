@@ -72,7 +72,7 @@ export default function PageContent({
                     height="64"
                     alt={reason.parentId}
                     src={`/${reason.parentId}.jpg`}
-                    className="object-cover rounded-md absolute top-[221px] left-[-2px] z-50 border"
+                    className="object-cover h-[64px] w-[64px] rounded-md absolute top-[221px] left-[-2px] z-50 border"
                   />
                 )}
                 {reason.parentId?.replace(/[-_]/g, " ")}
@@ -91,7 +91,7 @@ export default function PageContent({
               tags={reason.tags}
               profileId="1"
               isForceRatingToShow
-              photoUrl={reason?.photoUrl || `/${reason.parentId}.jpg`}
+              photoUrl={reason?.photoUrl || reason.parentPhotoUrl}
             ></Reason>
           </div>
         ))}

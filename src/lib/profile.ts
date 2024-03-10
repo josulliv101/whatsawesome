@@ -9,6 +9,7 @@ const reasonSchema = z.object({
   rating: z.number(),
   totalRespondants: z.coerce.number().min(0).multipleOf(1).optional(),
   photoUrl: z.string().optional(),
+  parentPhotoUrl: z.string().optional(),
   ratings: z.record(z.string(), z.number()).optional(),
   isUserSubmission: z.boolean().optional(),
   userId: z.string().optional(),

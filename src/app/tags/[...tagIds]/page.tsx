@@ -91,7 +91,8 @@ export default async function Page({
       console.log("pdata", pdata);
       return {
         ...item,
-        photoUrl: pdata?.pic || item.photoUrl,
+        photoUrl: item.photoUrl,
+        parentPhotoUrl: pdata?.pic,
         latlng: pdata?.latlng
           ? {
               lat: pdata?.latlng.latitude || pdata?.latlng.lat,

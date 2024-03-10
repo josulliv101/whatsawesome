@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,6 +23,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { updateReason } from "@/lib/firebase";
 import { handleUpdateReason } from "@/lib/actions";
+import { useAuthContext } from "./AuthContext";
 
 export function ReasonEdit({
   id,
@@ -42,6 +45,7 @@ export function ReasonEdit({
   };
   profileId: string;
 }) {
+  const user = useAuthContext();
   const [open, setOpen] = useState(false);
   const [formState, setState] = useState({
     id,
@@ -68,6 +72,10 @@ export function ReasonEdit({
       </pre>
     );
   };
+
+  if (!user?.isAdmin) {
+    return null;
+  }
   return (
     <ClientAPIProvider apiKey={API_KEY}>
       <Dialog open={open} onOpenChange={setOpen}>
