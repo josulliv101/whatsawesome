@@ -12,6 +12,7 @@ import { Fragment } from "react";
 import PageContent from "./PageContent";
 import useFilterOptions from "./useFilterOptions";
 import { FilterByIdType } from "@/lib/filters";
+import { API_KEY, ClientAPIProvider } from "@/app/edit/profile/[id]/GoogleMap";
 
 export default async function Home({ params: { tags: tagsParam = [] } }) {
   const { hub, primaryTag, tags } = getHubTags(tagsParam);

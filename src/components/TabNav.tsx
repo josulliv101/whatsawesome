@@ -55,9 +55,9 @@ export default function TabNav({
 
   const router = useRouter();
 
-  const onValueChange: (val: string) => void = useCallback(
-    (val) => {
-      // setActiveTabId(val);
+  const onValueChange: any = useCallback(
+    (val: string) => {
+      console.log("val", val);
       startTransition(() => updateToOptimistic(val as PrimaryTagType));
       console.log(val);
       !!val && router.push(`/${hub}/${val}`); // setTimeout(() => router.push(`/${hub}/${val}`), 40);
@@ -84,19 +84,20 @@ export default function TabNav({
             style={style}
           ></div>
           <TabsTrigger
-            ref={refTab1}
-            value="person"
-            className="relative z-0 h-11 px-4 text-sm font-light"
-          >
-            People
-          </TabsTrigger>
-          <TabsTrigger
             ref={refTab2}
             value="place"
             className="relative z-0 h-11 px-4 text-sm font-light"
           >
             Places
           </TabsTrigger>
+          <TabsTrigger
+            ref={refTab1}
+            value="person"
+            className="relative z-0 h-11 px-4 text-sm font-light"
+          >
+            People
+          </TabsTrigger>
+
           {profile && (
             <TabsTrigger
               ref={refTab3}

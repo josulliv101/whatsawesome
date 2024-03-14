@@ -6,7 +6,7 @@ import { TagFilter } from "@/components/TagFilter";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "@/lib/profile";
 import { PrimaryTagType, getPlural, tagDefinitions } from "@/lib/tags";
-import { Fragment, Suspense } from "react";
+import { Fragment, Suspense, useRef, useState } from "react";
 import Profiles from "./Profiles";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { Badge } from "@/components/ui/badge";
@@ -17,8 +17,12 @@ import { Square } from "lucide-react";
 import { FilterOptions } from "@/lib/filters";
 import ProfilePageContent from "@/app/profile/[...id]/ProfilePageContent";
 import DisablePage from "@/components/DisablePage";
+import GoogleMap from "./GoogleMapMain";
+import { API_KEY, ClientAPIProvider } from "@/app/edit/profile/[id]/GoogleMap";
+import { fetchHubProfiles } from "@/lib/firebase";
+import BubbleChart from "./BubbleChart";
 
-export default function PageContent({
+export default async function PageContent({
   // profilesByTag,
   hub,
   primaryTag,
@@ -43,6 +47,45 @@ export default function PageContent({
   filterOptions: FilterOptions;
   filterId: string;
 }) {
+  const fetchPromises =
+    tagsToUse?.map(
+      async (tag) => await fetchHubProfiles(hub, primaryTag, [tag])
+    ) || [];
+
+  const fetchPromises2 =
+    tagDefinitions.person.children?.map(
+      async (tag: string) => await fetchHubProfiles(hub, "person", [tag])
+    ) || [];
+  const fetchedProfileByTag = await Promise.all(fetchPromises);
+  const fetchedProfileByTag2: Array<any> = []; // await Promise.all(fetchPromises2);
+
+  const profilesByTag = fetchedProfileByTag.reduce((acc: any, item, i) => {
+    if (i > -1 && i % 2 === 0) {
+      // return [...acc, item, fetchedProfileByTag2[i / 2]];
+    }
+    return [...acc, item];
+  }, []);
+
+  const markers = profilesByTag
+    .filter((item: any) => !!item?.profiles)
+    .map(({ profiles = [] }: { profiles: Array<any> }) => {
+      return profiles.map((profile) => ({
+        ...profile,
+        name: profile.name,
+        id: profile.id,
+        latlng: profile?.latlng,
+        tag: profile?.tags?.length ? profile.tags[0] : null,
+      }));
+    })
+    .flat()
+    .filter((item: any) => !!item?.latlng)
+    .map((item: any) => ({
+      ...item,
+      latlng: { lat: item?.latlng.latitude, lng: item?.latlng.longitude },
+    }));
+
+  console.log("markers", markers);
+
   const tagOptions = tagDefinitions[primaryTag]?.children.map(
     (tag: string) => ({
       label: tag,
@@ -53,12 +96,40 @@ export default function PageContent({
     ? "object-top"
     : "object-center";
   console.log("TABNAV render");
+
+  // const [activeItemId, setActiveItemId] = useState<string | null>(null);
+  // const activeItemRef = useRef<HTMLDivElement | null>(null);
   return (
-    <>
+    <ClientAPIProvider apiKey={API_KEY}>
       {profile && (primaryTag as string) === "profile" && (
         <ProfilePageContent
           params={{ id: hub }}
           className="lg:pt-0 mt-0 lg:px-0"
+        />
+      )}
+
+      {primaryTag === "place" && (
+        <GoogleMap
+          profilesByTag={profilesByTag}
+          markers={markers}
+          // activeItemId={activeItemId}
+          // setActiveItemId={setActiveItemId}
+          // activeItemRef={activeItemRef}
+          // activeItemHoverId={activeItemHoverId}
+          // setActiveItemHoverId={setActiveItemHoverId}
+          tag={"burger"}
+        />
+      )}
+
+      {primaryTag === "person" && (
+        <BubbleChart
+          profilesByTag={profilesByTag}
+          markers={markers}
+          //activeItemId={null}
+          // setActiveItemId={null}
+          activeItemHoverId={null}
+          // setActiveItemHoverId={null}
+          tag={"burger"}
         />
       )}
 
@@ -70,9 +141,15 @@ export default function PageContent({
       )}
       <DisablePage>
         <Suspense fallback={<LoadingSkeleton />}>
-          <Profiles hub={hub} primaryTag={primaryTag} tagsToUse={tagsToUse} />
+          <Profiles
+            // activeItemRef={activeItemRef}
+            // activeItemId={activeItemId}
+            hub={hub}
+            primaryTag={primaryTag}
+            tagsToUse={tagsToUse}
+          />
         </Suspense>
       </DisablePage>
-    </>
+    </ClientAPIProvider>
   );
 }

@@ -4,6 +4,7 @@ import {
   ChatBubbleIcon,
   ChevronDownIcon,
   CircleIcon,
+  HeartFilledIcon,
   PlusIcon,
   StarFilledIcon as StarIcon,
 } from "@radix-ui/react-icons";
@@ -28,6 +29,12 @@ import {
   // MehIcon,
   MessageCircleQuestion as MehIcon,
   BanIcon,
+  BadgeIcon,
+  BanknoteIcon,
+  StarOffIcon,
+  CrownIcon,
+  CircleDotIcon,
+  Heart,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -337,12 +344,40 @@ export function Reason({
         </div>
         <div className="absolute bottom-4 right-8">
           {id && !isAnalyticsView && (
-            <RateReason
-              profileId={profileId}
-              reasonId={id}
-              userRating={userRating}
-              tag={tags[0]}
-            />
+            <>
+              <Button
+                variant={"outline"}
+                className="flex gap-2 transition-all duration-500"
+              >
+                {/* Backers:
+                <Image
+                  alt="vote"
+                  src={config.logoPath}
+                  width={18}
+                  height={18}
+                  className=""
+                />
+                {19} */}
+                <Image
+                  alt="vote"
+                  src={config.logoPath}
+                  width={22}
+                  height={22}
+                  className="grayscale_ ml-2"
+                />
+                {(roundToInteger(rating * 100) === 287 ||
+                  roundToInteger(rating * 100) === 240) && (
+                  <Heart className="w-3.5 h-3.5 absolute hidden_ left-[37px] top-[3px] stroke-2 text-white fill-red-500" />
+                )}
+                <span>{roundToInteger(rating * 100)} Backers</span>
+              </Button>
+              {/* <RateReason
+                profileId={profileId}
+                reasonId={id}
+                userRating={userRating}
+                tag={tags[0]}
+              /> */}
+            </>
           )}
         </div>
         <div
@@ -352,7 +387,7 @@ export function Reason({
             <span className="hidden text-muted-foreground">{`${rating} / 3`}</span>
           )}
           <div
-            className={`${isAnalyticsView || isForceRatingToShow ? "flex" : "hidden"} items-center flex-row space-x-0 text-sm text-muted-foreground`}
+            className={`${isAnalyticsView || isForceRatingToShow ? "flex hidden__" : "hidden"} items-center flex-row space-x-0 text-sm text-muted-foreground`}
           >
             {/* <Button
               onClick={() => setIsAnalyticsView(!isAnalyticsView)}
@@ -371,12 +406,32 @@ export function Reason({
               {roundToInteger(totalPeople)} comments
             </div>
             <span className="pr-2 hidden">/</span>
-            <Rating rating={rating} />
+            {/* <Rating rating={rating} /> */}
             {!isAnalyticsView && (
-              <div className="pl-4 inline-block text-muted-foreground">
+              <div className="pl-4 inline-block_ text-muted-foreground hidden">
                 #{tags.join(" / ")} excellence ({rating})
               </div>
             )}
+            {!isAnalyticsView &&
+              (roundToInteger(rating * 100) === 287 ||
+                roundToInteger(rating * 100) === 240) && (
+                <div className="pl-4 inline-block_ text-muted-foreground">
+                  <Button
+                    variant={"ghost"}
+                    className="flex gap-2 transition-all duration-500 relative"
+                  >
+                    Thank you @josulliv101 and 2 others for the extra
+                    {/* <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={22}
+                    height={22}
+                    className="grayscale_ ml-2"
+                  /> */}
+                    <Heart className="w-4 h-4 absolute__ hidden_ right-[12px] top-[3px] stroke-[0px] text-white fill-muted-foreground opacity-60" />
+                  </Button>
+                </div>
+              )}
             <span className={`px-3 ${isAnalyticsView ? "inline" : "hidden"}`}>
               /
             </span>

@@ -1,6 +1,7 @@
 "use server";
 
-import { fetchProfile, updateReason } from "./firebase";
+import { revalidatePath } from "next/cache";
+import { addReasonToProfile, fetchProfile, updateReason } from "./firebase";
 
 export async function handleAddEntityToCompare(entityId: string) {
   console.log("server logging...", entityId);
@@ -15,4 +16,9 @@ export async function handleUpdateReason(
 ) {
   const foobar = await updateReason(profileId, id, formState);
   return true;
+}
+
+async function handleSubmitReason(profileId: string, uid: string, data: any) {
+  uid && (await addReasonToProfile(profileId, uid, data.reason));
+  revalidatePath(`/profile/${profileId}`);
 }

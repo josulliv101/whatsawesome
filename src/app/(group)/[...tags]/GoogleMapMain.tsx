@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/command";
 
 import {
-  APIProvider,
+  APIProvider as ClientAPIProvider,
   AdvancedMarker,
   InfoWindow,
   Map,
@@ -23,7 +23,6 @@ import {
   useMap,
   useMapsLibrary,
 } from "@vis.gl/react-google-maps";
-import mapStyleSimple from "./mapStyleSimple";
 import { config } from "@/lib/config";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import Rating from "@/components/Rating";
@@ -33,22 +32,24 @@ import { Button } from "@/components/ui/button";
 let map;
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
-export { APIProvider as ClientAPIProvider } from "@vis.gl/react-google-maps";
-
-export default function GoogleMap({
+export default function GoogleMapMain({
   activeItemId,
   setActiveItemId,
   activeItemHoverId,
   setActiveItemHoverId,
+  activeItemRef,
   markers = [],
   tag,
+  profilesByTag = [],
 }: {
-  activeItemId: string | null;
+  activeItemId?: string | null;
   setActiveItemId?: Dispatch<SetStateAction<string | null>>;
-  activeItemHoverId: string | null;
+  activeItemHoverId?: string | null;
   setActiveItemHoverId?: Dispatch<SetStateAction<string | null>>;
+  activeItemRef?: any;
   markers: Array<any>;
   tag?: string;
+  profilesByTag: Array<any>;
 }) {
   const map = useMap();
 
@@ -104,18 +105,18 @@ export default function GoogleMap({
     <>
       <div
         id="map"
-        className=" opacity-100 sticky flex items-center top-[75px] z-[1] w-full h-[420px] mb-12 border bg-gray-100 rounded-md p-2"
+        className=" opacity-100 sticky flex items-center top-[70px] z-[1] w-full h-[420px] mb-12 border bg-gray-100 rounded-md p-2"
       >
         {initialBounds && (
           <Map
-            // defaultZoom={13}
-            defaultCenter={markers.length === 1 ? markers[0].latlng : undefined}
-            defaultBounds={markers.length > 1 ? initialBounds : undefined}
+            defaultZoom={13}
+            defaultCenter={{ lat: 42.35998584895903, lng: -71.06132881413302 }}
+            // defaultBounds={markers.length > 1 ? initialBounds : undefined}
             gestureHandling={"greedy"}
             disableDefaultUI={true}
             mapTypeId={"roadmap"}
-            // mapId={"739af084373f96fe"}
-            mapId={"bf51a910020fa25a"}
+            mapId={"739af084373f96fe"}
+            // mapId={"bf51a910020fa25a"}
             // styles={mapStyleSimple}
           >
             {markers.map((marker, i) => {
@@ -133,7 +134,7 @@ export default function GoogleMap({
               return (
                 <Fragment key={marker.id}>
                   <AdvancedMarker
-                    key={i}
+                    key={marker.id}
                     ref={isActiveMarker ? markerRef : null}
                     position={ll}
                     title={"AdvancedMarker with custom html content."}
@@ -193,7 +194,7 @@ export default function GoogleMap({
             })}
           </Map>
         )}
-        {!initialBounds && <div className="bg-gray-100 w-full h-full"></div>}
+        {!initialBounds && <div className="bg-gray-100_ w-full h-full"></div>}
         <Command className="max-w-96">
           {/* <CommandInput placeholder="Type a command or search..." /> */}
           <CommandList className="relative">
@@ -207,35 +208,36 @@ export default function GoogleMap({
                 </div>
               }
             >
-              {markers.map((item) => {
+              {profilesByTag.sort(compareByLabel).map((item) => {
                 return (
                   <CommandItem
-                    key={item.id}
-                    value={item.id}
+                    key={item.tag}
+                    value={item.tag}
                     onMouseOver={() =>
-                      setActiveItemHoverId && setActiveItemHoverId(item.id)
+                      setActiveItemHoverId && setActiveItemHoverId(item.tag)
                     }
                     onMouseOut={() =>
                       setActiveItemHoverId && setActiveItemHoverId(null)
                     }
-                    onSelect={(id) =>
-                      !!id &&
-                      setActiveItemId &&
-                      setActiveItemId(item.id === activeItemId ? null : item.id)
-                    }
-                    className={`w-full cursor-pointer flex items-center justify-between py-1 ${item.id === activeItemId || item.id === activeItemHoverId ? "bg-muted text-secondary-foreground" : ""} hover:bg-inherit_ aria-selected:bg-muted aria-selected:text-secondary-foreground`}
+                    onSelect={(id) => {
+                      console.log("id", id);
+                      document.getElementById(`foobar-${id}`)?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }}
+                    className={`w-full cursor-pointer flex items-center justify-between py-1 ${item.id === activeItemId || item.id === activeItemHoverId ? "bg-muted_ text-secondary-foreground" : ""} hover:bg-inherit_ aria-selected:bg-muted aria-selected:text-secondary-foreground`}
                   >
                     <div className="flex items-center gap-2 capitalize">
-                      <Image
+                      {/* <Image
                         width="36"
                         height="36"
-                        alt={item.parentId}
-                        src={item.parentPhotoUrl || item.photoUrl}
+                        alt={item.id}
+                        src={item.pic}
                         className="border rounded-md w-[36px] h-[36px] object-cover"
-                      />
-                      {item.parentId?.replace(/[-_]/g, " ")}
+                      /> */}
+                      {item.label}
                     </div>
-                    <Rating rating={item.rating} size={16} />
+                    {/* <Rating rating={item.rating} size={16} /> */}
                     {/* <span className="flex flex-row-reverse items-center gap-1">
                       <Image
                         // key={i}
@@ -254,7 +256,7 @@ export default function GoogleMap({
             </CommandGroup>
           </CommandList>
         </Command>
-        <div className="absolute flex_ hidden items-center bottom-0 right-0 bg-gray-100 w-full">
+        <div className="absolute hidden _flex items-center bottom-0 right-0 bg-gray-100 w-full">
           <Button size="sm" variant={"secondary"} asChild>
             <Link href={`/compare/${tag}`}>Enable head-to-head</Link>
           </Button>
@@ -262,4 +264,8 @@ export default function GoogleMap({
       </div>
     </>
   );
+}
+
+export function compareByLabel(a: { label: string }, b: { label: string }) {
+  return a.label.localeCompare(b.label);
 }

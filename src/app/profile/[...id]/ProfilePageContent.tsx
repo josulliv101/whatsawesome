@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { BanIcon, BarChart2Icon, Globe, StarIcon } from "lucide-react";
+import {
+  BanIcon,
+  BarChart2Icon,
+  Globe,
+  HeartIcon,
+  StarIcon,
+} from "lucide-react";
 import {
   addReasonToProfile,
   fetchProfile,
@@ -14,7 +20,7 @@ import { Reason } from "@/components/Reason";
 import HubLink from "@/components/HubLink";
 import { Suspense } from "react";
 
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
 import PageHeading, { Heading } from "@/components/PageHeading";
@@ -30,6 +36,8 @@ import { revalidatePath } from "next/cache";
 import { ReasonVisibility } from "./ReasonVisibility";
 import ReasonTagsFilter from "./ReasonTagsFilter";
 import Legend from "@/components/Legend";
+import SponsorRack from "@/components/SponsorRack";
+import { HeartFilledIcon } from "@radix-ui/react-icons";
 
 export default async function ProfilePageContent({
   className = "",
@@ -60,21 +68,14 @@ export default async function ProfilePageContent({
   } = p;
   const primaryTag = "person";
 
-  const cookieStore = cookies();
-  const filterCookie = cookieStore.get(`filter-${primaryTag}`);
-  console.log("filterCookie", id, primaryTag, filterCookie?.value);
+  // const cookieStore = cookies();
+  // const filterCookie = cookieStore.get(`filter-${primaryTag}`);
+  // console.log("filterCookie", id, primaryTag, filterCookie?.value);
 
-  const tagsToUse = filterCookie?.value ? filterCookie?.value.split(",") : tags;
+  // const tagsToUse = filterCookie?.value ? filterCookie?.value.split(",") : tags;
 
   const imgPosition = tags.includes("person") ? "object-top" : "object-center";
-  const initialActiveTags = filterCookie?.value?.split(",");
-
-  async function handleSubmitReason(data: any) {
-    "use server";
-    console.log("handleSubmitReason", data.reason, id, user?.uid);
-    user?.uid && (await addReasonToProfile(id, user?.uid, data.reason));
-    revalidatePath(`/profile/${id}`);
-  }
+  // const initialActiveTags = filterCookie?.value?.split(",");
 
   const allReasonTags = reasons.reduce((acc: string[], reason) => {
     if (reason.tags) {
@@ -145,7 +146,19 @@ export default async function ProfilePageContent({
             }
             subhead={description}
           >
-            <div className="flex_ gap-2 mt-6 hidden">
+            <div className="absolute top-0 right-0">
+              {/* <Button variant={"outline"} className="flex gap-2">
+                <Image
+                  alt="vote"
+                  src={config.logoPath}
+                  width={18}
+                  height={18}
+                />
+                4 backers
+                 
+              </Button> */}
+            </div>
+            {/* <div className="flex_ gap-2 mt-6 hidden">
               {tags
                 .sort()
                 .filter((tag) => !tagDefinitions.all.children.includes(tag))
@@ -158,7 +171,7 @@ export default async function ProfilePageContent({
                     {tag}
                   </Badge>
                 ))}
-            </div>
+            </div> */}
           </PageHeading>
           {/* <Button variant={"secondary"} className="absolute -bottom-6 right-0">
             Follow
@@ -167,18 +180,18 @@ export default async function ProfilePageContent({
         {/* <Separator className="mt-8" /> */}
         <div className="flex justify-start items-center mt-12 mb-0  w-full">
           <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
-            <strong className="font-[500]">
+            <strong className="font-[500] text-balance_">
               What contributes most to the excellence{" "}
               {tags.includes("person") ? "of" : "at"} {name}?
             </strong>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 shrink-0">
               {!user && (
                 <span className="text-sm font-medium">
                   <Button
                     variant={"link"}
                     size={"sm"}
-                    className="text-sm px-0 text-muted-foreground underline"
+                    className="text-sm px-0 text-muted-foreground border-dotted"
                     asChild
                   >
                     <Link href="/login">Login</Link>
@@ -191,11 +204,11 @@ export default async function ProfilePageContent({
                   Give your input below.
                 </span>
               )}
-              <Separator
+              {/* <Separator
                 orientation="vertical"
                 className="bg-gray-300 h-6 ml-3"
               />
-              <AnalyticsButton />
+              <AnalyticsButton /> */}
             </div>
           </h4>
         </div>
@@ -214,6 +227,7 @@ export default async function ProfilePageContent({
                   <Button variant={"secondary"}>View Now</Button>
                 </div>
               )} */}
+
               <ReasonVisibility tags={reason.tags || []}>
                 <Reason
                   id={reason.id}
@@ -236,6 +250,7 @@ export default async function ProfilePageContent({
             </>
           ))}
         </div>
+
         {/* {isHub && (
           <Suspense fallback={<LoadingSkeleton />}>
             <div className="w-full flex items-center justify-between pb-12">
@@ -258,6 +273,9 @@ export default async function ProfilePageContent({
             <Profiles hub={id} primaryTag={primaryTag} tagsToUse={tagsToUse} />
           </Suspense>
         )} */}
+        <div className="mt-6 p-1 pt-10 bg-muted w-full rounded-md">
+          <SponsorRack />
+        </div>
         <div className="flex_ hidden justify-start items-center mt-12 mb-0  w-full">
           <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-4 w-full flex items-center justify-between">
             <strong className="font-semibold">

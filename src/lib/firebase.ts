@@ -206,7 +206,7 @@ export async function fetchHubProfiles(
   }
 
   return {
-    tags: [],
+    tags: tags,
     label: tags.map((tag) => getPlural(tag)).join(" + "),
     profiles: docs,
   };

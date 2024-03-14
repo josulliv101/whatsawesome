@@ -1,6 +1,7 @@
 import PageHeading from "@/components/PageHeading";
 import ProfileCard from "@/components/ProfileCard";
 import SponsorCard from "@/components/SponsorCard";
+import SponsorRack from "@/components/SponsorRack";
 import TabNav from "@/components/TabNav";
 import { TagFilter } from "@/components/TagFilter";
 import { Button } from "@/components/ui/button";
@@ -12,16 +13,20 @@ import { PrimaryTagType, tagDefinitions } from "@/lib/tags";
 import { GlobeIcon } from "lucide-react";
 import Link from "next/link";
 
-import { Fragment } from "react";
+import { Fragment, useRef, useState } from "react";
 
 export default async function Profiles({
   hub,
   tagsToUse,
   primaryTag,
+  activeItemRef,
+  activeItemId,
 }: {
   hub: string;
   tagsToUse: string[];
   primaryTag: PrimaryTagType;
+  activeItemRef?: any;
+  activeItemId?: string | null;
 }) {
   const fetchPromises =
     tagsToUse?.map(
@@ -33,21 +38,33 @@ export default async function Profiles({
       async (tag: string) => await fetchHubProfiles(hub, "person", [tag])
     ) || [];
   const fetchedProfileByTag = await Promise.all(fetchPromises);
-  const fetchedProfileByTag2 = await Promise.all(fetchPromises2);
+  const fetchedProfileByTag2 = []; // await Promise.all(fetchPromises2);
 
   const profilesByTag = fetchedProfileByTag.reduce((acc: any, item, i) => {
     if (i > -1 && i % 2 === 0) {
-      return [...acc, item, fetchedProfileByTag2[i / 2]];
+      //return [...acc, item, fetchedProfileByTag2[i / 2]];
     }
     return [...acc, item];
   }, []);
+
   return (
     <main className="flex min-h-screen w-full max-w-full mx-auto flex-col items-start justify-start">
       {[...((profilesByTag as any) || {})]
         .filter((item) => !!item)
-        .map(({ profiles, label }, tagIndex) => (
+        .map(({ tags, profiles, label }, tagIndex) => (
           <Fragment key={tagsToUse[tagIndex]}>
-            <div className="mt-20 first:mt-8 space-y-1 w-full">
+            <div
+              id={tagsToUse.join("-") + "-foobar"}
+              className="mt-20 first:mt-8 space-y-1 w-full relative"
+            >
+              {" "}
+              <div
+                id={`foobar-${label}`}
+                className="absolute top-[-510px] opacity-0"
+                ref={label === activeItemId ? activeItemRef : null}
+              >
+                foobar
+              </div>
               <h2 className="w-full flex items-center justify-between text-2xl font-semibold tracking-tight">
                 <div>
                   <span className="font-semibold inline-flex items-center gap-2 pr-2">
@@ -92,54 +109,11 @@ export default async function Profiles({
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
             </div>
-            {!!tagIndex && tagIndex === 2 && (
-              <div className="bg-gray-200 w-full mt-20 opacity-100">
-                <div className="relative w-full flex_ max-w-7xl mx-auto items-center justify-between px-2 py-2">
-                  <div className="flex items-center justify-between gap-1">
-                    {/* <TabNav profile={undefined} /> */}
-                    <SponsorCard
-                      name="Constant Contact, Inc"
-                      pic="/constant-contact.png"
-                    />
-                    <SponsorCard
-                      name="Boston Dynamics"
-                      pic="/boston-dynamics.svg"
-                    />
-                    <SponsorCard name="Toast, Inc" pic="/toast.png" />
-                    <SponsorCard name="Akamai Technologies" pic="/akamai.jpg" />
-                  </div>
-                  <div className="flex items-center justify-between gap-1">
-                    {/* <TabNav profile={undefined} /> */}
-                    <SponsorCard name="Apple, Inc" pic="/apple.jpg" />
-                    <SponsorCard name="Google, Inc" pic="/google.png" />
-                    <SponsorCard name="Nvidia, Inc" pic="/nvidia.png" />
-                    <SponsorCard
-                      name="Boston Childrens Hospital"
-                      pic="/boston-childrens.jpg"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between gap-1">
-                    {/* <TabNav profile={undefined} /> */}
-                    <SponsorCard name="HubSpot, Inc" pic="/hubspot.jpg" />
-                    <SponsorCard
-                      name="Greater Boston Foodbank"
-                      pic="/greater-boston-foodbank.jpg"
-                    />
-                    <SponsorCard name="The Jimmy Fund" pic="/jimmy-fund.jpg" />
-                    <SponsorCard
-                      name="Tavern In The Square"
-                      pic="/tavern-in-the-square.png"
-                    />
-                  </div>
-                  <p className=" absolute -top-6 left-0 text-sm text-muted-foreground px-2 text-right">
-                    Thank you to all the sponsors who make blue mushroom Boston
-                    possible.
-                  </p>
-                </div>
-              </div>
-            )}
           </Fragment>
         ))}
+      <div className="bg-gray-200 w-full mt-20 opacity-100">
+        <SponsorRack />
+      </div>
     </main>
   );
 }
