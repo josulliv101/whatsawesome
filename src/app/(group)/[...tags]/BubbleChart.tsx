@@ -12,7 +12,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-
+import { config } from "@/lib/config";
 import {
   APIProvider as ClientAPIProvider,
   AdvancedMarker,
@@ -23,7 +23,7 @@ import {
   useMap,
   useMapsLibrary,
 } from "@vis.gl/react-google-maps";
-import { config } from "@/lib/config";
+
 import {
   Dispatch,
   Fragment,

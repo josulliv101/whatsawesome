@@ -21,6 +21,7 @@ import GoogleMap from "./GoogleMapMain";
 import { API_KEY, ClientAPIProvider } from "@/app/edit/profile/[id]/GoogleMap";
 import { fetchHubProfiles } from "@/lib/firebase";
 import BubbleChart from "./BubbleChart";
+import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
 
 export default async function PageContent({
   // profilesByTag,
@@ -57,11 +58,11 @@ export default async function PageContent({
       async (tag: string) => await fetchHubProfiles(hub, "person", [tag])
     ) || [];
   const fetchedProfileByTag = await Promise.all(fetchPromises);
-  const fetchedProfileByTag2: Array<any> = []; // await Promise.all(fetchPromises2);
+  const fetchedProfileByTag2 = await Promise.all(fetchPromises2);
 
   const profilesByTag = fetchedProfileByTag.reduce((acc: any, item, i) => {
     if (i > -1 && i % 2 === 0) {
-      // return [...acc, item, fetchedProfileByTag2[i / 2]];
+      return [...acc, item, fetchedProfileByTag2[i / 2]];
     }
     return [...acc, item];
   }, []);
@@ -107,17 +108,21 @@ export default async function PageContent({
           className="lg:pt-0 mt-0 lg:px-0"
         />
       )}
-
+      <div className="sticky top-[84px] py-1 mb-2 mx-4 px-2 rounded-md z-50 bg-gray-100">
+        <BreadcrumbWithDropdown hub={hub} />
+      </div>
       {primaryTag === "place" && (
         <GoogleMap
           profilesByTag={profilesByTag}
           markers={markers}
+          center={profile?.latlng}
           // activeItemId={activeItemId}
           // setActiveItemId={setActiveItemId}
           // activeItemRef={activeItemRef}
           // activeItemHoverId={activeItemHoverId}
           // setActiveItemHoverId={setActiveItemHoverId}
           tag={"burger"}
+          hub={hub}
         />
       )}
 

@@ -274,7 +274,7 @@ export default async function ProfilePageContent({
           </Suspense>
         )} */}
         <div className="mt-6 p-1 pt-10 bg-muted w-full rounded-md">
-          <SponsorRack />
+          <SponsorRack hub={id} />
         </div>
         <div className="flex_ hidden justify-start items-center mt-12 mb-0  w-full">
           <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-4 w-full flex items-center justify-between">

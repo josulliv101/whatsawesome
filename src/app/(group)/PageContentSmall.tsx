@@ -7,10 +7,10 @@ import { cn, generateRandomDecimal } from "@/lib/utils";
 import { Reason } from "@/components/Reason";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import GoogleMap from "./GoogleMap";
+
 import Legend from "@/components/Legend";
 
-export default function PageContent({
+export default function PageContentSmall({
   children,
   className,
   results,
@@ -38,24 +38,7 @@ export default function PageContent({
   }, [activeItemId]);
   return (
     <>
-      {!hideMap && (
-        <GoogleMap
-          markers={results}
-          activeItemId={activeItemId}
-          setActiveItemId={setActiveItemId}
-          activeItemHoverId={activeItemHoverId}
-          setActiveItemHoverId={setActiveItemHoverId}
-          tag={title}
-        />
-      )}
-
-      <h2 className="flex flex-col-reverse items-start gap-1 justify-between text-3xl mb-12 w-full">
-        <span className="capitalize">{title} Roundup</span>
-        <span className="text-lg text-muted-foreground">
-          Discover excellence.
-        </span>
-      </h2>
-      <div className="flex flex-col gap-4 relative z-[0] ">
+      <div className="flex flex-col gap-4 relative z-[0] max-h-[500px] h-full overflow-auto">
         {results.map((reason) => (
           <div
             id={reason.id}
@@ -68,26 +51,24 @@ export default function PageContent({
             >
               foobar
             </div>
-            <div className="pl-0 py-2 flex items-center justify-between">
-              <span className="flex items-center gap-4 text-primary text-lg capitalize font-semibold">
+            <div className="pl-0 py-2 flex flex-col items-center justify-between">
+              <span className="flex w-full items-center gap-4 text-primary text-lg capitalize font-semibold">
                 {reason?.photoUrl && (
                   <Image
-                    width="64"
-                    height="64"
+                    width="300"
+                    height="300"
                     alt={reason.parentId}
-                    src={reason.parentPhotoUrl}
-                    className="object-cover h-[64px] w-[64px] rounded-md absolute top-[221px] left-[-2px] z-50 border"
+                    src={reason.photoUrl}
+                    className="object-contain h-[300px] w-full rounded-md absolute_  z-50 border"
                   />
                 )}
-                {reason.parentId?.replace(/[-_]/g, " ")}
               </span>
-              <Button asChild>
-                <Link href={`/profile/${reason.parentId}`}>
-                  View Full Profile
-                </Link>
-              </Button>
             </div>
-            <Reason
+            <div className="text-sm p-4">{reason?.reason || ""}</div>
+            <Button size={"sm"} asChild>
+              <Link href={`/profile/${reason.parentId}`}>Profile</Link>
+            </Button>
+            {/* <Reason
               description={reason?.reason || ""}
               name={reason.id || ""}
               {...reason}
@@ -96,7 +77,7 @@ export default function PageContent({
               profileId="1"
               isForceRatingToShow
               photoUrl={reason?.photoUrl || reason.parentPhotoUrl}
-            ></Reason>
+            ></Reason> */}
           </div>
         ))}
       </div>

@@ -111,7 +111,7 @@ export default function BubbleAvatars({ data = [] }: { data: Array<any> }) {
         d3
           .forceCollide()
           .strength(0.1)
-          .radius((d: any) => d.size * 1.5 + 2)
+          .radius((d: any) => d.size * 1.4)
           .iterations(1)
       ) // Force that avoids circle overlapping
       .force("charge", d3.forceY(0).strength(0.05));
@@ -208,8 +208,8 @@ export default function BubbleAvatars({ data = [] }: { data: Array<any> }) {
               cx={width / 2}
               cy={height / 2}
               fill={`url(#${id})`}
-              stroke="#fff"
-              strokeOpacity={0.9}
+              stroke="#ccc"
+              strokeOpacity={(id as string).startsWith("bm") ? 0 : 0.9}
               strokeWidth={4}
               opacity={0}
               preserveAspectRatio="true"

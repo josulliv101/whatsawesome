@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <header className="bg-white dark:bg-gray-950 border-b sticky top-0 z-50">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
+        className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
         aria-label="Global"
       >
         <NavMenu

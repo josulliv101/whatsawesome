@@ -26,7 +26,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { config } from "./config";
-import { PrimaryTagType, getPlural } from "./tags";
+import { PrimaryTagType, getPlural, tagDefinitions } from "./tags";
 import { Profile, Reason } from "./profile";
 import { generateRandomDecimal } from "./utils";
 import { revalidatePath } from "next/cache";
@@ -415,13 +415,31 @@ export async function updateReasonTag(
   reasonId: string,
   tags: string[]
 ): Promise<boolean> {
+  const parentDocRef = doc(db, "entity", profileId);
   const docRef = doc(db, "entity", profileId, "whyawesome", reasonId);
 
-  const map = tags.reduce((acc, tag) => {
+  const parentDocSnap = await getDoc(parentDocRef);
+  const parentTagMap = parentDocSnap.exists()
+    ? parentDocSnap.data().tagMap
+    : {};
+
+  const parentHubTags = Object.keys(parentTagMap).filter(
+    (tag) =>
+      !tagDefinitions[tag] &&
+      [
+        "boston",
+        "cambridge-ma",
+        "arlington-ma",
+        "lexington-ma",
+        "somerville-ma",
+      ].includes(tag)
+  );
+
+  const map = [...tags, ...parentHubTags].reduce((acc, tag) => {
     return { ...acc, [tag]: true };
   }, {});
 
-  console.log("map", map);
+  console.log("tags", map, parentTagMap);
   const snapshot = await setDoc(
     docRef,
     {

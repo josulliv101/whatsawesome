@@ -28,6 +28,14 @@ import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import Rating from "@/components/Rating";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  ContactIcon,
+  LucideContact,
+  MapPinIcon,
+  User2Icon,
+  UsersIcon,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 
 let map;
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
@@ -41,6 +49,8 @@ export default function GoogleMapMain({
   markers = [],
   tag,
   profilesByTag = [],
+  hub,
+  center,
 }: {
   activeItemId?: string | null;
   setActiveItemId?: Dispatch<SetStateAction<string | null>>;
@@ -49,9 +59,12 @@ export default function GoogleMapMain({
   activeItemRef?: any;
   markers: Array<any>;
   tag?: string;
+  hub?: string;
   profilesByTag: Array<any>;
+  center: any;
 }) {
   const map = useMap();
+  const router = useRouter();
 
   const coreLib = useMapsLibrary("core");
 
@@ -109,8 +122,10 @@ export default function GoogleMapMain({
       >
         {initialBounds && (
           <Map
-            defaultZoom={13}
-            defaultCenter={{ lat: 42.35998584895903, lng: -71.06132881413302 }}
+            defaultZoom={14}
+            defaultCenter={
+              center || { lat: 42.35998584895903, lng: -71.06132881413302 }
+            }
             // defaultBounds={markers.length > 1 ? initialBounds : undefined}
             gestureHandling={"greedy"}
             disableDefaultUI={true}
@@ -123,7 +138,7 @@ export default function GoogleMapMain({
               const isActiveMarker = marker.id === activeItemId;
               const isActivelyHoveredMarker = marker.id === activeItemHoverId;
               const ll = coreLib ? new coreLib.LatLng(marker.latlng) : null;
-              const size = isActivelyHoveredMarker ? 32 : 24;
+              const size = isActivelyHoveredMarker ? 32 : 32;
               if (!ll) return null;
               console.log(
                 "is active m",
@@ -152,7 +167,7 @@ export default function GoogleMapMain({
                         // borderRadius: "50%",
                         // transform: "translate(-50%, -50%)",
                       }}
-                      className={`drop-shadow-md_ origin-bottom-right transition-all duration-500  flex gap-0.5 items-center ${!isActiveMarker ? "grayscale-0 rounded-full" : "grayscale-0 rounded-none"}`}
+                      className={`drop-shadow-md_ bg-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center ${!isActiveMarker ? "grayscale-0 rounded-full" : "grayscale-0 rounded-none"}`}
                     >
                       <Image
                         // onMouseOver={(ev) => console.log(ev)}
@@ -169,7 +184,7 @@ export default function GoogleMapMain({
                         src={config.logoPath}
                         width={size}
                         height={size}
-                        className={`relative origin-bottom-right ${isActivelyHoveredMarker || isActiveMarker ? "z-50 grayscale-0" : "grayscale-0"} _top-[-3px] opacity-100 transition-all duration-500 `}
+                        className={`relative border border-muted-foreground/50 bg-white rounded-full p-[4px] origin-bottom-right ${isActivelyHoveredMarker || isActiveMarker ? "z-50 grayscale-0" : "grayscale-0"} _top-[-3px] opacity-100 transition-all duration-500 `}
                       />
                     </div>
                   </AdvancedMarker>
@@ -203,15 +218,15 @@ export default function GoogleMapMain({
               className="text-right pr-0"
               heading={
                 <div className="flex items-center justify-between">
-                  <span className="opacity-100 text-primary relative capitalize">{`${tag} Roundup`}</span>
-                  <span className="opacity-100 text-primary relative left-[-12px]">{`#${tag} `}</span>
+                  <span className="opacity-100 text-primary relative capitalize">{`${hub}`}</span>
+                  <span className="opacity-0 text-primary relative left-[-12px]">{`#${tag} `}</span>
                 </div>
               }
             >
-              {profilesByTag.sort(compareByLabel).map((item) => {
+              {profilesByTag.sort(compareByLabel).map((item, i) => {
                 return (
                   <CommandItem
-                    key={item.tag}
+                    key={i}
                     value={item.tag}
                     onMouseOver={() =>
                       setActiveItemHoverId && setActiveItemHoverId(item.tag)
@@ -224,6 +239,7 @@ export default function GoogleMapMain({
                       document.getElementById(`foobar-${id}`)?.scrollIntoView({
                         behavior: "smooth",
                       });
+                      // router.replace(`?${id}`);
                     }}
                     className={`w-full cursor-pointer flex items-center justify-between py-1 ${item.id === activeItemId || item.id === activeItemHoverId ? "bg-muted_ text-secondary-foreground" : ""} hover:bg-inherit_ aria-selected:bg-muted aria-selected:text-secondary-foreground`}
                   >
@@ -237,6 +253,15 @@ export default function GoogleMapMain({
                       /> */}
                       {item.label}
                     </div>
+                    {item.label == "musicians" ||
+                    item.label == "sports" ||
+                    item.label == "teachers k-12" ||
+                    item.label == "comedians" ||
+                    item.label == "local heroes" ? (
+                      <UsersIcon className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <MapPinIcon className="h-4 w-4 text-muted-foreground hidden" />
+                    )}
                     {/* <Rating rating={item.rating} size={16} /> */}
                     {/* <span className="flex flex-row-reverse items-center gap-1">
                       <Image

@@ -10,6 +10,7 @@ import { config } from "@/lib/config";
 import { fetchHubProfiles } from "@/lib/firebase";
 import { Profile } from "@/lib/profile";
 import { PrimaryTagType, tagDefinitions } from "@/lib/tags";
+import { profile } from "console";
 import { GlobeIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -33,16 +34,16 @@ export default async function Profiles({
       async (tag) => await fetchHubProfiles(hub, primaryTag, [tag])
     ) || [];
 
-  const fetchPromises2 =
+  const fetchPromises2: any =
     tagDefinitions.person.children?.map(
       async (tag: string) => await fetchHubProfiles(hub, "person", [tag])
     ) || [];
   const fetchedProfileByTag = await Promise.all(fetchPromises);
-  const fetchedProfileByTag2 = []; // await Promise.all(fetchPromises2);
+  const fetchedProfileByTag2 = await Promise.all(fetchPromises2);
 
   const profilesByTag = fetchedProfileByTag.reduce((acc: any, item, i) => {
     if (i > -1 && i % 2 === 0) {
-      //return [...acc, item, fetchedProfileByTag2[i / 2]];
+      return [...acc, item, fetchedProfileByTag2[i / 2]];
     }
     return [...acc, item];
   }, []);
@@ -112,7 +113,7 @@ export default async function Profiles({
           </Fragment>
         ))}
       <div className="bg-gray-200 w-full mt-20 opacity-100">
-        <SponsorRack />
+        <SponsorRack hub={hub} />
       </div>
     </main>
   );

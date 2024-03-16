@@ -1,7 +1,7 @@
 import { config } from "@/lib/config";
 import SponsorCard from "./SponsorCard";
 
-export default function SponsorRack() {
+export default function SponsorRack({ hub }: { hub: string }) {
   return (
     <div className="relative w-full flex_ max-w-7xl mx-auto items-center justify-between px-2 py-2">
       <div className="flex items-center justify-between gap-1">
@@ -62,7 +62,7 @@ export default function SponsorRack() {
         />
       </div>
       <p className=" absolute -top-6 left-0 text-sm text-muted-foreground px-2 text-right">
-        Thank you to all the sponsors who make blue mushroom Boston possible.
+        Thank you to all the sponsors who make Blue Mushroom / {hub} possible.
       </p>
     </div>
   );
