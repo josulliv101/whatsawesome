@@ -95,7 +95,7 @@ export default function Layout({
         collectionGroup(db, "whyawesome"),
         //where("tagMap.wings", "==", true),
         and(...whereClause),
-        limit(30),
+        limit(3),
         orderBy("rating", "desc")
       );
       const querySnapshot = await getDocs(reasons);
@@ -132,7 +132,7 @@ export default function Layout({
     }
 
     getData().then((d: any) => setData(d));
-  }, []);
+  }, [hub]);
 
   // console.log("LOOP");
   // const ps = data.map((item) => {
@@ -232,7 +232,7 @@ export default function Layout({
                 ...
               </TabsContent>
             </Tabs>
-            <PageContentSmall results={data} title="" hideMap />
+            <PageContentSmall hub={hub} results={data} title="" hideMap />
           </aside>
           <main className="md:col-span-9 p-0 border-0 border-green-600">
             {content}

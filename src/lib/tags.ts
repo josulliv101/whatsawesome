@@ -60,7 +60,11 @@ export const tagDefinitions: Record<string, any> = {
   nature: { parentTag: "place" },
   college: { plural: "colleges", parentTag: "place" },
   city: { plural: "locales", parentTag: "place" },
-  restaurant: { plural: "restaurants", parentTag: "place" },
+  restaurant: {
+    plural: "restaurants",
+    parentTag: "place",
+    tags: ["burger", "steak", "atmosphere", "drinks", "service"],
+  },
   technology: { plural: "tech companies", parentTag: "place" },
   brand: { plural: "brands", parentTag: "place" },
   hotel: { plural: "hotels", parentTag: "place" },

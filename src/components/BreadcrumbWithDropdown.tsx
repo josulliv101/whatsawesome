@@ -20,6 +20,14 @@ export function BreadcrumbWithDropdown({ hub }: { hub: string }) {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
+          <BreadcrumbLink className="capitalize" href={`/`}>
+            Blue Mushroom
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator>
+          <Slash />
+        </BreadcrumbSeparator>
+        <BreadcrumbItem>
           <BreadcrumbLink className="capitalize" href={`/${hub}`}>
             {hub.replace("-", " ")}
           </BreadcrumbLink>
