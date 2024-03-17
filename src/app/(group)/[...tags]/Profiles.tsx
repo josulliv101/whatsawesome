@@ -49,26 +49,26 @@ export default async function Profiles({
   }, []);
 
   return (
-    <main className="flex min-h-screen w-full max-w-full mx-auto flex-col items-start justify-start">
+    <main className="flex px-8 min-h-screen w-full max-w-full mx-auto flex-col items-start justify-start">
       {[...((profilesByTag as any) || {})]
-        .filter((item) => !!item)
+        .filter((item) => !!item && item?.profiles && item.profiles.length > 0)
         .map(({ tags, profiles, label }, tagIndex) => (
           <Fragment key={tagsToUse[tagIndex]}>
             <div
               id={tagsToUse.join("-") + "-foobar"}
-              className="mt-20 first:mt-8 space-y-1 w-full relative"
+              className={`mt-8 first:mt-8 space-y-1 w-full relative ${!profiles.length ? "hidden" : ""}`}
             >
               {" "}
               <div
                 id={`foobar-${label}`}
-                className="absolute top-[-510px] opacity-0"
+                className="absolute top-[-400px] opacity-0"
                 ref={label === activeItemId ? activeItemRef : null}
               >
                 foobar
               </div>
               <h2 className="w-full flex items-center justify-between text-2xl font-semibold tracking-tight">
-                <div>
-                  <span className="font-semibold inline-flex items-center gap-2 pr-2">
+                <div className="capitalize">
+                  <span className="capitalize font-semibold inline-flex items-center gap-2 pr-2">
                     {" "}
                     {hub !== config.rootHub && (
                       <>

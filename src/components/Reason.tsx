@@ -346,7 +346,7 @@ export function Reason({
           {id && !isAnalyticsView && (
             <>
               <Button
-                variant={"outline"}
+                variant={"link"}
                 className="flex gap-2 transition-all duration-500"
               >
                 {/* Backers:

@@ -14,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 export function BreadcrumbWithDropdown({ hub }: { hub: string }) {
   return (
@@ -27,24 +28,36 @@ export function BreadcrumbWithDropdown({ hub }: { hub: string }) {
         <BreadcrumbSeparator>
           <Slash />
         </BreadcrumbSeparator>
-        <BreadcrumbItem>
+        {/* <BreadcrumbItem>
           <BreadcrumbLink className="capitalize" href={`/${hub}`}>
             {hub.replace("-", " ")}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
           <Slash />
-        </BreadcrumbSeparator>
+        </BreadcrumbSeparator> */}
         <BreadcrumbItem>
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1">
-              Catalog
+            <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
+              {hub.replace("-", " ")}
               <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <DropdownMenuItem>Most Backed</DropdownMenuItem>
-              <DropdownMenuItem>Tags</DropdownMenuItem>
-              <DropdownMenuItem>GitHub</DropdownMenuItem>
+              <DropdownMenuItem disabled asChild>
+                <Link href="/arlington-ma/place">Arlington, MA</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/boston/place">Boston, MA</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/cambridge-ma/place">Cambridge, MA</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled asChild>
+                <Link href="/lexington-ma/place">Lexington, MA</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled asChild>
+                <Link href="/somerville-ma/place">Somerville, MA</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbItem>

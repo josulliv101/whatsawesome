@@ -120,7 +120,7 @@ export default function NavMenu({
                 className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
               >
                 <span
-                  className={`font-semibold flex items-center gap-2 ${hub !== config.rootHub ? "pr-[0px]" : "pr-0"}`}
+                  className={`capitalize font-semibold flex items-center gap-2 ${hub !== config.rootHub ? "pr-[0px]" : "pr-0"}`}
                 >
                   {!isRootHub(hub) && (
                     <NetworkIcon className="h-3.5 w-3.5 text-gray-100 dark:text-gray-900" />
@@ -139,7 +139,7 @@ export default function NavMenu({
               <span className="hidden md:inline-block">explore&nbsp;</span>
               {/* whats awesome */}
             </NavigationMenuTrigger>
-            <NavigationMenuContent>
+            <NavigationMenuContent className="z-[9999]">
               <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
                 {components.map((component) => (
                   <ListItem

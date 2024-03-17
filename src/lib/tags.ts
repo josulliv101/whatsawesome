@@ -52,8 +52,8 @@ export const tagDefinitions: Record<string, any> = {
   sports: {
     parentTag: "person",
   },
-  teacher: { plural: "teachers k-12", parentTag: "person" },
-  hero: { plural: "local heroes", parentTag: "person" },
+  teacher: { plural: "teachers", parentTag: "person" },
+  hero: { plural: "heroes", parentTag: "person" },
   comedian: { plural: "comedians", parentTag: "person" },
   musician: { plural: "musicians", parentTag: "person" },
   museum: { plural: "museums", parentTag: "place" },
@@ -65,14 +65,14 @@ export const tagDefinitions: Record<string, any> = {
     parentTag: "place",
     tags: ["burger", "steak", "atmosphere", "drinks", "service"],
   },
-  technology: { plural: "tech companies", parentTag: "place" },
+  technology: { plural: "technology", parentTag: "place" },
   brand: { plural: "brands", parentTag: "place" },
   hotel: { plural: "hotels", parentTag: "place" },
   nonprofit: { plural: "non-profits", parentTag: "place" },
   movie: { plural: "movies", parentTag: "place" },
   coffeehouse: { plural: "coffeehouse", parentTag: "place" },
   dessert: { plural: "desserts", parentTag: "place" },
-  bbq: { plural: "restaurants > bbq", parentTag: "place" },
+  bbq: { plural: "bbq", parentTag: "place" },
   outdoors: { plural: "outdoors", parentTag: "place" },
 };
 

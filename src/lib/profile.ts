@@ -57,6 +57,7 @@ export const profileSchema = z.object({
   primaryColor: z.string().optional(),
   primaryColorForeground: z.string().optional(),
   latlng: latlngSchema.optional(),
+  isSponsor: z.boolean().optional(),
 });
 
 export type Profile = z.infer<typeof profileSchema>;

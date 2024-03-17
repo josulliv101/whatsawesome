@@ -1,9 +1,9 @@
-import styles from "./footer.module.css";
-
 export default function Footer() {
   return (
-    <div>
-      <footer className={styles.footer}>© 2024 Blue Mushroom</footer>
+    <div className="bg-black text-white">
+      <footer className="border-t flex justify-center p-6">
+        © 2024 Blue Mushroom / Take a bite of the mushroom.
+      </footer>
     </div>
   );
 }

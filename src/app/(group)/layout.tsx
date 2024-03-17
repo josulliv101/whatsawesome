@@ -9,6 +9,7 @@ import {
   Archive,
   GlobeIcon,
   MessagesSquare,
+  Globe,
   ShoppingCart,
   Users2,
 } from "lucide-react";
@@ -33,6 +34,9 @@ import { db } from "@/lib/firebase";
 import PageContent from "../tags/[...tagIds]/PageContent";
 import PageContentSmall from "./PageContentSmall";
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
+import { config, isRootHub } from "@/lib/config";
+import { Badge } from "@/components/ui/badge";
+import HubLink from "@/components/HubLink";
 
 const accounts = [
   {
@@ -83,7 +87,8 @@ export default function Layout({
   const [data, setData] = useState([]);
   const segments = useSelectedLayoutSegments();
   const hub = segments[0].split("/")[0] || "all";
-  console.log("segments", hub);
+  const tag = segments[0].split("/")[2];
+  console.log("segments", hub, tag);
 
   useEffect(() => {
     async function getData() {
@@ -91,16 +96,18 @@ export default function Layout({
       const whereClause = [hub].map((tag) =>
         where(`tagMap.${tag}`, "==", true)
       );
+      if (tag) {
+        // whereClause.push(where(`tagMap.${tag}`, "==", true));
+      }
       const reasons = query(
         collectionGroup(db, "whyawesome"),
         //where("tagMap.wings", "==", true),
         and(...whereClause),
-        limit(3),
+        limit(5),
         orderBy("rating", "desc")
       );
       const querySnapshot = await getDocs(reasons);
 
-      const promises = [];
       querySnapshot.forEach((docA) => {
         const refParent = docA.ref.parent.parent;
 
@@ -132,7 +139,7 @@ export default function Layout({
     }
 
     getData().then((d: any) => setData(d));
-  }, [hub]);
+  }, [hub, tag]);
 
   // console.log("LOOP");
   // const ps = data.map((item) => {
@@ -167,12 +174,47 @@ export default function Layout({
       {/* <div>params: {JSON.stringify(content)}</div> */}
 
       <section className="w-full mx-auto px-0 m-0 border-0 border-red-600">
-        <div className="grid md:grid-cols-12 gap-4 p-0 m-0">
-          <aside className="sticky top-[82px]  self-start md:col-span-3 md:pt-0 p-0 border-0 border-blue-600 bg-gray-100">
-            <div className="px-2 py-4">
+        <div className="grid md:grid-cols-12 gap-0 p-0 m-0">
+          <aside className="sticky top-[0px] z-[90] h-screen bg-muted  self-start md:col-span-4 md:pt-0 px-2 border-r border-blue-200/20 ">
+            <div className="absolute top-0 right-0 -translate-y-full h-[72px] w-px border-r border-dotted"></div>
+            <div className="px-2 py-4 hidden">
               <LocationSwitcher accounts={accounts} isCollapsed={false} />
             </div>
-            <Tabs defaultValue="all">
+            <div className="bg-white -mx-2 px-4 py-3 absolute bottom-0 border-r w-full flex gap-0 items-center justify-center">
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={30}
+                height={30}
+                className="grayscale_  relative -top-px"
+              />
+              <div className="relative flex lg:flex-0 items-center">
+                {
+                  <>
+                    <span className="px-3 ml-1">/</span>
+                    <Badge
+                      variant={"default"}
+                      className="w-auto rel top-[0px] left-[54px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
+                    >
+                      <HubLink
+                        hub={hub}
+                        className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
+                      >
+                        <span
+                          className={`capitalize font-semibold flex items-center gap-2 ${hub !== config.rootHub ? "pr-[0px]" : "pr-0"}`}
+                        >
+                          {!isRootHub(hub) && (
+                            <Globe className="h-3.5 w-3.5 text-gray-100 dark:text-gray-900" />
+                          )}
+                          {!isRootHub(hub) ? hub : config.org}
+                        </span>
+                      </HubLink>
+                    </Badge>
+                  </>
+                }
+              </div>
+            </div>
+            {/* <Tabs defaultValue="all">
               <div className="flex items-center justify-start px-4 py-2">
                 <TabsList className="">
                   <TabsTrigger value="all" className="aria-selected:bg-white">
@@ -231,12 +273,12 @@ export default function Layout({
               <TabsContent value="unread" className="m-0">
                 ...
               </TabsContent>
-            </Tabs>
+            </Tabs> */}
             <PageContentSmall hub={hub} results={data} title="" hideMap />
           </aside>
-          <main className="md:col-span-9 p-0 border-0 border-green-600">
+          <main className="md:col-span-8 p-0 border-0 border-green-600">
             {content}
-            <main className="flex min-h-screen relative max-w-7xl mx-auto flex-col items-start justify-start px-0 py-4 mt-0">
+            <main className="flex min-h-screen relative max-w-7xl mx-auto flex-col items-start justify-start px-0 pb-4 mt-0">
               {/* <div className="sticky__ top-20_ _left-16 z-0_">
           <TabNav />
         </div>

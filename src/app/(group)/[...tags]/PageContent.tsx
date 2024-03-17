@@ -22,6 +22,8 @@ import { API_KEY, ClientAPIProvider } from "@/app/edit/profile/[id]/GoogleMap";
 import { fetchHubProfiles } from "@/lib/firebase";
 import BubbleChart from "./BubbleChart";
 import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 export default async function PageContent({
   // profilesByTag,
@@ -108,8 +110,12 @@ export default async function PageContent({
           className="lg:pt-0 mt-0 lg:px-0"
         />
       )}
-      <div className="sticky top-[84px] py-1 mb-2 mx-4 px-2 rounded-md z-50 bg-gray-100">
+      <div className="sticky top-[-14px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[99] bg-gray-50 w-full">
         <BreadcrumbWithDropdown hub={hub} />
+        <div className="flex items-center space-x-2">
+          <Switch id="airplane-mode" />
+          <Label htmlFor="airplane-mode">Hide Map</Label>
+        </div>
       </div>
       {primaryTag === "place" && (
         <GoogleMap
@@ -139,10 +145,12 @@ export default async function PageContent({
       )}
 
       {(primaryTag as string) !== "profile" && (
-        <PageHeading
-          heading={`Discover & celebrate excellence ${profile && hub !== "all" ? ` in ${profile.name}` : ""}.`} // what's awesome about ${tagDefinitions[primaryTag]?.plural}${profile && hub !== "all" ? ` in ${profile.name}` : ""}
-          subhead="Inclusion in the blue mushroom catalog is by invitation only. There's no fee, it's free." // on what&#39;s awesome
-        />
+        <div className="px-8">
+          <PageHeading
+            heading={`Discover & celebrate excellence ${profile && hub !== "all" ? ` in ${profile.name}` : ""}.`} // what's awesome about ${tagDefinitions[primaryTag]?.plural}${profile && hub !== "all" ? ` in ${profile.name}` : ""}
+            subhead="Inclusion in the blue mushroom catalog is by invitation only. There's no fee, it's free." // on what&#39;s awesome
+          />
+        </div>
       )}
       <DisablePage>
         <Suspense fallback={<LoadingSkeleton />}>

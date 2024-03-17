@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {
+  BadgeCheckIcon,
   BanIcon,
   BarChart2Icon,
   Globe,
@@ -65,6 +66,7 @@ export default async function ProfilePageContent({
     rating = 75,
     isHub,
     primaryColor = "#f1f5f9",
+    isSponsor,
   } = p;
   const primaryTag = "person";
 
@@ -96,6 +98,11 @@ export default async function ProfilePageContent({
       >
         {/* <div className="hidden lg:block absolute z-0 bg-blue-50 h-[300px] w-[200%] top-0 left-[-400px]"></div> */}
         <ProfileEditButton className="absolute top-0 right-8" />
+        {isSponsor && (
+          <div className="absolute top-8 right-12 flex items-center gap-2">
+            Sponsor <BadgeCheckIcon className="h-6 w-6 text-blue-500" />
+          </div>
+        )}
         <div className="relative md:max-h-[200px] flex flex-col md:flex-row items-start gap-8 mb-6 animate-vflip__">
           <div className="relative w-full md:w-auto md:flex-initial bg-gray-400">
             <Image
@@ -318,7 +325,6 @@ export default async function ProfilePageContent({
             onSubmit={handleSubmitReason}
           />
         )} */}
-        <Legend />
       </main>
     </AnalyticsContextProvider>
   );

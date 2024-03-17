@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import Image from "next/image";
 import { GlobeIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function SponsorCard({
   name,
@@ -19,16 +20,16 @@ export default function SponsorCard({
         className="object-cover h-[32px] w-[32px]"
       />
       <div>
-        <p
+        <Link
           style={{
             lineHeight: "16px",
             fontSize: name.length > 32 ? "13px" : "16px",
           }}
           className="underline_ font-semibold  text-balance"
-          // href="https://www.constantcontact.com"
+          href="/profile/constant-contact"
         >
           {name}
-        </p>
+        </Link>
       </div>
     </div>
   );

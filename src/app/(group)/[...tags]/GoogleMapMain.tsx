@@ -35,7 +35,8 @@ import {
   User2Icon,
   UsersIcon,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Badge } from "@/components/ui/badge";
 
 let map;
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
@@ -113,12 +114,12 @@ export default function GoogleMapMain({
   if (!initialBounds) {
     // return null;
   }
-
+  const pathname = usePathname();
   return (
     <>
       <div
         id="map"
-        className=" opacity-100 sticky flex items-center top-[70px] z-[1] w-full h-[420px] mb-12 border bg-gray-100 rounded-md p-2"
+        className=" opacity-100 sticky flex items-center top-[-16px] z-[50] w-full h-[400px] mb-12 border bg-gray-100 rounded-md p-4"
       >
         {initialBounds && (
           <Map
@@ -217,53 +218,64 @@ export default function GoogleMapMain({
             <CommandGroup
               className="text-right pr-0"
               heading={
-                <div className="flex items-center justify-between">
-                  <span className="opacity-100 text-primary relative capitalize">{`${hub}`}</span>
+                <div className="flex items-center justify-between py-2 px-4">
+                  <span className="opacity-100 text-primary text-lg font-semibold relative capitalize">{`${hub}`}</span>
                   <span className="opacity-0 text-primary relative left-[-12px]">{`#${tag} `}</span>
                 </div>
               }
             >
-              {profilesByTag.sort(compareByLabel).map((item, i) => {
-                return (
-                  <CommandItem
-                    key={i}
-                    value={item.tag}
-                    onMouseOver={() =>
-                      setActiveItemHoverId && setActiveItemHoverId(item.tag)
-                    }
-                    onMouseOut={() =>
-                      setActiveItemHoverId && setActiveItemHoverId(null)
-                    }
-                    onSelect={(id) => {
-                      console.log("id", id);
-                      document.getElementById(`foobar-${id}`)?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                      // router.replace(`?${id}`);
-                    }}
-                    className={`w-full cursor-pointer flex items-center justify-between py-1 ${item.id === activeItemId || item.id === activeItemHoverId ? "bg-muted_ text-secondary-foreground" : ""} hover:bg-inherit_ aria-selected:bg-muted aria-selected:text-secondary-foreground`}
-                  >
-                    <div className="flex items-center gap-2 capitalize">
-                      {/* <Image
+              <div className="grid md:grid-cols-12 gap-2">
+                {profilesByTag
+                  .sort(compareByLabel)
+                  .filter(
+                    (item) =>
+                      !!item && item?.profiles && item.profiles.length > 0
+                  )
+                  .map((item, i) => {
+                    return (
+                      <CommandItem
+                        key={i}
+                        value={item.tag}
+                        onMouseOver={() =>
+                          setActiveItemHoverId && setActiveItemHoverId(item.tag)
+                        }
+                        onMouseOut={() =>
+                          setActiveItemHoverId && setActiveItemHoverId(null)
+                        }
+                        onSelect={(id) => {
+                          console.log("id", id);
+                          document
+                            .getElementById(`foobar-${id}`)
+                            ?.scrollIntoView({
+                              behavior: "smooth",
+                            });
+                          // setTimeout(() => {
+                          //   router.replace(`${pathname}/${id}`);
+                          // }, 1200);
+                        }}
+                        className={`col-span-4 cursor-pointer flex items-center justify-center py-3 ${item.id === activeItemId || item.id === activeItemHoverId ? "bg-muted_ text-secondary-foreground" : ""} hover:bg-inherit_ aria-selected:bg-muted aria-selected:text-secondary-foreground`}
+                      >
+                        <div className="flex items-center gap-2 capitalize">
+                          {/* <Image
                         width="36"
                         height="36"
                         alt={item.id}
                         src={item.pic}
                         className="border rounded-md w-[36px] h-[36px] object-cover"
                       /> */}
-                      {item.label}
-                    </div>
-                    {item.label == "musicians" ||
-                    item.label == "sports" ||
-                    item.label == "teachers k-12" ||
-                    item.label == "comedians" ||
-                    item.label == "local heroes" ? (
-                      <UsersIcon className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <MapPinIcon className="h-4 w-4 text-muted-foreground hidden" />
-                    )}
-                    {/* <Rating rating={item.rating} size={16} /> */}
-                    {/* <span className="flex flex-row-reverse items-center gap-1">
+                          {item.label}
+                          {item.label == "musicians" ||
+                          item.label == "sports" ||
+                          item.label == "teachers k-12" ||
+                          item.label == "comedians" ||
+                          item.label == "local heroes" ? (
+                            <UsersIcon className="h-3 w-3 text-muted-foreground absolute_ hidden top-1 left-1" />
+                          ) : (
+                            <MapPinIcon className="h-4 w-4 text-muted-foreground hidden" />
+                          )}
+                        </div>
+                        {/* <Rating rating={item.rating} size={16} /> */}
+                        {/* <span className="flex flex-row-reverse items-center gap-1">
                       <Image
                         // key={i}
                         id={item.id}
@@ -275,9 +287,10 @@ export default function GoogleMapMain({
                       />{" "}
                       {item.rating}
                     </span> */}
-                  </CommandItem>
-                );
-              })}
+                      </CommandItem>
+                    );
+                  })}
+              </div>
             </CommandGroup>
           </CommandList>
         </Command>
