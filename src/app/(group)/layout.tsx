@@ -12,6 +12,8 @@ import {
   Globe,
   ShoppingCart,
   Users2,
+  ArrowUpIcon,
+  ArrowUpCircleIcon,
 } from "lucide-react";
 import SponsorCard from "@/components/SponsorCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -37,6 +39,10 @@ import { useParams, useSelectedLayoutSegments } from "next/navigation";
 import { config, isRootHub } from "@/lib/config";
 import { Badge } from "@/components/ui/badge";
 import HubLink from "@/components/HubLink";
+import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 const accounts = [
   {
@@ -180,39 +186,48 @@ export default function Layout({
             <div className="px-2 py-4 hidden">
               <LocationSwitcher accounts={accounts} isCollapsed={false} />
             </div>
-            <div className="bg-white -mx-2 px-4 py-3 absolute bottom-0 border-r w-full flex gap-0 items-center justify-center">
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={30}
-                height={30}
-                className="grayscale_  relative -top-px"
-              />
-              <div className="relative flex lg:flex-0 items-center">
-                {
-                  <>
-                    <span className="px-3 ml-1">/</span>
-                    <Badge
-                      variant={"default"}
-                      className="w-auto rel top-[0px] left-[54px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
-                    >
-                      <HubLink
-                        hub={hub}
-                        className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
+            <div className="bg-white -mx-2 px-4 py-3 absolute bottom-0 border-r w-full flex gap-0 items-center justify-between z-50">
+              <div className="flex items-center justify-center">
+                <Image
+                  alt="vote"
+                  src={config.logoPath}
+                  width={30}
+                  height={30}
+                  className="grayscale_  relative -top-px"
+                />
+                <div className="relative flex lg:flex-0 items-center">
+                  {
+                    <>
+                      <span className="px-3 ml-1">/</span>
+                      <Badge
+                        variant={"default"}
+                        className="w-auto rel top-[0px] left-[54px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
                       >
-                        <span
-                          className={`capitalize font-semibold flex items-center gap-2 ${hub !== config.rootHub ? "pr-[0px]" : "pr-0"}`}
+                        <HubLink
+                          hub={hub}
+                          className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
                         >
-                          {!isRootHub(hub) && (
-                            <Globe className="h-3.5 w-3.5 text-gray-100 dark:text-gray-900" />
-                          )}
-                          {!isRootHub(hub) ? hub : config.org}
-                        </span>
-                      </HubLink>
-                    </Badge>
-                  </>
-                }
+                          <span
+                            className={`capitalize font-semibold flex items-center gap-2 ${hub !== config.rootHub ? "pr-[0px]" : "pr-0"}`}
+                          >
+                            {!isRootHub(hub) && (
+                              <Globe className="h-3.5 w-3.5 text-gray-100 dark:text-gray-900" />
+                            )}
+                            {!isRootHub(hub) ? hub : config.org}
+                          </span>
+                        </HubLink>
+                      </Badge>
+                    </>
+                  }
+                </div>
               </div>
+              <Button
+                size="icon"
+                variant={"ghost"}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                <ArrowUpCircleIcon className="h-6 w-6 text-muted-foreground" />
+              </Button>
             </div>
             {/* <Tabs defaultValue="all">
               <div className="flex items-center justify-start px-4 py-2">
@@ -277,6 +292,13 @@ export default function Layout({
             <PageContentSmall hub={hub} results={data} title="" hideMap />
           </aside>
           <main className="md:col-span-8 p-0 border-0 border-green-600">
+            <div className="sticky top-[-14px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[99] bg-gray-50 w-full">
+              <BreadcrumbWithDropdown hub={hub} />
+              <div className="flex items-center space-x-2">
+                <Switch id="airplane-mode" />
+                <Label htmlFor="airplane-mode">Hide Map</Label>
+              </div>
+            </div>
             {content}
             <main className="flex min-h-screen relative max-w-7xl mx-auto flex-col items-start justify-start px-0 pb-4 mt-0">
               {/* <div className="sticky__ top-20_ _left-16 z-0_">

@@ -110,13 +110,13 @@ export default async function PageContent({
           className="lg:pt-0 mt-0 lg:px-0"
         />
       )}
-      <div className="sticky top-[-14px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[99] bg-gray-50 w-full">
+      {/* <div className="sticky top-[-14px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[99] bg-gray-50 w-full">
         <BreadcrumbWithDropdown hub={hub} />
         <div className="flex items-center space-x-2">
           <Switch id="airplane-mode" />
           <Label htmlFor="airplane-mode">Hide Map</Label>
         </div>
-      </div>
+      </div> */}
       {primaryTag === "place" && (
         <GoogleMap
           profilesByTag={profilesByTag}

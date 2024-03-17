@@ -472,12 +472,12 @@ export function Reason({
             {tags.map((tag) => (
               <Button
                 key={tag}
-                className={`text-muted-foreground rounded-full`}
-                variant={"ghost"}
+                className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                variant={"outline"}
                 size="sm"
                 asChild
               >
-                <Link href={`/tags/${tag}`}>#{tag}</Link>
+                <Link href={`/tags/${tag}`}>{tag}</Link>
               </Button>
             ))}
             {isEditable && id && (
