@@ -235,7 +235,7 @@ export default function GoogleMapMain({
                     return (
                       <CommandItem
                         key={i}
-                        value={item.tag}
+                        value={item.tags[0]}
                         onMouseOver={() =>
                           setActiveItemHoverId && setActiveItemHoverId(item.tag)
                         }
@@ -244,11 +244,12 @@ export default function GoogleMapMain({
                         }
                         onSelect={(id) => {
                           console.log("id", id);
-                          document
-                            .getElementById(`foobar-${id}`)
-                            ?.scrollIntoView({
-                              behavior: "smooth",
-                            });
+                          router.push(`#foobar-${id}`);
+                          // document
+                          //   .getElementById(`foobar-${id}`)
+                          //   ?.scrollIntoView({
+                          //     behavior: "smooth",
+                          //   });
                           // setTimeout(() => {
                           //   router.replace(`${pathname}/${id}`);
                           // }, 1200);

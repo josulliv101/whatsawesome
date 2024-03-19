@@ -22,12 +22,16 @@ export default function PageContentSmall({
   title,
   hideMap,
   hub,
+  filterByMinorTag,
+  filterByTag,
 }: PropsWithChildren<{
   className?: string;
   title: string;
   results: Array<any>;
   hideMap?: boolean;
   hub: string;
+  filterByTag?: string;
+  filterByMinorTag?: string;
 }>) {
   const [activeItemHoverId, setActiveItemHoverId] = useState<string | null>(
     null
@@ -47,7 +51,11 @@ export default function PageContentSmall({
     <>
       <h2 className="py-3 capitalize text-lg font-semibold px-2 mt-0 flex items-center justify-start">
         {hub.replaceAll("-", " ")}
-        <span className="px-2">/</span> Most Backed
+        <span className="px-2">/</span> Most Backed{" "}
+        <span className="px-2">/</span>
+        {filterByTag && <span>{filterByTag}</span>}{" "}
+        <span className="px-2">/</span>
+        {filterByMinorTag && <span>{filterByMinorTag}</span>}
         <span className="capitalize text-md text-muted-foreground font-normal pr-2"></span>
       </h2>
       <div className="flex flex-col gap-2 relative z-[0]  h-full overflow-auto">
@@ -59,7 +67,9 @@ export default function PageContentSmall({
           >
             <div className="py-0 font-semibold capitalize flex items-center justify-between">
               <span className="flex-1 whitespace-nowrap">
-                {reason.parentId.replaceAll("-", " ")}
+                <Link href={`/profile/${reason.parentId}`}>
+                  {reason.parentId.replaceAll("-", " ")}
+                </Link>
               </span>
               <Button
                 variant={"link"}

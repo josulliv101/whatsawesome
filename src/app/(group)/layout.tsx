@@ -35,7 +35,11 @@ import {
 import { db } from "@/lib/firebase";
 import PageContent from "../tags/[...tagIds]/PageContent";
 import PageContentSmall from "./PageContentSmall";
-import { useParams, useSelectedLayoutSegments } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useSelectedLayoutSegments,
+} from "next/navigation";
 import { config, isRootHub } from "@/lib/config";
 import { Badge } from "@/components/ui/badge";
 import HubLink from "@/components/HubLink";
@@ -43,6 +47,8 @@ import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { FilterSelector } from "./[...tags]/FilterSelector";
+import { tagDefinitions } from "@/lib/tags";
 
 const accounts = [
   {
@@ -86,29 +92,45 @@ const accounts = [
 export default function Layout({
   children,
   content,
-  params,
+  // params,
 }: PropsWithChildren<{ params: any; content: ReactNode }>) {
   // const data: Array<Partial<ReasonType>> = [];
 
+  const pathname = usePathname();
+  const [filterByTag, setFilterByTag] = useState("restaurant");
+  const [filterByMinorTag, setFilterByMinorTag] = useState("wings");
   const [data, setData] = useState([]);
   const segments = useSelectedLayoutSegments();
   const hub = segments[0].split("/")[0] || "all";
   const tag = segments[0].split("/")[2];
-  console.log("segments", hub, tag);
 
+  const tagsList = filterByMinorTag
+    ? [filterByMinorTag]
+    : tagDefinitions[filterByTag]?.tags || [];
+
+  useEffect(() => {
+    // alert(window.location.hash?.replace("#foobar-", ""));
+    setFilterByTag(window.location.hash?.replace("#foobar-", ""));
+  }, [pathname]);
+  console.log("segments", hub, tagsList, window.location.hash);
   useEffect(() => {
     async function getData() {
       const tmp: Array<any> = [];
       const whereClause = [hub].map((tag) =>
         where(`tagMap.${tag}`, "==", true)
       );
+
+      const whereClause2 = [tagsList].map((tag) =>
+        where(`tagMap.${tag}`, "==", true)
+      );
+
       if (tag) {
         // whereClause.push(where(`tagMap.${tag}`, "==", true));
       }
       const reasons = query(
         collectionGroup(db, "whyawesome"),
         //where("tagMap.wings", "==", true),
-        and(...whereClause),
+        and(...whereClause, ...whereClause2),
         limit(5),
         orderBy("rating", "desc")
       );
@@ -145,7 +167,7 @@ export default function Layout({
     }
 
     getData().then((d: any) => setData(d));
-  }, [hub, tag]);
+  }, [hub, tag, filterByTag, filterByMinorTag]);
 
   // console.log("LOOP");
   // const ps = data.map((item) => {
@@ -181,11 +203,17 @@ export default function Layout({
 
       <section className="w-full mx-auto px-0 m-0 border-0 border-red-600">
         <div className="grid md:grid-cols-12 gap-0 p-0 m-0">
-          <aside className="sticky top-[0px] z-[90] h-screen bg-muted  self-start md:col-span-4 md:pt-0 px-2 border-r border-blue-200/20 ">
+          <aside className="sticky top-[0px] z-50 h-screen bg-muted  self-start md:col-span-4 md:pt-0 px-2 border-r border-blue-200/20 ">
             <div className="absolute top-0 right-0 -translate-y-full h-[72px] w-px border-r border-dotted"></div>
             <div className="px-2 py-4 hidden">
               <LocationSwitcher accounts={accounts} isCollapsed={false} />
             </div>
+            {/* <FilterSelector
+              selectedValue={filterByTag}
+              onChange={setFilterByTag}
+              minorTag={filterByMinorTag}
+              onMinorTagChange={setFilterByMinorTag}
+            /> */}
             <div className="bg-white -mx-2 px-4 py-3 absolute bottom-0 border-r w-full flex gap-0 items-center justify-between z-50">
               <div className="flex items-center justify-center">
                 <Image
@@ -289,7 +317,15 @@ export default function Layout({
                 ...
               </TabsContent>
             </Tabs> */}
-            <PageContentSmall hub={hub} results={data} title="" hideMap />
+
+            <PageContentSmall
+              filterByMinorTag={filterByMinorTag}
+              filterByTag={filterByTag}
+              hub={hub}
+              results={data}
+              title=""
+              hideMap
+            />
           </aside>
           <main className="md:col-span-8 p-0 border-0 border-green-600">
             <div className="sticky top-[-14px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[99] bg-gray-50 w-full">

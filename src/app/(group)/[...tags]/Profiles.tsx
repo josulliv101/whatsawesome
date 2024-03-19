@@ -60,7 +60,7 @@ export default async function Profiles({
             >
               {" "}
               <div
-                id={`foobar-${label}`}
+                id={`foobar-${tags}`}
                 className="absolute top-[-400px] opacity-0"
                 ref={label === activeItemId ? activeItemRef : null}
               >
@@ -112,9 +112,9 @@ export default async function Profiles({
             </div>
           </Fragment>
         ))}
-      <div className="bg-gray-200 w-full mt-20 opacity-100">
+      {/* <div className="bg-gray-200 w-full mt-20 opacity-100">
         <SponsorRack hub={hub} />
-      </div>
+      </div> */}
     </main>
   );
 }
