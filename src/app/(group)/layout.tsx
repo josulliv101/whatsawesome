@@ -208,12 +208,12 @@ export default function Layout({
             <div className="px-2 py-4 hidden">
               <LocationSwitcher accounts={accounts} isCollapsed={false} />
             </div>
-            {/* <FilterSelector
+            <FilterSelector
               selectedValue={filterByTag}
               onChange={setFilterByTag}
               minorTag={filterByMinorTag}
               onMinorTagChange={setFilterByMinorTag}
-            /> */}
+            />
             <div className="bg-white -mx-2 px-4 py-3 absolute bottom-0 border-r w-full flex gap-0 items-center justify-between z-50">
               <div className="flex items-center justify-center">
                 <Image

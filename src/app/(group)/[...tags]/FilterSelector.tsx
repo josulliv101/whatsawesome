@@ -90,6 +90,7 @@ export function FilterSelector({
         </Badge>
         {tagDefinitions[selectedValue]?.tags.map((tag: string) => (
           <Badge
+            key={tag}
             className="cursor-pointer"
             onClick={() => onMinorTagChange(tag)}
           >
