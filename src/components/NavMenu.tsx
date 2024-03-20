@@ -139,7 +139,7 @@ export default function NavMenu({
               <span className="hidden md:inline-block">explore&nbsp;</span>
               {/* whats awesome */}
             </NavigationMenuTrigger>
-            <NavigationMenuContent className="z-[9999]">
+            <NavigationMenuContent className="z-[99999]">
               <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
                 {components.map((component) => (
                   <ListItem

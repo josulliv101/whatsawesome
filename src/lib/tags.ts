@@ -60,9 +60,9 @@ export const tagDefinitions: Record<string, any> = {
     tags: ["timing", "push-boundaries"],
   },
   musician: { plural: "musicians", parentTag: "person" },
-  museum: { plural: "museums", parentTag: "place" },
+  museum: { plural: "museums", parentTag: "place", tags: ["location"] },
   nature: { parentTag: "place" },
-  college: { plural: "colleges", parentTag: "place" },
+  college: { plural: "colleges", parentTag: "place", tags: ["location"] },
   city: { plural: "locales", parentTag: "place" },
   restaurant: {
     plural: "restaurants",
@@ -74,16 +74,20 @@ export const tagDefinitions: Record<string, any> = {
   hotel: {
     plural: "hotels",
     parentTag: "place",
-    tags: ["amenities", "dining", "location", "atmosphere"],
+    tags: ["atmosphere", "amenities", "dining", "location"],
   },
   nonprofit: { plural: "non-profits", parentTag: "place" },
-  movie: { plural: "movies", parentTag: "place" },
+  movie: {
+    plural: "movies",
+    parentTag: "place",
+    tags: ["cast", "suspense", "drama", "story", "theme"],
+  },
   coffeehouse: {
     plural: "coffeehouse",
     parentTag: "place",
-    tags: ["coffee", "pastry", "soup"],
+    tags: ["coffee", "pastries", "soup"],
   },
-  dessert: { plural: "desserts", parentTag: "place" },
+  // dessert: { plural: "desserts", parentTag: "place" },
   bbq: { plural: "bbq", parentTag: "place" },
   outdoors: { plural: "outdoors", parentTag: "place" },
 };
@@ -92,7 +96,7 @@ export const getPrimaryTags = () => {
   tagDefinitions.all.children;
 };
 
-export const getPlural = (tag: string) => tagDefinitions[tag].plural || tag;
+export const getPlural = (tag: string) => tagDefinitions[tag]?.plural || tag;
 
 export const getHubTags = (
   tags: string | Array<string> = []

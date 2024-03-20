@@ -49,15 +49,6 @@ export default function PageContentSmall({
   }, [activeItemId]);
   return (
     <>
-      <h2 className="py-3 capitalize text-lg font-semibold px-2 mt-0 flex items-center justify-start">
-        {hub.replaceAll("-", " ")}
-        <span className="px-2">/</span> Most Backed{" "}
-        <span className="px-2">/</span>
-        {filterByTag && <span>{filterByTag}</span>}{" "}
-        <span className="px-2">/</span>
-        {filterByMinorTag && <span>{filterByMinorTag}</span>}
-        <span className="capitalize text-md text-muted-foreground font-normal pr-2"></span>
-      </h2>
       <div className="flex flex-col gap-2 relative z-[0]  h-full overflow-auto">
         {results.map((reason) => (
           <div
@@ -82,15 +73,7 @@ export default function PageContentSmall({
                     variant={"outline"}
                     className="rounded-sm border-muted-foreground text-muted-foreground"
                   >
-                    {
-                      reason?.tags.filter(
-                        (t: string) =>
-                          t !== "boston" &&
-                          t !== "cambridge-ma" &&
-                          t !== "arlington-ma" &&
-                          t !== "somerville-ma"
-                      )[0]
-                    }
+                    {filterByMinorTag}
                   </Badge>
                 </Link>
               </Button>

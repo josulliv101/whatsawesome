@@ -119,7 +119,7 @@ export default function GoogleMapMain({
     <>
       <div
         id="map"
-        className=" opacity-100 sticky flex items-center top-[-16px] z-[50] w-full h-[400px] mb-12 border bg-gray-100 rounded-md p-4"
+        className=" opacity-100 sticky flex items-center top-[70px] z-[10] w-full h-[400px] mb-12 border bg-gray-100 rounded-md p-4"
       >
         {initialBounds && (
           <Map
@@ -244,7 +244,7 @@ export default function GoogleMapMain({
                         }
                         onSelect={(id) => {
                           console.log("id", id);
-                          router.push(`#foobar-${id}`);
+                          router.push(`#/${hub}/place/${id}`);
                           // document
                           //   .getElementById(`foobar-${id}`)
                           //   ?.scrollIntoView({

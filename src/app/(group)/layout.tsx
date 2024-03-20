@@ -97,30 +97,56 @@ export default function Layout({
   // const data: Array<Partial<ReasonType>> = [];
 
   const pathname = usePathname();
-  const [filterByTag, setFilterByTag] = useState("restaurant");
-  const [filterByMinorTag, setFilterByMinorTag] = useState("wings");
+  const params = useParams();
+  const [filterByTag__, setFilterByTag] = useState("restaurant");
+  const [filterByMinorTag__, setFilterByMinorTag] = useState("wings");
   const [data, setData] = useState([]);
+  const [isHideMap, setIsHideMap] = useState(false);
   const segments = useSelectedLayoutSegments();
-  const hub = segments[0].split("/")[0] || "all";
+  const hub = segments[0].split("/")[0];
   const tag = segments[0].split("/")[2];
 
+  const [hub_, primaryTag, secondaryTag, filterByMinorTagProp] =
+    (params.tags as Array<string>) || [];
+
+  const filterByTag = secondaryTag;
+  const filterByMinorTag =
+    filterByMinorTagProp || tagDefinitions[secondaryTag as string]?.tags?.[0];
   const tagsList = filterByMinorTag
     ? [filterByMinorTag]
     : tagDefinitions[filterByTag]?.tags || [];
+  const hash = window.location.hash;
+  console.log("render", hash);
 
   useEffect(() => {
+    const tokens = hash.split("/");
+    const secondaryTag2 = tokens.slice(-1);
+    console.log(
+      "window.scrollTo",
+      secondaryTag2,
+      document.getElementById(`foobar-${secondaryTag2}`)
+    );
+
     // alert(window.location.hash?.replace("#foobar-", ""));
-    setFilterByTag(window.location.hash?.replace("#foobar-", ""));
-  }, [pathname]);
-  console.log("segments", hub, tagsList, window.location.hash);
+    // setTimeout(
+    //   () =>
+    //     document
+    //       .getElementById(`foobar-${secondaryTag2}`)
+    //       ?.scrollIntoView({ behavior: "smooth" }),
+    //   1000
+    // );
+    // setFilterByTag(window.location.hash?.replace("#foobar-", ""));
+  }, [hash]);
+
+  console.log("data", data);
   useEffect(() => {
     async function getData() {
       const tmp: Array<any> = [];
-      const whereClause = [hub].map((tag) =>
-        where(`tagMap.${tag}`, "==", true)
-      );
+      const whereClause = [hub, secondaryTag, filterByMinorTag]
+        .filter((t) => !!t)
+        .map((tag) => where(`tagMap.${tag}`, "==", true));
 
-      const whereClause2 = [tagsList].map((tag) =>
+      const whereClause2 = [secondaryTag].map((tag) =>
         where(`tagMap.${tag}`, "==", true)
       );
 
@@ -129,8 +155,8 @@ export default function Layout({
       }
       const reasons = query(
         collectionGroup(db, "whyawesome"),
-        //where("tagMap.wings", "==", true),
-        and(...whereClause, ...whereClause2),
+        //where(`tagMap.${secondaryTag}`, "==", true),
+        and(...whereClause),
         limit(5),
         orderBy("rating", "desc")
       );
@@ -167,7 +193,7 @@ export default function Layout({
     }
 
     getData().then((d: any) => setData(d));
-  }, [hub, tag, filterByTag, filterByMinorTag]);
+  }, [hub, tag, filterByTag, filterByMinorTag, secondaryTag]);
 
   // console.log("LOOP");
   // const ps = data.map((item) => {
@@ -203,18 +229,35 @@ export default function Layout({
 
       <section className="w-full mx-auto px-0 m-0 border-0 border-red-600">
         <div className="grid md:grid-cols-12 gap-0 p-0 m-0">
-          <aside className="sticky top-[0px] z-50 h-screen bg-muted  self-start md:col-span-4 md:pt-0 px-2 border-r border-blue-200/20 ">
+          <aside className="sticky top-[75px] z-50 h-full_ bg-muted  self-start md:col-span-4 md:pt-0 px-2 border-r border-blue-200/20 ">
             <div className="absolute top-0 right-0 -translate-y-full h-[72px] w-px border-r border-dotted"></div>
             <div className="px-2 py-4 hidden">
               <LocationSwitcher accounts={accounts} isCollapsed={false} />
             </div>
+            <h2 className="py-0 pt-3 capitalize text-lg font-semibold px-2 mt-0 flex items-center justify-start">
+              {hub.replaceAll("-", " ")}
+              <span className="px-2">/</span> Most Backed{" "}
+              {filterByTag && (
+                <>
+                  <span className="px-2">/</span>
+                  <span>{filterByTag}</span>
+                </>
+              )}
+              {filterByMinorTag && (
+                <>
+                  <span className="px-2">/</span>
+                  <span>{filterByMinorTag}</span>
+                </>
+              )}
+              <span className="capitalize text-md text-muted-foreground font-normal pr-2"></span>
+            </h2>
             <FilterSelector
-              selectedValue={filterByTag}
+              selectedValue={secondaryTag}
               onChange={setFilterByTag}
               minorTag={filterByMinorTag}
               onMinorTagChange={setFilterByMinorTag}
             />
-            <div className="bg-white -mx-2 px-4 py-3 absolute bottom-0 border-r w-full flex gap-0 items-center justify-between z-50">
+            <div className="bg-white -mx-2 px-4 py-3 absolute bottom-0 border-r w-full flex_ hidden gap-0 items-center justify-between z-50">
               <div className="flex items-center justify-center">
                 <Image
                   alt="vote"
@@ -328,10 +371,14 @@ export default function Layout({
             />
           </aside>
           <main className="md:col-span-8 p-0 border-0 border-green-600">
-            <div className="sticky top-[-14px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[99] bg-gray-50 w-full">
+            <div className="sticky top-[70px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[10] bg-gray-50 w-full">
               <BreadcrumbWithDropdown hub={hub} />
               <div className="flex items-center space-x-2">
-                <Switch id="airplane-mode" />
+                <Switch
+                  id="airplane-mode"
+                  onCheckedChange={setIsHideMap}
+                  checked={isHideMap}
+                />
                 <Label htmlFor="airplane-mode">Hide Map</Label>
               </div>
             </div>

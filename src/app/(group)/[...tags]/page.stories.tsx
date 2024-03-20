@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { within, userEvent } from "@storybook/test";
 import { http, HttpResponse } from "msw";
 
-import HubPage from "./page";
+import HubPage from "./layout";
 import PageContent from "./PageContent";
 import { mockProfilesByTag } from "@/lib/data.mock";
 import { Profile } from "@/lib/profile";

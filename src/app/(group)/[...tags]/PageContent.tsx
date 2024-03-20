@@ -6,7 +6,7 @@ import { TagFilter } from "@/components/TagFilter";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Profile } from "@/lib/profile";
 import { PrimaryTagType, getPlural, tagDefinitions } from "@/lib/tags";
-import { Fragment, Suspense, useRef, useState } from "react";
+import { Fragment, ReactNode, Suspense, useRef, useState } from "react";
 import Profiles from "./Profiles";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { Badge } from "@/components/ui/badge";
@@ -35,12 +35,14 @@ export default async function PageContent({
   profile,
   filterOptions,
   filterId,
+  children,
 }: {
   profilesByTag?: Array<{
     tags: string[];
     label: string;
     profiles: Array<Profile>;
   }>;
+  children?: ReactNode;
   hub: string;
   primaryTag: PrimaryTagType;
   tags: string[];
@@ -152,6 +154,7 @@ export default async function PageContent({
           />
         </div>
       )}
+      {children}
       <DisablePage>
         <Suspense fallback={<LoadingSkeleton />}>
           <Profiles

@@ -425,14 +425,15 @@ export async function updateReasonTag(
 
   const parentHubTags = Object.keys(parentTagMap).filter(
     (tag) =>
-      !tagDefinitions[tag] &&
-      [
-        "boston",
-        "cambridge-ma",
-        "arlington-ma",
-        "lexington-ma",
-        "somerville-ma",
-      ].includes(tag)
+      !!tag ||
+      (!tagDefinitions[tag] &&
+        [
+          "boston",
+          "cambridge-ma",
+          "arlington-ma",
+          "lexington-ma",
+          "somerville-ma",
+        ].includes(tag))
   );
 
   const map = [...tags, ...parentHubTags].reduce((acc, tag) => {

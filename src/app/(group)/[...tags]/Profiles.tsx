@@ -61,7 +61,7 @@ export default async function Profiles({
               {" "}
               <div
                 id={`foobar-${tags}`}
-                className="absolute top-[-400px] opacity-0"
+                className="absolute top-[-490px] opacity-0"
                 ref={label === activeItemId ? activeItemRef : null}
               >
                 foobar
