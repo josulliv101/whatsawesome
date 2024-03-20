@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { PropsWithChildren, useEffect } from "react";
 import useReasonVisibilityStore from "./useReasonVisibilityStore";
 import { Reason } from "@/lib/profile";
+import { useRouter } from "next/navigation";
 
 export default function ReasonTagsFilter({
   tags = [],
 }: PropsWithChildren<{ tags: string[] }>) {
+  const router = useRouter();
   const { clearActiveTags, updateActiveTags, activeTags } =
     useReasonVisibilityStore();
 
@@ -18,7 +20,9 @@ export default function ReasonTagsFilter({
   const updateTag = (tag: string) => {
     if (activeTags.includes(tag)) {
       clearActiveTags();
+      router.replace(`?filter=all`);
     } else {
+      router.replace(`?filter=${tag}`);
       updateActiveTags(tag);
     }
   };

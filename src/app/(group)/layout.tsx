@@ -38,6 +38,7 @@ import PageContentSmall from "./PageContentSmall";
 import {
   useParams,
   usePathname,
+  useSearchParams,
   useSelectedLayoutSegments,
 } from "next/navigation";
 import { config, isRootHub } from "@/lib/config";
@@ -98,6 +99,7 @@ export default function Layout({
 
   const pathname = usePathname();
   const params = useParams();
+  const searchParams = useSearchParams();
   const [filterByTag__, setFilterByTag] = useState("restaurant");
   const [filterByMinorTag__, setFilterByMinorTag] = useState("wings");
   const [data, setData] = useState([]);
@@ -250,6 +252,7 @@ export default function Layout({
                 </>
               )}
               <span className="capitalize text-md text-muted-foreground font-normal pr-2"></span>
+              {JSON.stringify(searchParams)}
             </h2>
             <FilterSelector
               selectedValue={secondaryTag}
