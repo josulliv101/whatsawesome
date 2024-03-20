@@ -17,7 +17,7 @@ import { Reason } from "@/lib/profile";
 import GoogleMap, {
   API_KEY,
   ClientAPIProvider,
-} from "@/app/edit/profile/[id]/GoogleMap";
+} from "@/app__/edit/profile/[id]/GoogleMap";
 import MultipleSelector from "./MultipleSelector";
 import { useState } from "react";
 import { toast } from "sonner";

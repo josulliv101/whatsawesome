@@ -1,4 +1,4 @@
-import ProfilePageContent from "@/app/profile/[...id]/ProfilePageContent";
+import ProfilePageContent from "@/app__/profile/[...id]/ProfilePageContent";
 
 export function generateStaticParams() {
   return [];

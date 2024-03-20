@@ -14,7 +14,7 @@ import { revalidatePath } from "next/cache";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { ProfileForm } from "@/app/edit/profile/[id]/ProfileForm2";
+import { ProfileForm } from "@/app__/edit/profile/[id]/ProfileForm2";
 
 export default async function Page({
   params: { id },

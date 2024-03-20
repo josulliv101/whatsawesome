@@ -12,7 +12,10 @@ import { Fragment, PropsWithChildren } from "react";
 import PageContent from "./PageContent";
 import useFilterOptions from "./useFilterOptions";
 import { FilterByIdType } from "@/lib/filters";
-import { API_KEY, ClientAPIProvider } from "@/app/edit/profile/[id]/GoogleMap";
+import {
+  API_KEY,
+  ClientAPIProvider,
+} from "@/app__/edit/profile/[id]/GoogleMap";
 
 export default async function Home({
   children,

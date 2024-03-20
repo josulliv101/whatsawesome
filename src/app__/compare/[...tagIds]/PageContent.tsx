@@ -18,7 +18,7 @@ import GoogleMap from "./GoogleMap";
 import Legend from "@/components/Legend";
 import { tagDefinitions } from "@/lib/tags";
 import { Badge } from "@/components/ui/badge";
-import ReasonTagsFilter from "@/app/profile/[...id]/ReasonTagsFilter";
+import ReasonTagsFilter from "@/app__/profile/[...id]/ReasonTagsFilter";
 
 function customizer(objValue: any, srcValue: any) {
   if (Array.isArray(objValue)) {

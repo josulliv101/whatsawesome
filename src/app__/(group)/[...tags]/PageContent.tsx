@@ -15,10 +15,13 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Square } from "lucide-react";
 import { FilterOptions } from "@/lib/filters";
-import ProfilePageContent from "@/app/profile/[...id]/ProfilePageContent";
+import ProfilePageContent from "@/app__/profile/[...id]/ProfilePageContent";
 import DisablePage from "@/components/DisablePage";
 import GoogleMap from "./GoogleMapMain";
-import { API_KEY, ClientAPIProvider } from "@/app/edit/profile/[id]/GoogleMap";
+import {
+  API_KEY,
+  ClientAPIProvider,
+} from "@/app__/edit/profile/[id]/GoogleMap";
 import { fetchHubProfiles } from "@/lib/firebase";
 import BubbleChart from "./BubbleChart";
 import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
