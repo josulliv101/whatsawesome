@@ -59,7 +59,7 @@ function Row({
       <div className="flex items-center gap-2">
         {profiles.map((profile) => (
           <div key={profile.name} className="border rounded-md p-2 bg-muted">
-            {profile.name}
+            <Link href={`/profile/${profile.id}`}>{profile.name}</Link>
           </div>
         ))}
       </div>

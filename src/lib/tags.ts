@@ -104,6 +104,10 @@ export const getPrimaryTagsFromTags = (tags: Array<string>) => {
   );
 };
 
+export const getHubTagsFromTags = (tags: Array<string>) => {
+  return tags.filter((tag) => !tagDefinitions[tag]);
+};
+
 export const getPlural = (tag: string) => tagDefinitions[tag]?.plural || tag;
 
 export const getHubTags = (
