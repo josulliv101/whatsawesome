@@ -11,17 +11,18 @@ export default async function Page({
   params: any;
   searchParams: any;
 }) {
-  const data = await fetchClaimsForHub(hub, [pt]);
+  const data = await fetchClaimsForHub(hub, [pt], [st]);
   const items = tagDefinitions[pt]?.tags || [];
   return (
     <>
-      <SideNav items={items} hub={hub} />
+      <SideNav items={items} hub={hub} pt={pt} />
       sidebar hub pt={pt} st={st}
       <Separator className="my-2" />
       {data.map((item, index) => {
         return (
-          <div key={index}>
-            {item.parentId} {getPrimaryTagsFromTags(item.tags)}
+          <div key={index} className="p-4">
+            {item.parentId} | {getPrimaryTagsFromTags(item.tags)} |{" "}
+            {item.reason} | {item.rating}
           </div>
         );
       })}
@@ -29,12 +30,24 @@ export default async function Page({
   );
 }
 
-function SideNav({ hub, items }: { hub: string; items: Array<any> }) {
+function SideNav({
+  hub,
+  items,
+  pt,
+}: {
+  hub: string;
+  pt: string;
+
+  items: Array<any>;
+}) {
   return (
     <div className="flex gap-2 py-4 flex-wrap capitalize">
+      <Button key={"all"} size="sm" asChild>
+        <Link href={`/explore/${hub}?pt=${pt}`}>all</Link>
+      </Button>
       {items.map((tag) => (
         <Button key={tag} size="sm" asChild>
-          <Link href={`/explore/${hub}?pt=${tag}`}>{tag}</Link>
+          <Link href={`/explore/${hub}?pt=${pt}&st=${tag}`}>{tag}</Link>
         </Button>
       ))}
     </div>

@@ -519,8 +519,12 @@ export async function updateReasonTag(
   return true;
 }
 
-export async function fetchClaimsForHub(hub: string, tags: Array<string> = []) {
-  const whereQuery = [hub, ...tags]
+export async function fetchClaimsForHub(
+  hub: string,
+  tags: Array<string> = [],
+  secondaryTags: Array<string> = []
+) {
+  const whereQuery = [hub, ...tags, ...secondaryTags]
     .filter((tag) => !!tag)
     .map((tag) => where(`tagMap.${tag}`, "==", true));
   const reasons = query(
