@@ -2,6 +2,7 @@ import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {
   GeoPoint,
+  collectionGroup,
   getCountFromServer,
   serverTimestamp,
 } from "firebase/firestore";
@@ -171,7 +172,7 @@ export async function fetchHubProfilesForAllTags(
   primaryTag?: string,
   profileLimit: number = config.maxNumberOfProfilesInRow
 ) {
-  await sleep(1000);
+  // await sleep(1000);
   const tagsToUse = primaryTag ? [primaryTag] : allTags;
   const promises = tagsToUse.map((tag) => fetchHubProfiles2(hub, [tag]));
   const data = await Promise.all(promises);
@@ -516,4 +517,25 @@ export async function updateReasonTag(
   );
 
   return true;
+}
+
+export async function fetchClaimsForHub(hub: string, tags: Array<string> = []) {
+  const whereQuery = [hub, ...tags]
+    .filter((tag) => !!tag)
+    .map((tag) => where(`tagMap.${tag}`, "==", true));
+  const reasons = query(
+    collectionGroup(db, "whyawesome"),
+    ...whereQuery,
+    limit(5),
+    orderBy("rating", "desc")
+  );
+
+  const querySnapshot = await getDocs(reasons);
+  const data: Array<any> = [];
+  querySnapshot.forEach((doc) => {
+    const refParent = doc.ref.parent.parent;
+    const { tagMap, ...rest } = doc.data();
+    data.push({ ...rest, parentId: refParent?.id, tags: Object.keys(tagMap) });
+  });
+  return data;
 }

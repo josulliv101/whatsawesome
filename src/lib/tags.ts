@@ -96,6 +96,14 @@ export const getPrimaryTags = () => {
   tagDefinitions.all.children;
 };
 
+export const getPrimaryTagsFromTags = (tags: Array<string>) => {
+  return tags.filter(
+    (tag) =>
+      tagDefinitions.place.children.includes(tag) ||
+      tagDefinitions.person.children.includes(tag)
+  );
+};
+
 export const getPlural = (tag: string) => tagDefinitions[tag]?.plural || tag;
 
 export const getHubTags = (

@@ -47,10 +47,10 @@ export function BreadcrumbWithDropdown({ hub }: { hub: string }) {
                 <Link href="/arlington-ma/place">Arlington, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/boston/place">Boston, MA</Link>
+                <Link href="/explore/boston">Boston, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/cambridge-ma/place">Cambridge, MA</Link>
+                <Link href="/explore/cambridge-ma">Cambridge, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem disabled asChild>
                 <Link href="/lexington-ma/place">Lexington, MA</Link>

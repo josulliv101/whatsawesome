@@ -1,3 +1,4 @@
+import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { allTags } from "@/lib/config";
@@ -16,11 +17,12 @@ export default async function Page({
 
   return (
     <div>
+      <BreadcrumbWithDropdown hub={hub} />
       hello page pt={pt} st={st}
       <Separator className="my-2" />
       <Nav hub={hub} />
       {profilesByTag.map(({ profiles, tags, label }: any) => {
-        return <Row label={label} profiles={profiles} />;
+        return <Row key={label} label={label} profiles={profiles} />;
       })}
       <Separator className="my-2" />
     </div>
@@ -36,7 +38,7 @@ function Nav({ hub }: { hub: string }) {
         </Link>
       </Button>
       {allTags.map((tag) => (
-        <Button size="sm" asChild>
+        <Button key={tag} size="sm" asChild>
           <Link href={`/explore/${hub}?pt=${tag}`}>{tag}</Link>
         </Button>
       ))}
@@ -56,7 +58,9 @@ function Row({
       <h2 className="font-semibold text-lg">{label}</h2>
       <div className="flex items-center gap-2">
         {profiles.map((profile) => (
-          <div className="border rounded-md p-2">{profile.name}</div>
+          <div key={profile.name} className="border rounded-md p-2 bg-muted">
+            {profile.name}
+          </div>
         ))}
       </div>
     </div>
