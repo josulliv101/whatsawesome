@@ -18,9 +18,9 @@ export default async function Page({
       <SideNav items={items} hub={hub} />
       sidebar hub pt={pt} st={st}
       <Separator className="my-2" />
-      {data.map((item) => {
+      {data.map((item, index) => {
         return (
-          <div>
+          <div key={index}>
             {item.parentId} {getPrimaryTagsFromTags(item.tags)}
           </div>
         );
