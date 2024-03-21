@@ -194,7 +194,7 @@ export default function NavMenu({
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem className="hidden lg:inline-flex">
-            <Link href="/docs" legacyBehavior passHref>
+            <Link href="/explore/boston" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 suggest
               </NavigationMenuLink>

@@ -25,7 +25,7 @@ import {
   limit,
   addDoc,
 } from "firebase/firestore";
-import { config } from "./config";
+import { allTags, config } from "./config";
 import { PrimaryTagType, getPlural, tagDefinitions } from "./tags";
 import { Profile, Reason } from "./profile";
 import { generateRandomDecimal } from "./utils";
@@ -39,6 +39,8 @@ const firebaseConfig = {
   messagingSenderId: "360517790730",
   appId: "1:360517790730:web:0488ed0f086ee54e26c3f3",
 };
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export { type User, onAuthStateChanged } from "firebase/auth";
 
@@ -162,6 +164,70 @@ export async function fetchProfile(id: string | string[], uid?: string) {
     hubTagMap,
   };
   */
+}
+
+export async function fetchHubProfilesForAllTags(
+  hub: string,
+  primaryTag?: string,
+  profileLimit: number = config.maxNumberOfProfilesInRow
+) {
+  await sleep(1000);
+  const tagsToUse = primaryTag ? [primaryTag] : allTags;
+  const promises = tagsToUse.map((tag) => fetchHubProfiles2(hub, [tag]));
+  const data = await Promise.all(promises);
+  console.log("allTags", allTags);
+
+  return data;
+}
+
+export async function fetchHubProfiles2(
+  hub: string,
+  tags: Array<string> = [],
+  profileLimit: number = config.maxNumberOfProfilesInRow
+) {
+  console.log("fetchHubProfiles", hub, tags);
+
+  const normalizedTags =
+    !tags || !tags.length
+      ? [...config.defaultHubTags.person, ...config.defaultHubTags.place]
+      : tags;
+  console.log("normalizedTags", normalizedTags);
+  const queryHub = ![config.rootHub, "index"].includes(hub)
+    ? [where(`tagMap.${hub}`, "==", true)]
+    : [];
+
+  const queryTags = normalizedTags.map((tag) =>
+    where(`tagMap.${tag}`, "==", true)
+  );
+
+  const args = [
+    collection(db, "entity"),
+    // where("oinks", ">", 0),
+    ...queryHub,
+    // where(`tagMap.${primaryTag}`, "==", true),
+    ...queryTags,
+    orderBy("oinks", "desc"),
+    limit(profileLimit),
+  ];
+
+  const q = query.apply(null, args as any);
+  const docs: Array<Profile> = [];
+
+  try {
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      docs.push({ ...(doc.data() as Profile), id: doc.id });
+    });
+  } catch (err) {
+    console.log("err", err);
+  }
+
+  return {
+    hub: hub,
+    tags: tags,
+    label: tags.map((tag) => getPlural(tag)).join(" + "),
+    profiles: docs,
+  };
 }
 
 export async function fetchHubProfiles(

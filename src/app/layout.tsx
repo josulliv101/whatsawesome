@@ -48,7 +48,7 @@ export default function RootLayout({
                   <aside className="col-span-4 bg-muted px-4 py-3">
                     {sidebar}
                   </aside>
-                  <main className="col-span-8 px-4 py-3 h-[calc(100dvh_-_73px_-_73px)]">
+                  <main className="col-span-8 px-4 py-3 min-h-[calc(100dvh_-_73px_-_73px)]">
                     {children}
                   </main>
                 </div>

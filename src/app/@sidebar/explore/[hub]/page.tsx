@@ -5,5 +5,9 @@ export default function Page({
   params: any;
   searchParams: any;
 }) {
-  return <>sidebar hub</>;
+  return (
+    <>
+      sidebar hub pt={pt} st={st}
+    </>
+  );
 }
