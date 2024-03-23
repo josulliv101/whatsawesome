@@ -13,6 +13,8 @@ import useAuthentication from "@/components/useAuthentication";
 
 import Footer from "@/app__/components/footer";
 import Header from "@/components/Header";
+import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
+import MapPanel from "./explore/[hub]/MapPanel";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -31,8 +33,11 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({
   children,
   sidebar,
-  params: { tags = [] },
-}: PropsWithChildren<{ sidebar: ReactNode; params: { tags: string[] } }>) {
+  params: { hub, tags = [] },
+}: PropsWithChildren<{
+  sidebar: ReactNode;
+  params: { hub: string; tags: string[] };
+}>) {
   return (
     <StrictMode>
       <AuthContextProvider>
@@ -43,12 +48,10 @@ export default function RootLayout({
             <ThemeProvider attribute="class">
               <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
                 <Header />
-                <div className="grid md:grid-cols-12 gap-12">
+                <div className="grid md:grid-cols-12 gap-8">
                   {/* <Breadcrumb /> */}
-                  <aside className="col-span-4 bg-muted px-4 py-3">
-                    {sidebar}
-                  </aside>
-                  <main className="col-span-8 px-4 py-3 min-h-[calc(100dvh_-_73px_-_73px)]">
+                  <aside className="col-span-5 bg-muted">{sidebar}</aside>
+                  <main className="col-span-7 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
                     {children}
                   </main>
                 </div>

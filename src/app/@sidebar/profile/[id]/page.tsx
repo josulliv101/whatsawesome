@@ -16,7 +16,7 @@ export default async function Page({
   const data = await fetchClaimsForHub(hub, [pt]);
   return (
     <>
-      and sidebar profile {profile.name}
+      <h2 className="font-semibold text-sm mb-4">Related Excellence</h2>
       {data.map((item, index) => {
         return (
           <div key={index} className="p-4">

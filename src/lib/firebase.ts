@@ -536,10 +536,26 @@ export async function fetchClaimsForHub(
 
   const querySnapshot = await getDocs(reasons);
   const data: Array<any> = [];
-  querySnapshot.forEach((doc) => {
+  const parentIds: Array<string | undefined> = [];
+  querySnapshot.forEach(async (doc) => {
     const refParent = doc.ref.parent.parent;
+    parentIds.push(refParent?.id);
     const { tagMap, ...rest } = doc.data();
     data.push({ ...rest, parentId: refParent?.id, tags: Object.keys(tagMap) });
   });
-  return data;
+  const parentProfiles: Array<any> = [];
+
+  const promises = parentIds.map(async (parentId, index) => {
+    return await fetchProfile(parentId || "");
+  });
+
+  const profiles = await Promise.all(promises);
+  return data.map((datum, index) => ({
+    ...datum,
+    parent: {
+      latlng: profiles[index].latlng,
+      parentPhotoUrl: profiles[index].pic,
+      name: profiles[index].name,
+    },
+  }));
 }

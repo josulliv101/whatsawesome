@@ -375,7 +375,7 @@ export default function Layout({
           </aside>
           <main className="md:col-span-8 p-0 border-0 border-green-600">
             <div className="sticky top-[70px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[10] bg-gray-50 w-full">
-              <BreadcrumbWithDropdown hub={hub} />
+              <BreadcrumbWithDropdown />
               <div className="flex items-center space-x-2">
                 <Switch
                   id="airplane-mode"
