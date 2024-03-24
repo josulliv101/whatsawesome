@@ -77,12 +77,17 @@ function Row({
   profiles: Array<any>;
 }) {
   return (
-    <div className="mb-4">
-      <h2 className="font-semibold text-lg">{label}</h2>
-      <div className="flex items-center gap-2">
+    <div className="mb-10">
+      <h2 className="font-semibold text-lg mb-4">{label}</h2>
+      <div className="flex items-center gap-2 max-w-full overflow-auto">
         {profiles.map((profile) => (
-          <div key={profile.name} className="border rounded-md p-2 bg-muted">
-            <Link href={`/profile/${profile.id}`}>{profile.name}</Link>
+          <div
+            key={profile.name}
+            className="min-h-40 min-w-40 max-w-40 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
+          >
+            <Link className="text-balance" href={`/profile/${profile.id}`}>
+              {profile.name}
+            </Link>
           </div>
         ))}
       </div>
