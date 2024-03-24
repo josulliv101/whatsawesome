@@ -30,6 +30,8 @@
     ".next/types/**/*.ts",
     "src/app__/(group)/@content/(.)profile/[...id]/loading.tsx__",
     "src/app__/(group)/[...tags]/layout.tsx__",
+    "src/app/page.tsx",
+    "src/app/default.tsx__",
   ],
   "exclude": ["node_modules"],
 }

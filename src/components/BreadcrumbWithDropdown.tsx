@@ -25,7 +25,7 @@ export function BreadcrumbWithDropdown() {
   const searchParams = useSearchParams();
   const hub = Array.isArray(params.hub) ? params.hub[0] : params.hub ?? "";
   return (
-    <Breadcrumb className="px-4 py-4 mb-4">
+    <Breadcrumb className="px-4 py-4 mb-0">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink className="capitalize font-semibold" href={`/`}>

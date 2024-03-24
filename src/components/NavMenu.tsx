@@ -93,7 +93,7 @@ export default function NavMenu({
   return (
     <>
       <div className="relative flex lg:flex-0 items-center">
-        <HubLink hub="all" className="flex items-center -m-1.5 p-1.5 gap-3">
+        <Link href="/" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
             ref={refLogo}
             className={`h-8 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
@@ -107,7 +107,7 @@ export default function NavMenu({
           />
           <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
           <span className="sr-only">Blue Mushroom</span>
-        </HubLink>
+        </Link>
         {
           <>
             <span className="px-3 ml-1">/</span>
@@ -115,8 +115,8 @@ export default function NavMenu({
               variant={"default"}
               className="w-auto absolute top-[4px] left-[68px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
             >
-              <HubLink
-                hub={hub}
+              <Link
+                href={isRootHub(hub) ? `/` : `/explore/${hub}`}
                 className="flex items-center -m-1.5 px-1.5 py-2 gap-3"
               >
                 <span
@@ -127,7 +127,7 @@ export default function NavMenu({
                   )}
                   {!isRootHub(hub) ? tags[0].replace(/[-]/g, " ") : config.org}
                 </span>
-              </HubLink>
+              </Link>
             </Badge>
           </>
         }

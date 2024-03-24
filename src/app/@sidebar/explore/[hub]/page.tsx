@@ -10,6 +10,7 @@ import Link from "next/link";
 import SmallMap from "./SmallMap";
 import { config } from "@/lib/config";
 import { roundToInteger } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -52,11 +53,20 @@ export default async function Page({
                 className="h-[80px] w-[80px] object-cover min-w-[80px]"
               />
               <div key={index} className="relative py-2">
-                <strong>{item.parent.name}</strong> |{" "}
-                {getPrimaryTagsFromTags(item.tags)} | {item.reason} |{" "}
+                <strong>{item.parent.name}</strong>{" "}
+                {getPrimaryTagsFromTags(item.tags).map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="outline"
+                    className="border-x-muted-foreground rounded-sm mx-2"
+                  >
+                    {tag}
+                  </Badge>
+                ))}{" "}
+                {item.reason} |{" "}
                 <Link href={`/profile/${item.parentId}`}>View Profile</Link>
               </div>
-              <div className="relative p-2 text-muted-foreground rounded-md border border-muted-foreground/30 flex flex-col items-center justify-center gap-0 top-0 right-0 font-semibold ">
+              <div className="relative p-2 text-muted-foreground rounded-md border border-muted-foreground/30 bg-gray-200/50 flex flex-col items-center justify-center gap-0 top-0 right-0 font-semibold ">
                 <div className="hidden absolute w-6 h-6 flex items-center justify-center -top-2 -right-2 bg-white rounded-full">
                   <img
                     className="w-4 h-4"

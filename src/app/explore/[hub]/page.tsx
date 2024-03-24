@@ -24,7 +24,7 @@ export default async function Page({
   return (
     <>
       {/* <MapPanel center={profile.latlng} /> */}
-      <div className="bg-muted sticky top-[72px] pl-8 -ml-8">
+      <div className="bg-muted sticky top-[72px] pl-8 -ml-8 mb-8 border-b">
         <BreadcrumbWithDropdown />
       </div>
       <div className="px-4">
@@ -77,15 +77,27 @@ function Row({
   profiles: Array<any>;
 }) {
   return (
-    <div className="mb-10">
+    <div className="mb-0">
       <h2 className="font-semibold text-lg mb-4">{label}</h2>
-      <div className="flex items-center gap-2 max-w-full overflow-auto">
+      <div className="flex items-start gap-2 max-w-full overflow-auto">
         {profiles.map((profile) => (
           <div
-            key={profile.name}
-            className="min-h-40 min-w-40 max-w-40 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
+            key={profile.id}
+            className="max-w-[160px] flex flex-col items-center justify-start"
           >
-            <Link className="text-balance" href={`/profile/${profile.id}`}>
+            <div
+              key={profile.name}
+              style={{
+                backgroundImage: `url(${profile.pic})`,
+                backgroundSize: "cover",
+                backgroundPosition: "top",
+              }}
+              className="min-h-40 min-w-40 max-w-40 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
+            ></div>
+            <Link
+              className={`text-balance text-center text-muted-foreground mt-2 px-2 pb-6 ${profile.name?.length > 32 ? "text-xs" : "text-sm"}`}
+              href={`/profile/${profile.id}`}
+            >
               {profile.name}
             </Link>
           </div>
