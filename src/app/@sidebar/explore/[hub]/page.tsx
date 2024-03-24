@@ -29,11 +29,8 @@ export default async function Page({
     .filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers", markers);
   return (
-    <ClientAPIProvider apiKey={API_KEY}>
+    <>
       <div className="sticky top-[72px] bg-muted">
-        <div className="h-[300px]">
-          <SmallMap markers={markers} />
-        </div>
         <BreadcrumbSide />
         {pt && <SideNav items={items} hub={hub} pt={pt} />}
         <Separator className="my-2" />
@@ -58,7 +55,7 @@ export default async function Page({
                   <Badge
                     key={tag}
                     variant="outline"
-                    className="border-x-muted-foreground rounded-sm mx-2"
+                    className="border-muted-foreground/50 rounded-sm mx-2"
                   >
                     {tag}
                   </Badge>
@@ -66,7 +63,7 @@ export default async function Page({
                 {item.reason} |{" "}
                 <Link href={`/profile/${item.parentId}`}>View Profile</Link>
               </div>
-              <div className="relative p-2 text-muted-foreground rounded-md border border-muted-foreground/30 bg-gray-200/50 flex flex-col items-center justify-center gap-0 top-0 right-0 font-semibold ">
+              <div className="relative p-2 h-[80px] text-muted-foreground rounded-md border border-muted-foreground/30 bg-gray-200/50 flex flex-col items-center justify-center gap-0 top-0 right-0 font-semibold ">
                 <div className="hidden absolute w-6 h-6 flex items-center justify-center -top-2 -right-2 bg-white rounded-full">
                   <img
                     className="w-4 h-4"
@@ -85,7 +82,7 @@ export default async function Page({
                   {roundToInteger(item.rating * 10.34)}
                 </span>
                 <img
-                  className="w-5 h-5 my-1"
+                  className="w-5 h-5 my-1 hidden"
                   src={config.logoPath}
                   width="18"
                   height="18"
@@ -101,7 +98,7 @@ export default async function Page({
           sidebar hub pt={pt} st={st}
         </p>
       </div>
-    </ClientAPIProvider>
+    </>
   );
 }
 

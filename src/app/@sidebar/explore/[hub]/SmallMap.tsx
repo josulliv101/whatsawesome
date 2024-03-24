@@ -1,19 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-
+import React, { PropsWithChildren, useEffect, useState } from "react";
+import Image from "next/image";
 import {
   APIProvider,
+  AdvancedMarker,
   Map,
   Marker,
   useMap,
   useMapsLibrary,
 } from "@vis.gl/react-google-maps";
 import { useRouter } from "next/navigation";
+import { config } from "@/lib/config";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
 
-const SmallMap = ({ markers = [] }: { markers: Array<any> }) => {
+const SmallMap = ({
+  children,
+  // markers = [],
+}: PropsWithChildren<{}>) => {
+  /*
   const map = useMap();
   const router = useRouter();
 
@@ -21,6 +27,27 @@ const SmallMap = ({ markers = [] }: { markers: Array<any> }) => {
 
   const [initialBounds, setInitialBounds] =
     useState<google.maps.LatLngBoundsLiteral>();
+
+  useEffect(() => {
+    if (!coreLib || !initialBounds) return;
+
+    const { LatLng, LatLngBounds } = coreLib;
+    const bounds = new coreLib.LatLngBounds();
+    // const sw = new LatLng(bounds.sw.latitude, bounds.sw.longitude);
+    // const ne = new LatLng(bounds.ne.latitude, bounds.ne.longitude);
+
+    if (bounds) {
+      markers.forEach((marker) =>
+        bounds.extend(new coreLib.LatLng(marker.latlng))
+      );
+    }
+
+    map?.fitBounds(bounds);
+
+    //const initialBounds = bounds.toJSON();
+
+    // setInitialBounds(bounds.toJSON());
+  }, [coreLib, markers]);
 
   useEffect(() => {
     if (!coreLib) return;
@@ -45,22 +72,25 @@ const SmallMap = ({ markers = [] }: { markers: Array<any> }) => {
   if (!initialBounds) {
     return null;
   }
+*/
+  const size = 32;
   return (
-    <APIProvider apiKey={API_KEY}>
-      <Map
-        // defaultZoom={14}
-        // defaultCenter={markers[0].latlng}
-        defaultBounds={initialBounds}
-        gestureHandling={"greedy"}
-        disableDefaultUI={true}
-        mapTypeId={"roadmap"}
-        mapId={"739af084373f96fe"}
-      >
-        {markers.map((marker, index) => (
-          <Marker key={index} position={marker.latlng} />
-        ))}
-      </Map>
-    </APIProvider>
+    <Map
+      defaultZoom={14}
+      defaultCenter={{ lat: 0, lng: 0 }}
+      // defaultBounds={initialBounds}
+      gestureHandling={"greedy"}
+      disableDefaultUI={true}
+      mapTypeId={"roadmap"}
+      mapId={"739af084373f96fe"}
+      onCameraChanged={(ev, ...args) =>
+        console.log("camera change", ev, ...args)
+      }
+      minZoom={10}
+      maxZoom={14}
+    >
+      {children}
+    </Map>
   );
 };
 export default SmallMap;

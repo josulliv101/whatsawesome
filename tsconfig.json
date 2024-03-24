@@ -32,6 +32,7 @@
     "src/app__/(group)/[...tags]/layout.tsx__",
     "src/app/page.tsx",
     "src/app/default.tsx__",
+    "src/app/@map/explore/layout.tsx__",
   ],
   "exclude": ["node_modules"],
 }
