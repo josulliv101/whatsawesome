@@ -522,15 +522,17 @@ export async function updateReasonTag(
 export async function fetchClaimsForHub(
   hub: string,
   tags: Array<string> = [],
-  secondaryTags: Array<string> = []
+  secondaryTags: Array<string> = [],
+  teriaryTags: Array<string> = []
 ) {
-  const whereQuery = [hub, ...tags, ...secondaryTags]
+  const hubList = hub === "all" ? [] : [hub];
+  const whereQuery = [...hubList, ...tags, ...secondaryTags, ...teriaryTags]
     .filter((tag) => !!tag)
     .map((tag) => where(`tagMap.${tag}`, "==", true));
   const reasons = query(
     collectionGroup(db, "whyawesome"),
     ...whereQuery,
-    limit(5),
+    limit(100),
     orderBy("rating", "desc")
   );
 
@@ -541,7 +543,12 @@ export async function fetchClaimsForHub(
     const refParent = doc.ref.parent.parent;
     parentIds.push(refParent?.id);
     const { tagMap, ...rest } = doc.data();
-    data.push({ ...rest, parentId: refParent?.id, tags: Object.keys(tagMap) });
+    data.push({
+      ...rest,
+      id: doc.id,
+      parentId: refParent?.id,
+      tags: Object.keys(tagMap),
+    });
   });
   const parentProfiles: Array<any> = [];
 

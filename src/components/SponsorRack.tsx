@@ -62,12 +62,18 @@ export default function SponsorRack({ hub }: { hub: string }) {
           className="[&>img]:p-1"
         />
       </div>
-      <p className="w-full absolute -top-6 left-0 text-sm text-muted-foreground px-2 flex items-center justify-between">
-        Thank you to all the sponsors who make Blue Mushroom / {hub} possible.
+      <div className="w-full absolute -top-6 left-0 text-sm text-muted-foreground px-2 flex items-center justify-between">
+        <div>
+          Thank you to all the sponsors who make{" "}
+          <strong>
+            Blue Mushroom <span className="capitalize">{hub}</span>
+          </strong>{" "}
+          possible.
+        </div>
         <div className="text-md flex place-items-center gap-2 font-semibold absolute -top-2 right-4">
           Sponsors <BadgeCheckIcon className="h-5 w-5  text-blue-500" />
         </div>
-      </p>
+      </div>
     </div>
   );
 }

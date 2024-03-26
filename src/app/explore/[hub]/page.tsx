@@ -24,7 +24,7 @@ export default async function Page({
   return (
     <>
       {/* <MapPanel center={profile.latlng} /> */}
-      <div className="bg-muted sticky top-[72px] pl-8 -ml-8 mb-8 border-b">
+      <div className="bg-muted sticky top-[72px] z-0 mb-8 border-b">
         <BreadcrumbWithDropdown />
       </div>
       <div className="px-4">

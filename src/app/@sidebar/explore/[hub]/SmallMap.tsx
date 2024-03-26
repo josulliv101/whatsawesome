@@ -86,8 +86,8 @@ const SmallMap = ({
       onCameraChanged={(ev, ...args) =>
         console.log("camera change", ev, ...args)
       }
-      minZoom={10}
-      maxZoom={14}
+      minZoom={1}
+      maxZoom={19}
     >
       {children}
     </Map>

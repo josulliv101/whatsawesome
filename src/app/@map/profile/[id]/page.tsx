@@ -19,14 +19,14 @@ export default async function Page({
   const items = tagDefinitions[pt]?.tags || [];
   const markers = [profile].filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers profile [id]", markers);
-  const size = 32;
+  const size = 48;
 
   return (
     <Foobar markers={markers}>
       {markers.map((marker, index) => (
         // <Marker key={index} position={marker.latlng} />
         <AdvancedMarker
-          key={index}
+          key={marker.id}
           // ref={isActiveMarker ? markerRef : null}
           position={marker.latlng}
           title={"AdvancedMarker with custom html content."}

@@ -1,4 +1,10 @@
 import { Inter } from "next/font/google";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ClientAPIProvider } from "@/app__/tags/[...tagIds]/GoogleMap";
 import { Toaster } from "@/components/ui/sonner";
 import { HubContextProvider } from "@/components/HubContext";
@@ -47,37 +53,36 @@ export default function RootLayout({
   return (
     <StrictMode>
       <AuthContextProvider>
-        <html lang="en" suppressHydrationWarning>
-          <body
-            className={`${inter.className} antialiased bg-gray-50 dark:bg-black bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black`}
-          >
-            <ThemeProvider attribute="class">
-              <ClientAPIProvider apiKey={API_KEY}>
-                <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
-                  <Header />
-                  <div className="grid md:grid-cols-12 gap-8">
-                    {/* <Breadcrumb /> */}
-                    <aside className="col-span-5 bg-muted">
-                      <div className="">
-                        layoutA {hub}
-                        <div className="h-[300px]">
-                          <SmallMap>{map}</SmallMap>
+        <TooltipProvider>
+          <html lang="en" suppressHydrationWarning>
+            <body
+              className={`${inter.className} antialiased bg-gray-50 dark:bg-black bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black`}
+            >
+              <ThemeProvider attribute="class">
+                <ClientAPIProvider apiKey={API_KEY}>
+                  <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
+                    <Header />
+                    <div className="grid md:grid-cols-12 gap-0">
+                      <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
+                        {sidebar}
+                      </main>
+                      <aside className="col-span-4 bg-muted">
+                        <div className="">
+                          <div className="h-[300px]">
+                            <SmallMap>{map}</SmallMap>
+                          </div>
                         </div>
-                      </div>
-
-                      {sidebar}
-                    </aside>
-                    <main className="col-span-7 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
-                      {children}
-                    </main>
-                  </div>
-                  <Footer />
-                </HubContextProvider>
-              </ClientAPIProvider>
-            </ThemeProvider>
-            <Toaster />
-          </body>
-        </html>
+                        {children}
+                      </aside>
+                    </div>
+                    <Footer />
+                  </HubContextProvider>
+                </ClientAPIProvider>
+              </ThemeProvider>
+              <Toaster />
+            </body>
+          </html>
+        </TooltipProvider>
       </AuthContextProvider>
     </StrictMode>
   );

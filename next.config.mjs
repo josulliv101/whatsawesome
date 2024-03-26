@@ -11,6 +11,11 @@ const nextConfig = {
           destination: "/explore/boston",
           // has: [{ type: 'query', key: 'overrideMe' }],
         },
+        {
+          source: "/explore",
+          destination: "/explore/all",
+          // has: [{ type: 'query', key: 'overrideMe' }],
+        },
       ],
     };
   },

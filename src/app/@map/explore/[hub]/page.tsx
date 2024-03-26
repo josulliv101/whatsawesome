@@ -17,16 +17,16 @@ export default async function Page({
   const data = await fetchClaimsForHub(hub, [pt], [st]);
   const items = tagDefinitions[pt]?.tags || [];
   const markers = data
-    .map((datum) => ({ latlng: datum.parent.latlng }))
+    .map((datum) => ({ latlng: datum.parent.latlng, id: datum.id }))
     .filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers", markers);
-  const size = 32;
+  const size = 36;
   return (
     <Foobar markers={markers}>
       {markers.map((marker, index) => (
         // <Marker key={index} position={marker.latlng} />
         <AdvancedMarker
-          key={index}
+          key={marker.id}
           // ref={isActiveMarker ? markerRef : null}
           position={marker.latlng}
           title={"AdvancedMarker with custom html content."}
@@ -44,7 +44,7 @@ export default async function Page({
               // borderRadius: "50%",
               // transform: "translate(-50%, -50%)",
             }}
-            className={`drop-shadow-md_ bg-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
+            className={`animate-fadeIn drop-shadow-md_ bg-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
           >
             <Image
               // id={marker.id}
@@ -52,7 +52,7 @@ export default async function Page({
               src={config.logoPath}
               width={size}
               height={size}
-              className={`relative border border-muted-foreground/50 bg-white rounded-full p-[4px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
+              className={`relative border border-muted-foreground/50 bg-white rounded-full p-[8px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
             />
           </div>
         </AdvancedMarker>

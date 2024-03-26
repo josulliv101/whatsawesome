@@ -18,6 +18,7 @@ export const tags: Array<string> = [
 export const tagDefinitions: Record<string, any> = {
   all: {
     children: ["person", "place"],
+    tags: ["person", "place"],
   },
   person: {
     plural: "people",
@@ -51,6 +52,7 @@ export const tagDefinitions: Record<string, any> = {
   },
   sports: {
     parentTag: "person",
+    tags: ["champion", "clutch", "leader", "passion", "defense"],
   },
   teacher: { plural: "teachers", parentTag: "person" },
   hero: { plural: "heroes", parentTag: "person" },
@@ -67,6 +69,7 @@ export const tagDefinitions: Record<string, any> = {
   restaurant: {
     plural: "restaurants",
     parentTag: "place",
+    children: ["fine-dining", "bbq", "chinese", "mexican", "pizzashop"],
     tags: ["burger", "steak", "atmosphere", "drinks", "wings"],
   },
   technology: { plural: "technology", parentTag: "place" },
@@ -90,6 +93,50 @@ export const tagDefinitions: Record<string, any> = {
   // dessert: { plural: "desserts", parentTag: "place" },
   bbq: { plural: "bbq", parentTag: "place" },
   outdoors: { plural: "outdoors", parentTag: "place" },
+
+  burger: { plural: "burgers", parentTag: "restaurant" },
+  location: { plural: "locations", parentTag: "restaurant" },
+  wings: { plural: "wings", parentTag: "restaurant" },
+  service: { plural: "service", parentTag: "restaurant" },
+  steak: { plural: "steaks", parentTag: "restaurant" },
+  seafood: { plural: "seafood", parentTag: "restaurant" },
+  atmosphere: { plural: "atmosphere", parentTag: "restaurant" },
+  drinks: { plural: "drinks", parentTag: "restaurant" },
+  wine: { plural: "wines", parentTag: "restaurant" },
+  menu: { plural: "menus", parentTag: "restaurant" },
+  lobster: { plural: "lobsters", parentTag: "restaurant" },
+
+  coffee: { plural: "coffees", parentTag: "coffeehouse" },
+  pastry: { plural: "pastries", parentTag: "coffeehouse" },
+  soup: { plural: "soups", parentTag: "coffeehouse" },
+
+  clutch: { plural: "clutch", parentTag: "sports" },
+  defense: { plural: "defense", parentTag: "sports" },
+  champion: { plural: "champion", parentTag: "sports" },
+  leader: { plural: "leader", parentTag: "sports" },
+  passion: { plural: "passion", parentTag: "sports" },
+
+  "fine-dining": {
+    plural: "fine-dining",
+    parentTag: "restaurant",
+    tags: ["burger", "steak", "atmosphere", "drinks", "wings"],
+  },
+
+  mexican: {
+    plural: "mexican",
+    parentTag: "restaurant",
+    tags: ["taco", "quaesadia", "burrito", "nachos", "wrap"],
+  },
+  chinese: {
+    plural: "chinese",
+    parentTag: "restaurant",
+    tags: ["dumpling", "fried rice", "rangoon", "springroll", "lomein"],
+  },
+  pizzashop: {
+    plural: "pizzashop",
+    parentTag: "restaurant",
+    tags: ["calzone", "pizza", "meatball", "garlic-bread", "slice"],
+  },
 };
 
 export const getPrimaryTags = () => {
