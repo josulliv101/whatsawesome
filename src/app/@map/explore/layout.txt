@@ -1,0 +1,18 @@
+import SmallMap from "@/app/@sidebar/explore/[hub]/SmallMap";
+import { fetchClaimsForHub, fetchProfile } from "@/lib/firebase";
+import { tagDefinitions } from "@/lib/tags";
+import { PropsWithChildren } from "react";
+
+export default async function Page({
+  children,
+  params: { hub },
+}: PropsWithChildren<{ params: any }>) {
+  return (
+    <div className="">
+      layoutA {hub}
+      <div className="h-[300px]">
+        <SmallMap>{children}</SmallMap>
+      </div>
+    </div>
+  );
+}

@@ -15,7 +15,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
+  Tooltip as ChartTooltip,
   Legend,
   ResponsiveContainer,
   Rectangle,
@@ -31,10 +31,12 @@ import {
   BanIcon,
   BadgeIcon,
   BanknoteIcon,
-  StarOffIcon,
-  CrownIcon,
+  // StarIcon,
+  // CrownIcon as Heart,
   CircleDotIcon,
+  Map,
   Heart,
+  MessageSquareTextIcon as MessageCircle,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -71,6 +73,8 @@ import Link from "next/link";
 import Rating from "./Rating";
 import { ReasonEdit } from "./ReasonEdit";
 import { profile } from "console";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { tagDefinitions } from "@/lib/tags";
 
 export function Reason({
   id,
@@ -78,6 +82,7 @@ export function Reason({
   name,
   rating,
   photoUrl: photoUrlProp,
+  photoUrlAside,
   profileId,
   userRating,
   ratings: ratingsProp = {},
@@ -88,12 +93,15 @@ export function Reason({
   isForceRatingToShow,
   isEditable = false,
   latlng,
+  showExtraPassion,
+  latestBacker,
 }: PropsWithChildren<{
   id?: string;
   description: string;
   name: string;
   rating: number;
   photoUrl?: string;
+  photoUrlAside?: string;
   profileId: string;
   userRating?: number;
   ratings?: Record<string, number>;
@@ -106,6 +114,8 @@ export function Reason({
     lat: number;
     lng: number;
   };
+  showExtraPassion?: boolean;
+  latestBacker?: string;
 }>) {
   const photoUrl = photoUrlProp; // || config.logoPath;
   const isDefaultImage = !photoUrlProp;
@@ -144,7 +154,7 @@ export function Reason({
       .reduce((acc, item) => {
         return acc + item.value * Math.max(1, item?.rank || 1);
       }, 0) / totalPeople;
-
+  const passionateBackers = Math.max(0, roundToInteger(rating / 8 - 1));
   return (
     <Card className="group border-l-[0px] border-l-black relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {
@@ -274,7 +284,7 @@ export function Reason({
                       // style={{ paddingTop: 100 }}
                     />
                     <YAxis type="category" width={0} dataKey="name" />
-                    <Tooltip />
+                    <ChartTooltip />
                     <Bar
                       dataKey="value"
                       maxBarSize={12}
@@ -319,7 +329,7 @@ export function Reason({
       <CardHeader className="relative z-10 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
-          <CardDescription className="text-xl text-balance text-center pr-4 mt-[-36px] lg:text-2xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
+          <CardDescription className="text-xl text-balance text-center pr-4 mt-[-36px] lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>
@@ -339,44 +349,83 @@ export function Reason({
             {rating} rating
           </div>
           <div className="w-44 whitespace-nowrap md:whitespace-normal">
-            created by @josulliv101
+            created by{latestBacker}
           </div>
         </div>
-        <div className="absolute bottom-4 right-8">
+        <div className="flex gap-3 absolute bottom-2 right-2">
           {id && !isAnalyticsView && (
             <>
-              <Button
-                variant={"link"}
-                className="flex gap-2 transition-all duration-500"
-              >
-                {/* Backers:
-                <Image
-                  alt="vote"
-                  src={config.logoPath}
-                  width={18}
-                  height={18}
-                  className=""
-                />
-                {19} */}
-                <Image
-                  alt="vote"
-                  src={config.logoPath}
-                  width={22}
-                  height={22}
-                  className="grayscale_ ml-2"
-                />
-                {(roundToInteger(rating * 100) === 287 ||
-                  roundToInteger(rating * 100) === 240) && (
-                  <Heart className="w-3.5 h-3.5 absolute hidden_ left-[37px] top-[3px] stroke-2 text-white fill-red-500" />
-                )}
-                <span>{roundToInteger(rating * 100)} Backers</span>
-              </Button>
-              {/* <RateReason
-                profileId={profileId}
-                reasonId={id}
-                userRating={userRating}
-                tag={tags[0]}
-              /> */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"link"}
+                    className="flex py-2 gap-4 h-16 w-12 bg-gray-50_ origin-bottom-right scale-[.80] transition-all duration-500 border_"
+                  >
+                    <span className="flex flex-col items-center px-0">
+                      <Map className="w-8 h-8 z-[9999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
+                      <span></span>
+                    </span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View {name} on Map</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"link"}
+                    className="flex py-2 pr-4 gap-4 h-16 w-12 bg-gray-50_ origin-bottom-right scale-[.80] transition-all duration-500 border_"
+                  >
+                    <Image
+                      alt="vote"
+                      src={config.logoPath}
+                      width={40}
+                      height={40}
+                      className="grayscale_ ml-2 hidden"
+                    />
+                    {true && (
+                      <div className="w-6 h-6 z-[9999] flex items-center justify-center absolute right-[-6px] top-[-8px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
+                        2
+                      </div>
+                    )}
+
+                    <span className="flex flex-col items-center px-2">
+                      <MessageCircle className="w-8 h-8 z-[9999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
+                      <span></span>
+                    </span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Comments</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"secondary"}
+                    className="flex py-2 gap-4 h-16 w-16 origin-bottom-right scale-[.80] transition-all duration-500 text-muted-foreground"
+                  >
+                    <Image
+                      alt="vote"
+                      src={config.logoPath}
+                      width={40}
+                      height={40}
+                      className="grayscale_ ml-2 hidden"
+                    />
+
+                    <span className="flex flex-col items-center px-2">
+                      <strong className="text-2xl">{passionateBackers}</strong>{" "}
+                      <span className="block px-4 scale-90">Backers</span>
+                    </span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Back this item</p>
+                </TooltipContent>
+              </Tooltip>
             </>
           )}
         </div>
@@ -412,26 +461,39 @@ export function Reason({
                 #{tags.join(" / ")} excellence ({rating})
               </div>
             )}
-            {!isAnalyticsView &&
-              (roundToInteger(rating * 100) === 287 ||
-                roundToInteger(rating * 100) === 240) && (
-                <div className="pl-4 inline-block_ text-muted-foreground">
-                  <Button
-                    variant={"ghost"}
-                    className="flex gap-2 transition-all duration-500 relative"
-                  >
-                    Thank you @josulliv101 and 2 others for the extra
-                    {/* <Image
-                    alt="vote"
-                    src={config.logoPath}
-                    width={22}
-                    height={22}
-                    className="grayscale_ ml-2"
-                  /> */}
-                    <Heart className="w-4 h-4 absolute__ hidden_ right-[12px] top-[3px] stroke-[0px] text-white fill-muted-foreground opacity-60" />
-                  </Button>
-                </div>
-              )}
+            {!isAnalyticsView && false && (
+              <div className="pl-4 relative top-2 inline-block_ text-muted-foreground">
+                <Button
+                  variant={"secondary"}
+                  className="-left-10 flex gap-2 transition-all duration-500 relative"
+                >
+                  {name}
+                </Button>
+                {/* <Button
+                  variant={"ghost"}
+                  className="flex gap-2 transition-all duration-500 relative"
+                >
+                  Thank you {latestBacker}{" "}
+                  {passionateBackers > 1
+                    ? `and ${passionateBackers - 1} others`
+                    : ""}{" "}
+                  for the
+             
+                  <Heart className="w-4 h-4 absolute__ hidden_ right-[12px] top-[3px] stroke-[0px] text-white fill-gray-300 opacity-100" />
+                </Button> */}
+              </div>
+            )}
+            {!isAnalyticsView && passionateBackers === -1 && (
+              <div className="pl-4 relative top-2 inline-block_ text-muted-foreground">
+                <Button
+                  variant={"ghost"}
+                  className="flex gap-2 transition-all duration-500 relative"
+                >
+                  More on including extra{" "}
+                  <Heart className="w-4 h-4 absolute__ hidden_ right-[12px] top-[3px] stroke-[0px] text-white fill-gray-300 opacity-100" />
+                </Button>
+              </div>
+            )}
             <span className={`px-3 ${isAnalyticsView ? "inline" : "hidden"}`}>
               /
             </span>
@@ -468,30 +530,47 @@ export function Reason({
           </div>
         </div> */}
         {!isAnalyticsView && (
-          <div className="absolute top-2 right-8 flex items-center gap-2">
-            {tags.map((tag) => (
+          <>
+            <div className="absolute hidden_ top-2 right-2 flex items-center gap-2">
+              {tags
+                .filter(
+                  (tag) =>
+                    !!tagDefinitions[tag] &&
+                    !tagDefinitions.all.children.includes(tag)
+                )
+                .map((tag) => (
+                  <Button
+                    key={tag}
+                    className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                    variant={"ghost"}
+                    size="sm"
+                    asChild
+                  >
+                    <Link href={`/tags/${tag}`}>{tag}</Link>
+                  </Button>
+                ))}
               <Button
-                key={tag}
+                key={"id"}
                 className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
-                variant={"outline"}
+                variant={"secondary"}
                 size="sm"
                 asChild
               >
-                <Link href={`/tags/${tag}`}>{tag}</Link>
+                <Link href={`/profile/${id}`}>{name}</Link>
               </Button>
-            ))}
-            {isEditable && id && (
-              <ReasonEdit
-                id={id}
-                profileId={profileId}
-                description={description}
-                latlng={latlng}
-                rating={rating}
-                photoUrl={photoUrl}
-                tags={tags}
-              />
-            )}
-          </div>
+              {isEditable && id && (
+                <ReasonEdit
+                  id={id}
+                  profileId={profileId}
+                  description={description}
+                  latlng={latlng}
+                  rating={rating}
+                  photoUrl={photoUrl}
+                  tags={tags}
+                />
+              )}
+            </div>
+          </>
         )}
       </CardContent>
     </Card>

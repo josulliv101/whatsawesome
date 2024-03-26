@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronDown, Slash } from "lucide-react";
 
 import {
@@ -15,14 +17,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { useParams, useSearchParams } from "next/navigation";
+import { tagDefinitions } from "@/lib/tags";
 
-export function BreadcrumbWithDropdown({ hub }: { hub: string }) {
+export function BreadcrumbWithDropdown() {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const hub = Array.isArray(params.hub) ? params.hub[0] : params.hub ?? "";
   return (
-    <Breadcrumb>
+    <Breadcrumb className="px-4 py-4 mb-0">
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink className="capitalize" href={`/`}>
-            Blue Mushroom
+          <BreadcrumbLink className="capitalize font-semibold" href={`/`}>
+            Blue Mushroom Catalog
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
@@ -47,10 +54,10 @@ export function BreadcrumbWithDropdown({ hub }: { hub: string }) {
                 <Link href="/arlington-ma/place">Arlington, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/boston/place">Boston, MA</Link>
+                <Link href="/explore/boston">Boston, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/cambridge-ma/place">Cambridge, MA</Link>
+                <Link href="/explore/cambridge-ma">Cambridge, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem disabled asChild>
                 <Link href="/lexington-ma/place">Lexington, MA</Link>
@@ -61,10 +68,35 @@ export function BreadcrumbWithDropdown({ hub }: { hub: string }) {
             </DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbItem>
-        {/* <BreadcrumbSeparator>
+        <BreadcrumbSeparator>
           <Slash />
         </BreadcrumbSeparator>
         <BreadcrumbItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
+              {searchParams.get("pt") ?? "All"}
+              <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild className="capitalize">
+                <Link href={`/explore/${hub}`}>all</Link>
+              </DropdownMenuItem>
+              {[
+                ...tagDefinitions.place.children,
+                ...tagDefinitions.person.children,
+              ]
+                .sort()
+                .map((tag) => {
+                  return (
+                    <DropdownMenuItem key={tag} asChild className="capitalize">
+                      <Link href={`/explore/${hub}?pt=${tag}`}>{tag}</Link>
+                    </DropdownMenuItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbItem>
+        {/* <BreadcrumbItem>
           <BreadcrumbPage>Coffeehouse</BreadcrumbPage>
         </BreadcrumbItem> */}
       </BreadcrumbList>
