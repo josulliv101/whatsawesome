@@ -38,23 +38,19 @@ export default async function Page({
 }) {
   const profile = await fetchProfile(hub);
   const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
-  const items =
-    tagDefinitions[st]?.tags ||
-    tagDefinitions[pt]?.tags ||
-    tagDefinitions.all.tags ||
-    [];
+  const items = tagDefinitions[st]?.tags || tagDefinitions[pt]?.tags || [];
   const markers = data
     .map((datum) => ({ latlng: datum.parent.latlng }))
     .filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers", markers);
   return (
     <>
-      <div className="sticky z-50 top-[72px] bg-muted border-b flex items-center justify-between pl-4">
+      <div className="sticky_ z-50 top-[72px] bg-muted border-b flex items-center justify-between pl-4">
         <BreadcrumbSide />
       </div>
       <SideNav items={items} hub={hub} pt={pt} st={st} />
-
-      <div className="px-8 pb-5 max-h-[calc(100vh-72px-52px)] sticky top-[120px] overflow-auto">
+      {/* {max-h-[calc(100vh-72px-52px)]} */}
+      <div className="px-8 pb-5  sticky__ top-[120px] overflow-auto">
         {data.map((item, index) => {
           return (
             <>

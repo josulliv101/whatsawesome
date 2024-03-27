@@ -24,15 +24,22 @@ export default async function Page({
   return (
     <>
       {/* <MapPanel center={profile.latlng} /> */}
-      <div className="bg-muted sticky top-[72px] z-0 mb-8 border-b">
+      <div className="bg-muted sticky top-[72px] z-0 mb-8 border-b hidden">
         <BreadcrumbWithDropdown />
       </div>
-      <div className="px-4">
+      <div className="px-8 pt-2">
         {/* <Nav hub={hub} /> */}
         {profilesByTag
           .filter(({ profiles }) => !!profiles.length)
           .map(({ profiles, tags, label }: any) => {
-            return <Row key={label} label={label} profiles={profiles} />;
+            return (
+              <Row
+                key={label}
+                label={`${hub} / ${label}`}
+                profiles={profiles}
+                isShowAll={!!pt}
+              />
+            );
           })}
       </div>
     </>
@@ -72,28 +79,36 @@ function Nav({ hub }: { hub: string }) {
 function Row({
   label,
   profiles = [],
+  isShowAll,
 }: {
   label: string;
   profiles: Array<any>;
+  isShowAll?: boolean;
 }) {
   return (
     <div className="mb-0">
-      <h2 className="font-semibold text-lg mb-4">{label}</h2>
-      <div className="flex items-start gap-2 max-w-full overflow-auto">
+      <h2 className="font-semibold text-lg mb-4 capitalize flex items-center justify-between">
+        {label} <Button variant={"ghost"}>view</Button>
+      </h2>
+      <div
+        className={`flex items-start gap-2 max-w-full overflow-auto ${isShowAll ? "flex-wrap justify-start" : ""}`}
+      >
         {profiles.map((profile) => (
           <div
             key={profile.id}
-            className="max-w-[160px] flex flex-col items-center justify-start"
+            className={`max-w-[160px] flex flex-col items-center justify-start`}
           >
-            <div
-              key={profile.name}
-              style={{
-                backgroundImage: `url(${profile.pic})`,
-                backgroundSize: "cover",
-                backgroundPosition: "top",
-              }}
-              className="min-h-40 min-w-40 max-w-40 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
-            ></div>
+            <Link className={``} href={`/profile/${profile.id}`}>
+              <div
+                key={profile.name}
+                style={{
+                  backgroundImage: `url(${profile.pic})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "top",
+                }}
+                className="min-h-40 min-w-40 max-w-40 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
+              ></div>
+            </Link>
             <Link
               className={`text-balance text-center text-muted-foreground mt-2 px-2 pb-6 ${profile.name?.length > 32 ? "text-xs" : "text-sm"}`}
               href={`/profile/${profile.id}`}

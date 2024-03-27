@@ -66,13 +66,12 @@ export default function RootLayout({
                       <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
                         {sidebar}
                       </main>
-                      <aside className="col-span-4 bg-muted">
-                        <div className="">
-                          <div className="h-[300px]">
-                            <SmallMap>{map}</SmallMap>
-                          </div>
-                        </div>
+                      <aside className="relative col-span-4 bg-muted border-l">
                         {children}
+
+                        <div className="sticky right-0 top-[72px] bottom-0 w-full max-w-[572px] h-[240px] p-4 border bg-gray-100/90">
+                          <SmallMap>{map}</SmallMap>
+                        </div>
                       </aside>
                     </div>
                     <Footer />
