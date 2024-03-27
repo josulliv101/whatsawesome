@@ -361,31 +361,14 @@ export function Reason({
             created by{latestBacker}
           </div>
         </div>
-        <div className="flex gap-3 absolute bottom-2 right-2">
+        <div className="flex gap-2 items-center justify-center absolute bottom-2 right-2">
           {id && !isAnalyticsView && (
             <>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant={"link"}
-                    className="flex py-2 gap-4 h-16 w-12 bg-gray-50_ origin-bottom-right scale-[.80] transition-all duration-500 border_"
-                  >
-                    <span className="flex flex-col items-center px-0">
-                      <Map className="w-8 h-8 z-[9999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
-                      <span></span>
-                    </span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>View {name} on Map</p>
-                </TooltipContent>
-              </Tooltip>
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={"link"}
-                    className="flex py-2 pr-4 gap-4 h-16 w-12 bg-gray-50_ origin-bottom-right scale-[.80] transition-all duration-500 border_"
+                    variant={"ghost"}
+                    className="flex py-2  gap-4  w-12  bg-gray-50_ origin-bottom-right scale-[1.0] transition-all duration-500 border_"
                   >
                     <Image
                       alt="vote"
@@ -395,13 +378,13 @@ export function Reason({
                       className="grayscale_ ml-2 hidden"
                     />
                     {true && (
-                      <div className="w-6 h-6 z-[9999] flex items-center justify-center absolute right-[-6px] top-[4px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
+                      <div className="w-6 h-6 z-[9999] text-xs flex items-center justify-center absolute right-[0px] top-[-9px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
                         2
                       </div>
                     )}
 
                     <span className="flex flex-col items-center px-2">
-                      <MessageCircle className="w-8 h-8 z-[999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
+                      <MessageCircle className="w-6 h-6 z-[999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
                       <span></span>
                     </span>
                   </Button>
@@ -414,20 +397,74 @@ export function Reason({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant={"secondary"}
-                    className="flex py-2 gap-4 h-16 w-16 origin-bottom-right scale-[.80] transition-all duration-500 text-muted-foreground"
+                    variant={"ghost"}
+                    className="relative left-0 flex py-2 gap-4 w-12 bg-gray-50_  transition-all duration-500 border_"
                   >
-                    <Image
-                      alt="vote"
-                      src={config.logoPath}
-                      width={40}
-                      height={40}
-                      className="grayscale_ ml-2 hidden"
-                    />
+                    <span className="flex flex-col items-center px-0">
+                      <Map className="w-6 h-6 z-[9999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
+                      <span></span>
+                    </span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View {name} on Map</p>
+                </TooltipContent>
+              </Tooltip>
 
-                    <span className="flex flex-col items-center px-2">
-                      <strong className="text-2xl">{passionateBackers}</strong>{" "}
-                      <span className="block px-4 scale-90">Backers</span>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"ghost"}
+                    className="flex_ hidden relativen pr-4 gap-2 bg-gray-50_  transition-all duration-500 border_"
+                  >
+                    {true && (
+                      <div className="w-6 h-6 z-[9999] flex items-center justify-center absolute right-[-6px] top-[-9px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
+                        {passionateBackers}
+                      </div>
+                    )}
+
+                    <span className="flex flex-col items-center justify-center">
+                      <Image
+                        alt="vote"
+                        src={config.logoPath}
+                        width={18}
+                        height={18}
+                        className="grayscale_"
+                      />
+                    </span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Power Backers</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"secondary"}
+                    className="flex flex-col min-w-10 items-center px-1 py-2 gap-0 w-12_ transition-all duration-500 text-muted-foreground"
+                  >
+                    {/* <span className=" px-4 scale-80">Backers</span> */}
+
+                    <span className="flex text-sm flex-col_ flex-row-reverse items-center justify-center px-2 gap-2">
+                      <span className="text-md_">{rating}</span>
+
+                      {!!passionateBackers && (
+                        <>
+                          <span>/</span>
+                          <div className="flex items-center gap-1 text-md_ flex-row-reverse ">
+                            <Image
+                              alt="vote"
+                              src={config.logoPath}
+                              width={16}
+                              height={16}
+                              className="opacity-80"
+                            />
+                            <span>{passionateBackers}</span>
+                          </div>
+                        </>
+                      )}
                     </span>
                   </Button>
                 </TooltipTrigger>
@@ -470,26 +507,19 @@ export function Reason({
                 #{tags.join(" / ")} excellence ({rating})
               </div>
             )}
-            {!isAnalyticsView && false && (
+            {!isAnalyticsView && passionateBackers > 0 && (
               <div className="pl-4 relative top-2 inline-block_ text-muted-foreground">
                 <Button
-                  variant={"secondary"}
-                  className="-left-10 flex gap-2 transition-all duration-500 relative"
-                >
-                  {name}
-                </Button>
-                {/* <Button
                   variant={"ghost"}
                   className="flex gap-2 transition-all duration-500 relative"
                 >
-                  Thank you {latestBacker}{" "}
+                  {latestBacker}{" "}
                   {passionateBackers > 1
-                    ? `and ${passionateBackers - 1} others`
+                    ? `and ${passionateBackers - 1} other${passionateBackers - 1 === 1 ? "" : "s"}`
                     : ""}{" "}
-                  for the
-             
+                  added extra potency
                   <Heart className="w-4 h-4 absolute__ hidden_ right-[12px] top-[3px] stroke-[0px] text-white fill-gray-300 opacity-100" />
-                </Button> */}
+                </Button>
               </div>
             )}
             {!isAnalyticsView && passionateBackers === -1 && (

@@ -8,8 +8,9 @@ import {
   fetchProfile,
 } from "@/lib/firebase";
 import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import MapPanel from "./MapPanel";
+import { Slash } from "lucide-react";
 
 export default async function Page({
   params: { hub },
@@ -35,7 +36,11 @@ export default async function Page({
             return (
               <Row
                 key={label}
-                label={`${hub} / ${label}`}
+                label={
+                  <span className="flex items-center">
+                    {hub} <Slash className="w-4 h-4 mx-3" /> {label}
+                  </span>
+                }
                 profiles={profiles}
                 isShowAll={!!pt}
               />
@@ -81,7 +86,7 @@ function Row({
   profiles = [],
   isShowAll,
 }: {
-  label: string;
+  label: ReactNode;
   profiles: Array<any>;
   isShowAll?: boolean;
 }) {

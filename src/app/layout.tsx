@@ -67,11 +67,10 @@ export default function RootLayout({
                         {sidebar}
                       </main>
                       <aside className="relative col-span-4 bg-muted border-l">
-                        {children}
-
-                        <div className="sticky right-0 top-[72px] bottom-0 w-full max-w-[572px] h-[240px] p-4 border bg-gray-100/90">
+                        <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full max-w-[572px] h-[240px] p-4 border bg-gray-100/90">
                           <SmallMap>{map}</SmallMap>
                         </div>
+                        {children}
                       </aside>
                     </div>
                     <Footer />
