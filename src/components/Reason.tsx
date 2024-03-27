@@ -157,6 +157,15 @@ export function Reason({
   const passionateBackers = Math.max(0, roundToInteger(rating / 8 - 1));
   return (
     <Card className="group border-l-[0px] border-l-black relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
+      {photoUrlAside && (
+        <Image
+          className={`border border-gray-200/50 absolute -bottom-2 -left-2 z-[9999] rounded-md w-[48px] h-[48px] object-cover`}
+          width="48"
+          height="48"
+          src={photoUrlAside}
+          alt=""
+        />
+      )}
       {
         <div className=" w-full md:w-auto">
           {isAnalyticsView && photoUrl && !isDefaultImage && (
@@ -386,13 +395,13 @@ export function Reason({
                       className="grayscale_ ml-2 hidden"
                     />
                     {true && (
-                      <div className="w-6 h-6 z-[9999] flex items-center justify-center absolute right-[-6px] top-[-8px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
+                      <div className="w-6 h-6 z-[9999] flex items-center justify-center absolute right-[-6px] top-[4px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
                         2
                       </div>
                     )}
 
                     <span className="flex flex-col items-center px-2">
-                      <MessageCircle className="w-8 h-8 z-[9999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
+                      <MessageCircle className="w-8 h-8 z-[999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
                       <span></span>
                     </span>
                   </Button>
@@ -552,7 +561,7 @@ export function Reason({
               <Button
                 key={"id"}
                 className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
-                variant={"secondary"}
+                variant={"outline"}
                 size="sm"
                 asChild
               >

@@ -30,15 +30,15 @@ export function BreadcrumbSide() {
 
   const hub = Array.isArray(params.hub) ? params.hub[0] : params.hub ?? "";
   return (
-    <Breadcrumb className="px-4 pt-4 pb-4 border-r">
+    <Breadcrumb className="px-4 pt-4 pb-4 border-r font-semibold">
       <BreadcrumbList>
-        {/* <BreadcrumbItem className="capitalize">
+        <BreadcrumbItem className="capitalize">
           <BreadcrumbPage>Discover Excellence</BreadcrumbPage>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
           <Slash />
         </BreadcrumbSeparator>
-        <BreadcrumbItem className="capitalize">
+        {/* <BreadcrumbItem className="capitalize">
           <BreadcrumbPage>Most Backed</BreadcrumbPage>
         </BreadcrumbItem>
         <BreadcrumbSeparator>

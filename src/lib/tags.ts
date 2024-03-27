@@ -119,7 +119,7 @@ export const tagDefinitions: Record<string, any> = {
   "fine-dining": {
     plural: "fine-dining",
     parentTag: "restaurant",
-    tags: ["burger", "steak", "atmosphere", "drinks", "wings"],
+    tags: ["burger", "steak", "atmosphere", "drinks", "wine", "wings"],
   },
 
   mexican: {

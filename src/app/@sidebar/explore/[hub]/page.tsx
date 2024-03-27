@@ -38,7 +38,11 @@ export default async function Page({
 }) {
   const profile = await fetchProfile(hub);
   const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
-  const items = tagDefinitions[pt]?.tags || tagDefinitions.all.tags || [];
+  const items =
+    tagDefinitions[st]?.tags ||
+    tagDefinitions[pt]?.tags ||
+    tagDefinitions.all.tags ||
+    [];
   const markers = data
     .map((datum) => ({ latlng: datum.parent.latlng }))
     .filter((m) => m.latlng?.lat && m.latlng?.lng);
@@ -50,7 +54,7 @@ export default async function Page({
       </div>
       <SideNav items={items} hub={hub} pt={pt} st={st} />
 
-      <div className="px-8 py-5 max-h-[calc(100vh-72px-52px)] sticky top-[120px] overflow-auto">
+      <div className="px-8 pb-5 max-h-[calc(100vh-72px-52px)] sticky top-[120px] overflow-auto">
         {data.map((item, index) => {
           return (
             <>
@@ -65,6 +69,11 @@ export default async function Page({
                     roundToInteger(item.rating * 10.34 - index)
                   )}
                   tags={item.tags}
+                  photoUrlAside={
+                    item.photoUrl && !item.tags.includes("person")
+                      ? item.parent.parentPhotoUrl
+                      : undefined
+                  }
                   photoUrl={item.photoUrl || item.parent.parentPhotoUrl}
                   id={item.id}
                   isForceRatingToShow
@@ -154,31 +163,41 @@ function SideNav({
   items: Array<any>;
 }) {
   return (
-    <div className="flex justify-center gap-2 py-4 flex-wrap capitalize">
-      <Button
-        key={"all"}
-        variant="outline"
-        className="text-sm h-7"
-        size="sm"
-        asChild
-      >
-        <Link href={`/explore/${hub}?pt=${pt}`}>top 40</Link>
-      </Button>
-      {items.map((tag) => (
+    <div className="flex items-end justify-between gap-2 pt-4 pb-2 px-8 flex-wrap capitalize">
+      <div className="flex flex-col items-start gap-1">
+        <div className="capitalize text-sm font-semibold text-muted-foreground">
+          {hub.replaceAll("-", " ")}
+        </div>
+        <div className="capitalize text-3xl font-bold">
+          {st || pt || "Discover Excellence"}
+        </div>
+      </div>
+      <nav className="flex items-center gap-2">
         <Button
-          key={tag}
-          variant="outline"
-          className="text-sm h-7"
+          key={"all"}
+          variant="secondary"
+          className={`text-sm h-7 text-muted-foreground`}
           size="sm"
           asChild
         >
-          <Link
-            href={`/explore/${hub}?pt=${st || pt || tag}&st=${pt ? st || tag : ""}&t3=${!st ? "" : tag}`}
-          >
-            {tag}
-          </Link>
+          <Link href={`/explore/${hub}?pt=${pt}`}>Top 40</Link>
         </Button>
-      ))}
+        {items.map((tag) => (
+          <Button
+            key={tag}
+            variant="secondary"
+            className="text-sm h-7 text-muted-foreground"
+            size="sm"
+            asChild
+          >
+            <Link
+              href={`/explore/${hub}?pt=${st || pt}&st=${pt ? st : ""}&t3=${!st ? "" : tag}`}
+            >
+              {tag}
+            </Link>
+          </Button>
+        ))}
+      </nav>
     </div>
   );
 }
