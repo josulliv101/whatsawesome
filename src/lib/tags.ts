@@ -116,6 +116,7 @@ export const tagDefinitions: Record<string, any> = {
   leader: { plural: "leader", parentTag: "sports", level: 3 },
   passion: { plural: "passion", parentTag: "sports", level: 3 },
 
+
   "fine-dining": {
     plural: "fine-dining",
     parentTag: "restaurant",

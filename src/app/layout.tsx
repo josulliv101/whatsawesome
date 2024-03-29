@@ -26,6 +26,7 @@ import SmallMap from "./@sidebar/explore/[hub]/SmallMap";
 import { BreadcrumbSide } from "@/components/BreadcrumbSide";
 import { PresetSelector } from "./@sidebar/explore/[hub]/PresetSelector";
 
+
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
   description: "Hacker News clone built with the Next.js App Router.",
@@ -66,6 +67,7 @@ export default function RootLayout({
                     <Header />
                     <div className="grid md:grid-cols-12 gap-0">
                       <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
+
                         <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px]   bg-gray-100/90">
                           <SmallMap>{map}</SmallMap>
                         </div>
@@ -79,6 +81,7 @@ export default function RootLayout({
                       </main>
                       <aside className="relative col-span-4 bg-muted border-l">
                         {sidebar}
+
                       </aside>
                     </div>
                     <Footer />

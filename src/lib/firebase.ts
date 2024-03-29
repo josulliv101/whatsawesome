@@ -174,9 +174,11 @@ export async function fetchHubProfilesForAllTags(
 ) {
   // await sleep(1000);
   const tagsToUse = primaryTag ? [primaryTag] : allTags;
+
   const promises = tagsToUse
     .filter((tag) => tag !== "all")
     .map((tag) => fetchHubProfiles2(hub, [tag]));
+
   const data = await Promise.all(promises);
   console.log("allTags", allTags);
 

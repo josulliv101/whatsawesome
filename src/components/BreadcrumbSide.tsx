@@ -21,9 +21,11 @@ import { useParams, useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { tagDefinitions } from "@/lib/tags";
+
 import { Suspense } from "react";
 
 export function BreadcrumbSideContent() {
+
   const params = useParams();
   const searchParams = useSearchParams();
   const pt = searchParams.get("pt");
@@ -31,15 +33,19 @@ export function BreadcrumbSideContent() {
 
   const hub = Array.isArray(params.hub) ? params.hub[0] : params.hub ?? "";
   return (
+
     <Breadcrumb className="px-4 pt-2 pb-2 border-r font-semibold">
       <BreadcrumbList>
         <BreadcrumbItem className="capitalize">
+
           <BreadcrumbPage>Discover Excellence</BreadcrumbPage>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
           <Slash />
         </BreadcrumbSeparator>
+
         {/* <BreadcrumbItem className="capitalize">
+
           <BreadcrumbPage>Most Backed</BreadcrumbPage>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
@@ -149,6 +155,7 @@ export function BreadcrumbSideContent() {
   );
 }
 
+
 export function BreadcrumbSide() {
   return (
     <Suspense>
@@ -156,3 +163,4 @@ export function BreadcrumbSide() {
     </Suspense>
   );
 }
+
