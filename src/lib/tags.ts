@@ -94,48 +94,52 @@ export const tagDefinitions: Record<string, any> = {
   bbq: { plural: "bbq", parentTag: "place" },
   outdoors: { plural: "outdoors", parentTag: "place" },
 
-  burger: { plural: "burgers", parentTag: "restaurant" },
-  location: { plural: "locations", parentTag: "restaurant" },
-  wings: { plural: "wings", parentTag: "restaurant" },
-  service: { plural: "service", parentTag: "restaurant" },
-  steak: { plural: "steaks", parentTag: "restaurant" },
-  seafood: { plural: "seafood", parentTag: "restaurant" },
-  atmosphere: { plural: "atmosphere", parentTag: "restaurant" },
-  drinks: { plural: "drinks", parentTag: "restaurant" },
-  wine: { plural: "wines", parentTag: "restaurant" },
-  menu: { plural: "menus", parentTag: "restaurant" },
-  lobster: { plural: "lobsters", parentTag: "restaurant" },
+  burger: { plural: "burgers", parentTag: "restaurant", level: 3 },
+  location: { plural: "locations", parentTag: "restaurant", level: 3 },
+  wings: { plural: "wings", parentTag: "restaurant", level: 3 },
+  service: { plural: "service", parentTag: "restaurant", level: 3 },
+  steak: { plural: "steaks", parentTag: "restaurant", level: 3 },
+  seafood: { plural: "seafood", parentTag: "restaurant", level: 3 },
+  atmosphere: { plural: "atmosphere", parentTag: "restaurant", level: 3 },
+  drinks: { plural: "drinks", parentTag: "restaurant", level: 3 },
+  wine: { plural: "wines", parentTag: "restaurant", level: 3 },
+  menu: { plural: "menus", parentTag: "restaurant", level: 3 },
+  lobster: { plural: "lobsters", parentTag: "restaurant", level: 3 },
 
-  coffee: { plural: "coffees", parentTag: "coffeehouse" },
-  pastry: { plural: "pastries", parentTag: "coffeehouse" },
-  soup: { plural: "soups", parentTag: "coffeehouse" },
+  coffee: { plural: "coffees", parentTag: "coffeehouse", level: 3 },
+  pastry: { plural: "pastries", parentTag: "coffeehouse", level: 3 },
+  soup: { plural: "soups", parentTag: "coffeehouse", level: 3 },
 
-  clutch: { plural: "clutch", parentTag: "sports" },
-  defense: { plural: "defense", parentTag: "sports" },
-  champion: { plural: "champion", parentTag: "sports" },
-  leader: { plural: "leader", parentTag: "sports" },
-  passion: { plural: "passion", parentTag: "sports" },
+  clutch: { plural: "clutch", parentTag: "sports", level: 3 },
+  defense: { plural: "defense", parentTag: "sports", level: 3 },
+  champion: { plural: "champion", parentTag: "sports", level: 3 },
+  leader: { plural: "leader", parentTag: "sports", level: 3 },
+  passion: { plural: "passion", parentTag: "sports", level: 3 },
 
   "fine-dining": {
     plural: "fine-dining",
     parentTag: "restaurant",
     tags: ["burger", "steak", "atmosphere", "drinks", "wine", "wings"],
+    level: 2,
   },
 
   mexican: {
     plural: "mexican",
     parentTag: "restaurant",
     tags: ["taco", "quaesadia", "burrito", "nachos", "wrap"],
+    level: 2,
   },
   chinese: {
     plural: "chinese",
     parentTag: "restaurant",
     tags: ["dumpling", "fried rice", "rangoon", "springroll", "lomein"],
+    level: 2,
   },
   pizzashop: {
     plural: "pizzashop",
     parentTag: "restaurant",
     tags: ["calzone", "pizza", "meatball", "garlic-bread", "slice"],
+    level: 2,
   },
 };
 
@@ -149,6 +153,10 @@ export const getPrimaryTagsFromTags = (tags: Array<string>) => {
       tagDefinitions.place.children.includes(tag) ||
       tagDefinitions.person.children.includes(tag)
   );
+};
+
+export const getLevel3TagsFromTags = (tags: Array<string>) => {
+  return tags.filter((tag) => tagDefinitions[tag]?.level === 3);
 };
 
 export const getHubTagsFromTags = (tags: Array<string>) => {

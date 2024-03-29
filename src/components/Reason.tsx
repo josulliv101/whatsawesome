@@ -159,7 +159,7 @@ export function Reason({
     <Card className="group border-l-[0px] border-l-black relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {photoUrlAside && (
         <Image
-          className={`border border-gray-200/50 absolute -bottom-2 -left-2 z-[9999] rounded-md w-[48px] h-[48px] object-cover`}
+          className={`border border-gray-200/50 absolute -top-1 -right-1 z-[10] rounded-md w-[48px] h-[48px] object-cover`}
           width="48"
           height="48"
           src={photoUrlAside}
@@ -338,7 +338,7 @@ export function Reason({
       <CardHeader className="relative z-10 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
-          <CardDescription className="text-xl text-balance text-center pr-4 mt-[-36px] lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
+          <CardDescription className="text-xl text-balance text-center pr-4 mt-[-12px] lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>
@@ -401,7 +401,7 @@ export function Reason({
                     className="relative left-0 flex py-2 gap-4 w-12 bg-gray-50_  transition-all duration-500 border_"
                   >
                     <span className="flex flex-col items-center px-0">
-                      <Map className="w-6 h-6 z-[9999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
+                      <Map className="w-6 h-6 z-[10] stroke-1 text-gray-400 fill-gray-300__" />{" "}
                       <span></span>
                     </span>
                   </Button>
@@ -442,15 +442,17 @@ export function Reason({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant={"secondary"}
-                    className="flex flex-col min-w-10 items-center px-1 py-2 gap-0 w-12_ transition-all duration-500 text-muted-foreground"
+                    variant={"ghost"}
+                    className="flex flex-col min-w-10 items-center px-1 py-2 gap-0 w-12 transition-all duration-500 text-muted-foreground"
                   >
                     {/* <span className=" px-4 scale-80">Backers</span> */}
 
-                    <span className="flex text-sm flex-col_ flex-row-reverse items-center justify-center px-2 gap-2">
-                      <span className="text-md_">{rating}</span>
-
-                      {!!passionateBackers && (
+                    <span className="flex text-sm flex-col _flex-row-reverse items-center justify-center px-2 gap-0">
+                      <span className="text-lg font-bold pb-4">{rating}</span>
+                      <span className="text-xs scale-[.9] origin-bottom absolute bottom-[0px]">
+                        Backers
+                      </span>
+                      {!!passionateBackers && false && (
                         <>
                           <span>/</span>
                           <div className="flex items-center gap-1 text-md_ flex-row-reverse ">
@@ -517,8 +519,15 @@ export function Reason({
                   {passionateBackers > 1
                     ? `and ${passionateBackers - 1} other${passionateBackers - 1 === 1 ? "" : "s"}`
                     : ""}{" "}
-                  added extra potency
-                  <Heart className="w-4 h-4 absolute__ hidden_ right-[12px] top-[3px] stroke-[0px] text-white fill-gray-300 opacity-100" />
+                  super-charged their backing
+                  <Image
+                    alt="vote"
+                    src={config.logoPath}
+                    width={16}
+                    height={16}
+                    className="opacity-80"
+                  />
+                  <Heart className="w-4 h-4 absolute__ hidden right-[12px] top-[3px] stroke-[0px] text-white fill-gray-300 opacity-100" />
                 </Button>
               </div>
             )}
@@ -570,7 +579,9 @@ export function Reason({
         </div> */}
         {!isAnalyticsView && (
           <>
-            <div className="absolute hidden_ top-2 right-2 flex items-center gap-2">
+            <div
+              className={`absolute hidden_ top-2 ${photoUrlAside ? "right-[54px]" : "right-4"} flex items-center gap-2`}
+            >
               {tags
                 .filter(
                   (tag) =>
@@ -591,7 +602,7 @@ export function Reason({
               <Button
                 key={"id"}
                 className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
-                variant={"outline"}
+                variant={"secondary"}
                 size="sm"
                 asChild
               >

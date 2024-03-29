@@ -8,13 +8,13 @@ import Foobar from "./Foobar";
 
 export default async function Page({
   params: { hub },
-  searchParams: { pt, st },
+  searchParams: { pt, st, t3 },
 }: {
   params: any;
   searchParams: any;
 }) {
   const profile = await fetchProfile(hub);
-  const data = await fetchClaimsForHub(hub, [pt], [st]);
+  const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
   const items = tagDefinitions[pt]?.tags || [];
   const markers = data
     .map((datum) => ({ latlng: datum.parent.latlng, id: datum.id }))
