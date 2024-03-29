@@ -4,7 +4,7 @@ import { BadgeCheckIcon } from "lucide-react";
 
 export default function SponsorRack({ hub }: { hub: string }) {
   return (
-    <div className="relative w-full flex_ max-w-7xl mx-auto items-center justify-between px-2 py-2">
+    <div className="bg-muted relative w-full flex_ max-w-7xl mx-auto items-center justify-between px-2 py-2">
       <div className="flex items-center justify-between gap-1">
         {/* <TabNav profile={undefined} /> */}
         <SponsorCard name="Constant Contact, Inc" pic="/constant-contact.png" />

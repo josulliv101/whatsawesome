@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { ThumbsDownIcon, Globe as NetworkIcon } from "lucide-react";
+import { ThumbsDownIcon, Globe as NetworkIcon, Slash } from "lucide-react";
 import { cn } from "@/lib/utils";
 // import { Icons } from "@/components/icons"
 import {
@@ -25,6 +25,7 @@ import {
   useState,
 } from "react";
 import { useIsMounted } from "./useIsMounted";
+import { BreadcrumbSeparator } from "./ui/breadcrumb";
 
 const components: {
   title: string;
@@ -110,10 +111,12 @@ export default function NavMenu({
         </Link>
         {
           <>
-            <span className="px-3 ml-1">/</span>
+            <span className="px-3 ml-1 w-8 pr-4 block">
+              <Slash className="h-4 w-4 mr-4" />{" "}
+            </span>
             <Badge
               variant={"default"}
-              className="w-auto absolute top-[4px] left-[68px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
+              className="w-auto absolute top-[4px] left-[80px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
             >
               <Link
                 href={isRootHub(hub) ? `/` : `/explore/${hub}`}

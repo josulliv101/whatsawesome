@@ -8,19 +8,19 @@ import Foobar from "./Foobar";
 
 export default async function Page({
   params: { hub },
-  searchParams: { pt, st },
+  searchParams: { pt, st, t3 },
 }: {
   params: any;
   searchParams: any;
 }) {
   const profile = await fetchProfile(hub);
-  const data = await fetchClaimsForHub(hub, [pt], [st]);
+  const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
   const items = tagDefinitions[pt]?.tags || [];
   const markers = data
     .map((datum) => ({ latlng: datum.parent.latlng, id: datum.id }))
     .filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers", markers);
-  const size = 36;
+  const size = 24;
   return (
     <Foobar markers={markers}>
       {markers.map((marker, index) => (
@@ -44,7 +44,7 @@ export default async function Page({
               // borderRadius: "50%",
               // transform: "translate(-50%, -50%)",
             }}
-            className={`animate-fadeIn drop-shadow-md_ bg-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
+            className={`animate-fadeIn drop-shadow-md_ bg-[#4c98fd] border-4 border-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
           >
             <Image
               // id={marker.id}
@@ -52,7 +52,7 @@ export default async function Page({
               src={config.logoPath}
               width={size}
               height={size}
-              className={`relative border border-muted-foreground/50 bg-white rounded-full p-[8px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
+              className={`relative hidden border border-muted-foreground/50 bg-white rounded-full p-[8px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
             />
           </div>
         </AdvancedMarker>

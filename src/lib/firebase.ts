@@ -174,7 +174,11 @@ export async function fetchHubProfilesForAllTags(
 ) {
   // await sleep(1000);
   const tagsToUse = primaryTag ? [primaryTag] : allTags;
-  const promises = tagsToUse.map((tag) => fetchHubProfiles2(hub, [tag]));
+
+  const promises = tagsToUse
+    .filter((tag) => tag !== "all")
+    .map((tag) => fetchHubProfiles2(hub, [tag]));
+
   const data = await Promise.all(promises);
   console.log("allTags", allTags);
 
@@ -532,7 +536,7 @@ export async function fetchClaimsForHub(
   const reasons = query(
     collectionGroup(db, "whyawesome"),
     ...whereQuery,
-    limit(100),
+    limit(40),
     orderBy("rating", "desc")
   );
 

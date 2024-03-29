@@ -23,6 +23,9 @@ import Header from "@/components/Header";
 import { BreadcrumbWithDropdown } from "@/components/BreadcrumbWithDropdown";
 import MapPanel from "./explore/[hub]/MapPanel";
 import SmallMap from "./@sidebar/explore/[hub]/SmallMap";
+import { BreadcrumbSide } from "@/components/BreadcrumbSide";
+import { PresetSelector } from "./@sidebar/explore/[hub]/PresetSelector";
+
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -64,15 +67,21 @@ export default function RootLayout({
                     <Header />
                     <div className="grid md:grid-cols-12 gap-0">
                       <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
-                        {sidebar}
-                      </main>
-                      <aside className="col-span-4 bg-muted">
-                        <div className="">
-                          <div className="h-[300px]">
-                            <SmallMap>{map}</SmallMap>
-                          </div>
+
+                        <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px]   bg-gray-100/90">
+                          <SmallMap>{map}</SmallMap>
+                        </div>
+                        <div className="sticky z-50 top-[72px] bg-muted border-b flex items-center justify-between pl-4">
+                          <BreadcrumbSide />
+                        </div>
+                        <div className="flex justify-end px-8 pt-4 ">
+                          <PresetSelector />
                         </div>
                         {children}
+                      </main>
+                      <aside className="relative col-span-4 bg-muted border-l">
+                        {sidebar}
+
                       </aside>
                     </div>
                     <Footer />
