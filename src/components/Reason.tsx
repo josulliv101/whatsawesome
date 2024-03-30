@@ -338,6 +338,7 @@ export function Reason({
       <CardHeader className="relative z-10 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
+
           <CardDescription className="text-xl text-balance text-center pr-4 mt-[-12px] lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
@@ -361,7 +362,8 @@ export function Reason({
             created by{latestBacker}
           </div>
         </div>
-        <div className="flex flex-row-reverse gap-2 items-center justify-center absolute bottom-2 right-2">
+
+        <div className="flex gap-2 items-center justify-center absolute bottom-2 right-2">
           {id && !isAnalyticsView && (
             <>
               <Tooltip>
