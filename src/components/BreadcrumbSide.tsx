@@ -24,6 +24,7 @@ import { tagDefinitions } from "@/lib/tags";
 import { Suspense, useEffect, useState } from "react";
 
 export function BreadcrumbSideContent() {
+
   const params = useParams();
 
   const searchParams = useSearchParams();

@@ -27,6 +27,7 @@ import { BreadcrumbSide } from "@/components/BreadcrumbSide";
 import { PresetSelector } from "./@sidebar/explore/[hub]/PresetSelector";
 import MapAside from "./MapAside";
 
+
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
   description: "Hacker News clone built with the Next.js App Router.",
@@ -81,6 +82,7 @@ export default function RootLayout({
                             </p>
                             <MapAside />
                           </aside>
+
                           <SmallMap>{map}</SmallMap>
                         </div>
                         <div className="sticky z-50 top-[72px] bg-muted border-b flex items-center justify-between pl-4">
