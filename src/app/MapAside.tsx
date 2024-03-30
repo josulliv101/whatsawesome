@@ -1,18 +1,41 @@
 "use client";
 
-import { LockIcon } from "lucide-react";
-import { useParams } from "next/navigation";
-import { PropsWithChildren } from "react";
+import { Button } from "@/components/ui/button";
+import { BuildingIcon, LockIcon } from "lucide-react";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { PropsWithChildren, useEffect, useRef } from "react";
 
 export default function MapAside({}: {}) {
   const { hub } = useParams();
-  if (!hub) {
+  const prevHub = usePreviousHub();
+
+  const hubToUse = hub || prevHub;
+  if (!hubToUse) {
     return null;
   }
   return (
-    <div className="relative flex capitalize justify-center mt-12 py-4 px-4 text-white bg-black rounded-md font-semibold text-2xl">
-      {typeof hub === "string" && hub.replaceAll("-", " ")}
-      <LockIcon className="absolute top-2 right-2 w-4 h-4 text-white" />
-    </div>
+    <Button
+      className="relative flex capitalize justify-center mt-12 h-16 rounded-md font-semibold text-2xl"
+      asChild
+    >
+      <Link href={`/explore/${hubToUse}`}>
+        {typeof hubToUse === "string" && hubToUse.replaceAll("-", " ")}
+      </Link>
+    </Button>
   );
 }
+
+const usePreviousHub = () => {
+  const { hub } = useParams();
+
+  const ref = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (hub) {
+      ref.current = hub as string;
+    }
+  }, [hub]);
+
+  return ref.current;
+};
