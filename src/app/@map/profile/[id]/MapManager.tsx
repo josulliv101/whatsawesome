@@ -3,7 +3,7 @@
 import { useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { PropsWithChildren, useEffect, useState } from "react";
 
-export default function Foobar({
+export default function MapManager({
   children,
   markers = [],
 }: PropsWithChildren<{ markers: Array<any> }>) {
@@ -27,10 +27,8 @@ export default function Foobar({
         bounds.extend(new coreLib.LatLng(marker.latlng))
       );
     }
-    if (markers.length === 1) {
-      map.setZoom(17);
-    }
-    map.fitBounds(bounds);
+
+    map?.fitBounds(bounds);
 
     //const initialBounds = bounds.toJSON();
 

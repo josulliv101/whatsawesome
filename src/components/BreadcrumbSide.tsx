@@ -21,15 +21,27 @@ import { useParams, useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { tagDefinitions } from "@/lib/tags";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export function BreadcrumbSideContent() {
   const params = useParams();
+
   const searchParams = useSearchParams();
   const pt = searchParams.get("pt");
   const st = searchParams.get("st");
 
   const hub = Array.isArray(params.hub) ? params.hub[0] : params.hub ?? "";
+  const [prevHub, setPrevHub] = useState(hub);
+  const [prevPrimaryTag, setPrevPrimaryTag] = useState(pt);
+
+  useEffect(() => {
+    if (hub) {
+      setPrevHub(hub);
+    }
+    if (pt) {
+      setPrevPrimaryTag(pt);
+    }
+  }, [hub, pt]);
   return (
     <Breadcrumb className="px-4 pt-2 pb-2 border-r font-semibold">
       <BreadcrumbList>
@@ -48,7 +60,8 @@ export function BreadcrumbSideContent() {
         <BreadcrumbItem>
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
-              {hub.replace("-", " ")} {hub === "all" ? "locations" : ""}
+              {(hub || prevHub).replace("-", " ")}{" "}
+              {hub === "all" ? "locations" : ""}
               <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -87,7 +100,7 @@ export function BreadcrumbSideContent() {
         <BreadcrumbItem>
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
-              {searchParams.get("pt") ?? "all categories"}
+              {(searchParams.get("pt") || prevPrimaryTag) ?? "all categories"}
               <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">

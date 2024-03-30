@@ -113,7 +113,7 @@ function Row({
       <h2 className="font-semibold text-lg mb-4 capitalize flex items-center justify-between">
         {label}{" "}
         <Button variant={"ghost"} asChild>
-          <Link href={url}>View excellence</Link>
+          <Link href={url}>Discover Excellence</Link>
         </Button>
       </h2>
       <div

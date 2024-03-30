@@ -534,7 +534,7 @@ export async function fetchClaimsForHub(
   const reasons = query(
     collectionGroup(db, "whyawesome"),
     ...whereQuery,
-    limit(40),
+    limit(20),
     orderBy("rating", "desc")
   );
 

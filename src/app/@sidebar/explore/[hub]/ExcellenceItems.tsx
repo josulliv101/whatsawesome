@@ -73,7 +73,7 @@ export default async function ExcellenceItems({
 
       {isStacked && (
         <h2 className="font-semibold text-xl capitalize px-8 py-4">
-          {hub.replaceAll("-", " ")}&#39;s Most Backed
+          {hub.replaceAll("-", " ")}&#39;s Most Backed Statements
         </h2>
       )}
       <div className="px-8 pb-5  sticky__ top-[120px] overflow-auto">
@@ -85,7 +85,7 @@ export default async function ExcellenceItems({
                   showExtraPassion={index === 3}
                   description={item.reason}
                   name={item.parent.name}
-                  profileId={item.id}
+                  profileId={item.parentId}
                   rating={Math.max(
                     2,
                     roundToInteger(item.rating * 10.34 - index)
@@ -183,60 +183,69 @@ function SideNav({
   items: Array<any>;
 }) {
   return (
-    <div className="relative flex items-end justify-between gap-2 pt-0 mt-0 pb-4 px-8 flex-wrap capitalize">
-      <div className="flex flex-col items-start gap-1">
-        <div className="capitalize text-lg font-medium text-muted-foreground mb-1">
-          Discover excellence in {hub.replaceAll("-", " ")}
-        </div>
-        <div className="capitalize text-4xl font-bold flex items-center">
-          {getPlural(pt)}
-          {t3 && (
-            <>
-              <SlashIcon className="h-4 w-4 mx-4" />{" "}
-              <span className="capitalize">{getPlural(t3)}</span>
-            </>
-          )}
+    <>
+      <div className="relative flex items-end justify-between gap-2 pt-0 mt-0 pb-4 px-8 flex-wrap capitalize">
+        <div className="flex flex-col items-start gap-1">
+          <div className="capitalize text-lg font-medium text-muted-foreground mb-1">
+            Discover excellence in {hub.replaceAll("-", " ")}
+          </div>
+          <div className="capitalize text-4xl font-bold flex items-center">
+            {pt}
+            <SlashIcon className="h-4 w-4 mx-4" />{" "}
+            {t3 && (
+              <>
+                <span className="capitalize">{getPlural(t3)}</span>
+                <SlashIcon className="h-4 w-4 mx-4" />{" "}
+              </>
+            )}{" "}
+            Statements
+          </div>
         </div>
       </div>
-      <nav className="flex items-center gap-2">
-        <Button
-          key={"all"}
-          variant="secondary"
-          className={`text-sm h-7 text-muted-foreground relative`}
-          size="sm"
-          asChild
-        >
-          <Link href={`/explore/${hub}?pt=${pt}`}>
-            {!t3 && (
-              <div className="h-4 w-4 bg-gray-700 absolute -top-2 -right-1 rounded-full flex items-center justify-center">
-                <CheckIcon className="h-4 w-4 p-0.5 text-white" />
-              </div>
-            )}
-            Top 40
-          </Link>
-        </Button>
-        {items.map((tag) => (
+      <nav className="flex items-center justify-between gap-2 px-8 pt-4 pb-1">
+        <div className="text-muted-foreground">
+          show {items.length} statements{" "}
+        </div>
+        <div>
           <Button
-            key={tag}
+            key={"all"}
             variant="secondary"
-            className="text-sm h-7 text-muted-foreground relative"
+            className={`text-sm h-7 text-muted-foreground relative`}
             size="sm"
             asChild
           >
-            <Link
-              href={`/explore/${hub}?pt=${pt}&st=${pt ? "" : ""}&t3=${tag}`}
-            >
-              {t3 && t3 === tag && (
+            <Link href={`/explore/${hub}?pt=${pt}`}>
+              {!t3 && (
                 <div className="h-4 w-4 bg-gray-700 absolute -top-2 -right-1 rounded-full flex items-center justify-center">
                   <CheckIcon className="h-4 w-4 p-0.5 text-white" />
                 </div>
               )}
-              {tag}
+              Top 20
             </Link>
           </Button>
-        ))}
+          {items.map((tag) => (
+            <Button
+              key={tag}
+              variant="secondary"
+              className="text-sm h-7 text-muted-foreground relative"
+              size="sm"
+              asChild
+            >
+              <Link
+                href={`/explore/${hub}?pt=${pt}&st=${pt ? "" : ""}&t3=${tag}`}
+              >
+                {t3 && t3 === tag && (
+                  <div className="h-4 w-4 bg-gray-700 absolute -top-2 -right-1 rounded-full flex items-center justify-center">
+                    <CheckIcon className="h-4 w-4 p-0.5 text-white" />
+                  </div>
+                )}
+                {tag}
+              </Link>
+            </Button>
+          ))}
+        </div>
       </nav>
-    </div>
+    </>
   );
 }
 

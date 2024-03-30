@@ -28,6 +28,10 @@ export interface Preset {
 export const data: Array<Preset> = [
   {
     id: "9cb0e66a-9937-465d-a188-2c4c4ae2401f",
+    name: "Sort by recommended",
+  },
+  {
+    id: "9cb0e66a-9937-465d-a188-2c4c4ae2401f",
     name: "Sort by most backed",
   },
   {
@@ -54,7 +58,7 @@ export function PresetSelector({
           role="combobox"
           aria-label="Load a preset..."
           aria-expanded={open}
-          className="flex-1 justify-between md:max-w-[200px] lg:max-w-[300px]"
+          className="flex-1 justify-between md:max-w-[210px] lg:max-w-[210px]"
         >
           {selectedPreset ? selectedPreset.name : "Load a preset..."}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />

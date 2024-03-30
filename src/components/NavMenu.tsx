@@ -111,12 +111,12 @@ export default function NavMenu({
         </Link>
         {
           <>
-            <span className="px-3 ml-1 w-8 pr-4 block">
+            <span className="px-3 ml-1 w-8 pr-4 block_ hidden">
               <Slash className="h-4 w-4 mr-4" />{" "}
             </span>
             <Badge
-              variant={"default"}
-              className="w-auto absolute top-[4px] left-[80px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
+              variant={"secondary"}
+              className="w-auto bg-white absolute top-[-3px] left-[36px] transition-all duration-0 delay-0 ease-out rounded-sm z-20  whitespace-nowrap"
             >
               <Link
                 href={isRootHub(hub) ? `/` : `/explore/${hub}`}
@@ -128,7 +128,15 @@ export default function NavMenu({
                   {!isRootHub(hub) && (
                     <NetworkIcon className="h-3.5 w-3.5 text-gray-100 dark:text-gray-900" />
                   )}
-                  {!isRootHub(hub) ? tags[0].replace(/[-]/g, " ") : config.org}
+                  {!isRootHub(hub) ? (
+                    tags[0].replace(/[-]/g, " ")
+                  ) : (
+                    <span>
+                      Blue
+                      <br />
+                      Mushroom
+                    </span>
+                  )}
                 </span>
               </Link>
             </Badge>

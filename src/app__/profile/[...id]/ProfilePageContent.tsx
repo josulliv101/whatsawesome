@@ -224,7 +224,7 @@ export default async function ProfilePageContent({
 
         <div
           className="w-full grid grid-cols-[1fr] items-start gap-2 space-y-0 p-4 rounded-md"
-          style={{ backgroundColor: primaryColor }}
+          style={{ backgroundColor: "#f1f5f9" || primaryColor }}
         >
           {reasons.map((reason, i) => (
             <>

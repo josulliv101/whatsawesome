@@ -20,9 +20,9 @@ export default function ReasonTagsFilter({
   const updateTag = (tag: string) => {
     if (activeTags.includes(tag)) {
       clearActiveTags();
-      router.replace(`?filter=all`);
+      router.replace(`?filter=all`, { scroll: false });
     } else {
-      router.replace(`?filter=${tag}`);
+      router.replace(`?filter=${tag}`, { scroll: false });
       updateActiveTags(tag);
     }
   };

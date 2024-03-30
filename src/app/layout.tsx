@@ -25,6 +25,7 @@ import MapPanel from "./explore/[hub]/MapPanel";
 import SmallMap from "./@sidebar/explore/[hub]/SmallMap";
 import { BreadcrumbSide } from "@/components/BreadcrumbSide";
 import { PresetSelector } from "./@sidebar/explore/[hub]/PresetSelector";
+import MapAside from "./MapAside";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -66,7 +67,20 @@ export default function RootLayout({
                     <Header />
                     <div className="grid md:grid-cols-12 gap-0">
                       <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
-                        <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px]   bg-gray-100/90">
+                        <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px] bg-gray-100/90">
+                          <aside className="bg-gray-200 p-4 w-[24vw] border-r border-gray-300">
+                            <h2 className="hidden font-semibold text-lg mb-2">
+                              Welcome to Blue Mushroom
+                            </h2>
+                            <p>
+                              <span className="font-semibold">
+                                Blue Mushroom
+                              </span>{" "}
+                              is your resource for discovering excellence in the
+                              world around you.
+                            </p>
+                            <MapAside />
+                          </aside>
                           <SmallMap>{map}</SmallMap>
                         </div>
                         <div className="sticky z-50 top-[72px] bg-muted border-b flex items-center justify-between pl-4">
