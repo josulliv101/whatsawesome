@@ -202,7 +202,7 @@ function SideNav({
           </div>
         </div>
       </div>
-      <nav className="flex items-center justify-between gap-2 px-8 pt-4 pb-1">
+      <nav className="flex items-center flex-row-reverse justify-between gap-2 px-8 pt-4 pb-1">
         <div className="text-muted-foreground">
           show {items.length} statements{" "}
         </div>

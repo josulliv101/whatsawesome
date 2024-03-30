@@ -363,7 +363,7 @@ export function Reason({
           </div>
         </div>
 
-        <div className="flex gap-2 items-center justify-center absolute bottom-2 right-2">
+        <div className="flex flex-row-reverse gap-2 items-center justify-center absolute bottom-2 right-2">
           {id && !isAnalyticsView && (
             <>
               <Tooltip>
