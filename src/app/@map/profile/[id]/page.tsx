@@ -19,7 +19,7 @@ export default async function Page({
   const items = tagDefinitions[pt]?.tags || [];
   const markers = [profile].filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers profile [id]", markers);
-  const size = 48;
+  const size = 24;
 
   return (
     <Foobar markers={markers}>
@@ -44,7 +44,7 @@ export default async function Page({
               // borderRadius: "50%",
               // transform: "translate(-50%, -50%)",
             }}
-            className={`drop-shadow-md_ bg-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
+            className={`animate-fadeIn drop-shadow-md_ bg-[#4c98fd] border-4 border-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
           >
             <Image
               // id={marker.id}
@@ -52,7 +52,7 @@ export default async function Page({
               src={config.logoPath}
               width={size}
               height={size}
-              className={`relative border border-muted-foreground/50 bg-white rounded-full p-[4px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
+              className={`relative hidden border border-muted-foreground/50 bg-white rounded-full p-[8px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
             />
           </div>
         </AdvancedMarker>

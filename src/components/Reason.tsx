@@ -340,7 +340,6 @@ export function Reason({
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
 
           <CardDescription className="text-xl text-balance text-center pr-4 mt-[-12px] lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
-
             {description}
           </CardDescription>
         </div>
@@ -364,8 +363,7 @@ export function Reason({
           </div>
         </div>
 
-        <div className="flex gap-2 items-center justify-center absolute bottom-2 right-2">
-
+        <div className="flex flex-row-reverse gap-2 items-center justify-center absolute bottom-2 right-2">
           {id && !isAnalyticsView && (
             <>
               <Tooltip>
@@ -382,7 +380,7 @@ export function Reason({
                       className="grayscale_ ml-2 hidden"
                     />
                     {true && (
-                      <div className="w-6 h-6 z-[9999] text-xs flex items-center justify-center absolute right-[0px] top-[-9px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
+                      <div className="w-6 h-6 z-[9999] text-xs flex items-center justify-center absolute right-[0px] top-[-9px] border stroke-1 rounded-sm text-muted-foreground bg-gray-50">
                         2
                       </div>
                     )}
@@ -402,11 +400,10 @@ export function Reason({
                 <TooltipTrigger asChild>
                   <Button
                     variant={"ghost"}
-                    className="relative left-0 flex py-2 gap-4 w-12 bg-gray-50_  transition-all duration-500 border_"
+                    className="relative hidden left-0 flex_ py-2 gap-4 w-12 bg-gray-50_  transition-all duration-500 border_"
                   >
                     <span className="flex flex-col items-center px-0">
                       <Map className="w-6 h-6 z-[10] stroke-1 text-gray-400 fill-gray-300__" />{" "}
-
                       <span></span>
                     </span>
                   </Button>
@@ -419,7 +416,6 @@ export function Reason({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-
                     variant={"ghost"}
                     className="flex_ hidden relativen pr-4 gap-2 bg-gray-50_  transition-all duration-500 border_"
                   >
@@ -437,7 +433,6 @@ export function Reason({
                         height={18}
                         className="grayscale_"
                       />
-
                     </span>
                   </Button>
                 </TooltipTrigger>
@@ -449,14 +444,14 @@ export function Reason({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant={"ghost"}
+                    variant={"secondary"}
                     className="flex flex-col min-w-10 items-center px-1 py-2 gap-0 w-12 transition-all duration-500 text-muted-foreground"
                   >
                     {/* <span className=" px-4 scale-80">Backers</span> */}
 
                     <span className="flex text-sm flex-col _flex-row-reverse items-center justify-center px-2 gap-0">
-                      <span className="text-lg font-bold pb-4">{rating}</span>
-                      <span className="text-xs scale-[.9] origin-bottom absolute bottom-[0px]">
+                      <span className="text-lg font-bold pb-2">{rating}</span>
+                      <span className="text-xs scale-[.8] origin-bottom absolute bottom-[0px]">
                         Backers
                       </span>
                       {!!passionateBackers && false && (
@@ -526,7 +521,8 @@ export function Reason({
                   {passionateBackers > 1
                     ? `and ${passionateBackers - 1} other${passionateBackers - 1 === 1 ? "" : "s"}`
                     : ""}{" "}
-                  super-charged their backing
+                  super-charged this item with {passionateBackers} mushroom
+                  {passionateBackers === 1 ? "" : "s"}
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -613,7 +609,7 @@ export function Reason({
                 size="sm"
                 asChild
               >
-                <Link href={`/profile/${id}`}>{name}</Link>
+                <Link href={`/profile/${profileId}`}>{name}</Link>
               </Button>
               {isEditable && id && (
                 <ReasonEdit

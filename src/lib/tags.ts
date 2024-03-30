@@ -73,7 +73,7 @@ export const tagDefinitions: Record<string, any> = {
     tags: ["burger", "steak", "atmosphere", "drinks", "wings"],
   },
   technology: { plural: "technology", parentTag: "place" },
-  brand: { plural: "brands", parentTag: "place" },
+  brand: { plural: "brands", parentTag: "place", tags: ["revolutionary"] },
   hotel: {
     plural: "hotels",
     parentTag: "place",

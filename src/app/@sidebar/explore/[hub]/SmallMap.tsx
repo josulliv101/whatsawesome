@@ -80,14 +80,14 @@ const SmallMap = ({
       defaultCenter={{ lat: 0, lng: 0 }}
       // defaultBounds={initialBounds}
       gestureHandling={"greedy"}
-      disableDefaultUI={true}
+      disableDefaultUI={false}
       mapTypeId={"roadmap"}
       mapId={"739af084373f96fe"}
       onCameraChanged={(ev, ...args) =>
         console.log("camera change", ev, ...args)
       }
-      minZoom={1}
-      maxZoom={19}
+      minZoom={5}
+      maxZoom={16}
     >
       {children}
     </Map>

@@ -1,3 +1,5 @@
-export default function Page({ params: { id } }: { params: any }) {
-  return <div>main [id] profile {id}</div>;
+import ProfilePageContent from "@/app__/profile/[...id]/ProfilePageContent";
+
+export default function page({ params }: { params: any }) {
+  return <ProfilePageContent params={params} />;
 }
