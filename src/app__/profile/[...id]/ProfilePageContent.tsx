@@ -188,7 +188,7 @@ export default async function ProfilePageContent({
         <div className="flex justify-start items-center mt-12 mb-0  w-full">
           <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
             <strong className="font-[500] text-balance_">
-              What contributes most to the excellence{" "}
+              What factors contribute to the excellence{" "}
               {tags.includes("person") ? "of" : "at"} {name}?
             </strong>
 

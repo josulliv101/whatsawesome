@@ -69,7 +69,7 @@ export default function RootLayout({
                     <div className="grid md:grid-cols-12 gap-0">
                       <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
                         <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px] bg-gray-100/90">
-                          <aside className="bg-gray-200 p-4 w-[24vw] border-r border-gray-300">
+                          <aside className="bg-gray-200 p-8 w-[22vw] border-r border-gray-300">
                             <h2 className="hidden font-semibold text-lg mb-2">
                               Welcome to Blue Mushroom
                             </h2>

@@ -3,6 +3,10 @@ import ProfilesByCategory from "./ProfilesByCategory";
 import ExcellenceItems from "@/app/@sidebar/explore/[hub]/ExcellenceItems";
 import SponsorRack from "@/components/SponsorRack";
 
+export function generateStaticParams() {
+  return [];
+}
+
 export default function Page({
   params: { hub },
   searchParams: { pt, st, t3 },

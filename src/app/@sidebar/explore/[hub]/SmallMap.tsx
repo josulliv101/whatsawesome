@@ -81,6 +81,7 @@ const SmallMap = ({
       // defaultBounds={initialBounds}
       gestureHandling={"greedy"}
       disableDefaultUI={false}
+      mapTypeControl={false}
       mapTypeId={"roadmap"}
       mapId={"739af084373f96fe"}
       onCameraChanged={(ev, ...args) =>
