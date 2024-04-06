@@ -42,6 +42,8 @@ export default function Foobar({
     //const initialBounds = bounds.toJSON();
 
     // setInitialBounds(bounds.toJSON());
+
   }, [coreLib, markers, map, btnState]);
+
   return <>{children}</>;
 }

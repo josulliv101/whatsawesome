@@ -62,7 +62,11 @@ export const tagDefinitions: Record<string, any> = {
     tags: ["timing", "push-boundaries"],
   },
   musician: { plural: "musicians", parentTag: "person" },
-  museum: { plural: "museums", parentTag: "place", tags: ["location"] },
+  museum: {
+    plural: "museums",
+    parentTag: "place",
+    tags: ["location", "feature", "artists", "facility"],
+  },
   nature: { parentTag: "place" },
   college: { plural: "colleges", parentTag: "place", tags: ["location"] },
   city: { plural: "locales", parentTag: "place" },
@@ -70,7 +74,17 @@ export const tagDefinitions: Record<string, any> = {
     plural: "restaurants",
     parentTag: "place",
     children: ["fine-dining", "bbq", "chinese", "mexican", "pizzashop"],
-    tags: ["burger", "steak", "atmosphere", "drinks", "wings"],
+    tags: [
+      "burger",
+      "steak",
+      "atmosphere",
+      "drinks",
+      "wings",
+      "seafood",
+      "staff",
+      "wine",
+      "menu",
+    ],
   },
   technology: { plural: "technology", parentTag: "place" },
   brand: { plural: "brands", parentTag: "place", tags: ["revolutionary"] },
@@ -88,7 +102,8 @@ export const tagDefinitions: Record<string, any> = {
   coffeehouse: {
     plural: "coffeehouse",
     parentTag: "place",
-    tags: ["coffee", "pastries", "soup", "cannoli"],
+    tags: ["coffee", "pastries", "soup", "cannoli", "bread"],
+
   },
   // dessert: { plural: "desserts", parentTag: "place" },
   bbq: { plural: "bbq", parentTag: "place" },
@@ -113,6 +128,13 @@ export const tagDefinitions: Record<string, any> = {
   cannoli: { plural: "cannolis", parentTag: "coffeehouse", level: 3 },
   pastries: { plural: "pastries", parentTag: "coffeehouse", level: 3 },
   bread: { plural: "breads", parentTag: "coffeehouse", level: 3 },
+
+
+  facility: { plural: "facilities", parentTag: "museum", level: 3 },
+  artists: { plural: "artists", parentTag: "museum", level: 3 },
+  exhibits: { plural: "exhibits", parentTag: "museum", level: 3 },
+  feature: { plural: "features", parentTag: "museum", level: 3 },
+
 
   clutch: { plural: "clutch", parentTag: "sports", level: 3 },
   defense: { plural: "defense", parentTag: "sports", level: 3 },
@@ -160,6 +182,12 @@ export const trendingExcellenceTags = [
   "steak",
   "drinks",
   "staff",
+  "feature",
+  "facility",
+  "artists",
+  "amenities",
+  "dining",
+
 ];
 
 export const getPrimaryTags = () => {

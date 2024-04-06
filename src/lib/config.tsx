@@ -23,7 +23,7 @@ export const config = {
 } as const;
 
 export const allTags = [
-  ...config.defaultHubTags.person,
+  // ...config.defaultHubTags.person,
   ...config.defaultHubTags.place,
 ].sort();
 

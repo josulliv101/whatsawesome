@@ -238,13 +238,18 @@ export async function fetchHubProfiles2(
 export async function fetchHubProfiles(
   hub: string,
   primaryTag: PrimaryTagType,
-  tags: Array<string> = [],
+  tags: Array<string> | null = [],
   profileLimit: number = config.maxNumberOfProfilesInRow
 ) {
   console.log("fetchHubProfiles", hub, primaryTag, tags);
 
   const normalizedTags =
-    !tags || !tags.length ? config.defaultHubTags["place"] : tags;
+    tags === null
+      ? []
+      : !tags || !tags.length
+        ? config.defaultHubTags["place"]
+        : tags;
+
 
   const queryHub = ![config.rootHub, "index"].includes(hub)
     ? [where(`tagMap.${hub}`, "==", true)]
@@ -253,14 +258,14 @@ export async function fetchHubProfiles(
   const queryTags = normalizedTags.map((tag) =>
     where(`tagMap.${tag}`, "==", true)
   );
-
+  console.log("normalizedTags", normalizedTags);
   const args = [
     collection(db, "entity"),
     // where("oinks", ">", 0),
     ...queryHub,
     where(`tagMap.${primaryTag}`, "==", true),
     ...queryTags,
-    orderBy("oinks", "desc"),
+    // orderBy("oinks", "desc"),
     limit(profileLimit),
   ];
 
@@ -278,7 +283,7 @@ export async function fetchHubProfiles(
 
   return {
     tags: tags,
-    label: tags.map((tag) => getPlural(tag)).join(" + "),
+    label: tags?.map((tag) => getPlural(tag)).join(" + "),
     profiles: docs,
   };
 }

@@ -1,6 +1,10 @@
 import Image from "next/image";
 import SmallMap from "@/app/@sidebar/explore/[hub]/SmallMap";
-import { fetchClaimsForHub, fetchProfile } from "@/lib/firebase";
+import {
+  fetchClaimsForHub,
+  fetchHubProfiles,
+  fetchProfile,
+} from "@/lib/firebase";
 import { tagDefinitions } from "@/lib/tags";
 import { AdvancedMarker } from "./Marker";
 import { config } from "@/lib/config";
@@ -15,15 +19,23 @@ export default async function Page({
 }) {
   const profile = await fetchProfile(hub);
   const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
+  const profilesByTag = await fetchHubProfiles(
+    hub,
+    "place",
+    pt ? [pt] : null,
+    100
+  );
   const items = tagDefinitions[pt]?.tags || [];
-  const markers = data
-    .map((datum) => ({
-      latlng: datum.parent.latlng,
+
+  const markers = profilesByTag.profiles
+    .filter((profile) => !!profile?.latlng && !!profile?.latlng?.latitude)
+    .map((datum: any) => ({
+      latlng: { lat: datum.latlng.latitude, lng: datum.latlng.longitude },
       id: datum.id,
-      profileName: datum.parent.name,
-    }))
-    .filter((m) => m.latlng?.lat && m.latlng?.lng);
-  console.log("markers", markers);
+      profileName: datum.name,
+    }));
+  console.log("markers...", markers);
+
   const size = 24;
   return (
     <Foobar markers={markers}>
