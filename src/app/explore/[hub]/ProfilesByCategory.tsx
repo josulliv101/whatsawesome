@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { PropsWithChildren, ReactNode } from "react";
 import MapPanel from "./MapPanel";
-import { Slash } from "lucide-react";
+import { ChevronRight, Slash } from "lucide-react";
 import { string } from "zod";
 import SponsorRack from "@/components/SponsorRack";
 
@@ -113,7 +113,9 @@ function Row({
       <h2 className="font-semibold text-lg mb-4 capitalize flex items-center justify-between">
         {label}{" "}
         <Button variant={"ghost"} asChild>
-          <Link href={url}>Discover Excellence</Link>
+          <Link href={url}>
+            Discover Excellence <ChevronRight className="h-4 w-4 ml-2" />
+          </Link>
         </Button>
       </h2>
       <div
