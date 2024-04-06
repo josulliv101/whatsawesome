@@ -51,7 +51,7 @@ export default async function PageContent({
   tags: string[];
   initialActiveTags?: string[];
   tagsToUse: string[];
-  profile?: Profile;
+  profile?: any; //Profile;
   filterOptions: FilterOptions;
   filterId: string;
 }) {

@@ -1,8 +1,10 @@
 import * as z from "zod";
 
 export const latlngSchema = z.object({
-  latitude: z.number(),
-  longitude: z.number(),
+  latitude: z.number().optional(),
+  longitude: z.number().optional(),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
 });
 
 const reasonSchema = z.object({
@@ -18,7 +20,7 @@ const reasonSchema = z.object({
   userId: z.string().optional(),
   tags: z.array(z.string()).optional(),
   parentId: z.string().optional(),
-  latlng: latlngSchema.optional(),
+  latlng: z.object({}).optional(),
 });
 
 export const profileSchema = z.object({

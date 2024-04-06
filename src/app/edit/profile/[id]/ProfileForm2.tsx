@@ -91,7 +91,7 @@ export const profileFormSchema = z.object({
     .transform((val, ctx) => {
       console.log("ll", val, ctx);
       if (val) {
-        const geo = new GeoPoint(val.lat, val.lng);
+        const geo = new GeoPoint((val as any).lat, (val as any).lng);
 
         return geo;
         // return [val.lat, val.lng];
