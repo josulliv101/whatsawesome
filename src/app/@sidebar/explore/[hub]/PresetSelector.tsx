@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
 
 export interface Preset {
   id: string;
@@ -32,7 +33,7 @@ export const data: Array<Preset> = [
   },
   {
     id: "9cb0e66a-9937-465d-a188-2c4c4ae2401f",
-    name: "Sort by most backed",
+    name: "most backed",
   },
   {
     id: "9cb0e66a-9937-465d-a188-2c4c4ae2401f",
@@ -54,6 +55,15 @@ export function PresetSelector({
     <Popover open={open} onOpenChange={setOpen} {...props}>
       <PopoverTrigger asChild>
         <Button
+          onClick={() =>
+            toast(
+              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                <code className="text-white">
+                  Functionality not yet implemented.
+                </code>
+              </pre>
+            )
+          }
           variant="outline"
           role="combobox"
           aria-label="Load a preset..."
@@ -64,7 +74,7 @@ export function PresetSelector({
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-0">
+      {/* <PopoverContent className="w-[300px] p-0">
         <Command>
           <CommandInput placeholder="Search presets..." />
           <CommandEmpty>No presets found.</CommandEmpty>
@@ -95,7 +105,7 @@ export function PresetSelector({
             </CommandItem>
           </CommandGroup>
         </Command>
-      </PopoverContent>
+      </PopoverContent> */}
     </Popover>
   );
 }

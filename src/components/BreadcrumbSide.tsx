@@ -124,7 +124,7 @@ export function BreadcrumbSideContent() {
             </DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbItem>
-        {pt === "restaurant" && (
+        {/* {pt === "restaurant" && (
           <>
             <BreadcrumbSeparator>
               <Slash />
@@ -158,7 +158,7 @@ export function BreadcrumbSideContent() {
               </DropdownMenu>
             </BreadcrumbItem>
           </>
-        )}
+        )} */}
       </BreadcrumbList>
     </Breadcrumb>
   );

@@ -85,7 +85,7 @@ export default function RootLayout({
 
                           <SmallMap>{map}</SmallMap>
                         </div>
-                        <div className="sticky z-50 top-[72px] bg-muted border-b flex items-center justify-between pl-4">
+                        <div className="sticky z-50 top-[62px] bg-muted border-b flex items-center justify-between pl-4">
                           <BreadcrumbSide />
                         </div>
                         <div className="flex justify-between items-center pl-4 pr-8 pt-4 ">

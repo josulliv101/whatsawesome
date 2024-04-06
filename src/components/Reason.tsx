@@ -74,7 +74,7 @@ import Rating from "./Rating";
 import { ReasonEdit } from "./ReasonEdit";
 import { profile } from "console";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { tagDefinitions } from "@/lib/tags";
+import { getPrimaryTagsFromTags, tagDefinitions } from "@/lib/tags";
 import { toast } from "sonner";
 
 export function Reason({
@@ -646,7 +646,11 @@ export function Reason({
                     size="sm"
                     asChild
                   >
-                    <Link href={`/tags/${tag}`}>{tag}</Link>
+                    <Link
+                      href={`?pt=${getPrimaryTagsFromTags(tags)[0]}&t3=${tag}`}
+                    >
+                      {tag}
+                    </Link>
                   </Button>
                 ))}
 
@@ -655,8 +659,8 @@ export function Reason({
                   <TooltipTrigger asChild>
                     <Button
                       key={"id"}
-                      className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
-                      variant={"secondary"}
+                      className={`text-muted-foreground_ border-muted-foreground_ text-primary-foreground rounded-md py-0 max-h-[30px]`}
+                      variant={"default"}
                       size="sm"
                       asChild
                     >

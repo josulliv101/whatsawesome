@@ -144,7 +144,7 @@ export default function NavMenu({
         }
       </div>
       <NavigationMenu className="hidden lg:block ml-[16%]">
-        <NavigationMenuList>
+        <NavigationMenuList className="hidden">
           <NavigationMenuItem>
             <NavigationMenuTrigger>
               <span className="hidden md:inline-block">explore&nbsp;</span>
