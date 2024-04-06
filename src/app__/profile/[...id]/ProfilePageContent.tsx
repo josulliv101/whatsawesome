@@ -283,7 +283,7 @@ export default async function ProfilePageContent({
             <Profiles hub={id} primaryTag={primaryTag} tagsToUse={tagsToUse} />
           </Suspense>
         )} */}
-        <div className="mt-6 p-1 pt-10 bg-muted w-full rounded-md">
+        <div className="mt-12 p-1 pt-10 bg-muted w-full rounded-md">
           <SponsorRack hub={id} />
         </div>
         <div className="flex_ hidden justify-start items-center mt-12 mb-0  w-full">
