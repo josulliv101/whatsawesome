@@ -1,6 +1,9 @@
 import * as z from "zod";
 
-export const latlngSchema = z.object({ lat: z.number(), lng: z.number() });
+export const latlngSchema = z.object({
+  latitude: z.number(),
+  longitude: z.number(),
+});
 
 const reasonSchema = z.object({
   id: z.string().optional(),

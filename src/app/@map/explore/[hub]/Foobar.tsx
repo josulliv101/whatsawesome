@@ -18,10 +18,6 @@ export default function Foobar({
     useState<google.maps.LatLngBoundsLiteral>();
 
   useEffect(() => {
-    setTimeout(() => setBtnState(btnState + 1), 100);
-  }, [b]);
-
-  useEffect(() => {
     if (!coreLib || !map) return;
 
     const { LatLng, LatLngBounds } = coreLib;
@@ -42,6 +38,6 @@ export default function Foobar({
     //const initialBounds = bounds.toJSON();
 
     // setInitialBounds(bounds.toJSON());
-  }, [coreLib, markers, map, btnState]);
+  }, [coreLib, markers, map]);
   return <>{children}</>;
 }
