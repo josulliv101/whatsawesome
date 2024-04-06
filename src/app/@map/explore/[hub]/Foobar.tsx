@@ -8,11 +8,18 @@ export default function Foobar({
   markers = [],
 }: PropsWithChildren<{ markers: Array<any> }>) {
   const map = useMap();
+  const [btnState, setBtnState] = useState(0);
 
   const coreLib = useMapsLibrary("core");
 
+  const b = map?.getBounds();
+
   const [initialBounds, setInitialBounds] =
     useState<google.maps.LatLngBoundsLiteral>();
+
+  useEffect(() => {
+    setTimeout(() => setBtnState(btnState + 1), 100);
+  }, [b]);
 
   useEffect(() => {
     if (!coreLib || !map) return;
@@ -28,13 +35,13 @@ export default function Foobar({
       );
     }
     if (markers.length === 1) {
-      map.setZoom(17);
+      // map.setZoom(17);
     }
     map.fitBounds(bounds);
 
     //const initialBounds = bounds.toJSON();
 
     // setInitialBounds(bounds.toJSON());
-  }, [coreLib, markers, map]);
-  return children;
+  }, [coreLib, markers, map, btnState]);
+  return <>{children}</>;
 }

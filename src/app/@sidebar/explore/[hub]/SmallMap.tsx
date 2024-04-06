@@ -76,9 +76,9 @@ const SmallMap = ({
   const size = 32;
   return (
     <Map
-      defaultZoom={14}
+      // defaultZoom={14}
       defaultCenter={{ lat: 0, lng: 0 }}
-      // defaultBounds={initialBounds}
+      defaultBounds={undefined}
       gestureHandling={"greedy"}
       disableDefaultUI={false}
       mapTypeControl={false}
