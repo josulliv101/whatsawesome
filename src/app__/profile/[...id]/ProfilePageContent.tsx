@@ -86,7 +86,9 @@ export default async function ProfilePageContent({
     return acc;
   }, []);
 
-  const uniqueReasonTags = [...new Set(allReasonTags)].sort();
+  const uniqueReasonTags = [...new Set(allReasonTags)]
+    .sort()
+    .filter((tag: string) => tagDefinitions[tag]?.level === 3);
 
   return (
     <AnalyticsContextProvider>
@@ -252,6 +254,7 @@ export default async function ProfilePageContent({
                   tags={reason.tags || []}
                   isForceRatingToShow
                   isEditable
+                  showLinkToProfile={false}
                 />
               </ReasonVisibility>
             </>

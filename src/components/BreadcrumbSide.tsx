@@ -24,7 +24,6 @@ import { tagDefinitions } from "@/lib/tags";
 import { Suspense, useEffect, useState } from "react";
 
 export function BreadcrumbSideContent() {
-
   const params = useParams();
 
   const searchParams = useSearchParams();
@@ -68,9 +67,9 @@ export function BreadcrumbSideContent() {
               <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
+              {/* <DropdownMenuItem asChild>
                 <Link href="/explore">All</Link>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem disabled asChild>
                 <Link href="/arlington-ma">Arlington, MA</Link>
               </DropdownMenuItem>
