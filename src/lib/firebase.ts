@@ -244,7 +244,7 @@ export async function fetchHubProfiles(
   console.log("fetchHubProfiles", hub, primaryTag, tags);
 
   const normalizedTags =
-    !tags || !tags.length ? config.defaultHubTags[primaryTag] : tags;
+    !tags || !tags.length ? config.defaultHubTags["place"] : tags;
 
   const queryHub = ![config.rootHub, "index"].includes(hub)
     ? [where(`tagMap.${hub}`, "==", true)]
@@ -536,7 +536,7 @@ export async function fetchClaimsForHub(
   const reasons = query(
     collectionGroup(db, "whyawesome"),
     ...whereQuery,
-    limit(20),
+    limit(10),
     orderBy("rating", "desc")
   );
 

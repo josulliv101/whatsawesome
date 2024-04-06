@@ -17,7 +17,11 @@ export default async function Page({
   const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
   const items = tagDefinitions[pt]?.tags || [];
   const markers = data
-    .map((datum) => ({ latlng: datum.parent.latlng, id: datum.id }))
+    .map((datum) => ({
+      latlng: datum.parent.latlng,
+      id: datum.id,
+      profileName: datum.parent.name,
+    }))
     .filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers", markers);
   const size = 24;
@@ -29,8 +33,8 @@ export default async function Page({
           key={marker.id}
           // ref={isActiveMarker ? markerRef : null}
           position={marker.latlng}
-          title={"AdvancedMarker with custom html content."}
-          // onClick={handleMarkerClick}
+          title={marker.profileName}
+          // onClick={() => console.log(profile)}
         >
           <div
             style={{

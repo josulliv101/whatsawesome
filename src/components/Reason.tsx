@@ -75,6 +75,7 @@ import { ReasonEdit } from "./ReasonEdit";
 import { profile } from "console";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { tagDefinitions } from "@/lib/tags";
+import { toast } from "sonner";
 
 export function Reason({
   id,
@@ -95,6 +96,7 @@ export function Reason({
   latlng,
   showExtraPassion,
   latestBacker,
+  showLinkToProfile = true,
 }: PropsWithChildren<{
   id?: string;
   description: string;
@@ -116,6 +118,7 @@ export function Reason({
   };
   showExtraPassion?: boolean;
   latestBacker?: string;
+  showLinkToProfile?: boolean;
 }>) {
   const photoUrl = photoUrlProp; // || config.logoPath;
   const isDefaultImage = !photoUrlProp;
@@ -159,7 +162,7 @@ export function Reason({
     <Card className="group border-l-[0px] border-l-black relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {photoUrlAside && (
         <Image
-          className={`border border-gray-200/50 absolute -top-1 -right-1 z-[10] rounded-md w-[48px] h-[48px] object-cover`}
+          className={`border border-gray-200 absolute -bottom-2 -left-2 z-[10] rounded-md w-[48px] h-[48px] object-cover`}
           width="48"
           height="48"
           src={photoUrlAside}
@@ -363,13 +366,22 @@ export function Reason({
           </div>
         </div>
 
-        <div className="flex flex-row-reverse gap-2 items-center justify-center absolute bottom-2 right-2">
+        <div className="flex flex-row gap-4 items-center justify-center absolute bottom-2 right-2">
           {id && !isAnalyticsView && (
             <>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     variant={"ghost"}
+                    onClick={() =>
+                      toast(
+                        <pre className="mt-0 w-[340px] rounded-md bg-slate-950 p-4">
+                          <code className="text-white">
+                            Functionality not yet implemented.
+                          </code>
+                        </pre>
+                      )
+                    }
                     className="flex py-2  gap-4  w-12  bg-gray-50_ origin-bottom-right scale-[1.0] transition-all duration-500 border_"
                   >
                     <Image
@@ -444,13 +456,24 @@ export function Reason({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
+                    onClick={() =>
+                      toast(
+                        <pre className="mt-0 w-[340px] rounded-md bg-slate-950 p-4">
+                          <code className="text-white">
+                            Functionality not yet implemented.
+                          </code>
+                        </pre>
+                      )
+                    }
                     variant={"secondary"}
                     className="flex flex-col min-w-10 items-center px-1 py-2 gap-0 w-12 transition-all duration-500 text-muted-foreground"
                   >
                     {/* <span className=" px-4 scale-80">Backers</span> */}
 
                     <span className="flex text-sm flex-col _flex-row-reverse items-center justify-center px-2 gap-0">
-                      <span className="text-lg font-bold pb-2">{rating}</span>
+                      <span className="text-lg font-bold pb-2">
+                        {roundToInteger(rating < 10 ? rating * 10 : rating)}
+                      </span>
                       <span className="text-xs scale-[.8] origin-bottom absolute bottom-[0px]">
                         Backers
                       </span>
@@ -513,25 +536,41 @@ export function Reason({
             )}
             {!isAnalyticsView && passionateBackers > 0 && (
               <div className="pl-4 relative top-2 inline-block_ text-muted-foreground">
-                <Button
-                  variant={"ghost"}
-                  className="flex gap-2 transition-all duration-500 relative"
-                >
-                  {latestBacker}{" "}
-                  {passionateBackers > 1
-                    ? `and ${passionateBackers - 1} other${passionateBackers - 1 === 1 ? "" : "s"}`
-                    : ""}{" "}
-                  super-charged this item with {passionateBackers} mushroom
-                  {passionateBackers === 1 ? "" : "s"}
-                  <Image
-                    alt="vote"
-                    src={config.logoPath}
-                    width={16}
-                    height={16}
-                    className="opacity-80"
-                  />
-                  <Heart className="w-4 h-4 absolute__ hidden right-[12px] top-[3px] stroke-[0px] text-white fill-gray-300 opacity-100" />
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant={"ghost"}
+                      onClick={() =>
+                        toast(
+                          <pre className="mt-0 w-[340px] rounded-md bg-slate-950 p-4">
+                            <code className="text-white">
+                              Functionality not yet implemented.
+                            </code>
+                          </pre>
+                        )
+                      }
+                      className="flex gap-2 transition-all duration-500 relative"
+                    >
+                      {latestBacker}{" "}
+                      {passionateBackers > 1
+                        ? `and ${passionateBackers - 1} other${passionateBackers - 1 === 1 ? "" : "s"}`
+                        : ""}{" "}
+                      super-charged this item with {passionateBackers} mushroom
+                      {passionateBackers === 1 ? "" : "s"}
+                      <Image
+                        alt="vote"
+                        src={config.logoPath}
+                        width={16}
+                        height={16}
+                        className="opacity-80"
+                      />
+                      <Heart className="w-4 h-4 absolute__ hidden right-[12px] top-[3px] stroke-[0px] text-white fill-gray-300 opacity-100" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Super-charged this item</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             )}
             {!isAnalyticsView && passionateBackers === -1 && (
@@ -583,14 +622,22 @@ export function Reason({
         {!isAnalyticsView && (
           <>
             <div
-              className={`absolute hidden_ top-2 ${photoUrlAside ? "right-[54px]" : "right-4"} flex items-center gap-2`}
+              className={`absolute hidden_ top-2 ${false ? "right-[54px]" : "right-4"} flex items-center gap-2`}
             >
               {tags
+
                 .filter(
                   (tag) =>
                     !!tagDefinitions[tag] &&
-                    !tagDefinitions.all.children.includes(tag)
+                    !tagDefinitions.all.children.includes(tag) &&
+                    tagDefinitions[tag]?.level === 3
                 )
+                .sort((a: string, b: string) => {
+                  return (
+                    (tagDefinitions[b]?.level || 0) -
+                    (tagDefinitions[a]?.level || 0)
+                  );
+                })
                 .map((tag) => (
                   <Button
                     key={tag}
@@ -602,15 +649,25 @@ export function Reason({
                     <Link href={`/tags/${tag}`}>{tag}</Link>
                   </Button>
                 ))}
-              <Button
-                key={"id"}
-                className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
-                variant={"secondary"}
-                size="sm"
-                asChild
-              >
-                <Link href={`/profile/${profileId}`}>{name}</Link>
-              </Button>
+
+              {showLinkToProfile && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      key={"id"}
+                      className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                      variant={"secondary"}
+                      size="sm"
+                      asChild
+                    >
+                      <Link href={`/profile/${profileId}`}>{name}</Link>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>View profile</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
               {isEditable && id && (
                 <ReasonEdit
                   id={id}

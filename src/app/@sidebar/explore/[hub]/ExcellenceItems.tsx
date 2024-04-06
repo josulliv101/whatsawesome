@@ -11,6 +11,7 @@ import {
   getPlural,
   getPrimaryTagsFromTags,
   tagDefinitions,
+  trendingExcellenceTags,
 } from "@/lib/tags";
 import Link from "next/link";
 import SmallMap from "./SmallMap";
@@ -20,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Reason } from "@/components/Reason";
 import SponsorRack from "@/components/SponsorRack";
 import { PresetSelector } from "./PresetSelector";
-import { CheckIcon, SlashIcon } from "lucide-react";
+import { CheckIcon, ChevronRight, SlashIcon } from "lucide-react";
 import { Fragment, PropsWithChildren } from "react";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
@@ -62,18 +63,25 @@ export default async function ExcellenceItems({
   const Component = isStacked ? StackedReason : Reason;
   const dataToUse = !isStacked
     ? data
-    : ["burger", "coffee", "service", "wings", "sports", "wine", "seafood"]
+    : trendingExcellenceTags
         .map((tag) => data.find((foo) => foo.tags.includes(tag)))
         .filter((f) => !!f);
   return (
     <>
       {!isStacked && (
-        <SideNav items={items} hub={hub} pt={pt} st={st} t3={t3} />
+        <SideNav
+          items={items}
+          resultsCount={dataToUse.length}
+          hub={hub}
+          pt={pt}
+          st={st}
+          t3={t3}
+        />
       )}
 
       {isStacked && (
         <h2 className="font-semibold text-xl capitalize px-8 py-4">
-          {hub.replaceAll("-", " ")}&#39;s Most Backed Statements
+          {hub.replaceAll("-", " ")}&#39;s Most Backed
         </h2>
       )}
       <div className="px-8 pb-5  sticky__ top-[120px] overflow-auto">
@@ -117,7 +125,11 @@ export default async function ExcellenceItems({
                     {getPrimaryTagsFromTags(item.tags).map((tag) => (
                       <Badge
                         key={tag}
-                        variant="outline"
+                        variant={
+                          tagDefinitions[tag]?.level === 3
+                            ? "default"
+                            : "outline"
+                        }
                         className="border-muted-foreground/50 rounded-sm mx-2"
                       >
                         {tag}
@@ -174,12 +186,14 @@ function SideNav({
   items,
   pt,
   st,
+  resultsCount = 0,
   t3,
 }: {
   hub: string;
   pt: string;
   st?: string;
   t3?: string;
+  resultsCount: number;
   items: Array<any>;
 }) {
   return (
@@ -192,19 +206,21 @@ function SideNav({
           <div className="capitalize text-4xl font-bold flex items-center">
             {pt}
             <SlashIcon className="h-4 w-4 mx-4" />{" "}
-            {t3 && (
+            {t3 ? (
               <>
                 <span className="capitalize">{getPlural(t3)}</span>
-                <SlashIcon className="h-4 w-4 mx-4" />{" "}
               </>
-            )}{" "}
-            Excellence
+            ) : (
+              "Most Backed"
+            )}
           </div>
         </div>
       </div>
       <nav className="flex items-center flex-row-reverse justify-between gap-2 px-8 pt-4 pb-1">
-        <div className="text-muted-foreground">show {items.length} items </div>
-        <div>
+        <div className="text-muted-foreground">
+          showing {resultsCount} items{" "}
+        </div>
+        <div className="flex items-center gap-2">
           <Button
             key={"all"}
             variant="secondary"
@@ -218,7 +234,7 @@ function SideNav({
                   <CheckIcon className="h-4 w-4 p-0.5 text-white" />
                 </div>
               )}
-              Top 20
+              Top 10 Most Backed
             </Link>
           </Button>
           {items.map((tag) => (
@@ -301,7 +317,7 @@ function StackedReason({
               </Badge>
             ))}
             {getLevel3TagsFromTags(tags).map((tag) => (
-              <Badge key={tag} variant={"outline"}>
+              <Badge key={tag} variant={"default"}>
                 {tag}
               </Badge>
             ))}
@@ -341,7 +357,8 @@ function StackedReason({
                 <Link
                   href={`/explore/${getHubTagsFromTags(tags)[0]}?pt=${getPrimaryTagsFromTags(tags)[0]}&t3=${getLevel3TagsFromTags(tags)[0]}`}
                 >
-                  view {getPlural(getLevel3TagsFromTags(tags)[0])}
+                  more {getPlural(getLevel3TagsFromTags(tags)[0])}
+                  <ChevronRight className="h-4 w-4 ml-2" />
                 </Link>
               </Button>
             </div>
