@@ -26,6 +26,7 @@ export default async function Page({
     100
   );
   const items = tagDefinitions[pt]?.tags || [];
+
   const markers = profilesByTag.profiles
     .filter((profile) => !!profile?.latlng && !!profile?.latlng?.latitude)
     .map((datum: any) => ({
@@ -34,6 +35,7 @@ export default async function Page({
       profileName: datum.name,
     }));
   console.log("markers...", markers);
+
   const size = 24;
   return (
     <Foobar markers={markers}>

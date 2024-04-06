@@ -250,6 +250,7 @@ export async function fetchHubProfiles(
         ? config.defaultHubTags["place"]
         : tags;
 
+
   const queryHub = ![config.rootHub, "index"].includes(hub)
     ? [where(`tagMap.${hub}`, "==", true)]
     : [];
