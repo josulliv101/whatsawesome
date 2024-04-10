@@ -16,7 +16,7 @@ export default function MapAside({}: {}) {
   }
   return (
     <Button
-      className="relative flex capitalize justify-center mt-12 h-16 rounded-md font-semibold text-2xl"
+      className="w-full relative flex capitalize justify-center mt-12 h-16 rounded-md font-semibold text-2xl"
       asChild
     >
       <Link href={`/explore/${hubToUse}`}>

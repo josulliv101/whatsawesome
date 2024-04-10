@@ -30,7 +30,7 @@ export default function ReasonTagsFilter({
 
   console.log("activeTags", activeTags);
   return (
-    <div className="flex items-center gap-4 py-8">
+    <div className="flex w-full items-center justify-end gap-4 py-0 shrink">
       {["all"].concat(tags).map((tag) => (
         <Button
           key={tag}

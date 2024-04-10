@@ -250,7 +250,6 @@ export async function fetchHubProfiles(
         ? config.defaultHubTags["place"]
         : tags;
 
-
   const queryHub = ![config.rootHub, "index"].includes(hub)
     ? [where(`tagMap.${hub}`, "==", true)]
     : [];
@@ -574,4 +573,135 @@ export async function fetchClaimsForHub(
       name: profiles[index].name,
     },
   }));
+}
+
+export async function fetchTopClaimsForHub(
+  hub: string,
+  tags: Array<string> = [],
+  secondaryTags: Array<string> = [],
+  teriaryTags: Array<string> = []
+) {
+  const topClaimsCategories = [
+    ["restaurant", "burger"],
+    ["restaurant", "steak"],
+    ["coffeehouse", "coffee"],
+    ["coffeehouse", "pastries"],
+    ["coffeehouse", "cannoli"],
+  ];
+
+  const topClaimsPromises: Array<any> = topClaimsCategories.map(
+    async (tags = []) => {
+      const hubList = hub === "all" ? [] : [hub];
+      const whereQuery = [...hubList, ...tags]
+        .filter((tag) => !!tag)
+        .map((tag) => where(`tagMap.${tag}`, "==", true));
+
+      const reasons = query(
+        collectionGroup(db, "whyawesome"),
+        ...whereQuery,
+        limit(2),
+        orderBy("rating", "desc")
+      );
+
+      return await getDocs(reasons);
+    }
+  );
+
+  let results = await Promise.all(topClaimsPromises);
+
+  const data: Array<any> = [];
+
+  results.forEach((result, index) => {
+    const querySnapshot = result;
+    const resultData: Array<any> = [];
+    const parentIds: Array<string | undefined> = [];
+    querySnapshot.forEach(async (doc: any) => {
+      const refParent = doc.ref.parent.parent;
+      parentIds.push(refParent?.id);
+      const { tagMap, ...rest } = doc.data();
+
+      const datum = {
+        ...rest,
+        id: doc.id,
+        parentId: refParent?.id,
+        tags: Object.keys(tagMap),
+      };
+
+      resultData.push({
+        ...datum,
+        parent: {
+          id: refParent?.id,
+          // latlng: profiles[index].latlng,
+          // parentPhotoUrl: profiles[index].pic,
+          // name: profiles[index].name,
+        },
+      });
+    });
+    data.push({ tags: topClaimsCategories[index], results: resultData });
+  });
+  const parentPayloads: any = {};
+
+  const parentIds = data.reduce((acc, dataItem) => {
+    return [...acc, ...dataItem.results.map((result: any) => result.parentId)];
+  }, []);
+
+  const promises = parentIds.map(async (parentId: any) => {
+    return await fetchProfile(parentId || "");
+  });
+
+  const profiles = await Promise.all(promises);
+
+  const newData = data.reduce((acc, dataItem) => {
+    const data = {
+      ...dataItem,
+      results: dataItem.results.map((result: any) => {
+        const parentProfile = profiles
+          .filter((p) => !!p)
+          .find((profile) => profile.id === result.parentId);
+        console.log("parentProfile", result.parentId, parentProfile);
+        return {
+          ...result,
+          parent: {
+            ...result.parent,
+            latlng: parentProfile?.latlng,
+            parentPhotoUrl: parentProfile?.pic,
+            name: parentProfile?.name,
+          },
+        };
+      }),
+    };
+    return [...acc, data];
+  }, []);
+
+  // console.log("...", newData[0].results[0]);
+  return newData;
+  // const querySnapshot = await getDocs(reasons);
+  // const data: Array<any> = [];
+  // const parentIds: Array<string | undefined> = [];
+  // querySnapshot.forEach(async (doc) => {
+  //   const refParent = doc.ref.parent.parent;
+  //   parentIds.push(refParent?.id);
+  //   const { tagMap, ...rest } = doc.data();
+  //   data.push({
+  //     ...rest,
+  //     id: doc.id,
+  //     parentId: refParent?.id,
+  //     tags: Object.keys(tagMap),
+  //   });
+  // });
+  // const parentProfiles: Array<any> = [];
+
+  // const promises = parentIds.map(async (parentId, index) => {
+  //   return await fetchProfile(parentId || "");
+  // });
+
+  // const profiles = await Promise.all(promises);
+  // return data.map((datum, index) => ({
+  //   ...datum,
+  //   parent: {
+  //     latlng: profiles[index].latlng,
+  //     parentPhotoUrl: profiles[index].pic,
+  //     name: profiles[index].name,
+  //   },
+  // }));
 }

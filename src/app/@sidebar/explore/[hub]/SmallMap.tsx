@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   APIProvider,
   AdvancedMarker,
+  ControlPosition,
   Map,
   Marker,
   useMap,
@@ -82,6 +83,9 @@ const SmallMap = ({
       gestureHandling={"greedy"}
       disableDefaultUI={false}
       mapTypeControl={false}
+      streetViewControl={false}
+      fullscreenControl={false}
+      zoomControlOptions={{ position: ControlPosition.RIGHT_BOTTOM }}
       mapTypeId={"roadmap"}
       mapId={"739af084373f96fe"}
       onCameraChanged={(ev, ...args) =>

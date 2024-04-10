@@ -30,7 +30,7 @@ export default function PageHeading({
   className?: string;
 }>) {
   return (
-    <div className={`mb-8 ${className}`}>
+    <div className={cn(`mb-8_ ${className}`)}>
       {typeof heading === "string" && <Heading>{heading}</Heading>}
       {isValidElement(heading) && heading}
       {subhead && (

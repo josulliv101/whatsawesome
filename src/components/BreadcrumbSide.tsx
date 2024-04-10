@@ -43,14 +43,14 @@ export function BreadcrumbSideContent() {
     }
   }, [hub, pt]);
   return (
-    <Breadcrumb className="px-4 pt-2 pb-2 border-r font-semibold">
+    <Breadcrumb className="px-4 py-3 border-r font-semibold">
       <BreadcrumbList>
-        <BreadcrumbItem className="capitalize">
+        {/* <BreadcrumbItem className="capitalize">
           <BreadcrumbPage>Discover Excellence</BreadcrumbPage>
         </BreadcrumbItem>
         <BreadcrumbSeparator>
           <Slash />
-        </BreadcrumbSeparator>
+        </BreadcrumbSeparator> */}
 
         {/* <BreadcrumbItem className="capitalize">
 

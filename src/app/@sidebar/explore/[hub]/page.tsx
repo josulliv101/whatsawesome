@@ -22,6 +22,7 @@ export default function Page({
           isShowAll={true}
         />
         <Separator className="my-8" />
+        <div className="px-8 text-xl font-semibold">Browse Catalog</div>
         {<ProfilesByCategory hub={hub} st={st} t3={t3} isShowAll={false} />}
       </div>
     );

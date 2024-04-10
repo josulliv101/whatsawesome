@@ -238,7 +238,7 @@ export default function Layout({
             </div>
             <h2 className="py-0 pt-3 capitalize text-lg font-semibold px-2 mt-0 flex items-center justify-start">
               {hub.replaceAll("-", " ")}
-              <span className="px-2">/</span> Most Backed{" "}
+              <span className="px-2">/</span> Top By Category{" "}
               {filterByTag && (
                 <>
                   <span className="px-2">/</span>

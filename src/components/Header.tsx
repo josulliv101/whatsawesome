@@ -33,7 +33,7 @@ export default function Header() {
         />
 
         <div className="items-center gap-4 flex flex-0 justify-between lg:justify-end">
-          <CommandMenu />
+          {/* <CommandMenu /> */}
           {/* <ThemeToggle /> */}
           {/* <LoginButton /> */}
           <SettingsOptions

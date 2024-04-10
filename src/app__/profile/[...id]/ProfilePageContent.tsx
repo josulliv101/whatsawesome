@@ -105,8 +105,8 @@ export default async function ProfilePageContent({
             Sponsor <BadgeCheckIcon className="h-6 w-6 text-blue-500" />
           </div>
         )}
-        <div className="relative md:max-h-[200px] flex flex-col md:flex-row items-start gap-8 mb-6 animate-vflip__">
-          <div className="relative w-full md:w-auto md:flex-initial bg-gray-400">
+        <div className="relative md:max-h-[200px] flex md:flex-row items-center gap-8 mb-6 animate-vflip__">
+          <div className="relative w-full md:w-auto md:flex-initial flex bg-gray-400">
             <Image
               priority
               src={pic}
@@ -120,9 +120,9 @@ export default async function ProfilePageContent({
             />
           </div>
           <PageHeading
-            className="pl-8"
+            className="pl-8 mb-0"
             heading={
-              <div className="flex flex-col items-start gap-4 pt-8 mb-2">
+              <div className="flex flex-col items-start justify-end gap-4 pt-8 mb-2">
                 <Heading className="mb-2">{name}</Heading>
                 <span className="hidden text-2xl ml-2 mt-[-6px]">/</span>
                 <div className="flex_ hidden items-flex text-muted-foreground opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex_ items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-3">
@@ -187,14 +187,14 @@ export default async function ProfilePageContent({
           </Button> */}
         </div>
         {/* <Separator className="mt-8" /> */}
-        <div className="flex justify-start items-center mt-12 mb-0  w-full">
-          <h4 className="relative rounded-sm text-xl bg-muted px-8 py-4 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
-            <strong className="font-[500] text-balance_">
-              What factors contribute to the excellence{" "}
-              {tags.includes("person") ? "of" : "at"} {name}?
-            </strong>
 
-            <div className="flex items-center gap-4 shrink-0">
+        <div className="flex justify-start items-center mb-4 w-full">
+          <h4 className="relative rounded-sm text-xl bg-muted px-4 pt-2 mt-4 pb-2 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
+            <strong className="font-[500] text-balance_ flex-1 block whitespace-nowrap">
+              Areas of Excellence
+            </strong>
+            <ReasonTagsFilter tags={uniqueReasonTags} />
+            <div className="flex_ items-center gap-4 shrink-0 hidden">
               {!user && (
                 <span className="text-sm font-medium">
                   <Button
@@ -221,8 +221,6 @@ export default async function ProfilePageContent({
             </div>
           </h4>
         </div>
-
-        <ReasonTagsFilter tags={uniqueReasonTags} />
 
         <div
           className="w-full grid grid-cols-[1fr] items-start gap-2 space-y-0 p-4 rounded-md"

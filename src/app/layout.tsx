@@ -9,7 +9,7 @@ import { ClientAPIProvider } from "@/app__/tags/[...tagIds]/GoogleMap";
 import { Toaster } from "@/components/ui/sonner";
 import { HubContextProvider } from "@/components/HubContext";
 // import { PageLayout } from "./components/PageLayout";
-import { PropsWithChildren, ReactNode, StrictMode } from "react";
+import { PropsWithChildren, ReactNode, StrictMode, Suspense } from "react";
 import { PrimaryKeyType } from "@mswjs/data/lib/glossary";
 import { PrimaryTagType } from "@/lib/tags";
 import { getCurrentUser } from "@/lib/auth";
@@ -27,6 +27,8 @@ import { BreadcrumbSide } from "@/components/BreadcrumbSide";
 import { PresetSelector } from "./@sidebar/explore/[hub]/PresetSelector";
 import MapAside from "./MapAside";
 import BackButton from "@/components/BackButton";
+import { Separator } from "@/components/ui/separator";
+import { CommandMenu } from "@/components/CommandMenu";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -69,17 +71,23 @@ export default function RootLayout({
                     <div className="grid md:grid-cols-12 gap-0">
                       <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
                         <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px] bg-gray-100/90">
-                          <aside className="bg-gray-200 p-8 w-[22vw] border-r border-gray-300">
-                            <h2 className="hidden font-semibold text-lg mb-2">
-                              Welcome to Blue Mushroom
-                            </h2>
-                            <p>
-                              <span className="font-semibold">
-                                Blue Mushroom
-                              </span>{" "}
-                              is your resource for discovering excellence in the
-                              world around you.
-                            </p>
+                          <aside className="bg-gray-200 p-8 w-[30vw] border-r border-gray-300 flex flex-col items-start justify-between">
+                            <div>
+                              <h2 className="hidden font-semibold text-lg mb-2">
+                                Welcome to Blue Mushroom
+                              </h2>
+                              <p>
+                                <span className="font-semibold">
+                                  Blue Mushroom
+                                </span>{" "}
+                                is your resource for discovering excellence in
+                                the world around you.
+                              </p>
+                              <Separator className="my-6 h-px bg-muted-foreground/30" />
+                              <p className="text-muted-foreground">
+                                <CommandMenu />
+                              </p>
+                            </div>
                             <MapAside />
                           </aside>
 
@@ -88,9 +96,10 @@ export default function RootLayout({
                         <div className="sticky z-50 top-[62px] bg-muted border-b flex items-center justify-between pl-4">
                           <BreadcrumbSide />
                         </div>
-                        <div className="flex justify-between items-center pl-4 pr-8 pt-4 ">
-                          <BackButton />
-                          <PresetSelector />
+                        <div className="flex justify-end w-full items-center pl-4 pr-8 pt-2 mb-0 ">
+                          <Suspense>
+                            <BackButton hub={hub} />
+                          </Suspense>
                         </div>
                         {children}
                       </main>

@@ -29,7 +29,7 @@ export interface Preset {
 export const data: Array<Preset> = [
   {
     id: "9cb0e66a-9937-465d-a188-2c4c4ae2401f",
-    name: "Sort by recommended",
+    name: "Sort by mushroom count",
   },
   {
     id: "9cb0e66a-9937-465d-a188-2c4c4ae2401f",
@@ -64,7 +64,7 @@ export function PresetSelector({
               </pre>
             )
           }
-          variant="outline"
+          variant="ghost"
           role="combobox"
           aria-label="Load a preset..."
           aria-expanded={open}
