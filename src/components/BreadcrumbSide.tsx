@@ -22,6 +22,7 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { tagDefinitions } from "@/lib/tags";
 import { Suspense, useEffect, useState } from "react";
+import { CommandMenu } from "./CommandMenu";
 
 export function BreadcrumbSideContent() {
   const params = useParams();
@@ -43,7 +44,7 @@ export function BreadcrumbSideContent() {
     }
   }, [hub, pt]);
   return (
-    <Breadcrumb className="px-4 py-3 border-r font-semibold">
+    <Breadcrumb className="px-4 py-1.5 border-r font-semibold flex items-center justify-between w-full">
       <BreadcrumbList>
         {/* <BreadcrumbItem className="capitalize">
           <BreadcrumbPage>Discover Excellence</BreadcrumbPage>
@@ -160,6 +161,9 @@ export function BreadcrumbSideContent() {
           </>
         )} */}
       </BreadcrumbList>
+      <p className="text-muted-foreground w-[240px] mb-0 -mr-2">
+        <CommandMenu />
+      </p>
     </Breadcrumb>
   );
 }

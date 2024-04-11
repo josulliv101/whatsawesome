@@ -212,6 +212,35 @@ const config: Config = {
             transform: "scale3d(1, 1, 1)",
           },
         },
+        mushroomLove: {
+          from: {
+            transform: "translateY(0px) scale3d(1, 1, 1)",
+          },
+
+          "30%": {
+            transform: "translateY(1px) scale3d(1.125, 0.8075, 1)",
+          },
+
+          "40%": {
+            transform: "translateY(-6px) scale3d(0.875, 1.25, 1)",
+            "animation-timing-function": "ease-in-out",
+          },
+
+          "50%": {
+            transform: "translateY(.5px) scale3d(1.15, 0.85, 1)",
+          },
+
+          "65%": {
+            transform: "translateY(0px) scale3d(0.95, 1.05, 1)",
+          },
+
+          "75%": {
+            transform: "translateY(0px) scale3d(1.05, 0.95, 1)",
+          },
+          to: {
+            transform: "translateY(0px) scale3d(1.5, 1.5, 1)",
+          },
+        },
         flipHorizontal: {
           "50%": { transform: "rotateY(180deg)" },
         },
@@ -235,6 +264,8 @@ const config: Config = {
 
         rubberBandJump: "rubberBandJump 1.4s 3 2s",
         rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 2s",
+
+        mushroomLove: "mushroomLove 3s 3 0s",
 
         hflip: "flipHorizontal 2s 1",
         vflip: "flipVertical 2s 1",

@@ -72,7 +72,8 @@ export default function RootLayout({
                       <main className="col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
                         <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px] bg-gray-100/90">
                           <aside className="bg-gray-200 p-8 w-[30vw] border-r border-gray-300 flex flex-col items-start justify-between">
-                            <div>
+                            <div className="bg-gray-300_ py-3_ _px-5">
+                              <Separator className="hidden my-5 h-px bg-muted-foreground/20" />
                               <h2 className="hidden font-semibold text-lg mb-2">
                                 Welcome to Blue Mushroom
                               </h2>
@@ -83,10 +84,7 @@ export default function RootLayout({
                                 is your resource for discovering excellence in
                                 the world around you.
                               </p>
-                              <Separator className="my-6 h-px bg-muted-foreground/30" />
-                              <p className="text-muted-foreground">
-                                <CommandMenu />
-                              </p>
+                              {/* */}
                             </div>
                             <MapAside />
                           </aside>

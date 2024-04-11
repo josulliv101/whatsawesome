@@ -194,7 +194,7 @@ export function SideNav({
             {t3 ? <SlashIcon className="h-4 w-4 mx-4" /> : ""}{" "}
             {t3 ? (
               <>
-                <span className="capitalize">{getPlural(t3)}</span>
+                <span className="capitalize">{t3} roundup</span>
               </>
             ) : (
               ""
