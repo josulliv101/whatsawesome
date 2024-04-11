@@ -37,6 +37,7 @@ import {
   Map,
   Heart,
   MessageSquareTextIcon as MessageCircle,
+  SlashIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -166,13 +167,21 @@ export function Reason({
   return (
     <Card className="group border-l-[1px]  relative w-full min-h-[222px] flex flex-col md:flex-row-reverse items-center gap-0 py-0 ">
       {photoUrlAside && (
-        <Image
-          className={`border border-gray-200 absolute -bottom-2.5 -left-2 z-[10] rounded-md w-[60px] h-[60px] object-cover`}
-          width="60"
-          height="60"
-          src={photoUrlAside}
-          alt=""
-        />
+        <div className="hidden shadow-sm rounded-tl-md rounded-bl-md border-0 border-gray-200 bg-gray-100_ min-w-[200px] flex_ items-center absolute -bottom-2.5 -right-0 z-[10]  rounded-tr-md rounded-br-md">
+          <Image
+            className={` border rounded-md  w-[60px] h-[60px] object-cover`}
+            width="60"
+            height="60"
+            src={photoUrlAside}
+            alt=""
+          />
+          <Button
+            variant={"ghost"}
+            className="hidden text-muted-foreground min-w-[160px] justify-start -mt-2"
+          >
+            {name}
+          </Button>
+        </div>
       )}
       {
         <div className=" w-full md:w-auto">
@@ -348,7 +357,7 @@ export function Reason({
         <div className="space-y-1">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
 
-          <CardDescription className="text-xl text-balance_ text-center_ pr-8 mt-[0px] lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
+          <CardDescription className="text-xl -mt-4_ text-balance_ text-center_ pr-8 lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>
@@ -372,7 +381,9 @@ export function Reason({
           </div>
         </div>
 
-        <div className="flex flex-row gap-2 items-center justify-center absolute bottom-2 right-[250px]">
+        <div
+          className={`flex flex-row gap-2 items-center justify-center absolute bottom-2 ${photoUrl ? "right-[250px]" : "right-[20px]"}`}
+        >
           {id && !isAnalyticsView && (
             <>
               <Button
@@ -634,7 +645,7 @@ export function Reason({
         {!isAnalyticsView && (
           <>
             <div
-              className={`absolute hidden_ top-2 ${false ? "right-[54px]" : "left-2"} flex items-center gap-2`}
+              className={`absolute hidden_ top-2 ${false ? "right-[54px]" : "left-2"} flex items-center gap-1`}
             >
               {tags
 
@@ -665,7 +676,16 @@ export function Reason({
                     </Link>
                   </Button>
                 ))}
-
+              <SlashIcon className="h-4 w-4 text-muted-foreground/50" />
+              <Button
+                key={"place"}
+                className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                variant={"ghost"}
+                size="sm"
+                asChild
+              >
+                <Link href={`/profile/${profileId}`}>{name}</Link>
+              </Button>
               {isEditable && id && (
                 <ReasonEdit
                   id={id}
@@ -682,7 +702,7 @@ export function Reason({
         )}
         <Separator
           orientation="vertical"
-          className="h-24 absolute left-[146px] top-[50%] -translate-y-1/2"
+          className="h-20 absolute left-[154px] -mt-4_ top-[50%] -translate-y-1/2"
         />
         <Tooltip>
           <TooltipTrigger asChild>
@@ -697,7 +717,7 @@ export function Reason({
                 )
               }
               variant={"ghost"}
-              className="flex opacity-80 hover:opacity-80 flex-col-reverse min-w-10 items-center px-1 py-2 gap-0 w-12 transition-all duration-500 text-muted-foreground"
+              className="-mt-4_ flex opacity-80 hover:opacity-80 flex-col-reverse min-w-10 items-center px-1 py-2 gap-0 w-12 transition-all duration-500 text-muted-foreground"
             >
               {/* <span className=" px-4 scale-80">Backers</span> */}
 
@@ -735,7 +755,7 @@ export function Reason({
             <p>Back this item</p>
           </TooltipContent>
         </Tooltip>
-        {showLinkToProfile && (
+        {false && showLinkToProfile && (
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
