@@ -59,7 +59,7 @@ export default function MushroomHoverCard({
             className="opacity-80 hidden"
           />
           {/* <Separator className="h-10 mx-6" orientation="vertical" /> */}
-          <p>Support this item by adding a mushroom.</p>
+          <p>Mark this as an item of excellence by leaving a mushroom.</p>
           {/* <Button size="sm">Add</Button> */}
         </div>
         <div className="flex justify-end"></div>

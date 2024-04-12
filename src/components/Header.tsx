@@ -12,6 +12,8 @@ import { SettingsOptions } from "./SettingsOptions";
 import useLocalStorage from "./useLocalStorage";
 import { useIsMounted } from "./useIsMounted";
 import { useState } from "react";
+import Image from "next/image";
+import { Badge } from "./ui/badge";
 
 export default function Header() {
   const isMounted = useIsMounted();
@@ -22,43 +24,145 @@ export default function Header() {
   console.log("forcePlayAnimation", forcePlayAnimation);
   return (
     <header className="bg-white dark:bg-gray-950 border-b sticky top-0 z-50">
-      <nav
-        className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
-        aria-label="Global"
-      >
-        <NavMenu
-          forcePlayAnimation={forcePlayAnimation}
-          enableLogoAnimation={storedEnableLogoAnimation}
-          setForcePlayAnimation={setForcePlayAnimation}
-        />
-
-        <div className="items-center gap-4 flex flex-0 justify-between lg:justify-end">
-          {/* <CommandMenu /> */}
-          {/* <ThemeToggle /> */}
-          {/* <LoginButton /> */}
-          <SettingsOptions
-            enableLogoAnimation={storedEnableLogoAnimation}
-            onEnableLogoAnimationChange={setStoredEnableLogoAnimation}
-            onPlayAnimation={() => ""}
+      <div className="relative">
+        <nav
+          className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
+          aria-label="Global"
+        >
+          <NavMenu
             forcePlayAnimation={forcePlayAnimation}
+            enableLogoAnimation={storedEnableLogoAnimation}
             setForcePlayAnimation={setForcePlayAnimation}
           />
-        </div>
-      </nav>
-      <div className="hidden lg:hidden" role="dialog" aria-modal="true">
-        <div className="fixed inset-0 z-10"></div>
-        <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Whats Awesome</span>
-              <img
-                className="h-8 w-auto"
-                src={config.logoPath}
-                alt="whatsawesome"
-              />
-            </Link>
+
+          <div className="relative items-center gap-4 flex flex-0 justify-between lg:justify-end">
+            {/* <CommandMenu /> */}
+            {/* <ThemeToggle /> */}
+            {/* <LoginButton /> */}
+
+            {/* <Badge variant={"default"} className="absolute top-0 left-0 z-50">
+            12
+          </Badge>
+          <div className="relative">
+            <Image
+              src="/crate.png"
+              alt="crate"
+              width="64"
+              height="24"
+              className="relative z-10"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 -top-2 left-0 rotate-45"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 -top-2 right-0 rotate-45"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 -top-1 right-10 -rotate-12"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 -top-1 right-5 -rotate-3"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 -top-1 right-3 rotate-45"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 -top-2 right-7 rotate-12"
+            />
+
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-4 top-2 right-10 -rotate-12"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 top-3 right-5 -rotate-3"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 top-3 right-3 rotate-45"
+            />
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={16}
+              height={16}
+              className="opacity-80 absolute z-1 top-3 right-7 rotate-12"
+            />
+          </div> */}
+
+            <SettingsOptions
+              enableLogoAnimation={storedEnableLogoAnimation}
+              onEnableLogoAnimationChange={setStoredEnableLogoAnimation}
+              onPlayAnimation={() => ""}
+              forcePlayAnimation={forcePlayAnimation}
+              setForcePlayAnimation={setForcePlayAnimation}
+            />
           </div>
-          <div className="mt-6 flow-root"></div>
+        </nav>
+        <div className="hidden lg:hidden" role="dialog" aria-modal="true">
+          <div className="fixed inset-0 z-10"></div>
+          <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div className="flex items-center justify-between">
+              <Link href="/" className="-m-1.5 p-1.5">
+                <span className="sr-only">Whats Awesome</span>
+                <img
+                  className="h-8 w-auto"
+                  src={config.logoPath}
+                  alt="whatsawesome"
+                />
+              </Link>
+            </div>
+            <div className="mt-6 flow-root"></div>
+          </div>
+        </div>
+        <div className="absolute top-3 right-20 rel scale-95_ hidden_">
+          <Image
+            src="/basket-mushrooms-2.png"
+            width="300"
+            height="217"
+            alt="basket"
+            className="w-[50px] h-auto"
+          />
+          <Badge
+            variant={"default"}
+            className="absolute -bottom-2 -right-2 rounded-md scale-90 px-2"
+          >
+            20
+          </Badge>
         </div>
       </div>
     </header>

@@ -470,12 +470,12 @@ export function Reason({
                       className={`${isMushroomAnimating ? "scale-150 grayscale-0 animate-mushroomLove_ opacity-100" : "grayscale opacity-75"} origin-center transition-all _duration-500`}
                     />
                     <Heart
-                      className={`w-4 h-4 absolute ${isMushroomAnimating ? "" : "hidden"} right-[7px] top-[1px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
+                      className={`w-4 h-4 animate-fadeIn absolute ${isMushroomAnimating ? "" : "hidden"} right-[7px] top-[1px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
                     />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="w-36">Support this item by adding a mushroom</p>
+                  <p className="w-40">Support this by leaving a mushroom.</p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
