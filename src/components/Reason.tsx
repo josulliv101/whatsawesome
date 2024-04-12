@@ -472,7 +472,7 @@ export function Reason({
                     <Heart
                       className={`w-4 h-4 animate-fadeIn absolute ${isMushroomAnimating ? "" : "hidden"} right-[7px] top-[1px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
                     />
-                    {!isMushroomAnimating && (
+                    {false && !isMushroomAnimating && (
                       <Image
                         className="animate-bounce  absolute -top-8 -right-6 scale-90 hidden group-hover/btn:block"
                         src="/watercan3.png"

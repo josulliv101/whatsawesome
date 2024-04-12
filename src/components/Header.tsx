@@ -41,88 +41,88 @@ export default function Header() {
             {/* <LoginButton /> */}
 
             {/* <Badge variant={"default"} className="absolute top-0 left-0 z-50">
-            12
-          </Badge>
-          <div className="relative">
-            <Image
-              src="/crate.png"
-              alt="crate"
-              width="64"
-              height="24"
-              className="relative z-10"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 -top-2 left-0 rotate-45"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 -top-2 right-0 rotate-45"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 -top-1 right-10 -rotate-12"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 -top-1 right-5 -rotate-3"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 -top-1 right-3 rotate-45"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 -top-2 right-7 rotate-12"
-            />
+              12
+            </Badge>
+            <div className="relative">
+              <Image
+                src="/crate.png"
+                alt="crate"
+                width="64"
+                height="24"
+                className="relative z-10"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 -top-2 left-0 rotate-45"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 -top-2 right-0 rotate-45"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 -top-1 right-10 -rotate-12"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 -top-1 right-5 -rotate-3"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 -top-1 right-3 rotate-45"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 -top-2 right-7 rotate-12"
+              />
 
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-4 top-2 right-10 -rotate-12"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 top-3 right-5 -rotate-3"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 top-3 right-3 rotate-45"
-            />
-            <Image
-              alt="vote"
-              src={config.logoPath}
-              width={16}
-              height={16}
-              className="opacity-80 absolute z-1 top-3 right-7 rotate-12"
-            />
-          </div> */}
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-4 top-2 right-10 -rotate-12"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 top-3 right-5 -rotate-3"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 top-3 right-3 rotate-45"
+              />
+              <Image
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className="opacity-80 absolute z-1 top-3 right-7 rotate-12"
+              />
+            </div> */}
 
             <SettingsOptions
               enableLogoAnimation={storedEnableLogoAnimation}
@@ -149,7 +149,7 @@ export default function Header() {
             <div className="mt-6 flow-root"></div>
           </div>
         </div>
-        <div className="absolute top-2 right-20 rel scale-95_ hidden_">
+        {/* <div className="absolute top-2 right-20 rel scale-95_ hidden_">
           <Image
             src="/watercan-level.png"
             width="200"
@@ -160,6 +160,21 @@ export default function Header() {
           <Badge
             variant={"secondary"}
             className="absolute -bottom-1 -right-2 bg-gray-100 font-normal rounded-full scale-75 px-1"
+          >
+            20
+          </Badge>
+        </div> */}
+        <div className="absolute top-2 right-20 rel scale-95_ hidden_">
+          <Image
+            src="/basket-mushrooms-2.png"
+            width="200"
+            height="170"
+            alt="basket"
+            className="w-[50px] h-auto"
+          />
+          <Badge
+            variant={"default"}
+            className="absolute -bottom-1 -right-2 font-normal_ rounded-full scale-75 px-1"
           >
             20
           </Badge>
