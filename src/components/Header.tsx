@@ -149,17 +149,17 @@ export default function Header() {
             <div className="mt-6 flow-root"></div>
           </div>
         </div>
-        <div className="absolute top-3 right-20 rel scale-95_ hidden_">
+        <div className="absolute top-0 right-20 rel scale-95_ hidden_">
           <Image
-            src="/basket-mushrooms-2.png"
-            width="300"
-            height="217"
+            src="/watercan-level.png"
+            width="200"
+            height="170"
             alt="basket"
-            className="w-[50px] h-auto"
+            className="w-[70px] h-auto"
           />
           <Badge
-            variant={"default"}
-            className="absolute -bottom-2 -right-2 rounded-md scale-90 px-2"
+            variant={"secondary"}
+            className="absolute -bottom-0.5 -right-2.5 rounded-md scale-75 px-2"
           >
             20
           </Badge>

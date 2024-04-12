@@ -429,7 +429,7 @@ export function Reason({
                     </span>
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent side="bottom">
                   <p>Comments</p>
                 </TooltipContent>
               </Tooltip>
@@ -441,7 +441,7 @@ export function Reason({
                   rating < 10 ? rating * 10 - 2 : rating - 1
                 )}
               /> */}
-              <Tooltip delayDuration={200}>
+              <Tooltip open={false} delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button
                     variant={"ghost"}
@@ -460,7 +460,7 @@ export function Reason({
                       //   </pre>
                       // )
                     }
-                    className={` _flex grayscale_ hover:grayscale-0 gap-2 transition-all duration-500 relative`}
+                    className={`group/btn _flex grayscale_  hover:grayscale-0 gap-2 transition-all duration-500 relative`}
                   >
                     <Image
                       alt="vote"
@@ -472,10 +472,19 @@ export function Reason({
                     <Heart
                       className={`w-4 h-4 animate-fadeIn absolute ${isMushroomAnimating ? "" : "hidden"} right-[7px] top-[1px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
                     />
+                    {!isMushroomAnimating && (
+                      <Image
+                        className="animate-bounce  absolute -top-8 -right-6 scale-90 hidden group-hover/btn:block"
+                        src="/watercan3.png"
+                        alt="can"
+                        width="200"
+                        height="170"
+                      />
+                    )}
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>
-                  <p className="w-40">Support this by leaving a mushroom.</p>
+                <TooltipContent side="bottom">
+                  <p className="w-40_">Water the mushroom</p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -722,8 +731,10 @@ export function Reason({
               {/* <span className=" px-4 scale-80">Backers</span> */}
 
               <span className="flex text-sm flex-col _flex-row-reverse items-center justify-center px-2 gap-0">
-                <span className="text-4xl font-bold pb-0">{mushroomCount}</span>
-                <span className="text-lg scale-[.8] origin-bottom flex-row-reverse absolute_ bottom-[0px] whitespace-nowrap gap-2 relative flex items-center">
+                <span className="text-4xl mt-2 font-bold pb-0">
+                  {mushroomCount}
+                </span>
+                <span className="text-sm scale-[.8] origin-bottom flex-row-reverse absolute_ bottom-[0px] whitespace-nowrap gap-2 relative flex items-center">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -731,7 +742,7 @@ export function Reason({
                     height={16}
                     className="opacity-80 hidden"
                   />{" "}
-                  mushrooms
+                  blue mushrooms
                 </span>
                 {!!passionateBackers && false && (
                   <>

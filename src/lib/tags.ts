@@ -78,12 +78,12 @@ export const tagDefinitions: Record<string, any> = {
       "burger",
       "steak",
       "atmosphere",
-      "drinks",
+      // "drinks",
       "wings",
       "seafood",
       "staff",
       "wine",
-      "menu",
+      // "menu",
     ],
   },
   technology: { plural: "technology", parentTag: "place" },
@@ -103,7 +103,6 @@ export const tagDefinitions: Record<string, any> = {
     plural: "coffeehouse",
     parentTag: "place",
     tags: ["coffee", "pastries", "soup", "cannoli", "bread"],
-
   },
   // dessert: { plural: "desserts", parentTag: "place" },
   bbq: { plural: "bbq", parentTag: "place" },
@@ -129,12 +128,10 @@ export const tagDefinitions: Record<string, any> = {
   pastries: { plural: "pastries", parentTag: "coffeehouse", level: 3 },
   bread: { plural: "breads", parentTag: "coffeehouse", level: 3 },
 
-
   facility: { plural: "facilities", parentTag: "museum", level: 3 },
   artists: { plural: "artists", parentTag: "museum", level: 3 },
   exhibits: { plural: "exhibits", parentTag: "museum", level: 3 },
   feature: { plural: "features", parentTag: "museum", level: 3 },
-
 
   clutch: { plural: "clutch", parentTag: "sports", level: 3 },
   defense: { plural: "defense", parentTag: "sports", level: 3 },
@@ -176,18 +173,17 @@ export const trendingExcellenceTags = [
   "wings",
   "sports",
   "wine",
-  "seafood",
+  // "seafood",
   "cannoli",
   "pastries",
   "steak",
-  "drinks",
+  // "drinks",
   "staff",
   "feature",
   "facility",
   "artists",
   "amenities",
   "dining",
-
 ];
 
 export const getPrimaryTags = () => {
