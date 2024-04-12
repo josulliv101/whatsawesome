@@ -386,15 +386,26 @@ export function Reason({
         >
           {id && !isAnalyticsView && (
             <>
-              <Button
-                key="source"
-                className={`text-muted-foreground/50 font-normal border-muted-foreground rounded-md py-0 max-h-[30px]`}
-                variant={"ghost"}
-                size="sm"
-                asChild
-              >
-                <Link href={`#`}>source: business owner</Link>
-              </Button>
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
+                  <Button
+                    key="source"
+                    className={`text-muted-foreground/50 font-normal border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                    variant={"ghost"}
+                    size="sm"
+                    asChild
+                  >
+                    <Link href={`#`}>source: business owner</Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p className="w-80 px-4 py-3">
+                    Information panel explaining sources: business owner, blue
+                    mushroom, or user.
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+
               <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button
@@ -441,7 +452,7 @@ export function Reason({
                   rating < 10 ? rating * 10 - 2 : rating - 1
                 )}
               /> */}
-              <Tooltip open={false} delayDuration={200}>
+              <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button
                     variant={"ghost"}
@@ -493,7 +504,7 @@ export function Reason({
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p className="w-40_">Water the mushroom</p>
+                  <p className="w-40_">Leave a mushroom</p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -743,7 +754,7 @@ export function Reason({
                 <span className="text-4xl mt-2 font-bold pb-0">
                   {mushroomCount}
                 </span>
-                <span className="text-sm scale-[.8] origin-bottom flex-row-reverse absolute_ bottom-[0px] whitespace-nowrap gap-2 relative flex items-center">
+                <span className="text-lg scale-[.8] origin-bottom flex-row-reverse absolute_ bottom-[0px] whitespace-nowrap gap-2 relative flex items-center">
                   <Image
                     alt="vote"
                     src={config.logoPath}
@@ -751,7 +762,7 @@ export function Reason({
                     height={16}
                     className="opacity-80 hidden"
                   />{" "}
-                  blue mushrooms
+                  mushrooms
                 </span>
                 {!!passionateBackers && false && (
                   <>
