@@ -481,6 +481,15 @@ export function Reason({
                         height="170"
                       />
                     )}
+                    {false && (
+                      <Image
+                        className=" absolute -top-12 -left-4 scale-50 hidden group-hover/btn:block"
+                        src="/sun.png"
+                        alt="can"
+                        width="200"
+                        height="173"
+                      />
+                    )}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
