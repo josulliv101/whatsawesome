@@ -4,8 +4,8 @@ export async function fetchSearchResults(
   if (!q) {
     return [];
   }
-  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity?query=${q}&attributesToRetrieve=name&typoTolerance=false`;
-
+  // const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity?query=${q}&aroundLatLng=40.71,-74.01&attributesToRetrieve=name,tags,description,pic&typoTolerance=false`;
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity?query=${q}&insideBoundingBox=42.37399367067511,-71.04776763916017,42.36234444516898,-71.06157684326172`;
   const results = await fetch(url, {
     method: "GET",
     headers: {

@@ -166,11 +166,11 @@ export default function Header() {
         </div> */}
         <div className="absolute top-2 right-20 rel scale-95_ hidden_">
           <Image
-            src="/basket-mushrooms-2.png"
-            width="200"
-            height="170"
+            src="/basket-low.png"
+            width="400"
+            height="211"
             alt="basket"
-            className="w-[50px] h-auto"
+            className="w-[80px] h-auto"
           />
           <Badge
             variant={"default"}

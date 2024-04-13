@@ -38,6 +38,7 @@ import {
   Heart,
   MessageSquareTextIcon as MessageCircle,
   SlashIcon,
+  SendIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -382,7 +383,7 @@ export function Reason({
         </div>
 
         <div
-          className={`flex flex-row gap-2 items-center justify-center absolute bottom-2 ${photoUrl ? "right-[250px]" : "right-[20px]"}`}
+          className={`flex flex-row gap-2.5 items-center justify-center absolute bottom-1 ${photoUrl ? "right-[250px]" : "right-[20px]"}`}
         >
           {id && !isAnalyticsView && (
             <>
@@ -390,12 +391,12 @@ export function Reason({
                 <TooltipTrigger asChild>
                   <Button
                     key="source"
-                    className={`text-muted-foreground/50 font-normal border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                    className={`text-muted-foreground font-normal border-muted-foreground rounded-md py-0 max-h-[30px]_`}
                     variant={"ghost"}
                     size="sm"
                     asChild
                   >
-                    <Link href={`#`}>source: business owner</Link>
+                    <Link href={`#`}>Source: business owner</Link>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
@@ -406,6 +407,28 @@ export function Reason({
                 </TooltipContent>
               </Tooltip>
 
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"ghost"}
+                    onClick={() =>
+                      toast(
+                        <pre className="mt-0 w-[340px] rounded-md bg-slate-950 p-4">
+                          <code className="text-white">
+                            Functionality not yet implemented.
+                          </code>
+                        </pre>
+                      )
+                    }
+                    className="flex text-muted-foreground font-normal gap-4  w-12_  bg-gray-50_ origin-bottom-right scale-[1.0] transition-all duration-500 border_"
+                  >
+                    Share
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p>Share on social media</p>
+                </TooltipContent>
+              </Tooltip>
               <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button
@@ -473,16 +496,29 @@ export function Reason({
                     }
                     className={`group/btn _flex grayscale_  hover:grayscale-0 gap-2 transition-all duration-500 relative`}
                   >
-                    <Image
-                      alt="vote"
-                      src={config.logoPath}
-                      width={16}
-                      height={16}
-                      className={`${isMushroomAnimating ? "scale-150 grayscale-0 animate-mushroomLove_ opacity-100" : "grayscale opacity-75"} origin-center transition-all _duration-500`}
-                    />
-                    <Heart
-                      className={`w-4 h-4 animate-fadeIn absolute ${isMushroomAnimating ? "" : "hidden"} right-[7px] top-[1px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
-                    />
+                    <div className="relative">
+                      <Image
+                        alt="vote"
+                        src={config.logoPath}
+                        width={20}
+                        height={20}
+                        className={`${isMushroomAnimating ? "scale-125 grayscale-0 animate-mushroomLove_ opacity-100" : "grayscale opacity-60"} origin-center transition-all _duration-500`}
+                      />
+                      <Heart
+                        className={`w-4 h-4 animate-fadeIn absolute ${isMushroomAnimating ? "" : "hidden"} right-[-6px] top-[-11px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
+                      />
+                    </div>
+
+                    {/* {isMushroomAnimating ? (
+                      <span className="hidden_ relative left-1 text-xs text-muted-foreground pr-0 pl-0 capitalize _inline-block w-[40px]">
+                        revoke
+                      </span>
+                    ) : (
+                      <span className="hidden_ text-sm text-muted-foreground pr-0 pl-0 capitalize _inline-block w-[40px]">
+                        vote
+                      </span>
+                    )} */}
+
                     {false && !isMushroomAnimating && (
                       <Image
                         className="animate-bounce  absolute -top-8 -right-6 scale-90 hidden group-hover/btn:block"

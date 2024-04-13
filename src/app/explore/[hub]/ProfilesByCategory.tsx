@@ -114,7 +114,7 @@ function Row({
         {label}{" "}
         <Button variant={"ghost"} asChild>
           <Link href={url}>
-            Discover Excellence <ChevronRight className="h-4 w-4 ml-2" />
+            Areas of Excellence <ChevronRight className="h-4 w-4 ml-2" />
           </Link>
         </Button>
       </h2>
@@ -134,7 +134,7 @@ function Row({
                   backgroundSize: "cover",
                   backgroundPosition: "top",
                 }}
-                className="min-h-40 min-w-40 max-w-40 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
+                className="min-h-32 min-w-32 max-w-32 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
               ></div>
             </Link>
             <Link
@@ -172,12 +172,12 @@ function Stack({
         </Button> */}
       </h2>
       <div
-        className={`flex items-start gap-2 max-w-full overflow-auto ${isShowAll ? "flex-wrap justify-start" : ""}`}
+        className={`flex items-start gap-1 max-w-full overflow-auto ${isShowAll ? "flex-wrap justify-start" : ""}`}
       >
         {profiles.map((profile) => (
           <div
             key={profile.id}
-            className={`w-full flex items-center justify-start h-16`}
+            className={`w-full flex items-center justify-start h-12`}
           >
             <Link className={``} href={`/profile/${profile.id}`}>
               <div
@@ -187,7 +187,7 @@ function Stack({
                   backgroundSize: "cover",
                   backgroundPosition: "top",
                 }}
-                className="min-w-16 max-w-16 h-16 w-16 max-h-16 border flex items-center justify-center rounded-md  bg-muted text-center"
+                className="min-w-12 max-w-12 h-12 w-12 max-h-12 border flex items-center justify-center rounded-md  bg-muted text-center"
               ></div>
             </Link>
             <Link

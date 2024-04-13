@@ -705,3 +705,37 @@ export async function fetchTopClaimsForHub(
   //   },
   // }));
 }
+
+export async function convertTagMapToTags() {
+  const entitiesQuery = query(
+    // collectionGroup(db, "whyawesome"),
+    collection(db, "entity"),
+    // where(`name`, ">=", "a"),
+    // where(`name`, "<", "b"),
+    limit(150),
+    orderBy("latlng")
+  );
+
+  const querySnapshot = await getDocs(entitiesQuery);
+  const docs: Array<any> = [];
+  querySnapshot.forEach(async (doc) => {
+    const tags = doc.get("tags");
+    const _tags = doc.get("_tags");
+
+    if (!!_tags) {
+      return;
+    }
+
+    docs.push(doc.id);
+    const docRef = doc.ref;
+    const snapshot = await setDoc(
+      docRef,
+      {
+        _tags: tags || [],
+      },
+      { merge: true }
+    );
+  });
+
+  return docs;
+}
