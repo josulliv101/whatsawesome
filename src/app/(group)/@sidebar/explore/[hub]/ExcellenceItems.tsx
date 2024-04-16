@@ -231,7 +231,7 @@ export function SideNav({
       </div>
       <nav className="flex items-center flex-row justify-between gap-2 px-8 pt-4 pb-1">
         <h4 className="relative rounded-sm text-xl bg-muted px-4 pt-2 mt-4 pb-2 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
-          <BadgeCheckIcon className="h-6 w-6 mr-2 text-blue-500 opacity-80 hidden" />
+          <BadgeCheckIcon className="h-6 w-6 mr-2 text-blue-500 opacity-80" />
           <strong className="font-[500] text-balance_ flex-1 block whitespace-nowrap">
             Areas of Excellence
           </strong>
