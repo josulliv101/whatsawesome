@@ -39,6 +39,8 @@ import {
   MessageSquareTextIcon as MessageCircle,
   SlashIcon,
   SendIcon,
+  TagIcon,
+  BadgeCheckIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -166,7 +168,7 @@ export function Reason({
       }, 0) / totalPeople;
   const passionateBackers = Math.max(0, roundToInteger(rating / 8 - 1));
   return (
-    <Card className="group border-l-[1px]  relative w-full min-h-[222px] flex flex-col md:flex-row-reverse items-center gap-0 py-0 ">
+    <Card className="group border-l-[1px]  relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {photoUrlAside && (
         <div className="hidden shadow-sm rounded-tl-md rounded-bl-md border-0 border-gray-200 bg-gray-100_ min-w-[200px] flex_ items-center absolute -bottom-2.5 -right-0 z-[10]  rounded-tr-md rounded-br-md">
           <Image
@@ -353,26 +355,49 @@ export function Reason({
           </div>
         </div>
       }
-
-      <CardHeader className="relative z-10 flex-1 px-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
-        <div className="space-y-1">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            onClick={() =>
+              toast(
+                <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
+                  <code className="text-white">
+                    Functionality not yet implemented.
+                  </code>
+                </pre>
+              )
+            }
+            variant={"ghost"}
+            className="absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0 py-4 gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
+          >
+            <Image
+              alt="vote"
+              src={config.logoPath}
+              width={24}
+              height={24}
+              className="opacity-80"
+            />
+            <span className="text-xl mt-0 font-bold_ pb-0">
+              {mushroomCount}
+            </span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Back this item</p>
+        </TooltipContent>
+      </Tooltip>
+      <CardHeader className="relative z-10 flex-1 pl-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
+        <div className="flex flex-row-reverse items-center space-y-1 gap-12">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
 
-          <CardDescription className="text-xl -mt-4_ text-balance_ text-center_ pr-8 lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
+          <CardDescription className="bg-blue-200_ text-xl mt-8_ relative top-2 text-balance_ text-center_ pr-0 lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent className="pb-4 pt-1 ml-8">
-        <div className="flex__ hidden space-x-6 text-sm text-muted-foreground">
-          {/* <div className="flex items-center">
-            <img
-              className="h-4 w-auto  opacity-100 pr-1.5"
-              src="/cute-mushroom.png"
-              alt="whatsawesome"
-            />
-            {rating} rating
-          </div> */}
+        {/* <div className="flex__ hidden space-x-6 text-sm text-muted-foreground">
+         
           <div className="hidden flex__ items-center w-20">
             <StarIcon className="mr-1 h-3 w-3 text-yellow-500" />
             {rating} rating
@@ -380,10 +405,10 @@ export function Reason({
           <div className="w-44 whitespace-nowrap md:whitespace-normal">
             created by{latestBacker}
           </div>
-        </div>
+        </div> */}
 
         <div
-          className={`flex flex-row gap-2.5 items-center justify-center absolute bottom-1 ${photoUrl ? "right-[250px]" : "right-[20px]"}`}
+          className={`flex flex-row gap-2.5 items-center justify-center absolute bottom-1 ${false ? "right-[250px]" : "right-[20px]"}`}
         >
           {id && !isAnalyticsView && (
             <>
@@ -494,9 +519,10 @@ export function Reason({
                       //   </pre>
                       // )
                     }
-                    className={`group/btn _flex grayscale_  hover:grayscale-0 gap-2 transition-all duration-500 relative`}
+                    className={`text-muted-foreground bg-muted_ font-normal group/btn _flex grayscale_  hover:grayscale-0 gap-2 transition-all duration-500 relative`}
                   >
-                    <div className="relative">
+                    {isMushroomAnimating ? "Remove vote" : "Vote"}
+                    {/* <div className="relative">
                       <Image
                         alt="vote"
                         src={config.logoPath}
@@ -505,10 +531,9 @@ export function Reason({
                         className={`${isMushroomAnimating ? "scale-125 grayscale-0 animate-mushroomLove_ opacity-100" : "grayscale opacity-60"} origin-center transition-all _duration-500`}
                       />
                       <Heart
-                        className={`w-4 h-4 animate-fadeIn absolute ${isMushroomAnimating ? "" : "hidden"} right-[-6px] top-[-11px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
+                        className={`w-3.5 h-3.5 animate-fadeIn absolute ${isMushroomAnimating ? "" : "hidden"} right-[-5px] top-[-9px] stroke-[2.5px] text-white fill-red-500 opacity-100`}
                       />
-                    </div>
-
+                    </div> */}
                     {/* {isMushroomAnimating ? (
                       <span className="hidden_ relative left-1 text-xs text-muted-foreground pr-0 pl-0 capitalize _inline-block w-[40px]">
                         revoke
@@ -518,7 +543,6 @@ export function Reason({
                         vote
                       </span>
                     )} */}
-
                     {false && !isMushroomAnimating && (
                       <Image
                         className="animate-bounce  absolute -top-8 -right-6 scale-90 hidden group-hover/btn:block"
@@ -540,7 +564,9 @@ export function Reason({
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p className="w-40_">Leave a mushroom</p>
+                  <p className="w-40_">
+                    Voting for this item costs 1 mushroom.
+                  </p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -710,7 +736,7 @@ export function Reason({
         {!isAnalyticsView && (
           <>
             <div
-              className={`absolute hidden_ top-2 ${false ? "right-[54px]" : "left-2"} flex items-center gap-1`}
+              className={`absolute hidden_ top-2 ${false ? "right-[54px]" : "left-[236px]"} flex items-center gap-1`}
             >
               {tags
 
@@ -729,7 +755,7 @@ export function Reason({
                 .map((tag) => (
                   <Button
                     key={tag}
-                    className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                    className={`text-muted-foreground text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
                     variant={"ghost"}
                     size="sm"
                     asChild
@@ -737,14 +763,15 @@ export function Reason({
                     <Link
                       href={`?pt=${getPrimaryTagsFromTags(tags)[0]}&t3=${tag}`}
                     >
-                      #{tag}
+                      <BadgeCheckIcon className="h-5 w-5 mr-1.5 text-blue-500 opacity-80" />{" "}
+                      {tag}
                     </Link>
                   </Button>
                 ))}
               <SlashIcon className="h-4 w-4 text-muted-foreground/50" />
               <Button
                 key={"place"}
-                className={`text-muted-foreground border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                className={`text-muted-foreground text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
                 variant={"ghost"}
                 size="sm"
                 asChild
@@ -767,61 +794,9 @@ export function Reason({
         )}
         <Separator
           orientation="vertical"
-          className="h-20 absolute left-[154px] -mt-4_ top-[50%] -translate-y-1/2"
+          className="h-20 hidden absolute right-[154px] -mt-4_ top-[50%] -translate-y-1/2"
         />
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              onClick={() =>
-                toast(
-                  <pre className="mt-0 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">
-                      Functionality not yet implemented.
-                    </code>
-                  </pre>
-                )
-              }
-              variant={"ghost"}
-              className="-mt-4_ flex opacity-80 hover:opacity-80 flex-col-reverse min-w-10 items-center px-1 py-2 gap-0 w-12 transition-all duration-500 text-muted-foreground"
-            >
-              {/* <span className=" px-4 scale-80">Backers</span> */}
 
-              <span className="flex text-sm flex-col _flex-row-reverse items-center justify-center px-2 gap-0">
-                <span className="text-4xl mt-2 font-bold pb-0">
-                  {mushroomCount}
-                </span>
-                <span className="text-lg scale-[.8] origin-bottom flex-row-reverse absolute_ bottom-[0px] whitespace-nowrap gap-2 relative flex items-center">
-                  <Image
-                    alt="vote"
-                    src={config.logoPath}
-                    width={16}
-                    height={16}
-                    className="opacity-80 hidden"
-                  />{" "}
-                  mushrooms
-                </span>
-                {!!passionateBackers && false && (
-                  <>
-                    <span>/</span>
-                    <div className="flex items-center gap-1 text-md_ flex-row-reverse ">
-                      <Image
-                        alt="vote"
-                        src={config.logoPath}
-                        width={16}
-                        height={16}
-                        className="opacity-80"
-                      />
-                      <span>{passionateBackers}</span>
-                    </div>
-                  </>
-                )}
-              </span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Back this item</p>
-          </TooltipContent>
-        </Tooltip>
         {false && showLinkToProfile && (
           <Tooltip>
             <TooltipTrigger asChild>

@@ -165,6 +165,9 @@ export default function Header() {
           </Badge>
         </div> */}
         <div className="absolute top-2 right-20 rel scale-95_ hidden_">
+          <div className="hidden text-sm text-muted-foreground absolute left-0 w-[240px] -translate-x-full">
+            Leave a mushroom to vouch for a business/area of excellence.
+          </div>
           <Image
             src="/basket-low.png"
             width="400"

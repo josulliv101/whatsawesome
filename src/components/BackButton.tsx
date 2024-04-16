@@ -3,8 +3,13 @@
 import { PropsWithChildren } from "react";
 import { Button } from "./ui/button";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { CheckIcon, ChevronLeftIcon, SlashIcon } from "lucide-react";
-import { SideNav } from "@/app/@sidebar/explore/[hub]/ExcellenceItems";
+import {
+  BadgeCheckIcon,
+  CheckIcon,
+  ChevronLeftIcon,
+  SlashIcon,
+} from "lucide-react";
+import { SideNav } from "@/app/(group)/@sidebar/explore/[hub]/ExcellenceItems";
 import { getPlural } from "@/lib/tags";
 import { Separator } from "./ui/separator";
 import Link from "next/link";
@@ -17,7 +22,7 @@ export default function BackButton({ hub }: any) {
 
   if (!params.id && !paramSearch.get("pt")) {
     return (
-      <div className="relative w-full top-[32px]">
+      <div className="relative w-full top-[88px]">
         <div className="w-full relative flex items-end justify-between gap-2 pt-0 mt-0 pb-4 px-4 flex-wrap capitalize">
           <div className="w-full flex flex-col items-start gap-1">
             <div className="w-full capitalize text-lg font-medium text-muted-foreground mb-1">
@@ -25,7 +30,9 @@ export default function BackButton({ hub }: any) {
               {(params.hub as string)?.replaceAll("-", " ")}
             </div>
             <div className="capitalize text-4xl font-bold flex items-center mb-[32px]">
-              Browse Catalog
+              {/* {(params.hub as string)?.replaceAll("-", " ")} */}
+              <BadgeCheckIcon className="h-8 w-8 mr-2 text-blue-500 opacity-80 hidden" />
+              Overview
             </div>
           </div>
         </div>
@@ -49,7 +56,12 @@ export default function BackButton({ hub }: any) {
     );
   }
   return (
-    <Button variant={"link"} onClick={handleClick} size="sm" className="h-8">
+    <Button
+      variant={"link"}
+      onClick={handleClick}
+      size="sm"
+      className="h-8 relative top-2"
+    >
       <ChevronLeftIcon className="h-6 w-6" />
       Back
     </Button>

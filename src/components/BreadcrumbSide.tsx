@@ -71,20 +71,29 @@ export function BreadcrumbSideContent() {
               {/* <DropdownMenuItem asChild>
                 <Link href="/explore">All</Link>
               </DropdownMenuItem> */}
-              <DropdownMenuItem disabled asChild>
-                <Link href="/arlington-ma">Arlington, MA</Link>
+              <DropdownMenuItem asChild>
+                <Link href="/explore/arlington-ma">Arlington, MA</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/explore/bedford-ma">Bedford, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/explore/boston">Boston, MA</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
+                <Link href="/explore/burlington-ma">Burlington, MA</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/explore/cambridge-ma">Cambridge, MA</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem disabled asChild>
-                <Link href="/lexington-ma/place">Lexington, MA</Link>
+              <DropdownMenuItem asChild>
+                <Link href="/explore/lexington-ma">Lexington, MA</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem disabled asChild>
-                <Link href="/somerville-ma/place">Somerville, MA</Link>
+              <DropdownMenuItem asChild>
+                <Link href="/explore/medford-ma">Medford, MA</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/explore/somerville-ma">Somerville, MA</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

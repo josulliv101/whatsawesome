@@ -508,6 +508,7 @@ export async function updateReasonTag(
           "arlington-ma",
           "lexington-ma",
           "somerville-ma",
+          "burlington-ma",
         ].includes(tag))
   );
 
@@ -584,6 +585,7 @@ export async function fetchTopClaimsForHub(
   const topClaimsCategories = [
     ["restaurant", "burger"],
     ["restaurant", "steak"],
+    ["restaurant", "wine"],
     ["coffeehouse", "coffee"],
     ["coffeehouse", "pastries"],
     ["coffeehouse", "cannoli"],
@@ -712,7 +714,7 @@ export async function convertTagMapToTags() {
     collection(db, "entity"),
     // where(`name`, ">=", "a"),
     // where(`name`, "<", "b"),
-    limit(150),
+    limit(10),
     orderBy("latlng")
   );
 
@@ -738,4 +740,56 @@ export async function convertTagMapToTags() {
   });
 
   return docs;
+}
+
+export async function checkIfIdExists(profileId: string) {
+  const docRef = doc(db, "entity", profileId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return {
+      success: false,
+      data: { profileId, message: "Profile id taken: " + profileId },
+    };
+  }
+  return;
+}
+
+export async function createAreaOfExcellence(
+  profileId: string,
+  aoeId: string,
+  data: any = {},
+  tags: string[]
+): Promise<boolean> {
+  const parentDocRef = doc(db, "entity", profileId);
+
+  if (!aoeId) {
+    return false;
+  }
+  const docRef = doc(db, "entity", profileId, "whyawesome", aoeId);
+
+  const parentDocSnap = await getDoc(parentDocRef);
+  const parentTags = parentDocSnap.exists()
+    ? parentDocSnap.data()._tags || []
+    : [];
+
+  const parentLocation = parentDocSnap.exists()
+    ? parentDocSnap.data()._geoloc || []
+    : [];
+
+  const snapshot = await setDoc(
+    docRef,
+    {
+      ...data,
+      reason: "wip",
+      _tags: [
+        "wip",
+        ...parentTags,
+        ...(typeof tags === "string" ? (tags as string).split(",") : tags),
+      ],
+      _geoloc: parentLocation,
+    },
+    { merge: true }
+  );
+
+  return true;
 }

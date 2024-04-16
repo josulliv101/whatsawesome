@@ -39,6 +39,7 @@ import ReasonTagsFilter from "./ReasonTagsFilter";
 import Legend from "@/components/Legend";
 import SponsorRack from "@/components/SponsorRack";
 import { HeartFilledIcon } from "@radix-ui/react-icons";
+import { PresetSelector } from "@/app/(group)/@sidebar/explore/[hub]/PresetSelector";
 
 export default async function ProfilePageContent({
   className = "",
@@ -109,13 +110,14 @@ export default async function ProfilePageContent({
           <div className="relative w-full md:w-auto md:flex-initial flex bg-gray-400">
             <Image
               priority
-              src={pic}
+              src={pic || config.logoPath}
               alt={name}
               width={220}
               height={220}
               className={cn(
-                " shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px] opacity-80 rounded-md md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105  " +
-                  imgPosition
+                `shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px]  rounded-md md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105`,
+                imgPosition,
+                pic ? "opacity-80" : "p-12 grayscale opacity-40"
               )}
             />
           </div>
@@ -153,7 +155,7 @@ export default async function ProfilePageContent({
                 </div>
               </div>
             }
-            subhead={description}
+            subhead={description || "description"}
           >
             <div className="absolute top-0 right-0">
               {/* <Button variant={"outline"} className="flex gap-2">
@@ -226,6 +228,27 @@ export default async function ProfilePageContent({
           className="w-full grid grid-cols-[1fr] items-start gap-2 space-y-0 p-4 rounded-md"
           style={{ backgroundColor: "#f1f5f9" || primaryColor }}
         >
+          <div className="flex items-center justify-between gap-2 pb-1">
+            <p className="opacity-80 text-muted-foreground mt-4_ px-2 py-0 top-2_ relative">
+              Vote below by leaving a
+              <Image
+                // id={marker.id}
+                alt="vote"
+                src={config.logoPath}
+                width={15}
+                height={15}
+                className={`inline-flex ml-2 mr-1 grayscale opacity-80`}
+              />{" "}
+              on an area of excellence.
+            </p>
+            <div className="opacity-80 flex-1 w-full flex items-center justify-end">
+              <PresetSelector />
+              <Separator orientation="vertical" className="h-4 bg-gray-300" />
+              <p className="text-muted-foreground text-sm px-3">
+                showing {reasons.length} of {reasons.length} items
+              </p>
+            </div>
+          </div>
           {reasons.map((reason, i) => (
             <>
               {/* {i === 5 && (
