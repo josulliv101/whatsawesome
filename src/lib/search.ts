@@ -1,3 +1,5 @@
+import { fetchProfile } from "./firebase";
+
 export async function fetchSearchResults(
   q: string
 ): Promise<Array<{ name: string; id: string }>> {
@@ -99,4 +101,91 @@ export async function searchProfilesByMapBounds(
   }).then((resp) => resp.json());
   console.log("results", results);
   return [results];
+}
+
+export async function searchTopAoe(
+  hub: string,
+  tags: string[] = [],
+  hitsPerCategory: number = 10
+): Promise<Array<any>> {
+  const dedup = new Set([hub, ...tags]);
+  const query = [...dedup].join(",");
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating?&attributesToHighlight=&hitsPerPage=${hitsPerCategory}&query=${query}`;
+  return await fetch(url, {
+    method: "GET",
+    headers: {
+      "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
+      "X-Algolia-Application-Id": "1P2U1C41BE",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => ({
+      ...data,
+      hits: data.hits.filter((item: any) => !!item.reason),
+    }))
+    .catch((err) => console.error(err));
+}
+
+export async function searchTopAoeByCategory(
+  hub: string,
+  categories: Array<any> = [
+    ["restaurant", "burger"],
+    ["museum", "artists"],
+    ["coffeehouse", "pastries"],
+    ["hotel", "dining"],
+  ],
+  hitsPerCategory: number = 20
+): Promise<Array<any>> {
+  const promises = categories.map((category) =>
+    searchTopAoe(
+      hub,
+      typeof category === "string" ? [category] : category || [],
+      hitsPerCategory
+    )
+  );
+  const data = await Promise.all(promises);
+  const parentIds = data.reduce((acc: any, category: any) => {
+    const map = category?.hits?.reduce(
+      (acc2: any, item: any) => ({
+        ...acc2,
+        [getParentIdFromPath(item?.path)]: true,
+      }),
+      {}
+    );
+    return {
+      ...acc,
+      ...map,
+    };
+  }, {});
+  const parentProfilePromises = Object.keys(parentIds).map(async (parentId) => {
+    return fetchProfile(parentId);
+  });
+  const parentData = await Promise.all(parentProfilePromises);
+  const parentMap = parentData.reduce((acc, profile) => {
+    return { ...acc, [profile.id]: profile };
+  }, {});
+  console.log("parentMap", parentMap);
+  return data.map((category) => {
+    return {
+      ...category,
+      hits: (category.hits as Array<any>).map((hit: any) => {
+        const parentId = getParentIdFromPath(hit?.path);
+        const profile = parentMap[parentId] as any;
+        return {
+          ...hit,
+          parentId,
+          parent: {
+            id: parentId,
+            name: profile.name,
+            parentPhotoUrl: profile.pic,
+            latlng: profile._geoloc,
+          },
+        };
+      }),
+    };
+  });
+}
+
+function getParentIdFromPath(path = "") {
+  return path?.split("/")?.[1];
 }

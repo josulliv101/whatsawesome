@@ -710,36 +710,63 @@ export async function fetchTopClaimsForHub(
 
 export async function convertTagMapToTags() {
   const entitiesQuery = query(
-    // collectionGroup(db, "whyawesome"),
-    collection(db, "entity"),
-    // where(`name`, ">=", "a"),
+    collectionGroup(db, "whyawesome"),
+    // collection(db, "entity"),
+    // where(`_tags`, "array-contains", "museum"),
     // where(`name`, "<", "b"),
-    limit(10),
-    orderBy("latlng")
+    limit(1100)
+    // orderBy("latlng")
   );
 
   const querySnapshot = await getDocs(entitiesQuery);
   const docs: Array<any> = [];
-  querySnapshot.forEach(async (doc) => {
-    const tags = doc.get("tags");
-    const _tags = doc.get("_tags");
+  const items: Array<any> = [];
+  querySnapshot.forEach(async (mydoc) => {
+    const _tags = mydoc.get("_tags");
+    const _geoloc = mydoc.get("_geoloc");
 
-    if (!!_tags) {
+    if (_geoloc || !_tags.includes("museum")) {
       return;
     }
 
-    docs.push(doc.id);
-    const docRef = doc.ref;
+    return items.push([mydoc.ref.parent.parent?.id, mydoc.id]);
+    const parent = mydoc.ref.parent.parent;
+    const docParentRef = doc(db, "entity", parent?.id as string);
+
+    const docParentSnap = await getDoc(docParentRef);
+    const parentLatlng = docParentSnap.get("_geoloc");
+
+    console.log("parentLatlng", parentLatlng);
+    // items.push(parent?.id as string);
+    // const docRef = doc(db, "entity", parent?.id as string);
+    // const docParentSnap = await getDoc(docRef);
+    // const latlng = docParentSnap.get("_geoloc");
+    // // parentId const parentData = parentId.;
+    // console.log("docParentSnap.data()", docParentSnap.id, latlng);
+
+    // if (!latlng) {
+    //   return;
+    // }
+    docs.push(`${parent?.id as string} / ${mydoc.id}`);
+
     const snapshot = await setDoc(
-      docRef,
+      mydoc.ref,
       {
-        _tags: tags || [],
+        _geoloc: parentLatlng,
       },
       { merge: true }
     );
   });
 
-  return docs;
+  const p1s = await Promise.all(
+    items.map(async (item) => {
+      const docRef = doc(db, "entity", item[0] as string);
+      const docParentSnap = await getDoc(docRef);
+      return docParentSnap.data();
+    })
+  );
+
+  return p1s;
 }
 
 export async function checkIfIdExists(profileId: string) {

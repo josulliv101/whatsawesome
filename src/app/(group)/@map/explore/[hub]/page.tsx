@@ -20,6 +20,7 @@ export default async function Page({
   params: any;
   searchParams: any;
 }) {
+  // return null;
   const query = [hub, pt, st, t3].filter((tag) => !!tag) as string[];
   const profilesByCategory = bounds
     ? await searchProfilesByMapBounds(bounds, 10)

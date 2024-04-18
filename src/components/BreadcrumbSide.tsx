@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Slash } from "lucide-react";
+import { CheckSquare, ChevronDown, Slash } from "lucide-react";
 
 import {
   Breadcrumb,
@@ -44,7 +44,7 @@ export function BreadcrumbSideContent() {
     }
   }, [hub, pt]);
   return (
-    <Breadcrumb className="px-4 py-1.5 border-r font-semibold flex items-center justify-between w-full">
+    <Breadcrumb className="px-4 py-1.5 h-10 border-r font-semibold flex items-center justify-between w-full">
       <BreadcrumbList>
         {/* <BreadcrumbItem className="capitalize">
           <BreadcrumbPage>Discover Excellence</BreadcrumbPage>
@@ -170,9 +170,7 @@ export function BreadcrumbSideContent() {
           </>
         )} */}
       </BreadcrumbList>
-      <p className="text-muted-foreground w-[240px] mb-0 -mr-2">
-        <CommandMenu />
-      </p>
+      <div className="flex items-center gap-8"></div>
     </Breadcrumb>
   );
 }

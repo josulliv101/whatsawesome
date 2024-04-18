@@ -39,8 +39,9 @@ export default async function ProfilesByCategory({
   );
 
   // const profile = await fetchProfile(hub);
-  const profilesByTag = await fetchHubProfilesForAllTags(hub, pt);
+  // const profilesByTag = await fetchHubProfilesForAllTags(hub, pt);
   console.log("profilesByCategory..", profilesByCategory);
+  // return JSON.stringify(profilesByCategory);
   return (
     <>
       {isStacked ? null : <br />}

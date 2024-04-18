@@ -33,7 +33,14 @@ import { Separator } from "@/components/ui/separator";
 import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
 import AsideBlurb from "./explore/[hub]/AsideBlurb";
-import { BadgeCheckIcon, VerifiedIcon } from "lucide-react";
+import {
+  BadgeCheckIcon,
+  CheckSquare,
+  SquareIcon,
+  VerifiedIcon,
+} from "lucide-react";
+import { CheckboxIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -70,13 +77,23 @@ export default function RootLayout({
               <div className="grid md:grid-cols-12 gap-0">
                 <main className="relative col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
                   <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px] bg-gray-100/90">
-                    <aside className="bg-gray-200 p-8 w-[30vw] border-r border-gray-300 flex flex-col items-start justify-between">
+                    <aside className="bg-gray-200 px-8 pt-8 pb-4 w-[30vw] border-r border-gray-300 flex flex-col items-start justify-between">
                       <div className="bg-gray-300_ py-3_ _px-5">
                         <Suspense>
                           <AsideBlurb />
                         </Suspense>
                       </div>
-                      <MapAside />
+                      <div>
+                        <MapAside />
+                        <Button
+                          size="sm"
+                          variant={"ghost"}
+                          className="flex mt-20 font-normal items-center gap-2 text-muted-foreground_"
+                        >
+                          <SquareIcon className="h-4 w-4" /> Limit search
+                          results to map bounds.
+                        </Button>
+                      </div>
                     </aside>
 
                     <SmallMap>{map}</SmallMap>

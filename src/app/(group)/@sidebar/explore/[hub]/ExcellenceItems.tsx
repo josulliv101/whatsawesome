@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { Fragment, PropsWithChildren } from "react";
 import ReasonTagsFilter from "@/app__/profile/[...id]/ReasonTagsFilter";
+import { searchTopAoeByCategory } from "@/lib/search";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -65,19 +66,33 @@ export default async function ExcellenceItems({
   isStacked?: boolean;
   isGrid?: boolean;
 }) {
-  const profile = await fetchProfile(hub);
-  const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
+  // const profile = await fetchProfile(hub);
 
-  const topClaims = await fetchTopClaimsForHub(hub, [pt], [st], [t3]);
+  const categories = await searchTopAoeByCategory(hub);
+
+  const topClaims = categories.map((category) => {
+    return {
+      labels: "",
+      tags: category.query?.split(","),
+      results: category.hits,
+    };
+  });
+  const topAoe = await searchTopAoeByCategory(hub, [hub]);
+
+  console.log("topAoe", topAoe);
+  // return null;
+  // const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
+
+  // const topClaims = await fetchTopClaimsForHub(hub, [pt], [st], [t3]);
   const items = tagDefinitions[st]?.tags || tagDefinitions[pt]?.tags || [];
-  const markers = data
-    .map((datum) => ({ latlng: datum.parent.latlng }))
+  const markers = topAoe.hits
+    ?.map((datum) => ({ latlng: datum.parent.latlng }))
     .filter((m) => m.latlng?.lat && m.latlng?.lng);
   console.log("markers", markers);
 
   const Component = isStacked ? StackedReason : Reason;
-  const dataToUse = !isStacked ? data : topClaims;
-  console.log("data", data);
+  const dataToUse = !isStacked ? topAoe.hits : topClaims;
+  // console.log("data", topAoe.hits);
   return (
     <>
       {!isStacked && (
@@ -116,7 +131,7 @@ export default async function ExcellenceItems({
         )}
         {isStacked &&
           dataToUse.map((item: any, index: number) => {
-            const itemsToUse = isStacked ? item.results : data;
+            const itemsToUse = isStacked ? item.results : topAoe.hits;
             return (
               <div key={index} className="col-span-6">
                 {isStacked && (
@@ -139,15 +154,21 @@ export default async function ExcellenceItems({
                   </div>
                 )}
                 <div>
-                  {itemsToUse.map((result: any) => {
-                    return (
-                      <>
-                        <div key={result.name} className="mt-2 last:mb-8">
-                          <ExcellenceItem item={result} Component={Component} />
-                        </div>
-                      </>
-                    );
-                  })}
+                  {itemsToUse
+                    .filter((item: any) => !!item.reason)
+                    .slice(0, 2)
+                    .map((result: any) => {
+                      return (
+                        <>
+                          <div key={result.name} className="mt-2 last:mb-8">
+                            <ExcellenceItem
+                              item={result}
+                              Component={Component}
+                            />
+                          </div>
+                        </>
+                      );
+                    })}
                 </div>
                 {isStacked && (
                   <>
@@ -423,13 +444,13 @@ function ExcellenceItem({ item, Component }: any) {
           name={item.parent?.name}
           profileId={item.parentId}
           rating={Math.max(2, roundToInteger(item.rating * 10.34))}
-          tags={item.tags}
+          tags={item._tags}
           photoUrlAside={
-            item.photoUrl && !item.tags.includes("person")
-              ? item.parent.parentPhotoUrl
+            item.photoUrl && !item._tags?.includes("person")
+              ? item.parent?.parentPhotoUrl
               : undefined
           }
-          photoUrl={item.photoUrl || item.parent.parentPhotoUrl}
+          photoUrl={item.photoUrl || item.parent?.parentPhotoUrl}
           id={item.id}
           isForceRatingToShow
           // latestBacker={backers[index % 10]}
@@ -439,7 +460,7 @@ function ExcellenceItem({ item, Component }: any) {
           className="flex_ hidden items-start gap-4 mb-4 mt-4 px-0 flex-1"
         >
           <Image
-            src={item.photoUrl || item.parent.parentPhotoUrl}
+            src={item.photoUrl || item.parent?.parentPhotoUrl}
             width={220}
             height={220}
             alt={item.parent?.name}
@@ -447,7 +468,7 @@ function ExcellenceItem({ item, Component }: any) {
           />
           <div key={item.id} className="relative py-2">
             <strong>{item.parent?.name}</strong>{" "}
-            {getPrimaryTagsFromTags(item.tags).map((tag) => (
+            {getPrimaryTagsFromTags(item._tags).map((tag) => (
               <Badge
                 key={tag}
                 variant={
