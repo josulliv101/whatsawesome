@@ -68,7 +68,7 @@ export const profileFormSchema = z.object({
     }),
   description: z.string().max(500).min(4),
   pic: z.string().max(200).min(0),
-  tags: z.array(z.string()).transform((val, ctx) => {
+  _tags: z.array(z.string()).transform((val, ctx) => {
     console.log("transform", val, ctx);
     const map = {} as Record<string, boolean> | Record<string, never>;
 
@@ -85,7 +85,7 @@ export const profileFormSchema = z.object({
       tagMap: z.record(z.boolean()).optional(),
     })
   ),
-  latlng: latlngSchema
+  _geoloc: latlngSchema
     .nullable()
     .optional()
     .transform((val, ctx) => {
@@ -108,9 +108,9 @@ const defaultValues: Partial<ProfileFormValues> = {
   description: "",
   oinks: 0,
   rating: 0,
-  tags: [] as any, // Record<TagName, boolean>,
+  _tags: [] as any, // Record<TagName, boolean>,
   reasons: [],
-  latlng: null,
+  _geoloc: null,
 };
 
 export function ProfileForm({ addProfile, profile }: any) {
@@ -130,7 +130,7 @@ export function ProfileForm({ addProfile, profile }: any) {
   });
 
   const { replace } = useFieldArray({
-    name: "tags" as never, // TODO fix typing
+    name: "_tags" as never, // TODO fix typing
     control: form.control,
     // keyName: "value",
   });
@@ -203,13 +203,13 @@ export function ProfileForm({ addProfile, profile }: any) {
 
           <FormField
             control={form.control}
-            name="latlng"
+            name="_geoloc"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <GoogleMap
-                    latlng={form.getValues().latlng || { lat: 0, lng: 0 }}
+                    latlng={form.getValues()._geoloc || { lat: 0, lng: 0 }}
                     onChange={form.setValue}
                   />
                 </FormControl>
@@ -271,7 +271,7 @@ export function ProfileForm({ addProfile, profile }: any) {
           />
           <FormField
             control={form.control}
-            name="tags"
+            name="_tags"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tags</FormLabel>

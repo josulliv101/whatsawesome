@@ -50,7 +50,7 @@ export default async function Page({
       const items =
         category?.profiles?.map((hit: any) => {
           return {
-            latlng: hit._geoloc,
+            _geoloc: hit._geoloc,
             id: hit.name,
             profileName: hit.name,
           };
@@ -69,7 +69,7 @@ export default async function Page({
         <AdvancedMarker
           key={marker.id}
           // ref={isActiveMarker ? markerRef : null}
-          position={marker.latlng}
+          position={marker._geoloc}
           title={marker.profileName}
           // onClick={() => console.log(profile)}
         >

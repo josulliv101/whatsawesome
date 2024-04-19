@@ -14,11 +14,10 @@ export default async function Page({
   params: any;
   searchParams: any;
 }) {
-  return null;
   const profile = await fetchProfile(id);
   // const data = await fetchClaimsForHub(hub, [pt], [st]);
   const items = tagDefinitions[pt]?.tags || [];
-  const markers = [profile].filter((m) => m.latlng?.lat && m.latlng?.lng);
+  const markers = [profile].filter((m) => m._geoloc?.lat && m._geoloc?.lng);
   console.log("markers profile [id]", markers);
   const size = 24;
 
@@ -29,7 +28,7 @@ export default async function Page({
         <AdvancedMarker
           key={marker.id}
           // ref={isActiveMarker ? markerRef : null}
-          position={marker.latlng}
+          position={marker._geoloc}
           title={"AdvancedMarker with custom html content."}
           // onClick={handleMarkerClick}
         >

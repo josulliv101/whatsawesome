@@ -119,10 +119,7 @@ export async function searchTopAoe(
     },
   })
     .then((response) => response.json())
-    .then((data) => ({
-      ...data,
-      hits: data.hits.filter((item: any) => !!item.reason),
-    }))
+
     .catch((err) => console.error(err));
 }
 
@@ -130,9 +127,9 @@ export async function searchTopAoeByCategory(
   hub: string,
   categories: Array<any> = [
     ["restaurant", "burger"],
-    ["museum", "artists"],
     ["coffeehouse", "pastries"],
-    ["hotel", "dining"],
+    ["restaurant", "steak"],
+    ["coffeehouse", "coffee"],
   ],
   hitsPerCategory: number = 20
 ): Promise<Array<any>> {
@@ -164,7 +161,7 @@ export async function searchTopAoeByCategory(
   const parentMap = parentData.reduce((acc, profile) => {
     return { ...acc, [profile.id]: profile };
   }, {});
-  console.log("parentMap", parentMap);
+
   return data.map((category) => {
     return {
       ...category,

@@ -30,7 +30,7 @@ export default function Foobar({
 
     if (bounds) {
       markers.forEach((marker) =>
-        bounds.extend(new coreLib.LatLng(marker.latlng))
+        bounds.extend(new coreLib.LatLng(marker._geoloc))
       );
     }
     if (markers.length === 1) {

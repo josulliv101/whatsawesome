@@ -5,7 +5,7 @@ import path from "path";
 import mime from "mime";
 import { fileTypeFromStream, fileTypeFromBuffer } from "file-type";
 import nodeFetch from "node-fetch";
-import { addProfile, checkIfIdExists } from "@/lib/firebase";
+import { addProfile, checkIfIdExists, updateProfilePic } from "@/lib/firebase";
 
 export const saveImageToLocal = async (url: string, imageName: string) => {
   console.log("hi!", imageName, url);
@@ -54,5 +54,15 @@ export const confirmNewEntityData = async (data: any) => {
   } catch (error) {
     console.log("error", error);
     return { success: false, data: { message: "Error saving profile" } };
+  }
+};
+
+export const updatePic = async (id: string, pic: string) => {
+  try {
+    await updateProfilePic(id, pic);
+    return { success: true, data: [] };
+  } catch (error) {
+    console.log("error", error);
+    return { success: false, data: { message: "Error saving profile pic" } };
   }
 };

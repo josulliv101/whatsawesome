@@ -69,7 +69,7 @@ export default async function ExcellenceItems({
   // const profile = await fetchProfile(hub);
 
   const categories = await searchTopAoeByCategory(hub);
-
+  console.log("my cats", categories);
   const topClaims = categories.map((category) => {
     return {
       labels: "",
@@ -91,7 +91,7 @@ export default async function ExcellenceItems({
   console.log("markers", markers);
 
   const Component = isStacked ? StackedReason : Reason;
-  const dataToUse = !isStacked ? topAoe.hits : topClaims;
+  const dataToUse = !isStacked ? topAoe : topClaims;
   // console.log("data", topAoe.hits);
   return (
     <>
@@ -112,12 +112,12 @@ export default async function ExcellenceItems({
         </h2>
       )}
       <div
-        className={`px-8 pb-5  sticky__ top-[120px] overflow-auto ${isGrid ? "grid md:grid-cols-12 gap-x-16 gap-y-8" : ""}`}
+        className={`px-8 pb-5  sticky__ top-[120px] overflow-auto ${isGrid ? "grid md:grid-cols-12 gap-x-8 gap-y-8" : ""}`}
       >
         {!isStacked && (
           <>
             <div>
-              {dataToUse.map((result: any) => {
+              {dataToUse?.map((result: any) => {
                 return (
                   <>
                     <div key={result.name} className="last:mb-8">
@@ -130,14 +130,29 @@ export default async function ExcellenceItems({
           </>
         )}
         {isStacked &&
-          dataToUse.map((item: any, index: number) => {
+          dataToUse?.map((item: any, index: number) => {
             const itemsToUse = isStacked ? item.results : topAoe.hits;
             return (
               <div key={index} className="col-span-6">
                 {isStacked && (
-                  <div className="flex capitalize_ items-center gap-2 text-xl font-semibold text-muted-foreground mt-2 mb-5 ">
+                  <div className="relative bg-gray-100 px-4 py-4 flex capitalize_ items-center gap-2 text-sm font-semibold text-muted-foreground mt-2 mb-5 ">
                     {/* <span className="capitalize">{hub}</span>
                     <SlashIcon className="h-4 w-4 mx-1" /> */}
+                    <Button
+                      className="absolute right-2  capitalize_ text-sm"
+                      size="sm"
+                      variant={"ghost"}
+                      asChild
+                    >
+                      <Link
+                        className=" capitalize_"
+                        href={`/explore/${hub}?pt=${getPrimaryTagsFromTags(item.tags)[0]}&t3=${getLevel3TagsFromTags(item.tags)[0]}`}
+                      >
+                        {/* {hub} {getLevel3TagsFromTags(item.tags)[0]} Roundup */}
+                        view all
+                        <ChevronRight className="h-4 w-4 ml-2" />
+                      </Link>
+                    </Button>
                     {item.tags.map((tag: string, index: number) => (
                       <>
                         <span className="flex items-center gap-0">
@@ -170,7 +185,7 @@ export default async function ExcellenceItems({
                       );
                     })}
                 </div>
-                {isStacked && (
+                {false && isStacked && (
                   <>
                     <div className="flex justify-end -mt-8">
                       <Button
@@ -354,46 +369,32 @@ function StackedReason({
   return (
     <>
       <div className="py-2">
-        <div className="flex items-start gap-4 relative">
-          {photoUrl && (
-            <Image
-              width="120"
-              height="120"
-              className="w-[120px] h-[120px] min-w-[120px] object-cover rounded-md"
-              src={photoUrl}
-              alt={name}
-            />
-          )}
-          <div className="relative">
-            <div className="flex items-center justify-between pb-2">
-              <div className="font-semibold">
-                <Link href={`/profile/${profileId}`}>{name}</Link>
-              </div>
-              <span className="text-sm bg-muted_ inline-flex gap-1.5 border-1 border-gray-500 rounded-sm text-muted-foreground font-semibold px-2 py-1 items-center">
-                <Image
-                  // id={marker.id}
-                  alt="vote"
-                  src={config.logoPath}
-                  width={16}
-                  height={16}
-                  className={``}
-                />
-                {rating}
-              </span>
-              <div className="hidden _flex items-center justify-start font-semibold gap-4">
-                {getPrimaryTagsFromTags(tags).map((tag) => (
-                  <Badge key={tag} variant={"outline"}>
-                    {tag}
-                  </Badge>
-                ))}
-                {getLevel3TagsFromTags(tags).map((tag) => (
-                  <Badge key={tag} variant={"default"}>
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
+        <div className="flex items-start gap-8 relative">
+          <div>
+            <div className="absolute bottom-2 left-2 z-50 text-sm bg-muted_ inline-flex gap-1.5 bg-white border-1 border-gray-500 rounded-sm text-muted-foreground font-semibold px-2 py-1 items-center">
+              <Image
+                // id={marker.id}
+                alt="vote"
+                src={config.logoPath}
+                width={16}
+                height={16}
+                className={``}
+              />
+              {rating}
             </div>
-            <div className="pr-0 pt-2">{description}</div>
+            {photoUrl && (
+              <Image
+                width="220"
+                height="220"
+                className="w-[220px] h-[220px] min-w-[220px] object-cover rounded-md"
+                src={photoUrl}
+                alt={name}
+              />
+            )}
+          </div>
+
+          <div className="relative flex flex-col justify-between h-full">
+            <div className="pr-0 pt-2 text-md">{description}</div>
 
             <div className="flex items-center justify-between">
               <Button
@@ -426,6 +427,40 @@ function StackedReason({
                   <ChevronRight className="h-4 w-4 ml-2" />
                 </Link>
               </Button> */}
+            </div>
+          </div>
+          <div className="flex items-center justify-between pb-0 absolute bottom-0 right-0">
+            <div
+              className={`border rounded-md pl-4 flex items-center gap-4 font-semibold min-h-[48px] ${photoUrlAside ? "" : "pr-4"}`}
+            >
+              <Link
+                className="text-balance max-w-[180px]"
+                href={`/profile/${profileId}`}
+              >
+                {name}
+              </Link>
+              {photoUrlAside && (
+                <Image
+                  src={photoUrlAside}
+                  width={48}
+                  height={48}
+                  alt={name}
+                  className="border h-[48px] w-[48px] object-cover min-w-[48px] rounded-md"
+                />
+              )}
+            </div>
+
+            <div className="hidden _flex items-center justify-start font-semibold gap-4">
+              {getPrimaryTagsFromTags(tags).map((tag) => (
+                <Badge key={tag} variant={"outline"}>
+                  {tag}
+                </Badge>
+              ))}
+              {getLevel3TagsFromTags(tags).map((tag) => (
+                <Badge key={tag} variant={"default"}>
+                  {tag}
+                </Badge>
+              ))}
             </div>
           </div>
         </div>

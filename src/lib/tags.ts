@@ -191,11 +191,13 @@ export const getPrimaryTags = () => {
 };
 
 export const getPrimaryTagsFromTags = (tags: Array<string>) => {
-  return tags.filter(
-    (tag) =>
-      tagDefinitions.place.children.includes(tag) ||
-      tagDefinitions.person.children.includes(tag)
-  );
+  return tags
+    ? tags.filter(
+        (tag) =>
+          tagDefinitions.place.children.includes(tag) ||
+          tagDefinitions.person.children.includes(tag)
+      )
+    : [];
 };
 
 export const getLevel3TagsFromTags = (tags: Array<string>) => {

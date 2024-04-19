@@ -41,6 +41,7 @@ import {
 } from "lucide-react";
 import { CheckboxIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -113,16 +114,20 @@ export default function RootLayout({
                         <TabsList className="">
                           <TabsTrigger
                             value="all"
-                            className="aria-selected:bg-white"
+                            className="aria-selected:bg-white h-12"
+                            asChild
                           >
-                            <BadgeCheckIcon className="h-4 w-4 mr-1.5 text-blue-500 opacity-80 " />{" "}
-                            Areas of Excellence
+                            <Link href="?">
+                              <BadgeCheckIcon className="h-4 w-4 mr-1.5 text-blue-500 opacity-80 " />{" "}
+                              Areas of Excellence
+                            </Link>
                           </TabsTrigger>
                           <TabsTrigger
                             value="unread"
-                            className="aria-selected:bg-white"
+                            className="aria-selected:bg-white h-12"
+                            asChild
                           >
-                            Catalog of Profiles
+                            <Link href="?catalog=true">Browse Profiles</Link>
                           </TabsTrigger>
                         </TabsList>
                       </div>

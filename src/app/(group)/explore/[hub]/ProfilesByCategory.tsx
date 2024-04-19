@@ -66,6 +66,7 @@ export default async function ProfilesByCategory({
             )}
           </div>
         ))} */}
+        {/* {JSON.stringify(profilesByCategory)} */}
         {profilesByCategory
           .filter(({ profiles, tags, label }) => !!profiles?.length)
           .map(({ profiles, tags, label }: any) => {
@@ -152,7 +153,6 @@ function Row({
   url: string;
   tag: string;
 }) {
-  return null;
   return (
     <div className="mb-0">
       <h2 className="font-semibold text-lg mb-4 capitalize flex items-center justify-between">

@@ -11,6 +11,7 @@ import PlaceDetails from "./PlaceDetails";
 import { checkIfIdExists } from "@/lib/firebase";
 import { stringToId } from "./stringToId";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 // import { Button } from "@/components/ui/button";
 
@@ -66,7 +67,14 @@ export default async function Page({ searchParams }: any) {
                     {place.formattedAddress}
                   </span>
                   {idCheckMap[stringToId(place.displayName?.text)] ===
-                    false && <Badge variant={"destructive"}>id exists</Badge>}
+                    false && (
+                    <Link
+                      target="_blank"
+                      href={`/profile/${stringToId(place.displayName?.text)}`}
+                    >
+                      id exists
+                    </Link>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent>

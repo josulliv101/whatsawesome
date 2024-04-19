@@ -61,7 +61,8 @@ export default async function ProfilePageContent({
     name,
     pic,
     oinks,
-    tags,
+    _tags,
+    tags = _tags,
     reasons,
     reasonsUser,
     rating = 75,
@@ -270,9 +271,9 @@ export default async function ProfilePageContent({
                   userRating={
                     reason.id ? userProfileRatings?.[reason.id] : undefined
                   }
-                  latlng={reason.latlng}
+                  latlng={reason._geolat}
                   ratings={reason.ratings}
-                  tags={reason.tags || []}
+                  tags={reason._tags || []}
                   isForceRatingToShow
                   isEditable
                   showLinkToProfile={false}

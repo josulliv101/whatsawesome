@@ -37,7 +37,10 @@ export default async function Page({
   // );
   return (
     <>
-      {hub && !pt && !st && !t3 && (
+      {catalog && (
+        <ProfilesByCategory hub={hub} pt={pt} st={st} t3={t3} catalog={""} />
+      )}
+      {!catalog && hub && !pt && !st && !t3 && (
         <div className="mt-[60px]">
           <ExcellenceItems hub={hub} pt={pt} st={st} t3={t3} isStacked isGrid />
           {/* <br />
@@ -55,7 +58,9 @@ export default async function Page({
           </div> */}
         </div>
       )}
-      {hub && pt && <ExcellenceItems hub={hub} pt={pt} st={st} t3={t3} />}
+      {!catalog && hub && pt && (
+        <ExcellenceItems hub={hub} pt={pt} st={st} t3={t3} />
+      )}
     </>
   );
 }

@@ -807,7 +807,7 @@ export async function createAreaOfExcellence(
     docRef,
     {
       ...data,
-      reason: "wip",
+      // reason: "wip",
       _tags: [
         "wip",
         ...parentTags,
@@ -819,4 +819,10 @@ export async function createAreaOfExcellence(
   );
 
   return true;
+}
+
+export async function updateProfilePic(id: string, pic: string) {
+  const docRef = doc(db, "entity", id);
+
+  await setDoc(docRef, { pic }, { merge: true });
 }

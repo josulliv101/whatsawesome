@@ -11,6 +11,7 @@ export default function MyImage({
   imageId,
   tags,
   location,
+  profileName,
 }: any) {
   const url = `https://places.googleapis.com/v1/${name}/media?key=AIzaSyB5vkllZzrzoS4TgKD-wOw5XC6m4gGW3xw&max_width_px=400`;
 
@@ -26,6 +27,7 @@ export default function MyImage({
           ? "/" + updatedImageName?.split("/")?.[1]?.replace("public", "/")
           : "",
         rating: formData.rating || 1,
+        reason: formData.reason || "wip",
       },
       formData.tags || []
     );
@@ -34,7 +36,7 @@ export default function MyImage({
       isSuccess,
       profileId,
       imageId,
-      {},
+      formData.reason || "no reason",
       formData.tags || []
     );
   };
@@ -52,6 +54,7 @@ export default function MyImage({
           photoUrl={imageId}
           tags={tags}
           location={location}
+          profileName={profileName}
         />
       </div>
     </div>

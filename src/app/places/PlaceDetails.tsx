@@ -4,7 +4,12 @@ import { nanoid } from "nanoid";
 import MyImage from "./Image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { confirmNewEntityData, createEntityFromPlace } from "./actions";
+import {
+  confirmNewEntityData,
+  createEntityFromPlace,
+  saveImageToLocal,
+  updatePic,
+} from "./actions";
 import { toast } from "sonner";
 import { stringToId } from "./stringToId";
 import { Slice } from "lucide-react";
@@ -95,16 +100,34 @@ export default function PlaceDetails({ tags, ...props }: any) {
                   tags={tags}
                   location={json._geoloc}
                   profileId={entityId}
+                  profileName={props.displayName?.text}
                 />
                 {photo.authorAttributions?.map((author: any) => {
+                  const imgUri = `https:${author.photoUri?.replace("=s100-", "=s300-")}`;
                   return (
-                    <img
-                      key={author.photoUri}
-                      src={`https:${author.photoUri}`}
-                      width={100}
-                      height={100}
-                      referrerPolicy="no-referrer"
-                    />
+                    <Button
+                      key={imgUri}
+                      className="min-h-24 w-24"
+                      onClick={async () => {
+                        const updatedImageName = await saveImageToLocal(
+                          imgUri,
+                          `${id}-logo`
+                        );
+                        await updatePic(
+                          id,
+                          (updatedImageName as string).replace("public", "")
+                        );
+                        console.log("logo", id, updatedImageName);
+                      }}
+                    >
+                      <img
+                        key={author.photoUri}
+                        src={imgUri}
+                        width={100}
+                        height={100}
+                        referrerPolicy="no-referrer"
+                      />
+                    </Button>
                   );
                 })}
               </div>

@@ -12,13 +12,14 @@ export async function GET(request: NextRequest, response: NextResponse) {
   }
   const { searchParams } = new URL(request.url);
   const name = searchParams.get("name");
-
+  const tag = searchParams.get("tag") || "";
+  const totalReasons = Number(searchParams.get("totalReasons")) || 5;
   if (!name || typeof name !== "string") {
     throw new Error(`Issue with name param: ${name}`);
   }
   console.log("v2", name);
   try {
-    const data = await inquireWhyAwesome(name);
+    const data = await inquireWhyAwesome(name, totalReasons, tag);
     console.log("returned data", name, data);
     return NextResponse.json({ success: true, name, data });
   } catch (error) {
@@ -27,12 +28,19 @@ export async function GET(request: NextRequest, response: NextResponse) {
   }
 }
 
-async function inquireWhyAwesome(name: string) {
+async function inquireWhyAwesome(
+  name: string,
+  totalReasons: number = 5,
+  tag?: string
+) {
+  const prompt = tag
+    ? `Give me ${totalReasons} reasons why the ${tag} at ${name} is awesome. Each reason should be around 144 characters long. Please format the results in json format. The results should be an array. Do not include any hashtags in the results. If this is a person, do not include the person's name in the result, just use a pronoun. Do not use the word awesome in the response.`
+    : `Give me ${totalReasons} reasons why ${name} is awesome. Each reason should be around 144 characters long. Please format the results in json format. The results should be an array. Do not include any hashtags in the results. If this is a person, do not include the person's name in the result, just use a pronoun. Do not use the word awesome in the response.`;
   const completion = await openai.chat.completions.create({
     messages: [
       {
         role: "system",
-        content: `Give me 5 reasons why ${name} is awesome. Each reason should be around 144 characters long. Please format the results in json format. The results should be an array. Do not include any hashtags in the results. If this is a person, do not include the person's name in the result, just use a pronoun.`,
+        content: prompt,
       },
     ],
     model: "gpt-3.5-turbo",

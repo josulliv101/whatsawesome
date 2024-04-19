@@ -1,10 +1,10 @@
 import * as z from "zod";
 
 export const latlngSchema = z.object({
-  latitude: z.number().optional(),
-  longitude: z.number().optional(),
-  lat: z.number().optional(),
-  lng: z.number().optional(),
+  // latitude: z.number().optional(),
+  // longitude: z.number().optional(),
+  lat: z.number(),
+  lng: z.number(),
 });
 
 const reasonSchema = z.object({

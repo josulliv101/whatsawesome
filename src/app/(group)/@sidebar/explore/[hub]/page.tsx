@@ -1,13 +1,15 @@
 import { PropsWithChildren, Suspense } from "react";
+import Image from "next/image";
 import ExcellenceItems from "./ExcellenceItems";
 import ProfilesByCategory from "@/app/(group)/explore/[hub]/ProfilesByCategory";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { searchProfilesByCategory } from "@/lib/search";
+import { searchProfilesByCategory, searchTopAoeByCategory } from "@/lib/search";
 import CategorySelector from "./CategorySelector";
 import { CommandMenu } from "@/components/CommandMenu";
+import { config } from "@/lib/config";
 
 export default async function Page({
   params: { hub },
@@ -16,6 +18,7 @@ export default async function Page({
   params: any;
   searchParams: any;
 }>) {
+  const topProfiles = await searchTopAoeByCategory(hub);
   const profilesByCategory = await searchProfilesByCategory(hub);
   const neighbors = [
     "arlington-ma",
@@ -25,6 +28,16 @@ export default async function Page({
     "somerville-ma",
   ];
   // return null;
+  const profileMap = topProfiles
+    .map((category) => category.hits || [])
+    .flat()
+    .reduce((acc, hit) => {
+      return {
+        ...acc,
+        [hit.parent.id]: hit.parent,
+      };
+    }, {});
+
   if (hub) {
     // && pt
     return (
@@ -65,20 +78,48 @@ export default async function Page({
         />
         <Separator className="my-8" /> */}
 
-          {<ProfilesByCategory hub={hub} st={st} t3={t3} isShowAll={false} />}
+          {/* {<ProfilesByCategory hub={hub} st={st} t3={t3} isShowAll={false} />} */}
         </div>
-        <div className="sticky top-24">
-          <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
-            {[...new Array(12)].map((_, i) => (
-              <div
-                key={i}
-                className="col-span-4 bg-gray-200 min-h-36 text-sm flex items-center justify-center"
-              >
-                {hub} profile {i + 1}
-              </div>
-            ))}
+        {catalog && (
+          <div className="mt-8 px-8 mb-8">
+            info here related to category profiles
           </div>
-        </div>
+        )}
+        {!catalog && (
+          <div className="sticky top-24">
+            <h2 className="px-8 pb-6 font-semibold text-xl capitalize">
+              Excellence in {hub.replace(/[-_]/g, ", ")}
+            </h2>
+            <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
+              {Object.keys(profileMap).map((id, i) => (
+                <div
+                  key={i}
+                  className="col-span-4  min-h-36 w-full h-full text-sm flex items-center justify-center"
+                >
+                  {profileMap[id].parentPhotoUrl && (
+                    <div className="w-full h-auto flex flex-col items-center gap-2">
+                      <Image
+                        width="120"
+                        height="120"
+                        className="w-full h-full object-cover min-w-full min-h-full"
+                        src={profileMap[id].parentPhotoUrl}
+                        alt=""
+                      />
+                      <div className=" text-balance text-center">
+                        {profileMap[id].name}
+                      </div>
+                    </div>
+                  )}
+                  {!profileMap[id].parentPhotoUrl && (
+                    <div className="text-xl text-white h-full w-full text-center bg-black text-balance p-4 flex items-center justify-center">
+                      {profileMap[id].name}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </>
     );
   }
