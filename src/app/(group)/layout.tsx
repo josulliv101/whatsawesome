@@ -111,10 +111,10 @@ export default function RootLayout({
                       className="w-full_ absolute top-2 right-2"
                     >
                       <div className="flex items-center justify-start px-4 py-2">
-                        <TabsList className="">
+                        <TabsList className="h-[48px]">
                           <TabsTrigger
                             value="all"
-                            className="aria-selected:bg-white h-12"
+                            className="aria-selected:bg-white h-[36px]"
                             asChild
                           >
                             <Link href="?">
@@ -124,7 +124,7 @@ export default function RootLayout({
                           </TabsTrigger>
                           <TabsTrigger
                             value="unread"
-                            className="aria-selected:bg-white h-12"
+                            className="aria-selected:bg-white h-[36px]"
                             asChild
                           >
                             <Link href="?catalog=true">Browse Profiles</Link>
