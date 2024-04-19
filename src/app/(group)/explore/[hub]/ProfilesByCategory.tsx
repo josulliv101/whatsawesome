@@ -171,16 +171,23 @@ function Row({
             key={profile.id}
             className={`max-w-[160px] flex flex-col items-center justify-start`}
           >
-            <Link className={``} href={`/profile/${profile.objectID}`}>
+            <Link
+              className={`rounded-md`}
+              href={`/profile/${profile.objectID}`}
+            >
               <div
                 key={profile.name}
                 style={{
-                  backgroundImage: `url(${profile.pic})`,
+                  backgroundImage: profile.pic
+                    ? `url(${profile.pic})`
+                    : undefined,
                   backgroundSize: "cover",
                   backgroundPosition: "top",
                 }}
-                className="min-h-32 min-w-32 max-w-32 border flex items-center justify-center rounded-md px-6 py-8 bg-muted text-center"
-              ></div>
+                className={`${profile.pic ? "bg-muted" : "bg-black"} min-h-32 min-w-32 max-w-32 border flex items-center justify-center rounded-md px-6 py-8 bg-muted_ text-white text-balance text-center`}
+              >
+                {!profile.pic && profile.name}
+              </div>
             </Link>
             <Link
               className={`text-balance text-center text-muted-foreground mt-2 px-2 pb-6 ${profile.name?.length > 32 ? "text-xs" : "text-sm"}`}

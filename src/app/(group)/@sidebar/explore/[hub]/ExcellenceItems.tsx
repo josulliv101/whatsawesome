@@ -77,7 +77,7 @@ export default async function ExcellenceItems({
       results: category.hits,
     };
   });
-  const topAoe = await searchTopAoeByCategory(hub, [hub]);
+  const topAoe = await searchTopAoeByCategory(hub, [t3]);
 
   console.log("topAoe", topAoe);
   // return null;
@@ -114,17 +114,21 @@ export default async function ExcellenceItems({
       <div
         className={`px-8 pb-5  sticky__ top-[120px] overflow-auto ${isGrid ? "grid md:grid-cols-12 gap-x-8 gap-y-8" : ""}`}
       >
+        {!isStacked &&
+          topAoe?.[0].hits
+            .filter((item) => item.reason)
+            .map((result) => (
+              <div key={result.objectID} className="last:mb-8">
+                <ExcellenceItem item={result} Component={Component} />
+              </div>
+            ))}
         {!isStacked && (
           <>
             <div>
-              {dataToUse?.map((result: any) => {
-                return (
-                  <>
-                    <div key={result.name} className="last:mb-8">
-                      <ExcellenceItem item={result} Component={Component} />
-                    </div>
-                  </>
-                );
+              {topAoe?.[0].hits?.map((result: any, index: number) => {
+                <div key={result.name} className="last:mb-8">
+                  <ExcellenceItem item={result} Component={Component} />
+                </div>;
               })}
             </div>
           </>
@@ -213,7 +217,7 @@ export default async function ExcellenceItems({
         {/* {dataToUse.map((item, index) => {
           
         })} */}
-        {!isStacked && (
+        {false && !isStacked && (
           <div className="pt-14 pb-6">
             <SponsorRack hub={hub} />
           </div>
