@@ -34,7 +34,7 @@ import {
 } from "lucide-react";
 import { Fragment, PropsWithChildren } from "react";
 import ReasonTagsFilter from "@/app__/profile/[...id]/ReasonTagsFilter";
-import { searchTopAoeByCategory } from "@/lib/search";
+import { searchTopAoeByCategory, searchTopAoeByMapBounds } from "@/lib/search";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -58,11 +58,13 @@ export default async function ExcellenceItems({
   t3 = "",
   isStacked,
   isGrid,
+  searchMapBounds = "",
 }: {
   hub: string;
   pt?: string;
   st?: string;
   t3?: string;
+  searchMapBounds?: string;
   isStacked?: boolean;
   isGrid?: boolean;
 }) {
@@ -78,20 +80,22 @@ export default async function ExcellenceItems({
     };
   });
   const topAoe = await searchTopAoeByCategory(hub, [[t3, pt]]);
-  const hits = topAoe[0].hits.sort(
+  let hits = topAoe[0].hits.sort(
     (a: any, b: any) => Number(b.rating) - Number(a.rating)
   );
 
-  console.log("hits", topAoe);
+  if (searchMapBounds) {
+    const hits2 = await searchTopAoeByMapBounds(hub, [t3], searchMapBounds);
+    console.log("hits2", hits2);
+    hits = hits2.hits;
+  }
+
+  // console.log("hits", topAoe);
   // return null;
   // const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
 
   // const topClaims = await fetchTopClaimsForHub(hub, [pt], [st], [t3]);
   const items = tagDefinitions[st]?.tags || tagDefinitions[pt]?.tags || [];
-  const markers = topAoe.hits
-    ?.map((datum) => ({ latlng: datum.parent.latlng }))
-    .filter((m) => m.latlng?.lat && m.latlng?.lng);
-  console.log("markers", markers);
 
   const Component = isStacked ? StackedReason : Reason;
   const dataToUse = !isStacked ? topAoe : topClaims;

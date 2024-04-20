@@ -14,7 +14,7 @@ import {
 
 export default async function Page({
   params: { hub },
-  searchParams: { pt, st, t3, catalog },
+  searchParams: { pt, st, t3, catalog, searchMapBounds },
 }: PropsWithChildren<{
   params: any;
   searchParams: any;
@@ -59,7 +59,13 @@ export default async function Page({
         </div>
       )}
       {!catalog && hub && pt && (
-        <ExcellenceItems hub={hub} pt={pt} st={st} t3={t3} />
+        <ExcellenceItems
+          searchMapBounds={searchMapBounds}
+          hub={hub}
+          pt={pt}
+          st={st}
+          t3={t3}
+        />
       )}
     </>
   );

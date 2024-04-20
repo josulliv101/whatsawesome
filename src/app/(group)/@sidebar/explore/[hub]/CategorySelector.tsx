@@ -29,9 +29,9 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
             )}
           </Link>
         </Button>
-        {profilesByCategory.map((category: any) => (
+        {profilesByCategory.map((category: any, index) => (
           <Button
-            key={category}
+            key={category + index}
             className="col-span-4 relative"
             size="sm"
             variant="outline"
@@ -54,10 +54,10 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
       {subCategories && (
         <>
           <div className="grid md:grid-cols-12 gap-1 mt-6">
-            {subCategories.map((subCategory: string) => {
+            {subCategories.map((subCategory: string, index) => {
               return (
                 <Button
-                  key={subCategory}
+                  key={subCategory + index}
                   className="col-span-3 relative"
                   size="sm"
                   variant="outline"

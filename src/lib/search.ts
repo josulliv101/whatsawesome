@@ -183,6 +183,33 @@ export async function searchTopAoeByCategory(
   });
 }
 
+export async function searchTopAoeByMapBounds(
+  hub: string,
+  tags: string[] = [],
+  bounds: string,
+  hitsPerCategory: number = 10
+): Promise<any> {
+  const dedup = new Set([...tags]);
+  const query = [...dedup].join(",");
+  console.log("searchTopAoeByMapBounds dedup", dedup);
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`;
+  const results = await fetch(url, {
+    method: "POST",
+    headers: {
+      "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
+      "X-Algolia-Application-Id": "1P2U1C41BE",
+    },
+    body: JSON.stringify({
+      attributesToHighlight: "",
+      hitsPerPage: hitsPerCategory,
+      insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
+      tagFilters: [...dedup],
+    }),
+  }).then((resp) => resp.json());
+
+  return results;
+}
+
 function getParentIdFromPath(path = "") {
   return path?.split("/")?.[1];
 }

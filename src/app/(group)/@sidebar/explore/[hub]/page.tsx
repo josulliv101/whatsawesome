@@ -91,6 +91,7 @@ export default async function Page({
             info here related to category profiles
           </div>
         )}
+        {!catalog && hub && !pt && <>...</>}
         {!catalog && hub && pt && (
           <div className="sticky top-24">
             <h2 className="px-8 pb-6 flex items-center justify-start font-semibold text-lg capitalize">
