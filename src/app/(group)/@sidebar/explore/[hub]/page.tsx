@@ -10,6 +10,7 @@ import { searchProfilesByCategory, searchTopAoeByCategory } from "@/lib/search";
 import CategorySelector from "./CategorySelector";
 import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
+import { SlashIcon } from "lucide-react";
 
 export default async function Page({
   params: { hub },
@@ -18,7 +19,8 @@ export default async function Page({
   params: any;
   searchParams: any;
 }>) {
-  const topProfiles = await searchTopAoeByCategory(hub);
+  const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
+
   const profilesByCategory = await searchProfilesByCategory(hub);
   const neighbors = [
     "arlington-ma",
@@ -40,6 +42,8 @@ export default async function Page({
 
   if (hub) {
     // && pt
+    const t3UrlParam = t3 ? `&t3=${t3}` : "";
+    const ptUrlParam = pt ? `&pt=${pt}` : "";
     return (
       <>
         <div className="mt-8">
@@ -56,7 +60,9 @@ export default async function Page({
                   variant="outline"
                   asChild
                 >
-                  <Link href={`/explore/${neighbor}?${pt ? "pt=" + pt : ""}`}>
+                  <Link
+                    href={`/explore/${neighbor}?${ptUrlParam}${t3UrlParam}`}
+                  >
                     {neighbor}
                   </Link>
                 </Button>
@@ -85,10 +91,14 @@ export default async function Page({
             info here related to category profiles
           </div>
         )}
-        {!catalog && (
+        {!catalog && hub && pt && (
           <div className="sticky top-24">
-            <h2 className="px-8 pb-6 font-semibold text-xl capitalize">
-              Excellence in {hub.replace(/[-_]/g, ", ")}
+            <h2 className="px-8 pb-6 flex items-center justify-start font-semibold text-lg capitalize">
+              {hub.replace(/[-_]/g, ", ")} Profiles
+              <SlashIcon className="h-4 w-4 mx-4" />
+              <span>{pt || "..."}</span>
+              <SlashIcon className="h-4 w-4 mx-4" />
+              <span>{t3 || "Top 10"}</span>
             </h2>
             <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
               {Object.keys(profileMap).map((id, i) => (

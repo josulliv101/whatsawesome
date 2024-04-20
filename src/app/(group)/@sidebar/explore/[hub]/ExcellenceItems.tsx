@@ -77,9 +77,12 @@ export default async function ExcellenceItems({
       results: category.hits,
     };
   });
-  const topAoe = await searchTopAoeByCategory(hub, [t3]);
+  const topAoe = await searchTopAoeByCategory(hub, [[t3, pt]]);
+  const hits = topAoe[0].hits.sort(
+    (a: any, b: any) => Number(b.rating) - Number(a.rating)
+  );
 
-  console.log("topAoe", topAoe);
+  console.log("hits", topAoe);
   // return null;
   // const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
 
@@ -115,8 +118,9 @@ export default async function ExcellenceItems({
         className={`px-8 pb-5  sticky__ top-[120px] overflow-auto ${isGrid ? "grid md:grid-cols-12 gap-x-8 gap-y-8" : ""}`}
       >
         {!isStacked &&
-          topAoe?.[0].hits
-            .filter((item) => item.reason)
+          hits
+            .slice(0, 10)
+            // .filter((item) => item.reason)
             .map((result) => (
               <div key={result.objectID} className="last:mb-8">
                 <ExcellenceItem item={result} Component={Component} />
