@@ -13,6 +13,8 @@ import {
   searchProfilesByMapBounds,
   searchTopAoeByCategory,
   searchTopAoeByMapBounds,
+  searchTopAoeByRadius,
+  searchTopAoeByTagFilter,
 } from "@/lib/search";
 
 function getMarkerSizeFromRating(rating: number) {
@@ -34,9 +36,10 @@ export default async function Page({
 }) {
   // return null;
   const query = [hub, pt, st, t3].filter((tag) => !!tag) as string[];
-  let topAoe = !pt
-    ? await searchTopAoeByCategory(hub)
-    : await searchTopAoeByCategory(hub, [[t3, pt]]);
+  let topAoe = [await searchTopAoeByRadius("hub")];
+  // !pt
+  //   ? await searchTopAoeByCategory(hub)
+  //   : await searchTopAoeByCategory(hub, [[t3, pt]]);
   if (searchMapBounds) {
     topAoe = [await searchTopAoeByMapBounds(hub, [t3], searchMapBounds)];
     console.log("topAoe (map)", topAoe[0].hits.length);

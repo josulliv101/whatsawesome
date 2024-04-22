@@ -73,7 +73,10 @@ export async function fetchUserRatingsForProfile(
   return docSnap.exists() ? docSnap.data() : null;
 }
 
-export async function fetchProfile(id: string | string[], uid?: string) {
+export async function fetchProfile(
+  id: string | string[],
+  includeReasons: boolean = true
+) {
   const profileId = Array.isArray(id) ? id[0] : id;
   if (!profileId) {
     throw new Error("profile id is required.");
@@ -86,19 +89,21 @@ export async function fetchProfile(id: string | string[], uid?: string) {
   const subColRef = collection(db, "entity", profileId, "whyawesome");
 
   const qSnap = await getDocs(subColRef);
-  const reasons = qSnap.docs.map((d) => ({
-    id: d.id,
-    rating: generateRandomDecimal(0, 3),
-    ratings: d.data().ratings || {
-      "-1": generateRandomDecimal(1, 99),
-      0: generateRandomDecimal(1, 99),
-      1: generateRandomDecimal(1, 99),
-      2: generateRandomDecimal(1, 99),
-      3: generateRandomDecimal(1, 99),
-    },
-    ...d.data(),
-    tags: Object.keys(d.data()?.tagMap || {}),
-  })) as Profile["reasons"];
+  const reasons = includeReasons
+    ? (qSnap.docs.map((d) => ({
+        id: d.id,
+        rating: generateRandomDecimal(0, 3),
+        ratings: d.data().ratings || {
+          "-1": generateRandomDecimal(1, 99),
+          0: generateRandomDecimal(1, 99),
+          1: generateRandomDecimal(1, 99),
+          2: generateRandomDecimal(1, 99),
+          3: generateRandomDecimal(1, 99),
+        },
+        ...d.data(),
+        tags: Object.keys(d.data()?.tagMap || {}),
+      })) as Profile["reasons"])
+    : [];
 
   return {
     ...(data as Profile),

@@ -203,13 +203,144 @@ export async function searchTopAoeByMapBounds(
       attributesToHighlight: "",
       hitsPerPage: hitsPerCategory,
       insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
-      tagFilters: [...dedup],
+      tagFilters: dedup,
     }),
   }).then((resp) => resp.json());
 
   return results;
 }
 
+export async function searchTopAoeByTagFilter(
+  hub: string,
+  tags: string[] = [],
+  // bounds: string,
+  hitsPerCategory: number = 10
+): Promise<any> {
+  const dedup = new Set([...tags]);
+  const query = [...dedup].join(",");
+  console.log("searchTopAoeByMapBounds dedup", dedup);
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`;
+  const results = await fetch(url, {
+    method: "POST",
+    headers: {
+      "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
+      "X-Algolia-Application-Id": "1P2U1C41BE",
+    },
+    body: JSON.stringify({
+      attributesToHighlight: [],
+      hitsPerPage: hitsPerCategory,
+      // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
+      tagFilters: [
+        ["arlington-ma", "medford-ma", "somervile-ma", "boston"],
+        ["coffee", "steak"],
+      ],
+    }),
+  }).then((resp) => resp.json());
+
+  const parentMap = results.hits?.reduce((acc: any, hit: any) => {
+    const parentId = getParentIdFromPath(hit.path);
+    return { ...acc, [parentId]: true };
+  }, {});
+
+  const parentIds = Object.keys(parentMap);
+
+  const profiles = await getProfilesFromIds(parentIds);
+  console.log("profiles", profiles);
+
+  const profileMap = profiles.reduce((acc, item) => {
+    return {
+      ...acc,
+      [item.id]: item,
+    };
+  }, {});
+
+  return {
+    ...results,
+    hits: results.hits.map((hit: any) => {
+      const parentId = getParentIdFromPath(hit.path);
+      const profile = profileMap[parentId];
+      return {
+        ...hit,
+        parent: {
+          id: parentId,
+          name: profile?.name,
+          parentPhotoUrl: profile?.pic,
+          latlng: profile?._geoloc,
+        },
+      };
+    }),
+  };
+}
+
+const includeReasons = false;
+
+async function getProfilesFromIds(parentIds: Array<string>) {
+  const promises = parentIds.map((id) => fetchProfile(id, includeReasons));
+
+  return await Promise.all(promises);
+}
+
 function getParentIdFromPath(path = "") {
   return path?.split("/")?.[1];
+}
+
+export async function searchTopAoeByRadius(
+  hub: string,
+  tags: string[] = [],
+  radius: number = 10,
+  hitsPerCategory: number = 10
+): Promise<any> {
+  const dedup = new Set([...tags]);
+  const query = [...dedup].join(",");
+  console.log("searchTopAoeByMapBounds dedup", dedup);
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`;
+  const results = await fetch(url, {
+    method: "POST",
+    headers: {
+      "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
+      "X-Algolia-Application-Id": "1P2U1C41BE",
+    },
+    body: JSON.stringify({
+      attributesToHighlight: [],
+      hitsPerPage: hitsPerCategory,
+      aroundLatLng: "42.360484995562764, -71.05769136293631",
+      aroundRadius: 5000, // 1km ~ .0.621371 mile
+      // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
+      tagFilters: ["burger"],
+    }),
+  }).then((resp) => resp.json());
+
+  const parentMap = results.hits?.reduce((acc: any, hit: any) => {
+    const parentId = getParentIdFromPath(hit.path);
+    return { ...acc, [parentId]: true };
+  }, {});
+
+  const parentIds = Object.keys(parentMap);
+
+  const profiles = await getProfilesFromIds(parentIds);
+  console.log("profiles", profiles);
+
+  const profileMap = profiles.reduce((acc, item) => {
+    return {
+      ...acc,
+      [item.id]: item,
+    };
+  }, {});
+
+  return {
+    ...results,
+    hits: results.hits.map((hit: any) => {
+      const parentId = getParentIdFromPath(hit.path);
+      const profile = profileMap[parentId];
+      return {
+        ...hit,
+        parent: {
+          id: parentId,
+          name: profile?.name,
+          parentPhotoUrl: profile?.pic,
+          latlng: profile?._geoloc,
+        },
+      };
+    }),
+  };
 }
