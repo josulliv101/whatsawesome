@@ -29,17 +29,30 @@ function getMarkerSizeFromRating(rating: number) {
 
 export default async function Page({
   params: { hub },
-  searchParams: { pt, st, t3, bounds, catalog, searchMapBounds },
+  searchParams: {
+    pt,
+    st,
+    t3,
+    bounds,
+    catalog,
+    searchRadius = 10,
+    searchMapBounds,
+  },
 }: {
   params: any;
   searchParams: any;
 }) {
   // return null;
   const query = [hub, pt, st, t3].filter((tag) => !!tag) as string[];
-  let topAoe = [await searchTopAoeByRadius("hub")];
-  // !pt
-  //   ? await searchTopAoeByCategory(hub)
-  //   : await searchTopAoeByCategory(hub, [[t3, pt]]);
+  let topAoe; // = [await searchTopAoeByRadius(hub, searchRadius, t3 ? [t3] : [])];
+  if (!searchRadius || searchRadius === "0") {
+    topAoe = !pt
+      ? await searchTopAoeByCategory(hub)
+      : await searchTopAoeByCategory(hub, [[t3, pt]]);
+  } else {
+    topAoe = [await searchTopAoeByRadius(hub, searchRadius, t3 ? [t3] : [])];
+  }
+
   if (searchMapBounds) {
     topAoe = [await searchTopAoeByMapBounds(hub, [t3], searchMapBounds)];
     console.log("topAoe (map)", topAoe[0].hits.length);

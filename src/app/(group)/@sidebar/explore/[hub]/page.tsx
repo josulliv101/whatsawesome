@@ -1,5 +1,8 @@
 import { PropsWithChildren, Suspense } from "react";
 import Image from "next/image";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import ExcellenceItems from "./ExcellenceItems";
 import ProfilesByCategory from "@/app/(group)/explore/[hub]/ProfilesByCategory";
 import { Separator } from "@/components/ui/separator";
@@ -10,15 +13,25 @@ import { searchProfilesByCategory, searchTopAoeByCategory } from "@/lib/search";
 import CategorySelector from "./CategorySelector";
 import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
-import { SlashIcon } from "lucide-react";
+import { BadgeCheckIcon, SlashIcon } from "lucide-react";
+
+export function toSearchParamsUrl(params: Record<string, string> = {}) {
+  return Object.keys(params).reduce((acc, key) => {
+    if (!!key) {
+      return `${acc}&${key}=${params[key]}`;
+    }
+    return acc;
+  }, "?");
+}
 
 export default async function Page({
   params: { hub },
-  searchParams: { pt, st, t3, catalog },
+  searchParams,
 }: PropsWithChildren<{
   params: any;
   searchParams: any;
 }>) {
+  const { pt, st, t3, catalog, searchRadius = "5" } = searchParams;
   const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
 
   const profilesByCategory = await searchProfilesByCategory(hub);
@@ -48,10 +61,66 @@ export default async function Page({
       <>
         <div className="mt-8">
           <div className="px-8 mb-8">
+            <Tabs
+              defaultValue="aoe"
+              className="w-full_ absolute_ _top-2 _right-2"
+            >
+              <div className="flex items-center justify-start px-0 py-0 mb-8">
+                <TabsList className="h-[48px]">
+                  <TabsTrigger
+                    value="aoe"
+                    className="aria-selected:bg-white h-[48px] px-6 text-xl"
+                    asChild
+                  >
+                    <Link href="?">
+                      <BadgeCheckIcon className="h-6 w-6 mr-2.5 text-blue-500 opacity-80 " />{" "}
+                      Areas of Excellence
+                    </Link>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="unread"
+                    className="aria-selected:bg-white h-[48px] px-6 text-xl"
+                    asChild
+                  >
+                    <Link href="?catalog=true">Browse Profiles</Link>
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+              <TabsContent value="account">as</TabsContent>
+              <TabsContent value="password">aa</TabsContent>
+            </Tabs>
             {/* <p className="text-muted-foreground w-[240px] mb-4 -mr-2">
               <CommandMenu />
             </p> */}
-            <div className="grid md:grid-cols-12 gap-1">
+            <p className="text-xl text-muted-foreground mb-4">Search Radius</p>
+            <ToggleGroup
+              className="mb-8 justify-start"
+              type="single"
+              value={searchRadius}
+            >
+              {[0, 5, 20, 40].map((miles) => (
+                <ToggleGroupItem
+                  key={miles}
+                  className="capitalize bg-white_ border border-transparent aria-checked:bg-white aria-checked:border-muted-foreground/50"
+                  value={String(miles)}
+                  asChild
+                >
+                  <Link
+                    href={toSearchParamsUrl({
+                      ...searchParams,
+                      searchRadius: miles,
+                    })}
+                  >
+                    {miles === 0 && `${hub} only`}
+                    {miles === 5 && `near ${hub}`}
+                    {miles > 5 && `${miles} miles`}
+                  </Link>
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+            <Separator className="h-px bg-gray-300 my-6" />
+
+            <div className="hidden _grid md:grid-cols-12 gap-1">
               {neighbors.map((neighbor: any) => (
                 <Button
                   key={neighbor}
@@ -68,7 +137,7 @@ export default async function Page({
                 </Button>
               ))}
             </div>
-            <Separator className="h-px bg-gray-300 my-6" />
+            <p className="text-xl text-muted-foreground mb-4">Categories</p>
             <Suspense>
               <CategorySelector profilesByCategory={profilesByCategory} />
             </Suspense>

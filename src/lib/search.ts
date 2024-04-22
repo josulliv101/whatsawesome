@@ -284,8 +284,10 @@ function getParentIdFromPath(path = "") {
   return path?.split("/")?.[1];
 }
 
+const mileInKm = 16093;
 export async function searchTopAoeByRadius(
   hub: string,
+  searchRadius: number = 1,
   tags: string[] = [],
   radius: number = 10,
   hitsPerCategory: number = 10
@@ -304,9 +306,9 @@ export async function searchTopAoeByRadius(
       attributesToHighlight: [],
       hitsPerPage: hitsPerCategory,
       aroundLatLng: "42.360484995562764, -71.05769136293631",
-      aroundRadius: 5000, // 1km ~ .0.621371 mile
+      aroundRadius: searchRadius ? 2000 * searchRadius : undefined, // searchRadius * 16.0934 * 1000, // 1km ~ .0.621371 mile
       // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
-      tagFilters: ["burger"],
+      tagFilters: !searchRadius ? [hub, ...tags] : [...tags],
     }),
   }).then((resp) => resp.json());
 

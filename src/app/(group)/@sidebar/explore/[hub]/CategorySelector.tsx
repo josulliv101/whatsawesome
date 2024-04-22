@@ -1,18 +1,81 @@
 "use client";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { tagDefinitions } from "@/lib/tags";
 import { cn } from "@/lib/utils";
-import { CheckIcon } from "lucide-react";
+import { BadgeCheckIcon, CheckIcon } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
+import { toSearchParamsUrl } from "./page";
+
+const categories = ["restaurant", "coffeehouse", "hotel", "museum"];
 
 export default function CategorySelector({ profilesByCategory = [] }: any) {
   const { hub } = useParams();
   const searchParams = useSearchParams();
   const pt = searchParams.get("pt");
+  const t3 = searchParams.get("t3");
+  const catalog = searchParams.get("catalog");
+  const st = searchParams.get("st");
+  const searchRadius = searchParams.get("searchRadius");
   const subCategories = pt ? tagDefinitions[pt]?.children : [];
+
+  return (
+    <Accordion
+      defaultValue="restaurant"
+      type="single"
+      collapsible
+      className="w-full"
+    >
+      {categories.map((category) => (
+        <AccordionItem key={category} value={category}>
+          <AccordionTrigger className="text-lg">{category}</AccordionTrigger>
+          <AccordionContent>
+            {tagDefinitions[category]?.tags?.sort()?.map((tag: string) => (
+              <Button key={tag} variant={"ghost"} asChild>
+                <Link
+                  href={`/explore/${hub}${toSearchParamsUrl({
+                    // st,
+                    t3: tag,
+                    // catalog,
+                    // searchRadius,
+                    pt: category,
+                  })}`}
+                >
+                  <BadgeCheckIcon className="h-4 w-4 mr-1.5 text-blue-500 opacity-80 " />{" "}
+                  {tag}
+                </Link>
+              </Button>
+            ))}
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+  return categories.map((category) => {
+    return (
+      <Button key={category} variant={"ghost"} asChild>
+        <Link
+          href={`/explore/${hub}${toSearchParamsUrl({
+            // st,
+            // t3,
+            // catalog,
+            // searchRadius,
+            pt: category,
+          })}`}
+        >
+          {category}
+        </Link>
+      </Button>
+    );
+  });
   return (
     <>
       <div className="grid md:grid-cols-12 gap-1">

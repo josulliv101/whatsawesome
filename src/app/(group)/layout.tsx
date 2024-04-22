@@ -106,7 +106,7 @@ export default function RootLayout({
                     <Suspense>
                       <BackButton hub={hub} />
                     </Suspense>
-                    <Tabs
+                    {/* <Tabs
                       defaultValue="all"
                       className="w-full_ absolute top-2 right-2"
                     >
@@ -133,7 +133,7 @@ export default function RootLayout({
                       </div>
                       <TabsContent value="account">as</TabsContent>
                       <TabsContent value="password">aa</TabsContent>
-                    </Tabs>
+                    </Tabs> */}
                   </div>
 
                   <div className="mt-10">{children}</div>

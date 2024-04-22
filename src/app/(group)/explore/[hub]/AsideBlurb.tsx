@@ -10,8 +10,8 @@ export default function AsideBlurb() {
 
   return (
     <p>
-      <span className="font-semibold">Blue Mushroom</span> is your platform for
-      discovering excellence in the world around you.
+      <span className="font-semibold">Blue Mushroom</span> &mdash; your platform
+      for discovering excellence in the world around you.
     </p>
   );
   return (
