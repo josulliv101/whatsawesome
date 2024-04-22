@@ -61,6 +61,34 @@ export default async function Page({
       <>
         <div className="mt-8">
           <div className="px-8 mb-8">
+            <p className="text-xl text-muted-foreground mb-4">Search Radius</p>
+            <ToggleGroup
+              className="mb-0 justify-start"
+              type="single"
+              value={searchRadius}
+            >
+              {[0, 5, 20, 40].map((miles) => (
+                <ToggleGroupItem
+                  key={miles}
+                  variant={"outline"}
+                  className="capitalize bg-white_ border border-transparent aria-checked:bg-white aria-checked:border-muted-foreground/50"
+                  value={String(miles)}
+                  asChild
+                >
+                  <Link
+                    href={toSearchParamsUrl({
+                      ...searchParams,
+                      searchRadius: miles,
+                    })}
+                  >
+                    {miles === 0 && `${hub} only`}
+                    {miles === 5 && `near ${hub}`}
+                    {miles > 5 && `${miles} miles`}
+                  </Link>
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+            <Separator className="h-px bg-gray-300 my-8" />
             <Tabs
               defaultValue="aoe"
               className="w-full_ absolute_ _top-2 _right-2"
@@ -92,33 +120,6 @@ export default async function Page({
             {/* <p className="text-muted-foreground w-[240px] mb-4 -mr-2">
               <CommandMenu />
             </p> */}
-            <p className="text-xl text-muted-foreground mb-4">Search Radius</p>
-            <ToggleGroup
-              className="mb-8 justify-start"
-              type="single"
-              value={searchRadius}
-            >
-              {[0, 5, 20, 40].map((miles) => (
-                <ToggleGroupItem
-                  key={miles}
-                  className="capitalize bg-white_ border border-transparent aria-checked:bg-white aria-checked:border-muted-foreground/50"
-                  value={String(miles)}
-                  asChild
-                >
-                  <Link
-                    href={toSearchParamsUrl({
-                      ...searchParams,
-                      searchRadius: miles,
-                    })}
-                  >
-                    {miles === 0 && `${hub} only`}
-                    {miles === 5 && `near ${hub}`}
-                    {miles > 5 && `${miles} miles`}
-                  </Link>
-                </ToggleGroupItem>
-              ))}
-            </ToggleGroup>
-            <Separator className="h-px bg-gray-300 my-6" />
 
             <div className="hidden _grid md:grid-cols-12 gap-1">
               {neighbors.map((neighbor: any) => (

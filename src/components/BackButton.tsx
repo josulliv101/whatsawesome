@@ -23,7 +23,7 @@ export default function BackButton({ hub }: any) {
 
   if (!params.id && !paramSearch.get("pt")) {
     return (
-      <div className="relative w-full top-[88px]">
+      <div className="relative w-full top-[48px]">
         <div className="w-full relative flex items-end justify-between gap-2 pt-0 mt-0 pb-4 px-4 flex-wrap capitalize">
           <div className="w-full flex flex-col items-start gap-1">
             <div className="w-full capitalize text-lg font-medium text-muted-foreground mb-1">
@@ -61,7 +61,7 @@ export default function BackButton({ hub }: any) {
       variant={"link"}
       onClick={handleClick}
       size="sm"
-      className="h-8 relative top-2"
+      className="h-8 relative_ top-4 absolute right-8"
     >
       <ChevronLeftIcon className="h-6 w-6" />
       Back

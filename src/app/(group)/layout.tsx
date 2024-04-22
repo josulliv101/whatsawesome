@@ -102,7 +102,7 @@ export default function RootLayout({
                   <div className="sticky z-50 top-[62px] bg-muted border-b flex items-center justify-between pl-4">
                     <BreadcrumbSide />
                   </div>
-                  <div className="relative flex justify-start min-h-[48px] w-full items-center pl-4 pr-8 pt-0 mb-[32px] ">
+                  <div className="relative flex justify-start min-h-[48px] w-full items-center pl-4 pr-8 pt-0 mb-[0px] ">
                     <Suspense>
                       <BackButton hub={hub} />
                     </Suspense>
@@ -136,7 +136,7 @@ export default function RootLayout({
                     </Tabs> */}
                   </div>
 
-                  <div className="mt-10">{children}</div>
+                  <div className="mt-0">{children}</div>
                 </main>
                 <aside className="relative col-span-4 bg-muted border-l">
                   {sidebar}

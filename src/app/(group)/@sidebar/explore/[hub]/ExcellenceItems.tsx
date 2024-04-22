@@ -259,10 +259,13 @@ export function SideNav({
           </div>
           <div className="capitalize text-4xl font-bold flex items-center">
             {pt}
-            {t3 ? <SlashIcon className="h-4 w-4 mx-4" /> : ""}{" "}
+            {t3 ? <SlashIcon className="h-4 w-4 mx-6" /> : ""}{" "}
             {t3 ? (
               <>
-                <span className="capitalize">{t3} roundup</span>
+                <span className="capitalize flex items-center">
+                  <BadgeCheckIcon className="h-8 w-8 mr-3 text-blue-500 opacity-80" />
+                  {t3}
+                </span>
               </>
             ) : (
               ""
@@ -278,8 +281,8 @@ export function SideNav({
         {/* <PresetSelector /> */}
       </div>
       <nav className="flex items-center flex-row justify-between gap-2 px-8 pt-4 pb-1">
-        <h4 className="relative rounded-sm text-xl bg-muted px-4 pt-2 mt-4 pb-2 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
-          <BadgeCheckIcon className="h-6 w-6 mr-2 text-blue-500 opacity-80" />
+        <h4 className="relative rounded-sm text-lg bg-muted px-4 pt-2 mt-4 pb-2 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
+          <BadgeCheckIcon className="h-5 w-5 mr-2 text-blue-500 opacity-80" />
           <strong className="font-[500] text-balance_ flex-1 block whitespace-nowrap">
             Areas of Excellence
           </strong>
@@ -293,7 +296,7 @@ export function SideNav({
             >
               <Link href={`/explore/${hub}?pt=${pt}`} replace={true}>
                 {!t3 && (
-                  <div className="h-4 w-4 bg-gray-700 absolute -top-2 -right-1 rounded-full flex items-center justify-center">
+                  <div className="h-4 w-4 bg-[#4c98fd] absolute -top-2 -right-1 rounded-full flex items-center justify-center">
                     <CheckIcon className="h-4 w-4 p-0.5 text-white" />
                   </div>
                 )}
@@ -312,9 +315,8 @@ export function SideNav({
                   replace={true}
                   href={`/explore/${hub}?pt=${pt}&st=${pt ? "" : ""}&t3=${tag}`}
                 >
-                  #
                   {t3 && t3 === tag && (
-                    <div className="h-4 w-4 bg-gray-700 absolute -top-2 -right-1 rounded-full flex items-center justify-center">
+                    <div className="h-4 w-4 bg-[#4c98fd] absolute -top-2 -right-1 rounded-full flex items-center justify-center">
                       <CheckIcon className="h-4 w-4 p-0.5 text-white" />
                     </div>
                   )}

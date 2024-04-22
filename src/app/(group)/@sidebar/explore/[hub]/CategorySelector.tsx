@@ -39,7 +39,11 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
           <AccordionTrigger className="text-lg">{category}</AccordionTrigger>
           <AccordionContent>
             {tagDefinitions[category]?.tags?.sort()?.map((tag: string) => (
-              <Button key={tag} variant={"ghost"} asChild>
+              <Button
+                key={tag}
+                variant={t3 === tag ? "outline" : "ghost"}
+                asChild
+              >
                 <Link
                   href={`/explore/${hub}${toSearchParamsUrl({
                     // st,
