@@ -84,17 +84,7 @@ export default function RootLayout({
                           <AsideBlurb />
                         </Suspense>
                       </div>
-                      <div>
-                        <MapAside />
-                        <Button
-                          size="sm"
-                          variant={"ghost"}
-                          className="flex mt-20 font-normal items-center gap-2 text-muted-foreground_"
-                        >
-                          <SquareIcon className="h-4 w-4" /> Limit search
-                          results to map bounds.
-                        </Button>
-                      </div>
+                      <MapAside />
                     </aside>
 
                     <SmallMap>{map}</SmallMap>

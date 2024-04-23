@@ -98,9 +98,20 @@ export function BreadcrumbSideContent() {
             </DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbItem>
+
         <BreadcrumbSeparator>
           <Slash />
         </BreadcrumbSeparator>
+        <BreadcrumbItem>
+          <BreadcrumbLink className="capitalize" asChild>
+            <Link href={`/explore/${hub}`}>All Categories</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        {pt && (
+          <BreadcrumbSeparator>
+            <Slash />
+          </BreadcrumbSeparator>
+        )}
         {/* <BreadcrumbItem>
           <BreadcrumbLink className="capitalize" href={`/${hub}`}>
             {hub.replace("-", " ")}
@@ -109,31 +120,37 @@ export function BreadcrumbSideContent() {
         <BreadcrumbSeparator>
           <Slash />
         </BreadcrumbSeparator> */}
-        <BreadcrumbItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
-              {(searchParams.get("pt") || prevPrimaryTag) ?? "all categories"}
-              <ChevronDown className="h-4 w-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild className="capitalize">
-                <Link href={`/explore/${hub}`}>all</Link>
-              </DropdownMenuItem>
-              {[
-                ...tagDefinitions.place.children,
-                ...tagDefinitions.person.children,
-              ]
-                .sort()
-                .map((tag) => {
-                  return (
-                    <DropdownMenuItem key={tag} asChild className="capitalize">
-                      <Link href={`/explore/${hub}?pt=${tag}`}>{tag}</Link>
-                    </DropdownMenuItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </BreadcrumbItem>
+        {pt && (
+          <BreadcrumbItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 capitalize">
+                {(searchParams.get("pt") || prevPrimaryTag) ?? "all categories"}
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem asChild className="capitalize">
+                  <Link href={`/explore/${hub}`}>all</Link>
+                </DropdownMenuItem>
+                {[
+                  ...tagDefinitions.place.children,
+                  ...tagDefinitions.person.children,
+                ]
+                  .sort()
+                  .map((tag) => {
+                    return (
+                      <DropdownMenuItem
+                        key={tag}
+                        asChild
+                        className="capitalize"
+                      >
+                        <Link href={`/explore/${hub}?pt=${tag}`}>{tag}</Link>
+                      </DropdownMenuItem>
+                    );
+                  })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </BreadcrumbItem>
+        )}
         {/* {pt === "restaurant" && (
           <>
             <BreadcrumbSeparator>

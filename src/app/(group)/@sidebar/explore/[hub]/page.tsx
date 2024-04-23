@@ -61,39 +61,44 @@ export default async function Page({
       <>
         <div className="mt-8">
           <div className="px-8 mb-8">
-            <p className="text-xl text-muted-foreground mb-4">Search Radius</p>
+            {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}
+
+            <p className="text-muted-foreground w-full mb-4">
+              <CommandMenu />
+            </p>
             <ToggleGroup
               className="mb-0 justify-start"
               type="single"
               value={searchRadius}
             >
-              {[0, 5, 20, 40].map((miles) => (
+              {[0, 5, 20, 50].map((miles) => (
                 <ToggleGroupItem
                   key={miles}
-                  variant={"outline"}
-                  className="capitalize bg-white_ border border-transparent aria-checked:bg-white aria-checked:border-muted-foreground/50"
+                  variant={"default"}
+                  className="capitalize data-[state=on]:bg-blue-500 data-[state=on]:text-white aria-checked:bg-blue-500 border border-transparent "
                   value={String(miles)}
                   asChild
                 >
                   <Link
+                    className="block py-4 text-sm min-h-16 text-balance aria-checked:bg-blue-500  aria-checked:text-white aria-checked:border-muted-foreground/50"
                     href={toSearchParamsUrl({
                       ...searchParams,
                       searchRadius: miles,
                     })}
                   >
-                    {miles === 0 && `${hub} only`}
+                    {miles === 0 && `only ${hub}`}
                     {miles === 5 && `near ${hub}`}
-                    {miles > 5 && `${miles} miles`}
+                    {miles > 5 && `within ${miles} miles`}
                   </Link>
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
-            <Separator className="h-px bg-gray-300 my-8" />
-            <Tabs
+            <Separator className="h-px bg-gray-300 my-6" />
+            {/* <Tabs
               defaultValue="aoe"
               className="w-full_ absolute_ _top-2 _right-2"
             >
-              <div className="flex items-center justify-start px-0 py-0 mb-8">
+              <div className="flex items-center justify-start px-0 py-0 mb-4">
                 <TabsList className="h-[48px]">
                   <TabsTrigger
                     value="aoe"
@@ -116,33 +121,12 @@ export default async function Page({
               </div>
               <TabsContent value="account">as</TabsContent>
               <TabsContent value="password">aa</TabsContent>
-            </Tabs>
-            {/* <p className="text-muted-foreground w-[240px] mb-4 -mr-2">
-              <CommandMenu />
-            </p> */}
+            </Tabs> */}
 
-            <div className="hidden _grid md:grid-cols-12 gap-1">
-              {neighbors.map((neighbor: any) => (
-                <Button
-                  key={neighbor}
-                  className="col-span-3 relative"
-                  size="sm"
-                  variant="outline"
-                  asChild
-                >
-                  <Link
-                    href={`/explore/${neighbor}?${ptUrlParam}${t3UrlParam}`}
-                  >
-                    {neighbor}
-                  </Link>
-                </Button>
-              ))}
-            </div>
-            <p className="text-xl text-muted-foreground mb-4">Categories</p>
+            {/* <p className="text-xl text-muted-foreground mb-4">Categories</p> */}
             <Suspense>
               <CategorySelector profilesByCategory={profilesByCategory} />
             </Suspense>
-            <Separator className="h-px bg-gray-300 my-6" />
           </div>
           {/* <ProfilesByCategory
           hub={hub}
@@ -161,15 +145,26 @@ export default async function Page({
             info here related to category profiles
           </div>
         )}
-        {!catalog && hub && !pt && <>...</>}
-        {!catalog && hub && pt && (
+
+        {!catalog && hub && !pt && (
           <div className="sticky top-24">
-            <h2 className="px-8 pb-6 flex items-center justify-start font-semibold text-lg capitalize">
-              {hub.replace(/[-_]/g, ", ")} Profiles
-              <SlashIcon className="h-4 w-4 mx-4" />
-              <span>{pt || "..."}</span>
-              <SlashIcon className="h-4 w-4 mx-4" />
-              <span>{t3 || "Top 10"}</span>
+            <h2 className="px-8 pb-6 flex items-center justify-between font-semibold text-lg capitalize">
+              <div>
+                {/* Top {hub.replace(/[-_]/g, ", ")} Profiles */}
+                Top Profiles{" "}
+                {!t3 && <span>&nbsp;in {hub.replace(/[-_]/g, ", ")}</span>}
+                {t3 && (
+                  <>
+                    <SlashIcon className="h-4 w-4 mx-4" />
+                    <span>{pt || "..."}</span>
+                    <SlashIcon className="h-4 w-4 mx-4" />
+                    <span>{t3 || "Top 10"}</span>
+                  </>
+                )}
+              </div>
+              <span className="text-sm">
+                <Link href={`?catalog=true`}>View All</Link>
+              </span>
             </h2>
             <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
               {Object.keys(profileMap).map((id, i) => (
@@ -178,11 +173,11 @@ export default async function Page({
                   className="col-span-4  min-h-36 w-full h-full text-sm flex items-center justify-center"
                 >
                   {profileMap[id].parentPhotoUrl && (
-                    <div className="w-full h-auto flex flex-col items-center gap-2">
+                    <div className="w-full h-auto flex flex-col items-center gap-2 rounded-md">
                       <Image
                         width="120"
                         height="120"
-                        className="w-full h-full object-cover min-w-full min-h-full"
+                        className="w-full h-full object-cover min-w-full min-h-full rounded-md"
                         src={profileMap[id].parentPhotoUrl}
                         alt=""
                       />

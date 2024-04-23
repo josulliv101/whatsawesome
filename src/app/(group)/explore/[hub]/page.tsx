@@ -7,6 +7,8 @@ import {
   searchProfilesByCategory,
   searchTopAoeByCategory,
 } from "@/lib/search";
+import AoeByCategory from "./AoeByCategory";
+import { Separator } from "@/components/ui/separator";
 
 // export function generateStaticParams() {
 //   return [];
@@ -40,6 +42,22 @@ export default async function Page({
       {catalog && (
         <ProfilesByCategory hub={hub} pt={pt} st={st} t3={t3} catalog={""} />
       )}
+
+      {!catalog && hub && pt && (
+        <ExcellenceItems
+          searchMapBounds={searchMapBounds}
+          hub={hub}
+          pt={pt}
+          st={st}
+          t3={t3}
+        />
+      )}
+
+      {!catalog && hub && !st && <AoeByCategory hub={hub} />}
+      {!catalog && hub && !st && !t3 && (
+        <Separator className="my-5 h-px bg-muted-foreground/20" />
+      )}
+
       {!catalog && hub && !pt && !st && !t3 && (
         <div className="mt-[60px]">
           <ExcellenceItems hub={hub} pt={pt} st={st} t3={t3} isStacked isGrid />
@@ -57,15 +75,6 @@ export default async function Page({
             <SponsorRack hub={hub} />
           </div> */}
         </div>
-      )}
-      {!catalog && hub && pt && (
-        <ExcellenceItems
-          searchMapBounds={searchMapBounds}
-          hub={hub}
-          pt={pt}
-          st={st}
-          t3={t3}
-        />
       )}
     </>
   );

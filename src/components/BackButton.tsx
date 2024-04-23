@@ -21,7 +21,7 @@ export default function BackButton({ hub }: any) {
   const catalog = paramSearch.get("catalog");
   const handleClick = () => router.back();
 
-  if (!params.id && !paramSearch.get("pt")) {
+  if (!params.id && !paramSearch.get("pt") && !paramSearch.get("catalog")) {
     return (
       <div className="relative w-full top-[48px]">
         <div className="w-full relative flex items-end justify-between gap-2 pt-0 mt-0 pb-4 px-4 flex-wrap capitalize">
@@ -33,7 +33,7 @@ export default function BackButton({ hub }: any) {
             <div className="capitalize text-4xl font-bold flex items-center mb-[32px]">
               {/* {(params.hub as string)?.replaceAll("-", " ")} */}
               <BadgeCheckIcon className="h-8 w-8 mr-2 text-blue-500 opacity-80 hidden" />
-              {!catalog ? `By Category` : `Browse Profiles`}
+              {!catalog ? `Choose a Category` : `Browse Profiles`}
             </div>
           </div>
         </div>

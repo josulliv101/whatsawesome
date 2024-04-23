@@ -287,7 +287,7 @@ export function SideNav({
             Areas of Excellence
           </strong>
           <div className="flex items-center gap-2">
-            <Button
+            {/* <Button
               key={"all"}
               variant="secondary"
               className={`text-sm h-7 text-muted-foreground relative`}
@@ -302,7 +302,7 @@ export function SideNav({
                 )}
                 Top 10
               </Link>
-            </Button>
+            </Button> */}
             {items.map((tag) => (
               <Button
                 key={tag}

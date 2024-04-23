@@ -26,25 +26,27 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
   const st = searchParams.get("st");
   const searchRadius = searchParams.get("searchRadius");
   const subCategories = pt ? tagDefinitions[pt]?.children : [];
-
+  if (hub && !pt) {
+    return null;
+  }
   return (
     <Accordion
-      defaultValue="restaurant"
+      defaultValue={pt ? pt : undefined}
+      // value={pt ? pt : undefined}
       type="single"
       collapsible
       className="w-full"
     >
       {categories.map((category) => (
         <AccordionItem key={category} value={category}>
-          <AccordionTrigger className="text-lg">{category}</AccordionTrigger>
-          <AccordionContent>
+          <AccordionTrigger className="text-lg capitalize">
+            {category}
+          </AccordionTrigger>
+          <AccordionContent className="flex flex-wrap gap-2">
             {tagDefinitions[category]?.tags?.sort()?.map((tag: string) => (
-              <Button
-                key={tag}
-                variant={t3 === tag ? "outline" : "ghost"}
-                asChild
-              >
+              <Button key={tag} variant={false ? "outline" : "ghost"} asChild>
                 <Link
+                  className={`hover:bg-blue-500 group hover:text-white capitalize ${t3 === tag ? "bg-blue-500 text-white" : ""}`}
                   href={`/explore/${hub}${toSearchParamsUrl({
                     // st,
                     t3: tag,
@@ -53,7 +55,9 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
                     pt: category,
                   })}`}
                 >
-                  <BadgeCheckIcon className="h-4 w-4 mr-1.5 text-blue-500 opacity-80 " />{" "}
+                  <BadgeCheckIcon
+                    className={`h-4 w-4 mr-1.5 group-hover:text-white hover:text-white text-blue-500 opacity-80 ${t3 === tag ? "text-white" : ""}`}
+                  />{" "}
                   {tag}
                 </Link>
               </Button>
