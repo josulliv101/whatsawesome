@@ -14,58 +14,76 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { toSearchParamsUrl } from "./page";
+import { useState } from "react";
 
 const categories = ["restaurant", "coffeehouse", "hotel", "museum"];
 
 export default function CategorySelector({ profilesByCategory = [] }: any) {
   const { hub } = useParams();
   const searchParams = useSearchParams();
+
   const pt = searchParams.get("pt");
   const t3 = searchParams.get("t3");
   const catalog = searchParams.get("catalog");
   const st = searchParams.get("st");
   const searchRadius = searchParams.get("searchRadius");
   const subCategories = pt ? tagDefinitions[pt]?.children : [];
+
+  const [activePt, setActivePt] = useState(pt);
+
   if (hub && !pt) {
     return null;
   }
   return (
-    <Accordion
-      defaultValue={pt ? pt : undefined}
-      // value={pt ? pt : undefined}
-      type="single"
-      collapsible
-      className="w-full"
-    >
-      {categories.map((category) => (
-        <AccordionItem key={category} value={category}>
-          <AccordionTrigger className="text-lg capitalize">
-            {category}
-          </AccordionTrigger>
-          <AccordionContent className="flex flex-wrap gap-2">
-            {tagDefinitions[category]?.tags?.sort()?.map((tag: string) => (
-              <Button key={tag} variant={false ? "outline" : "ghost"} asChild>
-                <Link
-                  className={`hover:bg-blue-500 group hover:text-white capitalize ${t3 === tag ? "bg-blue-500 text-white" : ""}`}
-                  href={`/explore/${hub}${toSearchParamsUrl({
-                    // st,
-                    t3: tag,
-                    // catalog,
-                    // searchRadius,
-                    pt: category,
-                  })}`}
+    <>
+      <h2 className="flex items-center justify-between font-semibold text-2xl capitalize">
+        Explore Categories
+      </h2>
+      <Accordion
+        defaultValue={pt ? pt : undefined}
+        // value={pt ? pt : undefined}
+        type="single"
+        collapsible
+        className="w-full"
+        onValueChange={setActivePt}
+      >
+        {categories.map((category) => (
+          <AccordionItem key={category} value={category}>
+            <AccordionTrigger className="text-lg capitalize">
+              {category}
+            </AccordionTrigger>
+            <AccordionContent
+              className={`grid grid-cols-12 gap-2 p-2 ${true || activePt === category ? "bg-white" : ""}`}
+            >
+              {tagDefinitions[category]?.tags?.sort()?.map((tag: string) => (
+                <Button
+                  className="col-span-4"
+                  key={tag}
+                  variant={false ? "outline" : "ghost"}
+                  asChild
                 >
-                  <BadgeCheckIcon
-                    className={`h-4 w-4 mr-1.5 group-hover:text-white hover:text-white text-blue-500 opacity-80 ${t3 === tag ? "text-white" : ""}`}
-                  />{" "}
-                  {tag}
-                </Link>
-              </Button>
-            ))}
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+                  <Link
+                    className={` min-h-10 hover:opacity-80 group capitalize ${t3 === tag ? "bg-blue-500 hover:bg-blue-500 text-white hover:text-white" : "bg-muted"}`}
+                    href={`/explore/${hub}${toSearchParamsUrl({
+                      // st,
+                      t3: tag,
+                      // catalog,
+                      // searchRadius,
+                      pt: category,
+                    })}`}
+                  >
+                    <BadgeCheckIcon
+                      className={`h-4 w-4 mr-1.5 text-blue-500 opacity-80 ${t3 === tag ? "text-white" : ""}`}
+                    />{" "}
+                    {tag}
+                  </Link>
+                </Button>
+              ))}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </>
   );
   return categories.map((category) => {
     return (

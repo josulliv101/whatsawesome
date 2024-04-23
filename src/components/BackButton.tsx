@@ -33,7 +33,7 @@ export default function BackButton({ hub }: any) {
             <div className="capitalize text-4xl font-bold flex items-center mb-[32px]">
               {/* {(params.hub as string)?.replaceAll("-", " ")} */}
               <BadgeCheckIcon className="h-8 w-8 mr-2 text-blue-500 opacity-80 hidden" />
-              {!catalog ? `Choose a Category` : `Browse Profiles`}
+              {!catalog ? `Explore Categories` : `Browse Profiles`}
             </div>
           </div>
         </div>

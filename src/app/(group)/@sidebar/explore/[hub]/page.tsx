@@ -13,7 +13,7 @@ import { searchProfilesByCategory, searchTopAoeByCategory } from "@/lib/search";
 import CategorySelector from "./CategorySelector";
 import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
-import { BadgeCheckIcon, SlashIcon } from "lucide-react";
+import { BadgeCheckIcon, CheckIcon, SlashIcon } from "lucide-react";
 
 export function toSearchParamsUrl(params: Record<string, string> = {}) {
   return Object.keys(params).reduce((acc, key) => {
@@ -67,7 +67,7 @@ export default async function Page({
               <CommandMenu />
             </p>
             <ToggleGroup
-              className="mb-0 justify-start"
+              className="mb-0 justify-start grid grid-cols-12"
               type="single"
               value={searchRadius}
             >
@@ -75,12 +75,12 @@ export default async function Page({
                 <ToggleGroupItem
                   key={miles}
                   variant={"default"}
-                  className="capitalize data-[state=on]:bg-blue-500 data-[state=on]:text-white aria-checked:bg-blue-500 border border-transparent "
+                  className="group relative col-span-3 text-center capitalize data-[state=on]:bg-blue-500_ data-[state=on]:text-white_ aria-checked:bg-blue-500_ border_ border-transparent_ "
                   value={String(miles)}
                   asChild
                 >
                   <Link
-                    className="block py-4 text-sm min-h-16 text-balance aria-checked:bg-blue-500  aria-checked:text-white aria-checked:border-muted-foreground/50"
+                    className="block py-4  min-h-10 text-balance aria-checked:bg-blue-500_  aria-checked:text-white_ aria-checked:border-muted-foreground/50_"
                     href={toSearchParamsUrl({
                       ...searchParams,
                       searchRadius: miles,
@@ -88,12 +88,18 @@ export default async function Page({
                   >
                     {miles === 0 && `only ${hub}`}
                     {miles === 5 && `near ${hub}`}
-                    {miles > 5 && `within ${miles} miles`}
+                    <span className="text-xs">
+                      {miles > 5 && `within ${miles} miles`}
+                    </span>
+                    <div className="group-aria-checked:block hidden h-4 w-4 bg-[#4c98fd] absolute top-0 right-1 rounded-full  items-center justify-center">
+                      <CheckIcon className="h-4 w-4 p-0.5 text-white" />
+                    </div>
                   </Link>
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
-            <Separator className="h-px bg-gray-300 my-6" />
+            <Separator className="h-px bg-gray-300 my-6 mb-10" />
+
             {/* <Tabs
               defaultValue="aoe"
               className="w-full_ absolute_ _top-2 _right-2"
@@ -146,10 +152,10 @@ export default async function Page({
           </div>
         )}
 
-        {!catalog && hub && !pt && (
+        {!catalog && hub && (
           <div className="sticky top-24">
-            <h2 className="px-8 pb-6 flex items-center justify-between font-semibold text-lg capitalize">
-              <div>
+            <h2 className="px-8 pb-8 flex items-center justify-between font-semibold text-2xl capitalize">
+              <div className="flex items-center mt-4">
                 {/* Top {hub.replace(/[-_]/g, ", ")} Profiles */}
                 Top Profiles{" "}
                 {!t3 && <span>&nbsp;in {hub.replace(/[-_]/g, ", ")}</span>}
@@ -162,9 +168,11 @@ export default async function Page({
                   </>
                 )}
               </div>
-              <span className="text-sm">
-                <Link href={`?catalog=true`}>View All</Link>
-              </span>
+              {!t3 && (
+                <span className="text-sm">
+                  <Link href={`?catalog=true`}>View All</Link>
+                </span>
+              )}
             </h2>
             <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
               {Object.keys(profileMap).map((id, i) => (

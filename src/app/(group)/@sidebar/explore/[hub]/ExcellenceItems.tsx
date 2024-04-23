@@ -145,13 +145,13 @@ export default async function ExcellenceItems({
           dataToUse?.map((item: any, index: number) => {
             const itemsToUse = isStacked ? item.results : topAoe.hits;
             return (
-              <div key={index} className="col-span-6">
+              <div key={index} className="col-span-12">
                 {isStacked && (
-                  <div className="relative bg-gray-100 px-4 py-4 flex capitalize_ items-center gap-2 text-sm font-semibold text-muted-foreground mt-2 mb-5 ">
+                  <div className="relative bg-muted px-4 py-4 flex capitalize items-center gap-2 text-lg font-semibold text-muted-foreground mt-2 mb-5 ">
                     {/* <span className="capitalize">{hub}</span>
                     <SlashIcon className="h-4 w-4 mx-1" /> */}
                     <Button
-                      className="absolute right-2  capitalize_ text-sm"
+                      className="absolute right-2  capitalize_ text-md"
                       size="sm"
                       variant={"ghost"}
                       asChild
@@ -188,10 +188,28 @@ export default async function ExcellenceItems({
                       return (
                         <>
                           <div key={result.name} className="mt-2 last:mb-8">
-                            <ExcellenceItem
+                            {/* <ExcellenceItem
                               item={result}
                               Component={Component}
-                            />
+                            /> */}
+                            {/* {JSON.stringify(result)} */}
+                            <Reason
+                              description={result?.reason || ""}
+                              name={result.parent?.name || ""}
+                              rating={result.rating}
+                              tags={item.tags}
+                              profileId={result.parentId}
+                              photoUrlAside={
+                                result?.photoUrl
+                                  ? result.parent?.parentPhotoUrl
+                                  : undefined
+                              }
+                              isForceRatingToShow
+                              photoUrl={
+                                result?.photoUrl ||
+                                result.parent?.parentPhotoUrl
+                              }
+                            ></Reason>
                           </div>
                         </>
                       );

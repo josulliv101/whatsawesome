@@ -60,14 +60,14 @@ function Row({
   return (
     <div className="mb-0">
       <h2 className="font-semibold text-lg mb-4 capitalize flex items-center justify-between">
-        {label}{" "}
-        <Button variant={"ghost"} asChild>
+        {label}
+        <Button className="opacity-0" variant={"ghost"} asChild>
           <Link href={"/"}>
             View All <ChevronRight className="h-4 w-4 ml-2" />
           </Link>
         </Button>
       </h2>
-      <div className={`flex items-start gap-2 max-w-full overflow-auto`}>
+      <div className={`flex items-start gap-4 max-w-full overflow-auto`}>
         {profiles.map((profile) => (
           <div
             key={profile}
@@ -86,7 +86,7 @@ function Row({
                   backgroundSize: "cover",
                   backgroundPosition: "top",
                 }}
-                className={`${profile ? "bg-muted" : "bg-black"} text-xl gap-2 min-h-32 min-w-32 max-w-32 border flex flex-col items-center justify-center rounded-md px-6 py-8 bg-muted_ text-muted-foreground text-balance text-center font-semibold`}
+                className={`${profile ? "bg-muted" : "bg-black"} text-lg gap-2 min-h-32 min-w-32 max-w-32 border flex flex-col items-center justify-center rounded-md px-6 py-8 bg-muted_ text-muted-foreground text-balance text-center font-semibold`}
               >
                 <BadgeCheckIcon className="h-8 w-8 mr-0 text-blue-500 opacity-80" />
                 {profile}

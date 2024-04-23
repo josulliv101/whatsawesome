@@ -104,7 +104,7 @@ export function BreadcrumbSideContent() {
         </BreadcrumbSeparator>
         <BreadcrumbItem>
           <BreadcrumbLink className="capitalize" asChild>
-            <Link href={`/explore/${hub}`}>All Categories</Link>
+            <Link href={`/explore/${hub}`}>Categories</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         {pt && (

@@ -150,12 +150,12 @@ export function CommandMenu({ ...props }: DialogProps) {
         }}
         {...props}
       >
-        <span className="hidden md:inline-flex">
-          <TextSearch className="mr-0 md:mr-2 h-5 w-5 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
+        <span className="hidden md:inline-flex capitalize">
+          <TextSearch className="mr-0 md:mr-2 h-6 w-6 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
           {placeHolderText}
         </span>
-        <span className="inline-flex md:hidden">
-          <TextSearch className="mr-0 md:mr-2 h-5 w-5 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
+        <span className="inline-flex md:hidden capitalize">
+          <TextSearch className="mr-0 md:mr-2 h-6 w-6 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
           <span className="hidden md:block">{placeHolderText}</span>
         </span>
         <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-80 md:flex">
