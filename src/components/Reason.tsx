@@ -168,19 +168,19 @@ export function Reason({
       }, 0) / totalPeople;
   const passionateBackers = Math.max(0, roundToInteger(rating / 8 - 1));
   return (
-    <Card className="group border-l-[1px]  relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
+    <Card className="group border-l-[1px] overflow-visible relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
       {photoUrlAside && (
-        <div className="hidden shadow-sm rounded-tl-md rounded-bl-md border-0 border-gray-200 bg-gray-100_ min-w-[200px] flex_ items-center absolute -bottom-2.5 -right-0 z-[10]  rounded-tr-md rounded-br-md">
+        <div className="bg-white shadow-sm rounded-tl-md rounded-bl-md border border-r-1 border-gray-200 bg-gray-100_ min-w-[200px] flex items-center absolute -bottom-2.5 -right-0 z-[10]  rounded-tr-md rounded-br-md">
           <Image
-            className={` border rounded-md  w-[60px] h-[60px] object-cover`}
-            width="60"
-            height="60"
+            className={` border rounded-tl-md rounded-bl-md  w-[48px] h-[48px] object-cover`}
+            width="48"
+            height="48"
             src={photoUrlAside}
             alt=""
           />
           <Button
             variant={"ghost"}
-            className="hidden text-muted-foreground min-w-[160px] justify-start -mt-2"
+            className=" text-muted-foreground min-w-[200px] justify-start"
           >
             {name}
           </Button>
@@ -390,7 +390,7 @@ export function Reason({
         <div className="flex flex-row-reverse items-center space-y-1 gap-12">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}
 
-          <CardDescription className="bg-blue-200_ text-xl mt-8_ relative top-2 text-balance_ text-center_ pr-0 lg:text-xl leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
+          <CardDescription className="bg-blue-200_ text-xl mt-8_ relative top-2 text-balance -mt-6 text-center pr-0 lg:text-lg leading-relaxed first-letter:text-4xl first-letter:pr-0.5 fir lg:leading-[2.25rem]">
             {description}
           </CardDescription>
         </div>
@@ -408,27 +408,46 @@ export function Reason({
         </div> */}
 
         <div
-          className={`flex flex-row gap-2.5 items-center justify-center absolute bottom-1 ${false ? "right-[250px]" : "right-[20px]"}`}
+          className={`flex flex-row gap-2.5 items-center justify-center absolute bottom-1 ${false ? "right-[250px]" : "left-[232px]"}`}
         >
           {id && !isAnalyticsView && (
             <>
               <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button
-                    key="source"
-                    className={`text-muted-foreground font-normal border-muted-foreground rounded-md py-0 max-h-[30px]_`}
                     variant={"ghost"}
-                    size="sm"
-                    asChild
+                    onClick={() =>
+                      toast(
+                        <pre className="mt-0 w-[340px] rounded-md bg-slate-950 p-4">
+                          <code className="text-white">
+                            Functionality not yet implemented.
+                          </code>
+                        </pre>
+                      )
+                    }
+                    className="flex py-2  gap-4  w-12  bg-gray-50_ origin-bottom-right scale-[1.0] transition-all duration-500 border_"
                   >
-                    <Link href={`#`}>Source: business owner</Link>
+                    <Image
+                      alt="vote"
+                      src={config.logoPath}
+                      width={40}
+                      height={40}
+                      className="grayscale_ ml-2 hidden"
+                    />
+                    {true && (
+                      <div className="w-6 h-6 z-[9999] scale-90 origin-bottom-left text-xs flex items-center justify-center absolute right-[0px] top-[-9px] border stroke-1 rounded-full text-muted-foreground bg-gray-50">
+                        2
+                      </div>
+                    )}
+
+                    <span className="flex flex-col items-center px-2">
+                      <MessageCircle className="w-6 h-6 z-[999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
+                      <span></span>
+                    </span>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p className="w-80 px-4 py-3">
-                    Information panel explaining sources: business owner, blue
-                    mushroom, or user.
-                  </p>
+                  <p>Comments</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -457,39 +476,20 @@ export function Reason({
               <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button
+                    key="source"
+                    className={`text-muted-foreground font-normal border-muted-foreground rounded-md py-0 max-h-[30px]_`}
                     variant={"ghost"}
-                    onClick={() =>
-                      toast(
-                        <pre className="mt-0 w-[340px] rounded-md bg-slate-950 p-4">
-                          <code className="text-white">
-                            Functionality not yet implemented.
-                          </code>
-                        </pre>
-                      )
-                    }
-                    className="flex py-2  gap-4  w-12  bg-gray-50_ origin-bottom-right scale-[1.0] transition-all duration-500 border_"
+                    size="sm"
+                    asChild
                   >
-                    <Image
-                      alt="vote"
-                      src={config.logoPath}
-                      width={40}
-                      height={40}
-                      className="grayscale_ ml-2 hidden"
-                    />
-                    {true && (
-                      <div className="w-6 h-6 z-[9999] text-xs flex items-center justify-center absolute right-[0px] top-[-9px] border stroke-1 rounded-sm text-muted-foreground bg-gray-50">
-                        2
-                      </div>
-                    )}
-
-                    <span className="flex flex-col items-center px-2">
-                      <MessageCircle className="w-6 h-6 z-[999] stroke-1 text-gray-400 fill-gray-300__" />{" "}
-                      <span></span>
-                    </span>
+                    <Link href={`#`}>Source: business owner</Link>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p>Comments</p>
+                  <p className="w-80 px-4 py-3">
+                    Information panel explaining sources: business owner, blue
+                    mushroom, or user.
+                  </p>
                 </TooltipContent>
               </Tooltip>
               {/* <MushroomHoverCard
@@ -519,7 +519,7 @@ export function Reason({
                       //   </pre>
                       // )
                     }
-                    className={`text-muted-foreground bg-muted_ font-normal group/btn _flex grayscale_  hover:grayscale-0 gap-2 transition-all duration-500 relative`}
+                    className={`text-muted-foreground bg-muted_ font-normal group/btn _flex grayscale_  hover:grayscale-0 gap-2 transition-all duration-500 hidden relative`}
                   >
                     {isMushroomAnimating ? "Remove vote" : "Vote"}
                     {/* <div className="relative">
@@ -755,7 +755,7 @@ export function Reason({
                 .map((tag) => (
                   <Button
                     key={tag}
-                    className={`text-muted-foreground text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                    className={`capitalize text-muted-foreground text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
                     variant={"ghost"}
                     size="sm"
                     asChild
@@ -771,7 +771,7 @@ export function Reason({
               <SlashIcon className="h-4 w-4 text-muted-foreground/50" />
               <Button
                 key={"place"}
-                className={`text-muted-foreground text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                className={`text-muted-foreground text-md border-muted-foreground rounded-md py-0 max-h-[30px]`}
                 variant={"ghost"}
                 size="sm"
                 asChild

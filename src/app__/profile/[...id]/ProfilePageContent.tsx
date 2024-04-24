@@ -193,6 +193,7 @@ export default async function ProfilePageContent({
 
         <div className="flex justify-start items-center mb-4 w-full">
           <h4 className="relative rounded-sm text-xl bg-muted px-4 pt-2 mt-4 pb-2 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
+            <BadgeCheckIcon className="h-6 w-6 mr-2 text-blue-500 opacity-80" />
             <strong className="font-[500] text-balance_ flex-1 block whitespace-nowrap">
               Areas of Excellence
             </strong>
@@ -226,10 +227,10 @@ export default async function ProfilePageContent({
         </div>
 
         <div
-          className="w-full grid grid-cols-[1fr] items-start gap-2 space-y-0 p-4 rounded-md"
+          className="w-full grid grid-cols-[1fr] items-start gap-2  p-4 rounded-md"
           style={{ backgroundColor: "#f1f5f9" || primaryColor }}
         >
-          <div className="flex items-center justify-between gap-2 pb-1">
+          <div className="flex items-center justify-between gap-2 pb-1 col-span-12">
             <p className="opacity-80 text-muted-foreground mt-4_ px-2 py-0 top-2_ relative">
               Vote below by leaving a
               <Image
@@ -245,42 +246,44 @@ export default async function ProfilePageContent({
             <div className="opacity-80 flex-1 w-full flex items-center justify-end">
               <PresetSelector />
               <Separator orientation="vertical" className="h-4 bg-gray-300" />
-              <p className="text-muted-foreground text-sm px-3">
+              <p className=" text-muted-foreground text-sm px-3">
                 showing {reasons.length} of {reasons.length} items
               </p>
             </div>
           </div>
-          {reasons.map((reason, i) => (
-            <>
-              {/* {i === 5 && (
+          <div className="col-span-12">
+            {reasons.map((reason, i) => (
+              <div className="mb-4 last:mb-0">
+                {/* {i === 5 && (
                 <div className="bg-muted text-muted-foreground p-4 flex items-center justify-between">
                   Boston Burger Round-up{" "}
                   <Button variant={"secondary"}>View Now</Button>
                 </div>
               )} */}
 
-              <ReasonVisibility tags={reason.tags || []}>
-                <Reason
-                  id={reason.id}
-                  key={reason.id || reason.reason}
-                  description={reason.reason}
-                  name={name}
-                  rating={reason.rating}
-                  photoUrl={reason.photoUrl}
-                  profileId={id}
-                  userRating={
-                    reason.id ? userProfileRatings?.[reason.id] : undefined
-                  }
-                  latlng={reason._geolat}
-                  ratings={reason.ratings}
-                  tags={reason._tags || []}
-                  isForceRatingToShow
-                  isEditable
-                  showLinkToProfile={false}
-                />
-              </ReasonVisibility>
-            </>
-          ))}
+                <ReasonVisibility tags={reason.tags || []}>
+                  <Reason
+                    id={reason.id}
+                    key={reason.id || reason.reason}
+                    description={reason.reason}
+                    name={name}
+                    rating={reason.rating}
+                    photoUrl={reason.photoUrl}
+                    profileId={id}
+                    userRating={
+                      reason.id ? userProfileRatings?.[reason.id] : undefined
+                    }
+                    latlng={reason._geolat}
+                    ratings={reason.ratings}
+                    tags={reason._tags || []}
+                    isForceRatingToShow
+                    isEditable
+                    showLinkToProfile={false}
+                  />
+                </ReasonVisibility>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* {isHub && (

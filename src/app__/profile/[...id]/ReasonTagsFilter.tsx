@@ -37,7 +37,7 @@ export default function ReasonTagsFilter({
           onClick={() => updateTag(tag)}
           size="sm"
           variant={"secondary"}
-          className={`relative border-2 ${activeTags.includes(tag) ? "border-gray-400" : "border-gray-200"}`}
+          className={`capitalize relative border-2 ${activeTags.includes(tag) ? "border-gray-400" : "border-gray-200"}`}
         >
           {(activeTags.includes(tag) ||
             (!activeTags.length && tag === "all")) && (

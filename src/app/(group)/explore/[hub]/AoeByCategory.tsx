@@ -68,7 +68,7 @@ function Row({
         </Button>
       </h2>
       <div className={`flex items-start gap-4 max-w-full overflow-auto`}>
-        {profiles.map((profile) => (
+        {profiles.sort().map((profile) => (
           <div
             key={profile}
             className={`max-w-[160px] flex flex-col items-center justify-start`}
@@ -86,7 +86,7 @@ function Row({
                   backgroundSize: "cover",
                   backgroundPosition: "top",
                 }}
-                className={`${profile ? "bg-muted" : "bg-black"} text-lg gap-2 min-h-32 min-w-32 max-w-32 border flex flex-col items-center justify-center rounded-md px-6 py-8 bg-muted_ text-muted-foreground text-balance text-center font-semibold`}
+                className={`capitalize ${profile ? "bg-muted" : "bg-black"} text-lg gap-2 min-h-32 min-w-32 max-w-32 border flex flex-col items-center justify-center rounded-md px-6 py-8 bg-muted_ text-muted-foreground text-balance text-center font-semibold`}
               >
                 <BadgeCheckIcon className="h-8 w-8 mr-0 text-blue-500 opacity-80" />
                 {profile}

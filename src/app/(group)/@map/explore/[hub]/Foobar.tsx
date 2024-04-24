@@ -62,9 +62,9 @@ export default function Foobar({
     <div className="relative">
       {children}
       <div className="z-50 absolute right-2 top-2 __translate-x-full">
-        <Button onClick={handleSearchMapBounds} variant={"secondary"} size="sm">
+        {/* <Button onClick={handleSearchMapBounds} variant={"secondary"} size="sm">
           Search map bounds
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

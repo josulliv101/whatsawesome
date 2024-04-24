@@ -35,6 +35,7 @@ import {
 import { Fragment, PropsWithChildren } from "react";
 import ReasonTagsFilter from "@/app__/profile/[...id]/ReasonTagsFilter";
 import { searchTopAoeByCategory, searchTopAoeByMapBounds } from "@/lib/search";
+import { boolean } from "zod";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -59,6 +60,7 @@ export default async function ExcellenceItems({
   isStacked,
   isGrid,
   searchMapBounds = "",
+  showHint,
 }: {
   hub: string;
   pt?: string;
@@ -67,6 +69,7 @@ export default async function ExcellenceItems({
   searchMapBounds?: string;
   isStacked?: boolean;
   isGrid?: boolean;
+  showHint?: boolean;
 }) {
   // const profile = await fetchProfile(hub);
 
@@ -119,8 +122,24 @@ export default async function ExcellenceItems({
         </h2>
       )}
       <div
-        className={`px-8 pb-5  sticky__ top-[120px] overflow-auto ${isGrid ? "grid md:grid-cols-12 gap-x-8 gap-y-8" : ""}`}
+        className={`mt-4 mx-8 pt-4 rounded-md pb-4 ${isStacked ? "" : "bg-muted px-4"} sticky__ top-[120px] overflow-auto ${isGrid ? "grid md:grid-cols-12 gap-x-8 gap-y-8" : "gap-8"}`}
       >
+        {showHint && (
+          <p
+            className={`${isStacked ? "col-span-12" : ""} hidden_ opacity-80 text-muted-foreground mt-4_ px-2 py-0 top-2_ relative`}
+          >
+            Vote below by leaving a
+            <Image
+              // id={marker.id}
+              alt="vote"
+              src={config.logoPath}
+              width={15}
+              height={15}
+              className={`inline-flex ml-2 mr-1 grayscale opacity-80`}
+            />{" "}
+            on an area of excellence.
+          </p>
+        )}
         {!isStacked &&
           hits
             .slice(0, 10)
@@ -167,7 +186,7 @@ export default async function ExcellenceItems({
                     </Button>
                     {item.tags.map((tag: string, index: number) => (
                       <>
-                        <span className="flex items-center gap-0">
+                        <span className="flex items-center gap-0 capitalize">
                           {index === item.tags?.length - 1 ? (
                             <BadgeCheckIcon className="h-5 w-5 mr-1.5 text-blue-500 opacity-80" />
                           ) : (
@@ -187,13 +206,17 @@ export default async function ExcellenceItems({
                     .map((result: any) => {
                       return (
                         <>
-                          <div key={result.name} className="mt-2 last:mb-8">
+                          <div
+                            key={result.name}
+                            className="mt-6 last:mb-8 flex flex-col gap-8"
+                          >
                             {/* <ExcellenceItem
                               item={result}
                               Component={Component}
                             /> */}
                             {/* {JSON.stringify(result)} */}
                             <Reason
+                              id={result.objectID}
                               description={result?.reason || ""}
                               name={result.parent?.name || ""}
                               rating={result.rating}
@@ -280,7 +303,7 @@ export function SideNav({
             {t3 ? <SlashIcon className="h-4 w-4 mx-6" /> : ""}{" "}
             {t3 ? (
               <>
-                <span className="capitalize flex items-center">
+                <span className="capitalize flex items-center capitalize">
                   <BadgeCheckIcon className="h-8 w-8 mr-3 text-blue-500 opacity-80" />
                   {t3}
                 </span>
@@ -292,9 +315,9 @@ export function SideNav({
         </div>
       </div>
       <div className="text-muted-foreground absolute h-10 border-0 bottom-12 right-8 z-10 flex flex-row-reverse items-center gap-2">
-        <div className="px-4 text-muted-foreground/80">
+        {/* <div className="px-4 text-muted-foreground/80">
           showing {resultsCount} items{" "}
-        </div>
+        </div> */}
         <Separator className="h-4" orientation="vertical" />
         {/* <PresetSelector /> */}
       </div>
@@ -321,11 +344,11 @@ export function SideNav({
                 Top 10
               </Link>
             </Button> */}
-            {items.map((tag) => (
+            {items.sort().map((tag) => (
               <Button
                 key={tag}
                 variant="secondary"
-                className="text-sm h-7 text-muted-foreground relative"
+                className="capitalize text-sm h-7 text-muted-foreground relative"
                 size="sm"
                 asChild
               >
@@ -518,7 +541,7 @@ function ExcellenceItem({ item, Component }: any) {
               : undefined
           }
           photoUrl={item.photoUrl || item.parent?.parentPhotoUrl}
-          id={item.id}
+          id={item.objectID}
           isForceRatingToShow
           // latestBacker={backers[index % 10]}
         />

@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckSquare, ChevronDown, Slash } from "lucide-react";
+import { BadgeCheckIcon, CheckSquare, ChevronDown, Slash } from "lucide-react";
 
 import {
   Breadcrumb,
@@ -23,13 +23,14 @@ import { Badge } from "./ui/badge";
 import { tagDefinitions } from "@/lib/tags";
 import { Suspense, useEffect, useState } from "react";
 import { CommandMenu } from "./CommandMenu";
+import { Separator } from "./ui/separator";
 
 export function BreadcrumbSideContent() {
   const params = useParams();
 
   const searchParams = useSearchParams();
   const pt = searchParams.get("pt");
-  const st = searchParams.get("st");
+  const t3 = searchParams.get("t3");
 
   const hub = Array.isArray(params.hub) ? params.hub[0] : params.hub ?? "";
   const [prevHub, setPrevHub] = useState(hub);
@@ -187,7 +188,23 @@ export function BreadcrumbSideContent() {
           </>
         )} */}
       </BreadcrumbList>
-      <div className="flex items-center gap-8"></div>
+      {!params.id && (
+        <div className="flex justify-end items-center gap-2 pr-8 font-normal text-muted-foreground text-sm">
+          {t3 && (
+            <>
+              <BadgeCheckIcon
+                className={`h-4 w-4 -mr-1 text-blue-500 opacity-80`}
+              />{" "}
+              <span className="capitalize">{t3}</span>
+              excellence
+            </>
+          )}
+          {!pt && !t3 && <>Popular areas of excellence </>} in{" "}
+          <span className="capitalize px-0">{hub}.</span>
+          <Separator orientation="vertical" className="h-4 mx-2 bg-gray-300" />
+          Showing results 1-10 of 100.
+        </div>
+      )}
     </Breadcrumb>
   );
 }

@@ -176,7 +176,8 @@ export default async function Page({
             </h2>
             <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
               {Object.keys(profileMap).map((id, i) => (
-                <div
+                <Link
+                  href={`/profile/${id}`}
                   key={i}
                   className="col-span-4  min-h-36 w-full h-full text-sm flex items-center justify-center"
                 >
@@ -199,7 +200,7 @@ export default async function Page({
                       {profileMap[id].name}
                     </div>
                   )}
-                </div>
+                </Link>
               ))}
             </div>
           </div>

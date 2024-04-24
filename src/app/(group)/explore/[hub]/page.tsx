@@ -51,6 +51,7 @@ export default async function Page({
             pt={pt}
             st={st}
             t3={t3}
+            showHint
           />
         </>
       )}
