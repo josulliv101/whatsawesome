@@ -253,7 +253,7 @@ export default async function ProfilePageContent({
           </div>
           <div className="col-span-12">
             {reasons.map((reason, i) => (
-              <div className="mb-4 last:mb-0">
+              <div key={i} className="mb-4 last:mb-0">
                 {/* {i === 5 && (
                 <div className="bg-muted text-muted-foreground p-4 flex items-center justify-between">
                   Boston Burger Round-up{" "}
