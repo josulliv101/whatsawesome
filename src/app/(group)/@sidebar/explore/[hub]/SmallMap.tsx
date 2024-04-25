@@ -129,8 +129,8 @@ const SmallMap = ({
               ["coffeehouse", "pastries"],
               ["restaurant", "wings"],
               ["restaurant", "wine"],
-            ].map((item) => (
-              <div className="col-span-6">
+            ].map((item, i) => (
+              <div className="col-span-6" key={i}>
                 <Button
                   asChild
                   onClick={() => setIsShowingResults(false)}
