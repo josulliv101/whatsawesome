@@ -77,23 +77,23 @@ export default async function Page({
                 <ToggleGroupItem
                   key={miles}
                   variant={"default"}
-                  className="group relative col-span-3 text-center capitalize data-[state=on]:bg-blue-500_ data-[state=on]:text-white_ aria-checked:bg-blue-500_ border_ border-transparent_ "
+                  className="group border border-gray-300 bg-gray-200 hover:bg-gray-200 py-4 relative col-span-3 text-center capitalize data-[state=on]:bg-blue-500_ data-[state=on]:text-white_ aria-checked:bg-blue-500_  "
                   value={String(miles)}
                   asChild
                 >
                   <Link
-                    className="block py-4 min-h-10 text-balance aria-checked:bg-blue-500_  aria-checked:text-white_ aria-checked:border-muted-foreground/50_"
+                    className="text-xs block py-4 min-h-10 text-balance aria-checked:bg-blue-500_  aria-checked:text-white_ aria-checked:border-muted-foreground/50_"
                     href={toSearchParamsUrl({
                       ...searchParams,
                       searchRadius: miles,
                     })}
                   >
-                    {miles === 0 && `in ${hub}`}
-                    {miles === NEAR_RADIUS && `near ${hub}`}
+                    {miles === 0 && `in ${hub.replace("-", ", ")}`}
+                    {miles === NEAR_RADIUS && `near ${hub.replace("-", ", ")}`}
                     <span className="text-xs">
                       {miles > NEAR_RADIUS && `within ${miles} miles`}
                     </span>
-                    <div className="group-aria-checked:block hidden h-4 w-4 bg-[#4c98fd] absolute top-0 right-1 rounded-full  items-center justify-center">
+                    <div className="group-aria-checked:block hidden h-4 w-4 bg-[#4c98fd] absolute -top-1 -right-1 rounded-full  items-center justify-center">
                       <CheckIcon className="h-4 w-4 p-0.5 text-white" />
                     </div>
                   </Link>

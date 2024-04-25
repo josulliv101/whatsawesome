@@ -270,6 +270,7 @@ const config: Config = {
         hflip: "flipHorizontal 2s 1",
         vflip: "flipVertical 2s 1",
         fadeIn: "fadeIn .5s ease-in",
+        fadeInDelayed: "fadeIn .5s ease-in .5s",
         legendSlideIn: "legend-slide-in 0.6s ease-out 1s forwards",
       },
     },
