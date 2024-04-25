@@ -1,6 +1,15 @@
 "use client";
 
-import { BadgeCheckIcon, CheckSquare, ChevronDown, Slash } from "lucide-react";
+import {
+  BadgeCheckIcon,
+  CheckSquare,
+  ChevronDown,
+  ChevronLeft,
+  ChevronLeftCircleIcon,
+  ChevronRight,
+  ChevronRightCircleIcon,
+  Slash,
+} from "lucide-react";
 
 import {
   Breadcrumb,
@@ -24,6 +33,7 @@ import { tagDefinitions } from "@/lib/tags";
 import { Suspense, useEffect, useState } from "react";
 import { CommandMenu } from "./CommandMenu";
 import { Separator } from "./ui/separator";
+import { toast } from "sonner";
 
 export function BreadcrumbSideContent() {
   const params = useParams();
@@ -45,7 +55,7 @@ export function BreadcrumbSideContent() {
     }
   }, [hub, pt]);
   return (
-    <Breadcrumb className="px-4 py-1.5 h-10 border-r font-semibold flex items-center justify-between w-full">
+    <Breadcrumb className="px-4 py-1.5 h-12 border-r font-semibold flex items-center justify-between w-full">
       <BreadcrumbList>
         {/* <BreadcrumbItem className="capitalize">
           <BreadcrumbPage>Discover Excellence</BreadcrumbPage>
@@ -133,8 +143,12 @@ export function BreadcrumbSideContent() {
                   <Link href={`/explore/${hub}`}>all</Link>
                 </DropdownMenuItem>
                 {[
-                  ...tagDefinitions.place.children,
-                  ...tagDefinitions.person.children,
+                  "restaurant",
+                  "coffeehouse",
+                  "hotel",
+                  "museum",
+                  // ...tagDefinitions.place.children,
+                  // ...tagDefinitions.person.children,
                 ]
                   .sort()
                   .map((tag) => {
@@ -188,21 +202,57 @@ export function BreadcrumbSideContent() {
           </>
         )} */}
       </BreadcrumbList>
-      {!params.id && (
-        <div className="flex justify-end items-center gap-2 pr-8 font-normal text-muted-foreground text-sm">
+      {!params.id && pt && (
+        <div className="flex justify-end items-center gap-2 pr-2 font-semibold text-muted-foreground text-sm">
           {t3 && (
             <>
               <BadgeCheckIcon
                 className={`h-4 w-4 -mr-1 text-blue-500 opacity-80`}
               />{" "}
               <span className="capitalize">{t3}</span>
-              excellence
+              Excellence
             </>
           )}
           {!pt && !t3 && <>Popular areas of excellence </>} in{" "}
           <span className="capitalize px-0">{hub}.</span>
           <Separator orientation="vertical" className="h-4 mx-2 bg-gray-300" />
           Showing results 1-10 of 100.
+          <Separator orientation="vertical" className="h-4 mx-2 bg-gray-300" />
+          <div className="flex items-center relative gap-0 ">
+            <Button
+              className="min-w-0 w-8 px-0"
+              size="sm"
+              variant="ghost"
+              disabled
+              onClick={() =>
+                toast(
+                  <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                    <code className="text-white">
+                      Functionality not yet implemented.
+                    </code>
+                  </pre>
+                )
+              }
+            >
+              <ChevronLeftCircleIcon className="h-6 w-6 mx-0 stroke-1" />
+            </Button>
+            <Button
+              className="min-w-0 w-8 px-0"
+              size="sm"
+              variant="ghost"
+              onClick={() =>
+                toast(
+                  <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                    <code className="text-white">
+                      Functionality not yet implemented.
+                    </code>
+                  </pre>
+                )
+              }
+            >
+              <ChevronRightCircleIcon className="h-6 w-6 mx-0 stroke-1" />
+            </Button>
+          </div>
         </div>
       )}
     </Breadcrumb>

@@ -144,9 +144,13 @@ export default async function ExcellenceItems({
           hits
             .slice(0, 10)
             // .filter((item) => item.reason)
-            .map((result) => (
+            .map((result, index) => (
               <div key={result.objectID} className="last:mb-8">
-                <ExcellenceItem item={result} Component={Component} />
+                <ExcellenceItem
+                  displayRank={index + 1}
+                  item={result}
+                  Component={Component}
+                />
               </div>
             ))}
         {!isStacked && (
@@ -524,11 +528,12 @@ function StackedReason({
   );
 }
 
-function ExcellenceItem({ item, Component }: any) {
+function ExcellenceItem({ item, Component, displayRank }: any) {
   return (
     <Fragment key={item.id}>
       <div key={item.id} className="py-2">
         <Component
+          displayRank={displayRank}
           showExtraPassion={false}
           description={item.reason}
           name={item.parent?.name}

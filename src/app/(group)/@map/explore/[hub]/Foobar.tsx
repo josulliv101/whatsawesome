@@ -47,7 +47,8 @@ export default function Foobar({
       );
     }
     if (markers.length === 1) {
-      // map.setZoom(17);
+      map.setCenter(markers[0]._geoloc);
+      return map.setZoom(12);
     }
     if (!searchParams.get("searchMapBounds")) {
       map.fitBounds(bounds);

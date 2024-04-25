@@ -414,6 +414,8 @@ export async function addReasonToProfile(
 export async function addProfile({
   id,
   reasons = [],
+  tagMap = {},
+  latlng = null,
   ...profile
 }: Partial<Profile>) {
   console.log("formData", id, profile);
@@ -426,7 +428,16 @@ export async function addProfile({
   const docRef = doc(db, "entity", id);
 
   // Add or update the document
-  await setDoc(docRef, profile);
+  await setDoc(docRef, {
+    ...profile,
+    _tags: Object.keys(tagMap),
+    _geoloc: latlng
+      ? {
+          lat: latlng.latitude || latlng.lat,
+          lng: latlng.longitude || latlng.lng,
+        }
+      : { lat: 0, lng: 0 },
+  });
   // await db.collection("entity").doc(profileId).set(profile);
 
   const subColRef = collection(db, "entity", id, "whyawesome");

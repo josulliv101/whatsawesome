@@ -284,7 +284,7 @@ export function ProfileForm({ addProfile, profile }: any) {
                       replace(tags.map((item) => item.value));
                     }}
                     defaultOptions={OPTIONS}
-                    value={(field.value as unknown as string[]).map((tag) => ({
+                    value={(field.value as unknown as string[])?.map((tag) => ({
                       label: tag,
                       value: tag,
                     }))}

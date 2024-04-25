@@ -14,6 +14,7 @@ import CategorySelector from "./CategorySelector";
 import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
 import { BadgeCheckIcon, CheckIcon, SlashIcon } from "lucide-react";
+import { fetchProfile } from "@/lib/firebase";
 
 export function toSearchParamsUrl(params: Record<string, string> = {}) {
   return Object.keys(params).reduce((acc, key) => {
@@ -24,6 +25,7 @@ export function toSearchParamsUrl(params: Record<string, string> = {}) {
   }, "?");
 }
 
+const NEAR_RADIUS = "4";
 export default async function Page({
   params: { hub },
   searchParams,
@@ -31,9 +33,9 @@ export default async function Page({
   params: any;
   searchParams: any;
 }>) {
-  const { pt, st, t3, catalog, searchRadius = "5" } = searchParams;
+  const { pt, st, t3, catalog, searchRadius = NEAR_RADIUS } = searchParams;
   const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
-
+  const profile = await fetchProfile(hub);
   const profilesByCategory = await searchProfilesByCategory(hub);
   const neighbors = [
     "arlington-ma",
@@ -71,7 +73,7 @@ export default async function Page({
               type="single"
               value={searchRadius}
             >
-              {[0, 5, 20, 50].map((miles) => (
+              {[0, NEAR_RADIUS, 20, 50].map((miles) => (
                 <ToggleGroupItem
                   key={miles}
                   variant={"default"}
@@ -80,16 +82,16 @@ export default async function Page({
                   asChild
                 >
                   <Link
-                    className="block py-4  min-h-10 text-balance aria-checked:bg-blue-500_  aria-checked:text-white_ aria-checked:border-muted-foreground/50_"
+                    className="block py-4 min-h-10 text-balance aria-checked:bg-blue-500_  aria-checked:text-white_ aria-checked:border-muted-foreground/50_"
                     href={toSearchParamsUrl({
                       ...searchParams,
                       searchRadius: miles,
                     })}
                   >
-                    {miles === 0 && `only ${hub}`}
-                    {miles === 5 && `near ${hub}`}
+                    {miles === 0 && `in ${hub}`}
+                    {miles === NEAR_RADIUS && `near ${hub}`}
                     <span className="text-xs">
-                      {miles > 5 && `within ${miles} miles`}
+                      {miles > NEAR_RADIUS && `within ${miles} miles`}
                     </span>
                     <div className="group-aria-checked:block hidden h-4 w-4 bg-[#4c98fd] absolute top-0 right-1 rounded-full  items-center justify-center">
                       <CheckIcon className="h-4 w-4 p-0.5 text-white" />
@@ -98,6 +100,22 @@ export default async function Page({
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
+
+            {profile.neighbors && false && (
+              <div className="flex items-center justify-end">
+                <Badge variant={"secondary"}>neighbors</Badge>
+
+                {profile.neighbors.map((neighbor) => (
+                  <Badge
+                    key={neighbor}
+                    className="border-muted-foreground/30"
+                    variant={"outline"}
+                  >
+                    {neighbor.split("-")[0]}
+                  </Badge>
+                ))}
+              </div>
+            )}
             <Separator className="h-px bg-gray-300 my-6 mb-10" />
 
             {/* <Tabs
@@ -155,11 +173,21 @@ export default async function Page({
         {!catalog && hub && (
           <div className="sticky top-24">
             <h2 className="px-8 pb-8 flex items-center justify-between font-semibold text-2xl capitalize">
-              <div className="flex items-center mt-4">
+              <div className="flex items-center mt-0">
                 {/* Top {hub.replace(/[-_]/g, ", ")} Profiles */}
-                Top Profiles{" "}
-                {!t3 && <span>&nbsp;in {hub.replace(/[-_]/g, ", ")}</span>}
                 {t3 && (
+                  <>
+                    Top Profiles <SlashIcon className="h-4 w-4 mx-4" /> Results
+                  </>
+                )}
+                {!t3 && (
+                  <>
+                    Top Profiles
+                    <SlashIcon className="h-4 w-4 mx-4" />
+                    <span>{hub.replace(/[-_]/g, ", ")}</span>
+                  </>
+                )}
+                {false && t3 && (
                   <>
                     <SlashIcon className="h-4 w-4 mx-4" />
                     <span>{pt || "..."}</span>
@@ -170,7 +198,7 @@ export default async function Page({
               </div>
               {!t3 && (
                 <span className="text-sm">
-                  <Link href={`?catalog=true`}>View All</Link>
+                  <Link href={`?catalog=true`}>View All Profiles</Link>
                 </span>
               )}
             </h2>

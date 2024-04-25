@@ -102,6 +102,7 @@ export function Reason({
   showExtraPassion,
   latestBacker,
   showLinkToProfile = true,
+  displayRank,
 }: PropsWithChildren<{
   id?: string;
   description: string;
@@ -124,6 +125,7 @@ export function Reason({
   showExtraPassion?: boolean;
   latestBacker?: string;
   showLinkToProfile?: boolean;
+  displayRank?: boolean;
 }>) {
   const [mushroomCount, setMushroomCount] = useState(
     roundToInteger(rating < 10 ? rating * 10 : rating)
@@ -169,6 +171,11 @@ export function Reason({
   const passionateBackers = Math.max(0, roundToInteger(rating / 8 - 1));
   return (
     <Card className="group border-l-[1px] overflow-visible relative w-full min-h-[222px] flex flex-col md:flex-row items-center gap-0 py-0 ">
+      {displayRank && (
+        <Badge className="hidden absolute top-2 left-2 border-2 border-white/30 text-white z-10">
+          {displayRank}
+        </Badge>
+      )}
       {photoUrlAside && (
         <div className="bg-white shadow-sm rounded-tl-md rounded-bl-md border border-r-1 border-gray-200 bg-gray-100_ min-w-[200px] flex items-center absolute -bottom-2.5 -right-0 z-[10]  rounded-tr-md rounded-br-md">
           <Image
@@ -382,8 +389,8 @@ export function Reason({
             </span>
           </Button>
         </TooltipTrigger>
-        <TooltipContent>
-          <p>Back this item</p>
+        <TooltipContent className="max-w-48">
+          <p>Support this item by leaving a mushroom</p>
         </TooltipContent>
       </Tooltip>
       <CardHeader className="relative z-10 flex-1 pl-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">

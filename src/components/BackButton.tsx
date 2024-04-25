@@ -61,9 +61,9 @@ export default function BackButton({ hub }: any) {
       variant={"link"}
       onClick={handleClick}
       size="sm"
-      className="h-8 relative_ top-4 absolute right-8"
+      className="h-8 relative_ top-4 absolute right-8 text-muted-foreground"
     >
-      <ChevronLeftIcon className="h-6 w-6" />
+      <ChevronLeftIcon className="h-5 w-5 stroke-1" />
       Back
     </Button>
   );
