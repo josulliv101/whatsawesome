@@ -131,14 +131,15 @@ const SmallMap = ({
                 {[
                   ["restaurant", "burger"],
                   ["restaurant", "steak"],
-                  ["coffeehouse", "coffee"],
-                  ["coffeehouse", "pastries"],
+
                   ["restaurant", "wings"],
                   ["restaurant", "wine"],
+                  ["coffeehouse", "coffee"],
+                  ["coffeehouse", "pastries"],
                   ["hotel", "dining"],
                   ["hotel", "location"],
                 ].map((item, i) => (
-                  <div className="col-span-3" key={i}>
+                  <div className="col-span-2" key={i}>
                     <Button
                       asChild
                       onClick={() => setIsShowingResults(false)}
@@ -151,7 +152,9 @@ const SmallMap = ({
                       >
                         <div className="text-md mb-1 capitalize">{item[0]}</div>
                         <BadgeCheckIcon className="h-7 w-7 my-1  mx-auto text-blue-500 opacity-80 " />
-                        <div className="text-xl capitalize">{item[1]}</div>
+                        <div className="text-lg font-semibold capitalize">
+                          {item[1]}
+                        </div>
                       </Link>
                     </Button>
                   </div>
