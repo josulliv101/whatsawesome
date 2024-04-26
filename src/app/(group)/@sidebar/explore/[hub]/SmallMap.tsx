@@ -26,9 +26,7 @@ const SmallMap = ({
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
-  const [isShowingResults, setIsShowingResults] = useState(
-    !!searchParams.get("t3")
-  );
+  const [isShowingResults, setIsShowingResults] = useState(false);
   /*
   const map = useMap();
   const router = useRouter();
