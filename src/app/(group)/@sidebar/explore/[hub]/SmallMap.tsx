@@ -14,7 +14,7 @@ import {
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { config } from "@/lib/config";
 import { Button } from "@/components/ui/button";
-import { BadgeCheckIcon, XCircleIcon, XIcon } from "lucide-react";
+import { BadgeCheckIcon, SlashIcon, XCircleIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
@@ -111,18 +111,25 @@ const SmallMap = ({
             <Button
               onClick={() => setIsShowingResults(!isShowingResults)}
               variant={"ghost"}
-              className={`${searchParams.get("t3") ? "animate-fadeInDelayed_" : ""} absolute top-2 right-0 mr-2 z-50 bg-gray-50 shadow-md`}
+              className={`${searchParams.get("t3") ? "animate-fadeInDelayed_" : ""} absolute top-2 right-0 mr-2 z-50 ${isShowingResults ? "" : "bg-gray-50 shadow-md"} `}
               size={"icon"}
             >
-              <BadgeCheckIcon className="h-8 w-8 my-1  mx-auto text-blue-500 opacity-80 " />
+              {isShowingResults ? (
+                <XIcon className="h-6 w-6" />
+              ) : (
+                <BadgeCheckIcon className="h-8 w-8 my-1  mx-auto text-blue-500 opacity-80 " />
+              )}
             </Button>
           )}
           {true && (
             <div
-              className={`${isShowingResults ? "-translate-x-[120%]" : "translate-x-[110%]"} transition-all duration-500 absolute top-2 right-0 mr-2 z-50 border-0 border-white/50 w-64 h-[336px] rounded-md py-2 px-3 bg-gray-200/90`}
+              className={`${isShowingResults ? "-translate-x-[0%]" : "translate-x-[110%]"} transition-all duration-500 absolute top-2 right-0 mr-2 z-10 border-0 border-white/50 w-[760px] h-[344px] rounded-md py-2 px-8 bg-gray-200/95`}
             >
-              <div className="capitalize mb-4 hidden">{params.hub}</div>
-              <div className="grid grid-cols-12 gap-2">
+              <div className="flex items-center capitalize mb-4 mt-2 font-semibold">
+                Popular Categories <SlashIcon className="h-4 w-4 mx-3" />{" "}
+                {params.hub}
+              </div>
+              <div className="grid grid-cols-12 gap-3">
                 {[
                   ["restaurant", "burger"],
                   ["restaurant", "steak"],
@@ -130,32 +137,28 @@ const SmallMap = ({
                   ["coffeehouse", "pastries"],
                   ["restaurant", "wings"],
                   ["restaurant", "wine"],
+                  ["hotel", "dining"],
+                  ["hotel", "location"],
                 ].map((item, i) => (
-                  <div className="col-span-6" key={i}>
+                  <div className="col-span-3" key={i}>
                     <Button
                       asChild
                       onClick={() => setIsShowingResults(false)}
                       variant={"outline"}
-                      className="block pt-4 bg-muted text-muted-foreground text-center w-full h-[101px] col-span-6"
+                      className="block pt-4 bg-muted text-muted-foreground text-center w-full h-[132px]"
                     >
                       <Link
+                        className="flex flex-col gap-0.5"
                         href={`/explore/${params.hub}?pt=${item[0]}&t3=${item[1]}`}
                       >
-                        <div className="text-xs mb-1 capitalize">{item[0]}</div>
-                        <BadgeCheckIcon className="h-5.5 w-5.5 my-1  mx-auto text-blue-500 opacity-80 " />
-                        <div className="text-md capitalize">{item[1]}</div>
+                        <div className="text-md mb-1 capitalize">{item[0]}</div>
+                        <BadgeCheckIcon className="h-7 w-7 my-1  mx-auto text-blue-500 opacity-80 " />
+                        <div className="text-xl capitalize">{item[1]}</div>
                       </Link>
                     </Button>
                   </div>
                 ))}
-                <Button
-                  onClick={() => setIsShowingResults(false)}
-                  size={"icon"}
-                  variant={"ghost"}
-                  className="absolute -top-2 -right-2 bg-gray-100 p-1 rounded-full h-6 w-6"
-                >
-                  <XIcon className="h-6 w-6" />
-                </Button>
+
                 <div className="font-semibold mb-0 hidden">Popular</div>
               </div>
             </div>

@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { toSearchParamsUrl } from "./page";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const categories = ["restaurant", "coffeehouse", "hotel", "museum"];
 
@@ -31,21 +31,36 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
 
   const [activePt, setActivePt] = useState(pt);
 
+  const [activePtTemp, setActivePtTemp] = useState(pt);
+
+  useEffect(() => {
+    setActivePtTemp(pt);
+    setActivePt(pt);
+  }, [pt]);
+
+  const handleChange = (val: string) => {
+    console.log("val", val);
+    setActivePtTemp(val);
+  };
+
   if (hub && !pt) {
     return null;
   }
+
+  console.log("CatSel render() activePtTemp", activePtTemp);
   return (
     <>
       <h2 className="flex items-center justify-between font-semibold text-2xl capitalize">
         Explore Categories
       </h2>
       <Accordion
-        defaultValue={pt ? pt : undefined}
-        // value={pt ? pt : undefined}
+        // key={pt}
+        // defaultValue={pt ? pt : undefined}
+        value={activePtTemp ? activePtTemp : undefined}
         type="single"
         collapsible
         className="w-full"
-        onValueChange={setActivePt}
+        onValueChange={handleChange}
       >
         {categories.map((category) => (
           <AccordionItem key={category} value={category}>
