@@ -19,7 +19,7 @@ export default function ReasonTagsFilter({
   }, []);
 
   const updateTag = (tag: string) => {
-    if (activeTags.includes(tag)) {
+    if (activeTags?.includes(tag)) {
       clearActiveTags();
       router.replace(`?filter=all`, { scroll: false });
     } else {
@@ -37,9 +37,9 @@ export default function ReasonTagsFilter({
           onClick={() => updateTag(tag)}
           size="sm"
           variant={"secondary"}
-          className={`capitalize relative border-2 ${activeTags.includes(tag) ? "border-gray-400" : "border-gray-200"}`}
+          className={`capitalize relative border-2 ${activeTags?.includes(tag) ? "border-gray-400" : "border-gray-200"}`}
         >
-          {(activeTags.includes(tag) ||
+          {(activeTags?.includes(tag) ||
             (!activeTags.length && tag === "all")) && (
             <div className="h-4 w-4 bg-gray-700 absolute -top-2 -right-1 rounded-full flex items-center justify-center">
               <CheckIcon className="h-4 w-4 p-0.5 text-white" />

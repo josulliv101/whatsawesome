@@ -100,7 +100,7 @@ export default async function PageContent({
       value: tag,
     })
   );
-  const imgPosition = profile?.tags.includes("person")
+  const imgPosition = profile?.tags?.includes("person")
     ? "object-top"
     : "object-center";
   console.log("TABNAV render");

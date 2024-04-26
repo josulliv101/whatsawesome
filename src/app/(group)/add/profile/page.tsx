@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ProfileForm } from "@/app__/edit/profile/[id]/ProfileForm2";
+import { Suspense } from "react";
 
 export default async function Page({
   params: { id },
@@ -46,40 +47,42 @@ export default async function Page({
           This is how others will see you on the site.
         </p>
       </div>
-      <Separator />
-      <Tabs defaultValue="account" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-6">
-          <TabsTrigger value="account">details</TabsTrigger>
-          <TabsTrigger value="password">what&#39;s awesome</TabsTrigger>
-        </TabsList>
-        <TabsContent value="account">
-          <ProfileForm addProfile={onSubmit} />
-        </TabsContent>
-        <TabsContent value="password">
-          <Card>
-            <CardHeader>
-              <CardTitle>Password</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you&#39;ll be logged
-                out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="current">Current password</Label>
-                <Input id="current" type="password" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="new">New password</Label>
-                <Input id="new" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-      </Tabs>
+      <Suspense>
+        <Separator />
+        <Tabs defaultValue="account" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="account">details</TabsTrigger>
+            <TabsTrigger value="password">what&#39;s awesome</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <ProfileForm addProfile={onSubmit} />
+          </TabsContent>
+          <TabsContent value="password">
+            <Card>
+              <CardHeader>
+                <CardTitle>Password</CardTitle>
+                <CardDescription>
+                  Change your password here. After saving, you&#39;ll be logged
+                  out.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="space-y-1">
+                  <Label htmlFor="current">Current password</Label>
+                  <Input id="current" type="password" />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="new">New password</Label>
+                  <Input id="new" type="password" />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button>Save password</Button>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </Suspense>
     </div>
   );
 }

@@ -46,11 +46,11 @@ export default async function Home({
         .filter((option) => option.active)
         .map((option) => option.value);
   const reorderedTags = filterOptions
-    .filter((option) => tagsToUse.includes(option.value))
+    .filter((option) => tagsToUse?.includes(option.value))
     .map((option) => option.value);
   const updatedOptions = filterOptions.map((option) => ({
     ...option,
-    active: tagsToUse.includes(option.value),
+    active: tagsToUse?.includes(option.value),
   }));
   // if (!filterCookie) {
   //   cookies().set("filter", tagsParam.join("|"), { secure: true });

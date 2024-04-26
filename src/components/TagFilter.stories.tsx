@@ -30,7 +30,7 @@ const getMockOptions = (activeTags: string[] = []) => {
     (tag) => ({
       label: tag,
       value: tag,
-      active: activeTags.includes(tag),
+      active: activeTags?.includes(tag),
     })
   );
 };

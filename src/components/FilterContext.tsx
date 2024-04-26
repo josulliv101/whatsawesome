@@ -25,7 +25,7 @@ export function FilterContextProvider({
   const tagOptionsPlace = tagDefinitions.place.children.map((tag: string) => ({
     label: tag,
     value: tag,
-    active: params.tags.includes(tag),
+    active: params.tags?.includes(tag),
   }));
 
   const [storedPlaceFilteredOptions, setStoredPlaceFilteredOptions] =
@@ -43,7 +43,7 @@ export function FilterContextProvider({
       const optionsPlace = tagDefinitions.place.children.map((tag: string) => ({
         label: tag,
         value: tag,
-        active: tags.includes(tag),
+        active: tags?.includes(tag),
       }));
       // setStoredPlaceFilteredOptions(optionsPlace);
     }

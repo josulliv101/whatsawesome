@@ -28,5 +28,5 @@ export const allTags = [
 ].sort();
 
 export function isRootHub(hub: string): boolean {
-  return hub === config.rootHub || config.rootHubAliases.includes(hub);
+  return hub === config.rootHub || config.rootHubAliases?.includes(hub);
 }

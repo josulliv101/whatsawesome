@@ -1,6 +1,6 @@
 "use client";
 
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import React, { PropsWithChildren, Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import {
   APIProvider,
@@ -105,60 +105,63 @@ const SmallMap = ({
       // maxZoom={16}
     >
       {children}
-
-      {true && (
-        <Button
-          onClick={() => setIsShowingResults(!isShowingResults)}
-          variant={"ghost"}
-          className={`${searchParams.get("t3") ? "animate-fadeInDelayed_" : ""} absolute top-2 right-0 mr-2 z-50 bg-gray-50 shadow-md`}
-          size={"icon"}
-        >
-          <BadgeCheckIcon className="h-8 w-8 my-1  mx-auto text-blue-500 opacity-80 " />
-        </Button>
-      )}
-      {true && (
-        <div
-          className={`${isShowingResults ? "-translate-x-[120%]" : "translate-x-[110%]"} transition-all duration-500 absolute top-2 right-0 mr-2 z-50 border-0 border-white/50 w-64 h-[336px] rounded-md py-2 px-3 bg-gray-200/90`}
-        >
-          <div className="capitalize mb-4 hidden">{params.hub}</div>
-          <div className="grid grid-cols-12 gap-2">
-            {[
-              ["restaurant", "burger"],
-              ["restaurant", "steak"],
-              ["coffeehouse", "coffee"],
-              ["coffeehouse", "pastries"],
-              ["restaurant", "wings"],
-              ["restaurant", "wine"],
-            ].map((item, i) => (
-              <div className="col-span-6" key={i}>
-                <Button
-                  asChild
-                  onClick={() => setIsShowingResults(false)}
-                  variant={"outline"}
-                  className="block pt-4 bg-muted text-muted-foreground text-center w-full h-[101px] col-span-6"
-                >
-                  <Link
-                    href={`/explore/${params.hub}?pt=${item[0]}&t3=${item[1]}`}
-                  >
-                    <div className="text-xs mb-1 capitalize">{item[0]}</div>
-                    <BadgeCheckIcon className="h-5.5 w-5.5 my-1  mx-auto text-blue-500 opacity-80 " />
-                    <div className="text-md capitalize">{item[1]}</div>
-                  </Link>
-                </Button>
-              </div>
-            ))}
+      <Suspense>
+        <>
+          {true && (
             <Button
-              onClick={() => setIsShowingResults(false)}
-              size={"icon"}
+              onClick={() => setIsShowingResults(!isShowingResults)}
               variant={"ghost"}
-              className="absolute -top-2 -right-2 bg-gray-100 p-1 rounded-full h-6 w-6"
+              className={`${searchParams.get("t3") ? "animate-fadeInDelayed_" : ""} absolute top-2 right-0 mr-2 z-50 bg-gray-50 shadow-md`}
+              size={"icon"}
             >
-              <XIcon className="h-6 w-6" />
+              <BadgeCheckIcon className="h-8 w-8 my-1  mx-auto text-blue-500 opacity-80 " />
             </Button>
-            <div className="font-semibold mb-0 hidden">Popular</div>
-          </div>
-        </div>
-      )}
+          )}
+          {true && (
+            <div
+              className={`${isShowingResults ? "-translate-x-[120%]" : "translate-x-[110%]"} transition-all duration-500 absolute top-2 right-0 mr-2 z-50 border-0 border-white/50 w-64 h-[336px] rounded-md py-2 px-3 bg-gray-200/90`}
+            >
+              <div className="capitalize mb-4 hidden">{params.hub}</div>
+              <div className="grid grid-cols-12 gap-2">
+                {[
+                  ["restaurant", "burger"],
+                  ["restaurant", "steak"],
+                  ["coffeehouse", "coffee"],
+                  ["coffeehouse", "pastries"],
+                  ["restaurant", "wings"],
+                  ["restaurant", "wine"],
+                ].map((item, i) => (
+                  <div className="col-span-6" key={i}>
+                    <Button
+                      asChild
+                      onClick={() => setIsShowingResults(false)}
+                      variant={"outline"}
+                      className="block pt-4 bg-muted text-muted-foreground text-center w-full h-[101px] col-span-6"
+                    >
+                      <Link
+                        href={`/explore/${params.hub}?pt=${item[0]}&t3=${item[1]}`}
+                      >
+                        <div className="text-xs mb-1 capitalize">{item[0]}</div>
+                        <BadgeCheckIcon className="h-5.5 w-5.5 my-1  mx-auto text-blue-500 opacity-80 " />
+                        <div className="text-md capitalize">{item[1]}</div>
+                      </Link>
+                    </Button>
+                  </div>
+                ))}
+                <Button
+                  onClick={() => setIsShowingResults(false)}
+                  size={"icon"}
+                  variant={"ghost"}
+                  className="absolute -top-2 -right-2 bg-gray-100 p-1 rounded-full h-6 w-6"
+                >
+                  <XIcon className="h-6 w-6" />
+                </Button>
+                <div className="font-semibold mb-0 hidden">Popular</div>
+              </div>
+            </div>
+          )}
+        </>
+      </Suspense>
     </Map>
   );
 };

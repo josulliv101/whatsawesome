@@ -142,7 +142,7 @@ DataTableFacetedFilterProps<TData, TValue>) {
             {/* <CommandEmpty>No results found.</CommandEmpty> */}
             <CommandGroup>
               {optionsToUse?.map((option) => {
-                const isSelected = activeTagPendingCommit.includes(
+                const isSelected = activeTagPendingCommit?.includes(
                   option.value
                 );
                 return (

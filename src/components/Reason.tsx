@@ -750,7 +750,7 @@ export function Reason({
                 .filter(
                   (tag) =>
                     !!tagDefinitions[tag] &&
-                    !tagDefinitions.all.children.includes(tag) &&
+                    !tagDefinitions.all.children?.includes(tag) &&
                     tagDefinitions[tag]?.level === 3
                 )
                 .sort((a: string, b: string) => {

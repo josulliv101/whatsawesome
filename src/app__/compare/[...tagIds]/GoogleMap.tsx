@@ -125,7 +125,7 @@ export default function GoogleMap({
           >
             {markers
               .filter((marker) =>
-                entities.map((e) => e.id).includes(marker.parentId)
+                entities.map((e) => e.id)?.includes(marker.parentId)
               )
               .map((marker, i) => {
                 const isActiveMarker = marker.id === activeItemId;
@@ -211,12 +211,12 @@ export default function GoogleMap({
                     key={item.id}
                     value={item.parentId}
                     onMouseOver={
-                      entityIds.includes(item.parentId)
+                      entityIds?.includes(item.parentId)
                         ? () => setActiveItemHoverId(item.id)
                         : undefined
                     }
                     onMouseOut={
-                      entityIds.includes(item.parentId)
+                      entityIds?.includes(item.parentId)
                         ? () => setActiveItemHoverId(null)
                         : undefined
                     }
@@ -225,7 +225,7 @@ export default function GoogleMap({
                       if (!id) {
                         return;
                       }
-                      if (entityIds.includes(id)) {
+                      if (entityIds?.includes(id)) {
                         setEntityIds(
                           entities.filter((entity) => entity.id !== id)
                         );
@@ -250,7 +250,7 @@ export default function GoogleMap({
                     <div className="pr-2">
                       <Checkbox
                         checked={
-                          !!item.parentId && entityIds.includes(item.parentId)
+                          !!item.parentId && entityIds?.includes(item.parentId)
                         }
                       />
                     </div>

@@ -78,7 +78,7 @@ export default async function ProfilePageContent({
 
   // const tagsToUse = filterCookie?.value ? filterCookie?.value.split(",") : tags;
 
-  const imgPosition = tags.includes("person") ? "object-top" : "object-center";
+  const imgPosition = tags?.includes("person") ? "object-top" : "object-center";
   // const initialActiveTags = filterCookie?.value?.split(",");
 
   const allReasonTags = reasons.reduce((acc: string[], reason) => {

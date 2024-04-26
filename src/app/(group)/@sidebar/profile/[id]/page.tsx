@@ -6,13 +6,7 @@ import {
 } from "@/lib/tags";
 import ExcellenceItems from "../../explore/[hub]/ExcellenceItems";
 
-export default async function Page({
-  params: { id },
-  searchParams: {},
-}: {
-  params: any;
-  searchParams: any;
-}) {
+export default async function Page({ params: { id } }: { params: any }) {
   return null;
   const profile = await fetchProfile(id);
   const primaryTags = getPrimaryTagsFromTags(profile.tags);

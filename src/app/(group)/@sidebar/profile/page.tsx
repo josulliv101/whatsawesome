@@ -1,9 +1,3 @@
-export default function Page({
-  params: { id },
-  searchParams: { pt, st },
-}: {
-  params: any;
-  searchParams: any;
-}) {
+export default function Page({ params: { id } }: { params: any }) {
   return <>sidebar profile {id}</>;
 }

@@ -202,7 +202,7 @@ export async function fetchHubProfiles2(
       ? [...config.defaultHubTags.person, ...config.defaultHubTags.place]
       : tags;
   console.log("normalizedTags", normalizedTags);
-  const queryHub = ![config.rootHub, "index"].includes(hub)
+  const queryHub = ![config.rootHub, "index"]?.includes(hub)
     ? [where(`tagMap.${hub}`, "==", true)]
     : [];
 
@@ -255,7 +255,7 @@ export async function fetchHubProfiles(
         ? config.defaultHubTags["place"]
         : tags;
 
-  const queryHub = ![config.rootHub, "index"].includes(hub)
+  const queryHub = ![config.rootHub, "index"]?.includes(hub)
     ? [where(`tagMap.${hub}`, "==", true)]
     : [];
 
@@ -525,7 +525,7 @@ export async function updateReasonTag(
           "lexington-ma",
           "somerville-ma",
           "burlington-ma",
-        ].includes(tag))
+        ]?.includes(tag))
   );
 
   const map = [...tags, ...parentHubTags].reduce((acc, tag) => {
@@ -741,7 +741,7 @@ export async function convertTagMapToTags() {
     const _tags = mydoc.get("_tags");
     const _geoloc = mydoc.get("_geoloc");
 
-    if (_geoloc || !_tags.includes("museum")) {
+    if (_geoloc || !_tags?.includes("museum")) {
       return;
     }
 

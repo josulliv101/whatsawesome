@@ -11,7 +11,7 @@ export function ReasonVisibility({
   const { activeTags } = useReasonVisibilityStore();
   const [tag] = activeTags;
 
-  if (!tag || tag === "all" || tags.includes(tag)) {
+  if (!tag || tag === "all" || tags?.includes(tag)) {
     return <div className="animate-fadeIn">{children}</div>;
   }
   return null;

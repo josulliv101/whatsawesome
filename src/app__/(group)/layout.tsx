@@ -3,7 +3,13 @@
 import Image from "next/image";
 import TabNav from "@/components/TabNav";
 import { Reason as ReasonType } from "@/lib/profile";
-import { PropsWithChildren, ReactNode, useEffect, useState } from "react";
+import {
+  PropsWithChildren,
+  ReactNode,
+  Suspense,
+  useEffect,
+  useState,
+} from "react";
 import {
   AlertCircle,
   Archive,
@@ -375,7 +381,9 @@ export default function Layout({
           </aside>
           <main className="md:col-span-8 p-0 border-0 border-green-600">
             <div className="sticky top-[70px] flex items-center justify-between pb-4 pt-6 mb-0 mx-0 px-4 rounded-md z-[10] bg-gray-50 w-full">
-              <BreadcrumbWithDropdown />
+              <Suspense>
+                <BreadcrumbWithDropdown />
+              </Suspense>
               <div className="flex items-center space-x-2">
                 <Switch
                   id="airplane-mode"

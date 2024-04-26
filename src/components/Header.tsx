@@ -11,7 +11,7 @@ import SettingsButton from "./SettingsButton";
 import { SettingsOptions } from "./SettingsOptions";
 import useLocalStorage from "./useLocalStorage";
 import { useIsMounted } from "./useIsMounted";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 
@@ -124,13 +124,15 @@ export default function Header() {
               />
             </div> */}
 
-            <SettingsOptions
-              enableLogoAnimation={storedEnableLogoAnimation}
-              onEnableLogoAnimationChange={setStoredEnableLogoAnimation}
-              onPlayAnimation={() => ""}
-              forcePlayAnimation={forcePlayAnimation}
-              setForcePlayAnimation={setForcePlayAnimation}
-            />
+            <Suspense>
+              <SettingsOptions
+                enableLogoAnimation={storedEnableLogoAnimation}
+                onEnableLogoAnimationChange={setStoredEnableLogoAnimation}
+                onPlayAnimation={() => ""}
+                forcePlayAnimation={forcePlayAnimation}
+                setForcePlayAnimation={setForcePlayAnimation}
+              />
+            </Suspense>
           </div>
         </nav>
         <div className="hidden lg:hidden" role="dialog" aria-modal="true">

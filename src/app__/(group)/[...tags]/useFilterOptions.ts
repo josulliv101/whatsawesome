@@ -15,10 +15,10 @@ function getFilter(f: FilterType | FilterByIdType): FilterType {
 }
 
 function getTypeFromTags(tags: string[]) {
-  if (tags.includes("city")) {
+  if (tags?.includes("city")) {
     return "city";
   }
-  if (tags.includes("college")) {
+  if (tags?.includes("college")) {
     return "college";
   }
   return "all";
