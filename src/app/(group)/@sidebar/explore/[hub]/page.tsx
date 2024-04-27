@@ -15,6 +15,7 @@ import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
 import { BadgeCheckIcon, CheckIcon, SlashIcon } from "lucide-react";
 import { fetchProfile } from "@/lib/firebase";
+import ProfileList from "./ProfileList";
 
 export function toSearchParamsUrl(params: Record<string, string> = {}) {
   return Object.keys(params).reduce((acc, key) => {
@@ -65,43 +66,54 @@ export default async function Page({
           <div className="px-8 mb-8">
             {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}
 
-            <p className="text-muted-foreground w-full mb-4">
+            <p className="text-muted-foreground_ w-full mb-4">
               <CommandMenu />
             </p>
-            <ToggleGroup
-              className="mb-0 justify-start grid grid-cols-12"
-              type="single"
-              value={searchRadius}
-            >
-              {[0, NEAR_RADIUS, 20, 50].map((miles) => (
-                <ToggleGroupItem
-                  key={miles}
-                  variant={"default"}
-                  className="group border border-gray-300 bg-gray-200 hover:bg-gray-200 py-4 relative col-span-3 text-center capitalize data-[state=on]:bg-blue-500_ data-[state=on]:text-white_ aria-checked:bg-blue-500_  "
-                  value={String(miles)}
-                  asChild
-                >
-                  <Link
-                    className="text-xs block py-4 min-h-10 text-balance aria-checked:bg-blue-500_  aria-checked:text-white_ aria-checked:border-muted-foreground/50_"
-                    href={toSearchParamsUrl({
-                      ...searchParams,
-                      searchRadius: miles,
-                    })}
-                  >
-                    {miles === 0 && `in ${hub.replace("-", ", ")}`}
-                    {miles === NEAR_RADIUS && `near ${hub.replace("-", ", ")}`}
-                    <span className="text-xs">
-                      {miles > NEAR_RADIUS && `within ${miles} miles`}
-                    </span>
-                    <div className="group-aria-checked:block hidden h-4 w-4 bg-[#4c98fd] absolute -top-1 -right-1 rounded-full  items-center justify-center">
-                      <CheckIcon className="h-4 w-4 p-0.5 text-white" />
-                    </div>
-                  </Link>
-                </ToggleGroupItem>
-              ))}
-            </ToggleGroup>
+            <Separator className="h-px bg-gray-300 my-6 mb-4" />
+            {pt && (
+              <>
+                <div className="flex items-center justify-between w-full mb-4 font-semibold text-md capitalize text-muted-foreground">
+                  Search Area{" "}
+                  <span className="font-normal text-sm">change location</span>
+                </div>
 
-            {profile.neighbors && false && (
+                <ToggleGroup
+                  className="mb-0 justify-start grid grid-cols-12"
+                  type="single"
+                  value={searchRadius}
+                >
+                  {[0, NEAR_RADIUS, 20, 50].map((miles) => (
+                    <ToggleGroupItem
+                      key={miles}
+                      variant={"default"}
+                      className="group border border-gray-300 bg-gray-200 hover:bg-gray-200 py-4 relative col-span-3 text-center capitalize data-[state=on]:bg-blue-500_ data-[state=on]:text-white_ aria-checked:bg-blue-500_  "
+                      value={String(miles)}
+                      asChild
+                    >
+                      <Link
+                        className="text-xs block py-4 min-h-10 text-balance aria-checked:bg-blue-500_  aria-checked:text-white_ aria-checked:border-muted-foreground/50_"
+                        href={toSearchParamsUrl({
+                          ...searchParams,
+                          searchRadius: miles,
+                        })}
+                      >
+                        {miles === 0 && `in ${hub.replace("-", ", ")}`}
+                        {miles === NEAR_RADIUS &&
+                          `near ${hub.replace("-", ", ")}`}
+                        <span className="text-xs">
+                          {miles > NEAR_RADIUS && `within ${miles} miles`}
+                        </span>
+                        <div className="group-aria-checked:block hidden h-4 w-4 bg-[#4c98fd] absolute -top-1 -right-1 rounded-full  items-center justify-center">
+                          <CheckIcon className="h-4 w-4 p-0.5 text-white" />
+                        </div>
+                      </Link>
+                    </ToggleGroupItem>
+                  ))}
+                </ToggleGroup>
+              </>
+            )}
+
+            {/* {profile.neighbors && false && (
               <div className="flex items-center justify-end">
                 <Badge variant={"secondary"}>neighbors</Badge>
 
@@ -115,8 +127,8 @@ export default async function Page({
                   </Badge>
                 ))}
               </div>
-            )}
-            <Separator className="h-px bg-gray-300 my-6 mb-10" />
+            )} */}
+            {pt && <Separator className="h-px bg-gray-300 my-6 mb-10" />}
 
             {/* <Tabs
               defaultValue="aoe"
@@ -170,10 +182,10 @@ export default async function Page({
           </div>
         )}
 
-        {!catalog && hub && (
+        {false && !catalog && hub && pt && (
           <div className="sticky top-24">
-            <h2 className="px-8 pb-8 flex items-center justify-between font-semibold text-2xl capitalize">
-              <div className="flex items-center mt-0">
+            <h2 className="px-8 pb-8 flex items-center justify-between font-semibold text-md capitalize">
+              <div className="flex items-center mt-0 text-muted-foreground">
                 {/* Top {hub.replace(/[-_]/g, ", ")} Profiles */}
                 {t3 && (
                   <>
@@ -202,12 +214,12 @@ export default async function Page({
                 </span>
               )}
             </h2>
-            <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
+            {/* <div className=" px-8 text-xl font-semibold capitalize grid grid-cols-12 gap-4">
               {Object.keys(profileMap).map((id, i) => (
                 <Link
                   href={`/profile/${id}`}
                   key={i}
-                  className="col-span-4  min-h-36 w-full h-full text-sm flex items-center justify-center"
+                  className="col-span-3  min-h-36 w-full h-full text-sm flex items-start justify-center"
                 >
                   {profileMap[id].parentPhotoUrl && (
                     <div className="w-full h-auto flex flex-col items-center gap-2 rounded-md">
@@ -230,9 +242,12 @@ export default async function Page({
                   )}
                 </Link>
               ))}
-            </div>
+            </div> */}
           </div>
         )}
+        <Suspense>
+          <ProfileList profileMap={profileMap} />
+        </Suspense>
       </>
     );
   }

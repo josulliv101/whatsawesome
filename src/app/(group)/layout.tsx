@@ -42,6 +42,7 @@ import {
 import { CheckboxIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import MapSlide from "./MapSlide";
 
 export const metadata = {
   title: "Next.js App Router + React Server Components Demo",
@@ -77,8 +78,10 @@ export default function RootLayout({
               <Header />
               <div className="grid md:grid-cols-12 gap-0">
                 <main className="relative col-span-8 px-0 py-0 min-h-[calc(100dvh_-_73px_-_73px)]">
-                  <div className="sticky_ flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px] bg-gray-100/90">
-                    <aside className="overflow-visible relative bg-gray-200 px-8 pt-8 pb-8 w-[30vw] border-r border-gray-300 flex flex-col items-start justify-between">
+                  <div
+                    className={`sticky_ -z-0 flex justify-end right-0 top-[72px] bottom-0_ w-full  h-[360px] bg-gray-100/90`}
+                  >
+                    <aside className="overflow-visible -z-0 relative bg-gray-200 px-8 pt-8 pb-8 w-[30vw] border-r border-gray-300 flex flex-col items-start justify-between">
                       <div className="bg-gray-300_ py-3_ _px-5">
                         <Suspense>
                           <AsideBlurb />
@@ -91,14 +94,15 @@ export default function RootLayout({
                       <SmallMap>{map}</SmallMap>
                     </Suspense>
                   </div>
-                  <div className="sticky z-50 top-[62px] bg-muted border-b flex items-center justify-between pl-4">
-                    <BreadcrumbSide />
-                  </div>
-                  <div className="relative flex justify-start min-h-[48px] w-full items-center pl-4 pr-8 pt-0 mb-[0px] ">
-                    <Suspense>
-                      <BackButton hub={hub} />
-                    </Suspense>
-                    {/* <Tabs
+                  <Suspense>
+                    <MapSlide>
+                      <div className="sticky z-50 top-[62px] bg-muted border-b flex items-center justify-between pl-4">
+                        <BreadcrumbSide />
+                      </div>
+                      <div className="relative  flex justify-start min-h-[48px] w-full items-center pl-4 pr-8 pt-0 mb-[0px] ">
+                        <BackButton hub={hub} />
+
+                        {/* <Tabs
                       defaultValue="all"
                       className="w-full_ absolute top-2 right-2"
                     >
@@ -126,9 +130,13 @@ export default function RootLayout({
                       <TabsContent value="account">as</TabsContent>
                       <TabsContent value="password">aa</TabsContent>
                     </Tabs> */}
-                  </div>
+                      </div>
 
-                  <div className="mt-0">{children}</div>
+                      <div className="mt-0 bg-gray-50 min-h-48 relative z-10">
+                        &nbsp;{children}
+                      </div>
+                    </MapSlide>
+                  </Suspense>
                 </main>
                 <aside className="relative col-span-4 bg-muted border-l">
                   {sidebar}

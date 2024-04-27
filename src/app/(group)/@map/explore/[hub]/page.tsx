@@ -105,7 +105,7 @@ export default async function Page({
   // });
 
   return (
-    <Foobar markers={topMarkers.flat()}>
+    <Foobar profileZoom={profile.mapZoom} markers={topMarkers.flat()}>
       {topMarkers.map((marker, index) => {
         const size = marker.size;
         return (

@@ -135,7 +135,7 @@ export function CommandMenu({ ...props }: DialogProps) {
     []
   );
 
-  const placeHolderText = params.hub || "Search";
+  const placeHolderText = "Search by location, category, profile name & more"; // params.hub || "Search";
 
   return (
     <>
@@ -150,7 +150,7 @@ export function CommandMenu({ ...props }: DialogProps) {
         }}
         {...props}
       >
-        <span className="hidden md:inline-flex capitalize">
+        <span className="hidden md:inline-flex capitalize_">
           <TextSearch className="mr-0 md:mr-2 h-6 w-6 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
           {placeHolderText}
         </span>

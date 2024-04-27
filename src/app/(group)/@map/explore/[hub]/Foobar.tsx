@@ -7,9 +7,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { PropsWithChildren, useEffect, useState } from "react";
 
 export default function Foobar({
+  profileZoom = 14,
   children,
   markers = [],
-}: PropsWithChildren<{ markers: Array<any> }>) {
+}: PropsWithChildren<{ profileZoom: number; markers: Array<any> }>) {
   const router = useRouter();
   const map = useMap();
   const searchParams = useSearchParams();
@@ -48,7 +49,7 @@ export default function Foobar({
     }
     if (markers.length === 1) {
       map.setCenter(markers[0]._geoloc);
-      return map.setZoom(12);
+      return map.setZoom(profileZoom);
     }
     if (!searchParams.get("searchMapBounds")) {
       map.fitBounds(bounds);

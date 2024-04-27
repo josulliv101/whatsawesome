@@ -50,8 +50,9 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
   console.log("CatSel render() activePtTemp", activePtTemp);
   return (
     <>
-      <h2 className="flex items-center justify-between font-semibold text-2xl capitalize">
-        Explore Categories
+      <h2 className="flex items-center justify-between font-semibold text-md text-muted-foreground mb-2 capitalize">
+        Explore Categories{" "}
+        <span className="font-normal text-sm hidden">change category</span>
       </h2>
       <Accordion
         // key={pt}

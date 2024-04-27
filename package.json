@@ -58,6 +58,7 @@
     "react-cookie": "^7.0.2",
     "react-dom": "18.3.0-canary-98b8359f6-20240223",
     "react-hook-form": "^7.50.1",
+    "react-intersection-observer": "^9.8.2",
     "recharts": "^2.12.0",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.1",
