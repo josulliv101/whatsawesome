@@ -69,7 +69,7 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
               {category}
             </AccordionTrigger>
             <AccordionContent
-              className={`grid grid-cols-12 gap-2 p-4 ${true || activePt === category ? "bg-white" : ""}`}
+              className={`grid grid-cols-12 gap-2 p-4 ${true || activePt === category ? "bg-gray-50" : ""}`}
             >
               {tagDefinitions[category]?.tags?.sort()?.map((tag: string) => (
                 <Button

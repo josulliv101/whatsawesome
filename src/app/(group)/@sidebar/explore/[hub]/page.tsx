@@ -13,9 +13,29 @@ import { searchProfilesByCategory, searchTopAoeByCategory } from "@/lib/search";
 import CategorySelector from "./CategorySelector";
 import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
-import { BadgeCheckIcon, CheckIcon, SlashIcon } from "lucide-react";
+import { BadgeCheckIcon, CheckIcon, SlashIcon, Slice } from "lucide-react";
 import { fetchProfile } from "@/lib/firebase";
 import ProfileList from "./ProfileList";
+import { getLevel3TagsFromTags, getPrimaryTagsFromTags } from "@/lib/tags";
+import { roundToInteger } from "@/lib/utils";
+
+function truncateString(str: string, maxLength: number) {
+  // Check if the string length is less than or equal to the maxLength
+  if (str.length <= maxLength) {
+    return str;
+  }
+
+  // Find the last space before maxLength
+  const lastSpaceIndex = str.lastIndexOf(" ", maxLength);
+
+  // If there's no space, truncate at maxLength to avoid cutting a word in the middle
+  if (lastSpaceIndex === -1) {
+    return str.slice(0, maxLength) + "...";
+  }
+
+  // Return the substring from the beginning to the last space
+  return str.slice(0, lastSpaceIndex) + "...";
+}
 
 export function toSearchParamsUrl(params: Record<string, string> = {}) {
   return Object.keys(params).reduce((acc, key) => {
@@ -70,6 +90,101 @@ export default async function Page({
               <CommandMenu />
             </p>
             <Separator className="h-px bg-gray-300 my-8" />
+            {!pt && (
+              <div className="grid grid-cols-12 gap-x-0 gap-y-6">
+                {topProfiles?.map((category) => {
+                  const foo = category.hits
+                    .filter(
+                      (hit) => !!hit?.photoUrl && !!hit.parent?.parentPhotoUrl
+                    )
+                    .sort((a, b) => {
+                      return Number(a.rating) - Number(b.rating);
+                    })
+                    .slice(0, 6)
+                    .reduce((acc, hit) => {
+                      return {
+                        ...acc,
+                        [getLevel3TagsFromTags(hit._tags)[0]]: hit,
+                      };
+                    }, {});
+
+                  return Object.values(foo).map((hit, index) => {
+                    const isEven = index % 2 === 0;
+                    const t3Tags = getLevel3TagsFromTags(hit._tags);
+                    const primaryTags = getPrimaryTagsFromTags(hit._tags);
+                    const spot1 = (
+                      <Link
+                        href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
+                        className="block col-span-6 "
+                      >
+                        <div className="relative aspect-square bg-gray-100">
+                          <Image
+                            src={hit.photoUrl}
+                            alt=""
+                            className="w-full object-cover aspect-square"
+                            width="200"
+                            height="200"
+                          />
+
+                          <Image
+                            src={hit.parent?.parentPhotoUrl}
+                            alt=""
+                            className={`w-20 border border-gray-50 absolute -bottom-1 ${true ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
+                            width="200"
+                            height="200"
+                          />
+                        </div>
+                      </Link>
+                    );
+                    const spot2 = (
+                      <Link
+                        href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
+                        className="block col-span-6"
+                      >
+                        <div className=" text-muted-foreground px-6 py-4 bg-gray-50 relative border aspect-square">
+                          <div className="font-semibold text-lg mb-4">
+                            {hit.parent?.name}
+                          </div>
+                          <p className="text-lg">
+                            {truncateString(hit.reason, 86)}
+                          </p>
+                          <div className="absolute p-4 bottom-0 left-0 flex items-center justify-between w-full">
+                            <Badge
+                              variant={"outline"}
+                              className="relative border-0 -left-0 flex gap-1 capitalize"
+                            >
+                              <BadgeCheckIcon
+                                className={`h-4 w-4 mr-1  text-blue-500 opacity-80`}
+                              />{" "}
+                              {t3Tags}
+                            </Badge>
+                            <div className="flex items-center gap-2 pr-2">
+                              <Image
+                                // id={marker.id}
+                                alt="vote"
+                                src={config.logoPath}
+                                width={16}
+                                height={16}
+                                className={``}
+                              />
+                              {roundToInteger(hit.rating)}
+                            </div>
+                          </div>
+                          {/* <Image
+                            src={hit.parent?.parentPhotoUrl}
+                            alt=""
+                            className={`w-24 border border-gray-50 absolute -bottom-1 ${isEven ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
+                            width="200"
+                            height="200"
+                          /> */}
+                        </div>
+                      </Link>
+                    );
+                    return <>{false ? [spot1, spot2] : [spot2, spot1]}</>;
+                  });
+                })}
+              </div>
+            )}
             {pt && (
               <>
                 <div className="flex items-center justify-between w-full mb-4 font-semibold text-md capitalize text-muted-foreground">
