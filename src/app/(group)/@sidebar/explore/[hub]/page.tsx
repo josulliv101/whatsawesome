@@ -82,110 +82,15 @@ export default async function Page({
     const ptUrlParam = pt ? `&pt=${pt}` : "";
     return (
       <>
-        <div className="mt-8">
+        <div className="">
+          <p className="bg-blue-100/50 px-8 text-muted-foreground_ w-full py-8">
+            <CommandMenu />
+          </p>
+          <Separator className="h-px bg-gray-300 mb-8" />
           <div className="px-8 mb-8">
             {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}
 
-            <p className="text-muted-foreground_ w-full mb-4">
-              <CommandMenu />
-            </p>
-            <Separator className="h-px bg-gray-300 my-8" />
-            {!pt && (
-              <div className="grid grid-cols-12 gap-x-0 gap-y-6">
-                {topProfiles?.map((category) => {
-                  const foo = category.hits
-                    .filter(
-                      (hit) => !!hit?.photoUrl && !!hit.parent?.parentPhotoUrl
-                    )
-                    .sort((a, b) => {
-                      return Number(a.rating) - Number(b.rating);
-                    })
-                    .slice(0, 6)
-                    .reduce((acc, hit) => {
-                      return {
-                        ...acc,
-                        [getLevel3TagsFromTags(hit._tags)[0]]: hit,
-                      };
-                    }, {});
-
-                  return Object.values(foo).map((hit, index) => {
-                    const isEven = index % 2 === 0;
-                    const t3Tags = getLevel3TagsFromTags(hit._tags);
-                    const primaryTags = getPrimaryTagsFromTags(hit._tags);
-                    const spot1 = (
-                      <Link
-                        href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
-                        className="block col-span-6 "
-                      >
-                        <div className="relative aspect-square bg-gray-100">
-                          <Image
-                            src={hit.photoUrl}
-                            alt=""
-                            className="w-full object-cover aspect-square"
-                            width="200"
-                            height="200"
-                          />
-
-                          <Image
-                            src={hit.parent?.parentPhotoUrl}
-                            alt=""
-                            className={`w-20 border border-gray-50 absolute -bottom-1 ${true ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
-                            width="200"
-                            height="200"
-                          />
-                        </div>
-                      </Link>
-                    );
-                    const spot2 = (
-                      <Link
-                        href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
-                        className="block col-span-6"
-                      >
-                        <div className=" text-muted-foreground px-6 py-4 bg-gray-50 relative border aspect-square">
-                          <div className="font-semibold text-lg mb-4">
-                            {hit.parent?.name}
-                          </div>
-                          <p className="text-lg">
-                            {truncateString(hit.reason, 86)}
-                          </p>
-                          <div className="absolute p-4 bottom-0 left-0 flex items-center justify-between w-full">
-                            <Badge
-                              variant={"outline"}
-                              className="relative border-0 -left-0 flex gap-1 capitalize"
-                            >
-                              <BadgeCheckIcon
-                                className={`h-4 w-4 mr-1  text-blue-500 opacity-80`}
-                              />{" "}
-                              {t3Tags}
-                            </Badge>
-                            <div className="flex items-center gap-2 pr-2">
-                              <Image
-                                // id={marker.id}
-                                alt="vote"
-                                src={config.logoPath}
-                                width={16}
-                                height={16}
-                                className={``}
-                              />
-                              {roundToInteger(hit.rating)}
-                            </div>
-                          </div>
-                          {/* <Image
-                            src={hit.parent?.parentPhotoUrl}
-                            alt=""
-                            className={`w-24 border border-gray-50 absolute -bottom-1 ${isEven ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
-                            width="200"
-                            height="200"
-                          /> */}
-                        </div>
-                      </Link>
-                    );
-                    return <>{false ? [spot1, spot2] : [spot2, spot1]}</>;
-                  });
-                })}
-              </div>
-            )}
-            {pt && (
+            {true && (
               <>
                 <div className="flex items-center justify-between w-full mb-4 font-semibold text-md capitalize text-muted-foreground">
                   Search Area{" "}
@@ -225,6 +130,109 @@ export default async function Page({
                     </ToggleGroupItem>
                   ))}
                 </ToggleGroup>
+              </>
+            )}
+            {!pt && (
+              <>
+                <div className="pt-2 flex items-center justify-between w-full mb-8 font-semibold text-md capitalize text-muted-foreground">
+                  <div className="flex items-center">
+                    {hub} <SlashIcon className="h-4 w-4 mx-4" /> Recommended
+                    <span className="font-normal text-sm"></span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-12 gap-x-0 gap-y-6">
+                  {topProfiles?.map((category) => {
+                    const foo = category.hits
+                      .filter(
+                        (hit) => !!hit?.photoUrl && !!hit.parent?.parentPhotoUrl
+                      )
+                      .sort((a, b) => {
+                        return Number(a.rating) - Number(b.rating);
+                      })
+                      .slice(0, 6)
+                      .reduce((acc, hit) => {
+                        return {
+                          ...acc,
+                          [getLevel3TagsFromTags(hit._tags)[0]]: hit,
+                        };
+                      }, {});
+
+                    return Object.values(foo).map((hit, index) => {
+                      const isEven = index % 2 === 0;
+                      const t3Tags = getLevel3TagsFromTags(hit._tags);
+                      const primaryTags = getPrimaryTagsFromTags(hit._tags);
+                      const spot1 = (
+                        <Link
+                          href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
+                          className="block col-span-6 "
+                        >
+                          <div className="relative aspect-square bg-gray-100">
+                            <Image
+                              src={hit.photoUrl}
+                              alt=""
+                              className="w-full object-cover aspect-square"
+                              width="200"
+                              height="200"
+                            />
+
+                            <Image
+                              src={hit.parent?.parentPhotoUrl}
+                              alt=""
+                              className={`w-20 border border-gray-50 bg-gray-50 absolute -bottom-1 ${true ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
+                              width="200"
+                              height="200"
+                            />
+                          </div>
+                        </Link>
+                      );
+                      const spot2 = (
+                        <Link
+                          href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
+                          className="block col-span-6"
+                        >
+                          <div className=" text-muted-foreground px-6 py-4 bg-gray-50 relative border aspect-square">
+                            <div className="font-semibold text-lg mb-4">
+                              {hit.parent?.name}
+                            </div>
+                            <p className="text-lg">
+                              {truncateString(hit.reason, 86)}
+                            </p>
+                            <div className="absolute p-4 bottom-0 left-0 flex items-center justify-between w-full">
+                              <Badge
+                                variant={"outline"}
+                                className="relative border-0 -left-0 flex gap-1 capitalize"
+                              >
+                                <BadgeCheckIcon
+                                  className={`h-4 w-4 mr-1  text-blue-500 opacity-80`}
+                                />{" "}
+                                {t3Tags}
+                              </Badge>
+                              <div className="flex items-center gap-2 pr-2">
+                                <Image
+                                  // id={marker.id}
+                                  alt="vote"
+                                  src={config.logoPath}
+                                  width={16}
+                                  height={16}
+                                  className={``}
+                                />
+                                {roundToInteger(hit.rating)}
+                              </div>
+                            </div>
+                            {/* <Image
+                            src={hit.parent?.parentPhotoUrl}
+                            alt=""
+                            className={`w-24 border border-gray-50 absolute -bottom-1 ${isEven ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
+                            width="200"
+                            height="200"
+                          /> */}
+                          </div>
+                        </Link>
+                      );
+                      return <>{false ? [spot1, spot2] : [spot2, spot1]}</>;
+                    });
+                  })}
+                </div>
               </>
             )}
 

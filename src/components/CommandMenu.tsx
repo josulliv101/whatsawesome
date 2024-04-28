@@ -55,7 +55,10 @@ const docsConfig = {
   ],
 };
 
-export function CommandMenu({ ...props }: DialogProps) {
+export function CommandMenu({
+  placeHolderText = "Search by name, location, category & more",
+  ...props
+}: DialogProps & { placeHolderText?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
@@ -135,14 +138,14 @@ export function CommandMenu({ ...props }: DialogProps) {
     []
   );
 
-  const placeHolderText = "Search by location, category, profile name & more"; // params.hub || "Search";
+  // const placeHolderText = ; // params.hub || "Search";
 
   return (
     <>
       <Button
         variant="outline"
         className={cn(
-          "relative px-2  md:px-4 md:pr-12 max-w-[320px]_ w-full h-12 justify-between rounded-[0.5rem] bg-background text-md font-normal text-muted-foreground shadow-none  "
+          "relative px-4 hover:bg-white  md:px-6 md:pr-12 max-w-[320px]_ w-full h-16 justify-between rounded-[0.5rem] bg-background text-md font-normal text-muted-foreground shadow-none  "
         )}
         onClick={() => {
           clearState();
@@ -151,14 +154,14 @@ export function CommandMenu({ ...props }: DialogProps) {
         {...props}
       >
         <span className="hidden md:inline-flex capitalize_">
-          <TextSearch className="mr-0 md:mr-2 h-6 w-6 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
-          {placeHolderText}
+          <TextSearch className="mr-0 md:mr-2 h-7 w-7 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
+          <span className="pt-0.5">{placeHolderText}</span>
         </span>
         <span className="inline-flex md:hidden capitalize">
           <TextSearch className="mr-0 md:mr-2 h-6 w-6 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
           <span className="hidden md:block">{placeHolderText}</span>
         </span>
-        <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-80 md:flex">
+        <kbd className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-80 md:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>

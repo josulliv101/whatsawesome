@@ -1,7 +1,24 @@
-import { TooltipProvider } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import Image from "next/image";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { ClientAPIProvider } from "@/app__/tags/[...tagIds]/GoogleMap";
+import { Toaster } from "@/components/ui/sonner";
+import { HubContextProvider } from "@/components/HubContext";
+
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
+import { StrictMode } from "react";
+import { AuthContextProvider } from "@/components/AuthContext";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { PrimaryTagType } from "@/lib/tags";
 
 export const metadata = {
   title: "Next.js",
@@ -10,10 +27,14 @@ export const metadata = {
 
 const inter = Inter({ subsets: ["latin"] });
 
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
+
 export default function RootLayout({
   children,
+  params: { hub, tags = [] },
 }: {
   children: React.ReactNode;
+  params: any;
 }) {
   return (
     <TooltipProvider>
@@ -21,8 +42,21 @@ export default function RootLayout({
         <body
           className={`${inter.className} antialiased bg-gray-50 dark:bg-black bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black`}
         >
-          {children}
-          <Toaster duration={8000} />
+          {" "}
+          <StrictMode>
+            <AuthContextProvider>
+              <ThemeProvider attribute="class">
+                <ClientAPIProvider apiKey={API_KEY}>
+                  <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
+                    <Header />
+                    {children}
+                    <Toaster duration={8000} />
+                    <Footer />
+                  </HubContextProvider>
+                </ClientAPIProvider>
+              </ThemeProvider>
+            </AuthContextProvider>
+          </StrictMode>
         </body>
       </html>
     </TooltipProvider>
