@@ -13,7 +13,13 @@ import { searchProfilesByCategory, searchTopAoeByCategory } from "@/lib/search";
 import CategorySelector from "./CategorySelector";
 import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
-import { BadgeCheckIcon, CheckIcon, SlashIcon, Slice } from "lucide-react";
+import {
+  BadgeCheckIcon,
+  CheckIcon,
+  EqualIcon,
+  SlashIcon,
+  Slice,
+} from "lucide-react";
 import { fetchProfile } from "@/lib/firebase";
 import ProfileList from "./ProfileList";
 import { getLevel3TagsFromTags, getPrimaryTagsFromTags } from "@/lib/tags";
@@ -83,8 +89,22 @@ export default async function Page({
     return (
       <>
         <div className="">
-          <p className="bg-blue-100/50 px-8 text-muted-foreground_ w-full py-8">
+          <p className="bg-blue-100/50 px-8 text-muted-foreground_ w-full pt-6 pb-4">
+            <div className="flex items-center justify-between w-full mb-4 font-semibold text-md _capitalize text-muted-foreground">
+              Discover excellence in the world around you.
+              <span className="font-normal text-sm"></span>
+            </div>
             <CommandMenu />
+            <p className="w-full text-sm text-muted-foreground text-right pt-2 px-4 flex items-center justify-end gap-3">
+              more{" "}
+              <img
+                className="w-4 h-4 opacity-70 grayscale"
+                src={config.logoPath}
+                width="24"
+                height="24"
+              />{" "}
+              <EqualIcon className="h-5 w-5" /> more excellence
+            </p>
           </p>
           <Separator className="h-px bg-gray-300 mb-8" />
           <div className="px-8 mb-8">
@@ -136,7 +156,8 @@ export default async function Page({
               <>
                 <div className="pt-2 flex items-center justify-between w-full mb-8 font-semibold text-md capitalize text-muted-foreground">
                   <div className="flex items-center">
-                    {hub} <SlashIcon className="h-4 w-4 mx-4" /> Recommended
+                    {hub} <SlashIcon className="h-4 w-4 mx-4" /> What&#39;s
+                    Excellent
                     <span className="font-normal text-sm"></span>
                   </div>
                 </div>

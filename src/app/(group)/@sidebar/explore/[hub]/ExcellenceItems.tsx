@@ -137,7 +137,7 @@ export default async function ExcellenceItems({
           <p
             className={`${isStacked ? "col-span-12" : ""} hidden_ opacity-80 text-muted-foreground mt-4_ px-2 py-0 top-2_ relative`}
           >
-            Vote below by leaving a
+            Vote on what&#39;s excellent by leaving a
             <Image
               // id={marker.id}
               alt="vote"
@@ -146,7 +146,7 @@ export default async function ExcellenceItems({
               height={15}
               className={`inline-flex ml-2 mr-1 grayscale opacity-80`}
             />{" "}
-            on an area of excellence.
+            on items below .
           </p>
         )}
 
