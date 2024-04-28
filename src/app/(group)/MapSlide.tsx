@@ -8,7 +8,7 @@ export default function MapSlide({ children }: PropsWithChildren) {
   const pt = searchParams.get("pt");
   return (
     <div
-      className={`bg-gray-50 relative ${!pt ? "top-[-360px]" : "top-0"} transition-all duration-500`}
+      className={`bg-gray-50 relative ${false ? "top-[-360px]" : "top-0"} transition-all duration-500`}
     >
       {children}
     </div>

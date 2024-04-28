@@ -65,11 +65,11 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
       >
         {categories.map((category) => (
           <AccordionItem key={category} value={category}>
-            <AccordionTrigger className="text-lg capitalize">
+            <AccordionTrigger className="text-lg capitalize border bg-gray-200/40 px-4">
               {category}
             </AccordionTrigger>
             <AccordionContent
-              className={`grid grid-cols-12 gap-2 p-2 ${true || activePt === category ? "bg-white" : ""}`}
+              className={`grid grid-cols-12 gap-2 p-4 ${true || activePt === category ? "bg-white" : ""}`}
             >
               {tagDefinitions[category]?.tags?.sort()?.map((tag: string) => (
                 <Button

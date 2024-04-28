@@ -177,20 +177,20 @@ export function Reason({
         </Badge>
       )}
       {photoUrlAside && (
-        <div className="bg-white shadow-sm rounded-tl-md rounded-bl-md border border-r-1 border-gray-200 bg-gray-100_ min-w-[200px] flex items-center absolute -bottom-2.5 -right-0 z-[10]  rounded-tr-md rounded-br-md">
+        <div className="bg-white shadow-sm rounded-tl-md rounded-bl-md rounded-md border border-r-1 border-gray-200 bg-gray-100_ __min-w-[200px] flex items-center absolute -bottom-1 -right-1 z-[10]  rounded-tr-md rounded-br-md">
           <Image
-            className={` border rounded-tl-md rounded-bl-md  w-[48px] h-[48px] object-cover`}
+            className={` border rounded-tl-md rounded-bl-md rounded-md w-[88px] h-[88px] object-cover`}
             width="48"
             height="48"
             src={photoUrlAside}
             alt=""
           />
-          <Button
+          {/* <Button
             variant={"ghost"}
             className=" text-muted-foreground min-w-[200px] justify-start"
           >
             {name}
-          </Button>
+          </Button> */}
         </div>
       )}
       {
@@ -745,7 +745,7 @@ export function Reason({
             <div
               className={`absolute hidden_ top-2 ${false ? "right-[54px]" : "left-[236px]"} flex items-center gap-1`}
             >
-              {tags
+              {[] // tags]
 
                 .filter(
                   (tag) =>
@@ -775,10 +775,10 @@ export function Reason({
                     </Link>
                   </Button>
                 ))}
-              <SlashIcon className="h-4 w-4 text-muted-foreground/50" />
+              {/* <SlashIcon className="h-4 w-4 text-muted-foreground/50" /> */}
               <Button
                 key={"place"}
-                className={`text-muted-foreground text-md border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                className={`text-muted-foreground font-normal text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
                 variant={"ghost"}
                 size="sm"
                 asChild

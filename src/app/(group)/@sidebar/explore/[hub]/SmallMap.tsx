@@ -151,6 +151,7 @@ const SmallMap = ({
                         href={`/explore/${params.hub}?pt=${item[0]}&t3=${item[1]}`}
                       >
                         <div className="text-md mb-1 capitalize">{item[0]}</div>
+
                         <BadgeCheckIcon className="h-7 w-7 my-1  mx-auto text-blue-500 opacity-80 " />
                         <div className="text-lg font-semibold capitalize">
                           {item[1]}

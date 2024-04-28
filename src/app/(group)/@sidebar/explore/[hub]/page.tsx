@@ -69,7 +69,7 @@ export default async function Page({
             <p className="text-muted-foreground_ w-full mb-4">
               <CommandMenu />
             </p>
-            <Separator className="h-px bg-gray-300 my-6 mb-4" />
+            <Separator className="h-px bg-gray-300 my-8" />
             {pt && (
               <>
                 <div className="flex items-center justify-between w-full mb-4 font-semibold text-md capitalize text-muted-foreground">
@@ -78,7 +78,7 @@ export default async function Page({
                 </div>
 
                 <ToggleGroup
-                  className="mb-0 justify-start grid grid-cols-12"
+                  className="mb-8 justify-start grid grid-cols-12 gap-2"
                   type="single"
                   value={searchRadius}
                 >
@@ -128,7 +128,7 @@ export default async function Page({
                 ))}
               </div>
             )} */}
-            {pt && <Separator className="h-px bg-gray-300 my-6 mb-10" />}
+            {/* {pt && <Separator className="h-px bg-gray-300 my-6 mb-10" />} */}
 
             {/* <Tabs
               defaultValue="aoe"
@@ -245,15 +245,19 @@ export default async function Page({
             </div> */}
           </div>
         )}
-        <Suspense>
-          <ProfileList profileMap={profileMap} />
-        </Suspense>
       </>
     );
   }
   return (
     <>
-      <ExcellenceItems hub={hub} pt={pt} st={st} t3={t3} isStacked />
+      <ExcellenceItems
+        profileMap={profileMap}
+        hub={hub}
+        pt={pt}
+        st={st}
+        t3={t3}
+        isStacked
+      />
     </>
   );
 }

@@ -32,10 +32,11 @@ import {
   SlashIcon,
   TagsIcon,
 } from "lucide-react";
-import { Fragment, PropsWithChildren } from "react";
+import { Fragment, PropsWithChildren, Suspense } from "react";
 import ReasonTagsFilter from "@/app__/profile/[...id]/ReasonTagsFilter";
 import { searchTopAoeByCategory, searchTopAoeByMapBounds } from "@/lib/search";
 import { boolean } from "zod";
+import ProfileList from "./ProfileList";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -61,6 +62,8 @@ export default async function ExcellenceItems({
   isGrid,
   searchMapBounds = "",
   showHint,
+  profileMap,
+  hideNav = false,
 }: {
   hub: string;
   pt?: string;
@@ -70,6 +73,8 @@ export default async function ExcellenceItems({
   isStacked?: boolean;
   isGrid?: boolean;
   showHint?: boolean;
+  profileMap?: any;
+  hideNav?: boolean;
 }) {
   // const profile = await fetchProfile(hub);
 
@@ -105,7 +110,7 @@ export default async function ExcellenceItems({
   // console.log("data", topAoe.hits);
   return (
     <>
-      {!isStacked && (
+      {!isStacked && !hideNav && (
         <SideNav
           items={items}
           resultsCount={dataToUse.length}
@@ -115,11 +120,15 @@ export default async function ExcellenceItems({
           t3={t3}
         />
       )}
-
       {!isGrid && isStacked && (
         <h2 className="font-semibold text-2xl capitalize px-8 mt-20 py-0 flex items-center">
           Discover Excellence in {hub.replaceAll("-", " ")}
         </h2>
+      )}
+      {profileMap && (
+        <Suspense>
+          <ProfileList profileMap={profileMap} />
+        </Suspense>
       )}
       <div
         className={`mt-4 mx-8 pt-4 rounded-md pb-4 ${isStacked ? "" : "bg-muted px-4"} sticky__ top-[120px] overflow-auto ${isGrid ? "grid md:grid-cols-12 gap-x-8 gap-y-8" : "gap-8"}`}
@@ -140,6 +149,7 @@ export default async function ExcellenceItems({
             on an area of excellence.
           </p>
         )}
+
         {!isStacked &&
           hits
             .slice(0, 10)
@@ -328,8 +338,9 @@ export function SideNav({
       <nav className="flex items-center flex-row justify-between gap-2 px-8 pt-4 pb-1">
         <h4 className="relative rounded-sm text-lg bg-muted px-4 pt-2 mt-4 pb-2 font-normal text-muted-foreground mb-0 w-full flex items-center justify-between">
           <BadgeCheckIcon className="h-5 w-5 mr-2 text-blue-500 opacity-80" />
-          <strong className="font-[500] text-balance_ flex-1 block whitespace-nowrap">
-            Areas of Excellence
+          <strong className="font-[500] capitalize text-balance_ flex-1 block whitespace-nowrap">
+            {/* Areas of Excellence */}
+            {t3} excellence
           </strong>
           <div className="flex items-center gap-2">
             {/* <Button

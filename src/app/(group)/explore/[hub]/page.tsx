@@ -21,6 +21,17 @@ export default async function Page({
   params: any;
   searchParams: any;
 }>) {
+  const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
+
+  const profileMap = topProfiles
+    .map((category) => category.hits || [])
+    .flat()
+    .reduce((acc, hit) => {
+      return {
+        ...acc,
+        [hit.parent.id]: hit.parent,
+      };
+    }, {});
   // return (
   //   <div className="px-8 pt-8">
   //     {categories.map(({ nbHits, hits, query }) => {
@@ -51,8 +62,19 @@ export default async function Page({
             pt={pt}
             st={st}
             t3={t3}
+            profileMap={profileMap}
             showHint
           />
+          {/* <ExcellenceItems
+            searchMapBounds={searchMapBounds}
+            hub={hub}
+            pt={pt}
+            st={st}
+            t3={t3}
+            profileMap={profileMap}
+            showHint
+            hideNav={true}
+          /> */}
         </>
       )}
 

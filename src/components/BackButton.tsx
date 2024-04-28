@@ -7,6 +7,7 @@ import {
   BadgeCheckIcon,
   CheckIcon,
   ChevronLeftIcon,
+  FolderSearch,
   SlashIcon,
 } from "lucide-react";
 import { SideNav } from "@/app/(group)/@sidebar/explore/[hub]/ExcellenceItems";
@@ -30,10 +31,12 @@ export default function BackButton({ hub }: any) {
               Discover excellence in{" "}
               {(params.hub as string)?.replaceAll("-", " ")}
             </div>
-            <div className="capitalize text-4xl font-bold flex items-center mb-[32px]">
+            <div className="capitalize text-4xl font-bold flex items-center gap-4 mb-[32px]">
               {/* {(params.hub as string)?.replaceAll("-", " ")} */}
-              <BadgeCheckIcon className="h-8 w-8 mr-2 text-blue-500 opacity-80 hidden" />
-              {!catalog ? `Explore Categories` : `Browse Profiles`}
+
+              {/* <FolderSearch className="h-8 w-8" /> */}
+              {!catalog ? `Explore ${params.hub}` : `Browse Profiles`}
+              <BadgeCheckIcon className="h-10 w-10 mr-2 text-blue-500 opacity-80 hidden" />
             </div>
           </div>
         </div>
