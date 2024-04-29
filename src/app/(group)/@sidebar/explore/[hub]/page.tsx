@@ -89,13 +89,13 @@ export default async function Page({
     return (
       <>
         <div className="">
-          <p className="bg-blue-100/50 px-8 text-muted-foreground_ w-full pt-6 pb-4">
+          <div className="bg-blue-100/50 px-8 text-muted-foreground_ w-full pt-6 pb-4">
             <div className="flex items-center justify-between w-full mb-4 font-semibold text-md _capitalize text-muted-foreground">
               Discover excellence in the world around you.
               <span className="font-normal text-sm"></span>
             </div>
-            <CommandMenu />
-            <p className="w-full text-sm text-muted-foreground text-right pt-2 px-4 flex items-center justify-end gap-3">
+            <CommandMenu small />
+            <p className="w-full scale-95 text-sm text-muted-foreground text-right pt-2 px-4 flex items-center justify-end gap-3">
               more{" "}
               <img
                 className="w-4 h-4 opacity-70 grayscale"
@@ -105,7 +105,7 @@ export default async function Page({
               />{" "}
               <EqualIcon className="h-5 w-5" /> more excellence
             </p>
-          </p>
+          </div>
           <Separator className="h-px bg-gray-300 mb-8" />
           <div className="px-8 mb-8">
             {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}

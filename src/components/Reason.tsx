@@ -375,6 +375,21 @@ export function Reason({
               )
             }
             variant={"ghost"}
+            className="text-sm absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0_ py-4_ gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
+          >
+            Leave a Mushroom
+          </Button>
+          {/* <Button
+            onClick={() =>
+              toast(
+                <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
+                  <code className="text-white">
+                    Functionality not yet implemented.
+                  </code>
+                </pre>
+              )
+            }
+            variant={"ghost"}
             className="absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0 py-4 gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
           >
             <Image
@@ -387,7 +402,7 @@ export function Reason({
             <span className="text-xl mt-0 font-bold_ pb-0">
               {mushroomCount}
             </span>
-          </Button>
+          </Button> */}
         </TooltipTrigger>
         <TooltipContent className="max-w-48">
           <p>Support this item by leaving a mushroom</p>
@@ -419,6 +434,30 @@ export function Reason({
         >
           {id && !isAnalyticsView && (
             <>
+              <Button
+                onClick={() =>
+                  toast(
+                    <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
+                      <code className="text-white">
+                        Functionality not yet implemented.
+                      </code>
+                    </pre>
+                  )
+                }
+                variant={"ghost"}
+                className=" flex bg-muted_ rounded-md items-center px-0 py-4 gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
+              >
+                <Image
+                  alt="vote"
+                  src={config.logoPath}
+                  width={20}
+                  height={20}
+                  className="opacity-80"
+                />
+                <span className="text-md text-muted-foreground mt-0 font-bold_ pb-0">
+                  {mushroomCount}
+                </span>
+              </Button>
               <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button
@@ -745,8 +784,17 @@ export function Reason({
             <div
               className={`absolute hidden_ top-2 ${false ? "right-[54px]" : "left-[236px]"} flex items-center gap-1`}
             >
-              {[] // tags]
-
+              <Button
+                key={"place"}
+                className={`text-muted-foreground font-semibold text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                variant={"ghost"}
+                size="sm"
+                asChild
+              >
+                <Link href={`/profile/${profileId}`}>{name}</Link>
+              </Button>
+              <SlashIcon className="h-4 w-4 text-muted-foreground/50" />
+              {tags
                 .filter(
                   (tag) =>
                     !!tagDefinitions[tag] &&
@@ -762,7 +810,7 @@ export function Reason({
                 .map((tag) => (
                   <Button
                     key={tag}
-                    className={`capitalize text-muted-foreground text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
+                    className={`capitalize text-muted-foreground text-sm border-muted-foreground rounded-md py-0 max-h-[30px]`}
                     variant={"ghost"}
                     size="sm"
                     asChild
@@ -775,16 +823,7 @@ export function Reason({
                     </Link>
                   </Button>
                 ))}
-              {/* <SlashIcon className="h-4 w-4 text-muted-foreground/50" /> */}
-              <Button
-                key={"place"}
-                className={`text-muted-foreground font-normal text-lg border-muted-foreground rounded-md py-0 max-h-[30px]`}
-                variant={"ghost"}
-                size="sm"
-                asChild
-              >
-                <Link href={`/profile/${profileId}`}>{name}</Link>
-              </Button>
+
               {isEditable && id && (
                 <ReasonEdit
                   id={id}

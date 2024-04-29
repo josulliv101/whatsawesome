@@ -145,8 +145,7 @@ export default async function ExcellenceItems({
               width={15}
               height={15}
               className={`inline-flex ml-2 mr-1 grayscale opacity-80`}
-            />{" "}
-            on items below .
+            />
           </p>
         )}
 

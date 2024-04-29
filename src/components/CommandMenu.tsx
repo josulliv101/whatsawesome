@@ -57,8 +57,9 @@ const docsConfig = {
 
 export function CommandMenu({
   placeHolderText = "Search by name, location, category & more",
+  small,
   ...props
-}: DialogProps & { placeHolderText?: string }) {
+}: DialogProps & { placeHolderText?: string; small?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
@@ -145,7 +146,8 @@ export function CommandMenu({
       <Button
         variant="outline"
         className={cn(
-          "relative px-4 hover:bg-white  md:px-6 md:pr-12 max-w-[320px]_ w-full h-16 justify-between rounded-[0.5rem] bg-background text-md font-normal text-muted-foreground shadow-none  "
+          `relative px-4 hover:bg-white   max-w-[320px]_ w-full  justify-between rounded-[0.5rem] bg-background font-normal text-muted-foreground shadow-none`,
+          small ? "h-12 md:px-4 md:pr-10" : "h-16 text-lg md:px-6 md:pr-12"
         )}
         onClick={() => {
           clearState();
@@ -154,7 +156,9 @@ export function CommandMenu({
         {...props}
       >
         <span className="hidden md:inline-flex capitalize_">
-          <TextSearch className="mr-0 md:mr-2 h-7 w-7 shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]" />
+          <TextSearch
+            className={`mr-0 md:mr-2 ${small ? "h-6 w-6" : "h-8 w-8"} shrink-0 opacity-100 md:opacity-50 relative left-0 md:left-[-6px]`}
+          />
           <span className="pt-0.5">{placeHolderText}</span>
         </span>
         <span className="inline-flex md:hidden capitalize">
