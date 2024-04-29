@@ -32,6 +32,7 @@ import { useCallback, useEffect, useState } from "react";
 import { fetchSearchResults, searchLocations } from "@/lib/search";
 import { config } from "@/lib/config";
 import {
+  BadgeCheckIcon,
   CreditCard,
   LinkIcon,
   MapPinIcon,
@@ -39,6 +40,7 @@ import {
   TextSearch,
   User,
 } from "lucide-react";
+import { tagDefinitions } from "@/lib/tags";
 
 const docsConfig = {
   mainNav: [
@@ -63,7 +65,7 @@ const docsConfig = {
 };
 
 export function CommandMenu({
-  placeHolderText = "Search by city/town or name of business",
+  placeHolderText = "Search by city/town, name of business or category",
   small,
   ...props
 }: DialogProps & { placeHolderText?: string; small?: boolean }) {
@@ -138,12 +140,15 @@ export function CommandMenu({
     setResults([]);
   };
   const handleSelect = React.useCallback(
-    (item: { name: string; id: string; isCity?: boolean }) => {
+    (item: { name: string; id: string; isCity?: boolean; isTag?: boolean }) => {
       setOpen(false);
       clearState();
       console.log(item);
-      if (!item?.isCity) {
+      if (!item?.isCity && !item.isTag) {
         router.push(`/profile/${item.id}`);
+      } else if (item?.isTag) {
+        const pt = tagDefinitions[item.id].parentTag;
+        router.push(`/explore/${params.hub || "all"}?pt=${pt}&t3=${item.id}`);
       } else {
         router.push(`/explore/${item.id}`);
       }
@@ -154,6 +159,10 @@ export function CommandMenu({
   // const placeHolderText = ; // params.hub || "Search";
   const resultsCities = results.filter((item) => item.isCity);
   const resultsProfiles = results.filter((item) => !item.isCity);
+  const tagsMatchingSearchValue = Object.keys(tagDefinitions)
+    .filter((key) => !["all", "person", "place", "profile"].includes(key))
+    .filter((key) => key.startsWith(value))
+    .map((key) => ({ id: key, name: key, isTag: true }));
   return (
     <>
       <Button
@@ -200,16 +209,24 @@ export function CommandMenu({
           {value.trim() && !!results.length && (
             <>
               <CommandGroup heading={`Results: ${results.length}`}>
-                {[...resultsCities, ...resultsProfiles].map((item) => (
+                {[
+                  ...resultsCities,
+                  ...tagsMatchingSearchValue,
+                  ...resultsProfiles,
+                ].map((item) => (
                   <CommandItem
                     key={item.id}
                     value={item.name}
                     onSelect={() => handleSelect(item)}
                     className="flex items-center gap-3"
                   >
-                    {item.isCity ? (
+                    {item.isCity && (
                       <MapPinIcon className="h-16  w-16 stroke-1" />
-                    ) : (
+                    )}
+                    {item.isTag && (
+                      <BadgeCheckIcon className="h-16  w-16 stroke-2 text-blue-500" />
+                    )}
+                    {!item.isCity && !item.isTag && (
                       <CircleIcon className="scale-75 stroke-1" />
                     )}
                     {item.isCity ? "Explore " : ""}

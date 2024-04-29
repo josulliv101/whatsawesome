@@ -110,7 +110,7 @@ export default async function Page({
           <div className="px-8 mb-8">
             {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}
 
-            {true && (
+            {pt && (
               <>
                 <div className="flex items-center justify-between w-full mb-4 font-semibold text-md capitalize text-muted-foreground">
                   Search Area{" "}
@@ -156,8 +156,7 @@ export default async function Page({
               <>
                 <div className="pt-2 flex items-center justify-between w-full mb-8 font-semibold text-md capitalize text-muted-foreground">
                   <div className="flex items-center">
-                    {hub} <SlashIcon className="h-4 w-4 mx-4" /> What&#39;s
-                    Excellent
+                    {hub} <SlashIcon className="h-4 w-4 mx-4" /> Excellence
                     <span className="font-normal text-sm"></span>
                   </div>
                 </div>
