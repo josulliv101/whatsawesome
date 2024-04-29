@@ -16,6 +16,7 @@ export default function Foobar({
   const searchParams = useSearchParams();
   const pt = searchParams.get("pt");
   const t3 = searchParams.get("t3");
+  const isZoomOff = searchParams.get("zoom") === "off";
   const coreLib = useMapsLibrary("core");
 
   const b = map?.getBounds();
@@ -48,6 +49,9 @@ export default function Foobar({
       );
     }
     if (markers.length === 1) {
+      if (isZoomOff) {
+        return;
+      }
       map.setCenter(markers[0]._geoloc);
       return map.setZoom(profileZoom);
     }

@@ -95,10 +95,10 @@ export default async function Page({
               <span className="font-normal text-sm"></span>
             </div>
             <CommandMenu small />
-            <p className="w-full scale-95 text-sm text-muted-foreground text-right pt-2 px-4 flex items-center justify-end gap-3">
+            <p className="w-full text-sm text-muted-foreground text-right px-2 pt-2 flex items-end justify-end gap-3">
               more{" "}
               <img
-                className="w-4 h-4 opacity-70 grayscale"
+                className="w-4 h-4 opacity-70 grayscale relative -top-0.5"
                 src={config.logoPath}
                 width="24"
                 height="24"
@@ -156,7 +156,7 @@ export default async function Page({
               <>
                 <div className="pt-2 flex items-center justify-between w-full mb-8 font-semibold text-md capitalize text-muted-foreground">
                   <div className="flex items-center">
-                    {hub} <SlashIcon className="h-4 w-4 mx-4" /> Excellence
+                    {hub} <SlashIcon className="h-4 w-4 mx-4" /> Featured
                     <span className="font-normal text-sm"></span>
                   </div>
                 </div>

@@ -26,6 +26,11 @@ const SmallMap = ({
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
+
+  const pt = searchParams.get("pt");
+  const t3 = searchParams.get("t3");
+  const ptUrlParams = pt ? `&pt=${pt}` : "";
+  const t3UrlParams = t3 ? `&t3=${t3}` : "";
   const [isShowingResults, setIsShowingResults] = useState(false);
   /*
   const map = useMap();
@@ -87,6 +92,7 @@ const SmallMap = ({
       // defaultZoom={14}
       defaultCenter={{ lat: 0, lng: 0 }}
       defaultBounds={undefined}
+      clickableIcons={false}
       gestureHandling={"greedy"}
       disableDefaultUI={false}
       mapTypeControl={false}
@@ -98,6 +104,19 @@ const SmallMap = ({
       onCameraChanged={(ev, ...args) => {
         console.log("camera change", ev.map.getBounds()?.toUrlValue(), ...args);
         // router.replace(`?bounds=${ev.map.getBounds()?.toUrlValue()}`);
+      }}
+      onClick={async (arg) => {
+        const { latLng } = arg.detail || {};
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.lat},${latLng.lng}&result_type=locality&key=${API_KEY}`;
+        const resp = await fetch(url);
+        const data = await resp.json();
+        const formattedAddress = data?.results?.[0]?.formatted_address;
+        const tokens = formattedAddress?.toLowerCase()?.split(",");
+        const city = tokens[0].replace(/\s/g, "-");
+        const state = tokens[1].replace(/\s/g, "");
+        const cityId = `${city}-${state.slice(0, 2)}`;
+        console.log("args", cityId);
+        // router.push(`/explore/${cityId}?zoom=off${ptUrlParams}${t3UrlParams}&`);
       }}
       // minZoom={5}
       // maxZoom={16}

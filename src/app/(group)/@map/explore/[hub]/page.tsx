@@ -87,7 +87,7 @@ export default async function Page({
           id: profile.name,
           profileName: profile.name,
           size: getMarkerSizeFromRating(1),
-          visible: false,
+          visible: true,
         },
       ]
     : topAoe[0]?.hits.map((hit: any) => {
