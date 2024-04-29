@@ -29,9 +29,16 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { useCallback, useEffect, useState } from "react";
-import { fetchSearchResults } from "@/lib/search";
+import { fetchSearchResults, searchLocations } from "@/lib/search";
 import { config } from "@/lib/config";
-import { CreditCard, LinkIcon, Settings, TextSearch, User } from "lucide-react";
+import {
+  CreditCard,
+  LinkIcon,
+  MapPinIcon,
+  Settings,
+  TextSearch,
+  User,
+} from "lucide-react";
 
 const docsConfig = {
   mainNav: [
@@ -56,7 +63,7 @@ const docsConfig = {
 };
 
 export function CommandMenu({
-  placeHolderText = "Search by name, location, category & more",
+  placeHolderText = "Search by city/town or name of business",
   small,
   ...props
 }: DialogProps & { placeHolderText?: string; small?: boolean }) {
@@ -65,9 +72,9 @@ export function CommandMenu({
   const params = useParams();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<Array<{ name: string; id: string }>>(
-    []
-  );
+  const [results, setResults] = useState<
+    Array<{ name: string; id: string; isCity?: boolean }>
+  >([]);
   const [value, setValue] = useState("");
   const debouncedSetValue = useDebouncedCallback((value) => {
     setValue(value);
@@ -93,7 +100,8 @@ export function CommandMenu({
 
   useEffect(() => {
     const handleSearchChange = async (val: string = "") => {
-      const results = await fetchSearchResults(val);
+      const results = await searchLocations(val);
+      console.log("SEARCH", results);
       console.log("handle search", val, results);
       setResults(results);
     };
@@ -130,17 +138,22 @@ export function CommandMenu({
     setResults([]);
   };
   const handleSelect = React.useCallback(
-    (item: { name: string; id: string }) => {
+    (item: { name: string; id: string; isCity?: boolean }) => {
       setOpen(false);
       clearState();
       console.log(item);
-      router.push(`/profile/${item.id}`);
+      if (!item?.isCity) {
+        router.push(`/profile/${item.id}`);
+      } else {
+        router.push(`/explore/${item.id}`);
+      }
     },
     []
   );
 
   // const placeHolderText = ; // params.hub || "Search";
-
+  const resultsCities = results.filter((item) => item.isCity);
+  const resultsProfiles = results.filter((item) => !item.isCity);
   return (
     <>
       <Button
@@ -172,7 +185,7 @@ export function CommandMenu({
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
           // ref={inputRef}
-          placeholder="Search for people & places"
+          placeholder="Search by city/town or name of business"
           // value={value}
           defaultValue={value}
           onValueChange={debouncedSetValue}
@@ -184,21 +197,22 @@ export function CommandMenu({
             </>
           )}
 
-          {!!results.length && (
+          {value.trim() && !!results.length && (
             <>
               <CommandGroup heading={`Results: ${results.length}`}>
-                {results.map((item) => (
+                {[...resultsCities, ...resultsProfiles].map((item) => (
                   <CommandItem
                     key={item.id}
                     value={item.name}
                     onSelect={() => handleSelect(item)}
                     className="flex items-center gap-3"
                   >
-                    <img
-                      className="h-3.5  w-auto grayscale"
-                      src={config.logoPath}
-                      alt="whatsawesome"
-                    />
+                    {item.isCity ? (
+                      <MapPinIcon className="h-16  w-16 stroke-1" />
+                    ) : (
+                      <CircleIcon className="scale-75 stroke-1" />
+                    )}
+                    {item.isCity ? "Explore " : ""}
                     {item.name}
                   </CommandItem>
                 ))}
@@ -206,7 +220,7 @@ export function CommandMenu({
               <CommandSeparator />
             </>
           )}
-          <CommandGroup heading="Hubs">
+          {/* <CommandGroup heading="Hubs">
             <CommandItemLink
               href="/view/all/place/city"
               // onClickCapture={clearState}
@@ -218,7 +232,7 @@ export function CommandMenu({
               <LinkIcon className="mr-2 h-3 w-3" />
               <span>Colleges & Universities</span>
             </CommandItemLink>
-          </CommandGroup>
+          </CommandGroup> */}
           {/* <CommandSeparator /> */}
           <CommandGroup heading="Company">
             <CommandItemLink href="/about">

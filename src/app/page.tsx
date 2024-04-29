@@ -10,7 +10,7 @@ export default function Page() {
           Discover excellence in the world around you.
           <span className="font-normal text-sm"></span>
         </div>
-        <CommandMenu placeHolderText="Search by name, location, category & more" />
+        <CommandMenu />
         <p className="w-full text-md text-muted-foreground text-right py-3 px-4 flex items-center justify-end gap-3">
           more{" "}
           <img

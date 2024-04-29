@@ -7,7 +7,7 @@ export async function fetchSearchResults(
     return [];
   }
   // const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity?query=${q}&aroundLatLng=40.71,-74.01&attributesToRetrieve=name,tags,description,pic&typoTolerance=false`;
-  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity?query=${q}&insideBoundingBox=42.37399367067511,-71.04776763916017,42.36234444516898,-71.06157684326172`;
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity?&attributesToRetrieve=&attributesToHighlight=&hitsPerPage=${10}&query=${q}`; // &insideBoundingBox=42.37399367067511,-71.04776763916017,42.36234444516898,-71.06157684326172
   const results = await fetch(url, {
     method: "GET",
     headers: {
@@ -17,6 +17,7 @@ export async function fetchSearchResults(
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log("data hits", data?.hits);
       return data?.hits
         .reverse()
         .map(({ name, objectID: id }: { name: string; objectID: string }) => ({
@@ -231,8 +232,17 @@ export async function searchTopAoeByTagFilter(
       hitsPerPage: hitsPerCategory,
       // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
       tagFilters: [
-        ["arlington-ma", "medford-ma", "somervile-ma", "boston"],
-        ["coffee", "steak"],
+        [
+          "arlington-ma",
+          "medford-ma",
+          "somervile-ma",
+          "boston",
+          "cambridge-ma",
+          "lexington-ma",
+          "bedford-ma",
+          "burlington-ma",
+        ],
+        ["coffee", "steak", "burger", "pastries", "wings"],
       ],
     }),
   }).then((resp) => resp.json());
@@ -345,4 +355,50 @@ export async function searchTopAoeByRadius(
       };
     }),
   };
+}
+
+export async function searchLocations(
+  query: string,
+  hitsPerCategory: number = 10
+): Promise<any> {
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_name_only/query`;
+  const results = await fetch(url, {
+    method: "POST",
+    headers: {
+      "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
+      "X-Algolia-Application-Id": "1P2U1C41BE",
+    },
+    body: JSON.stringify({
+      attributesToHighlight: [],
+      hitsPerPage: hitsPerCategory,
+      // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
+      tagFilters: [
+        ["place"],
+        // ["city"],
+        // ["coffee", "steak", "burger", "pastries", "wings"],
+      ],
+      query,
+    }),
+  })
+    .then((resp) => resp.json())
+    .then((data) => {
+      return data?.hits
+        .reverse()
+        .map(
+          ({
+            name,
+            objectID: id,
+            _tags,
+          }: {
+            name: string;
+            objectID: string;
+          }) => ({
+            name,
+            id,
+            isCity: _tags?.includes("city"),
+          })
+        );
+    });
+
+  return results;
 }
