@@ -1,7 +1,9 @@
 import { CommandMenu } from "@/components/CommandMenu";
+import { Button } from "@/components/ui/button";
 import { config } from "@/lib/config";
 import { EqualIcon } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function Page() {
   return (
@@ -13,14 +15,30 @@ export default function Page() {
         </div>
         <CommandMenu />
         <div className="w-full py-3 px-2 flex items-center justify-between">
-          <p className="w-1/2 text-muted-foreground text-sm ">
+          <p className="w-2/3 text-muted-foreground text-sm flex items-center">
             Quick links:{" "}
-            <Link href="/explore/boston" className="text-blue-500">
-              Boston
-            </Link>
-            , Chicago, NYC, Seattle
+            <Button asChild variant="link" className="text-blue-500">
+              <Link href="/explore/boston">Boston</Link>
+            </Button>
+            {["Chicago", "Houston", "NYC", "Seattle"].map((id) => (
+              <Button
+                disabled
+                // onClick={() =>
+                //   toast(
+                //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                //       <code className="text-white">
+                //         Functionality not yet implemented.
+                //       </code>
+                //     </pre>
+                //   )
+                // }
+                variant="link"
+              >
+                {id}
+              </Button>
+            ))}
           </p>
-          <p className="w-1/2 text-sm text-muted-foreground text-right  flex items-end justify-end gap-3">
+          <p className="w-1/3 text-sm text-muted-foreground text-right  flex items-end justify-end gap-3">
             more{" "}
             <img
               className="w-4 h-4 opacity-70 grayscale relative -top-0.5"

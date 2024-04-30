@@ -5,7 +5,7 @@ import { tagDefinitions } from "@/lib/tags";
 
 import { config } from "@/lib/config";
 import Foobar from "../../explore/[hub]/Foobar";
-import { AdvancedMarker } from "../../explore/[hub]/Marker";
+import AdvancedMarker from "../../explore/[hub]/Marker";
 
 export default async function Page({
   params: { id },

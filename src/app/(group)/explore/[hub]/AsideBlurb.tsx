@@ -1,13 +1,39 @@
 "use client";
 
 import { config } from "@/lib/config";
+import { fetchProfile } from "@/lib/firebase";
 import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getStackedData } from "recharts/types/util/ChartUtils";
 
 export default function AsideBlurb() {
   const params = useParams();
+  const [profile, setProfile] = useState();
   const searchParams = useSearchParams();
+  const activeId = searchParams.get("activeId");
 
+  useEffect(() => {
+    if (activeId) {
+      async function getStackedData() {
+        const p = await fetchProfile(activeId as string);
+        setProfile(p);
+      }
+      getStackedData();
+    }
+  }, [activeId]);
+
+  if (profile?.pic) {
+    return (
+      <Image
+        className="w-[300px] aspect-square"
+        src={profile.pic}
+        alt=""
+        width="200"
+        height="200"
+      />
+    );
+  }
   return (
     <p>
       <span className="font-semibold">Blue Mushroom</span> &mdash; your platform

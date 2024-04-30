@@ -60,9 +60,17 @@ export default async function Page({
   params: any;
   searchParams: any;
 }>) {
-  const { pt, st, t3, catalog, searchRadius = NEAR_RADIUS } = searchParams;
+  const {
+    pt,
+    st,
+    t3,
+    activeId,
+    catalog,
+    searchRadius = NEAR_RADIUS,
+  } = searchParams;
   const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
-  const profile = await fetchProfile(hub);
+  // const profile = await fetchProfile(hub);
+  const activeProfile = activeId ? await fetchProfile(activeId) : null;
   const profilesByCategory = await searchProfilesByCategory(hub);
   const neighbors = [
     "arlington-ma",
@@ -89,6 +97,21 @@ export default async function Page({
     return (
       <>
         <div className="">
+          {activeProfile && (
+            <div className="h-[360px] overflow-auto py-6 px-8 flex flex-col justify-between">
+              <div>
+                <h2 className="font-semibold text-lg mb-4">
+                  {activeProfile.name}
+                </h2>
+                {activeProfile.name && <p>{activeProfile.description}</p>}
+              </div>
+              <div className="flex justify-end">
+                {getPrimaryTagsFromTags(activeProfile._tags).map((tag) => (
+                  <Badge>{tag}</Badge>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="bg-blue-100/50 px-8 text-muted-foreground_ w-full pt-6 pb-4">
             <div className="flex items-center justify-between w-full mb-4 font-semibold text-md _capitalize text-muted-foreground">
               Discover excellence in the world around you.

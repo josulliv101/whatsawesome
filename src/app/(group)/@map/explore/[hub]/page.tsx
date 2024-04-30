@@ -5,7 +5,7 @@ import {
   fetchProfile,
 } from "@/lib/firebase";
 import { tagDefinitions } from "@/lib/tags";
-import { AdvancedMarker } from "./Marker";
+import AdvancedMarker from "./Marker";
 import { config } from "@/lib/config";
 import Foobar from "./Foobar";
 import {
@@ -37,6 +37,7 @@ export default async function Page({
     catalog,
     searchRadius = 4,
     searchMapBounds,
+    activeId,
   },
 }: {
   params: any;
@@ -94,28 +95,26 @@ export default async function Page({
         return {
           _geoloc: hit._geoloc,
           _tags: hit._tags,
-          id: hit.name,
+          id: hit.path,
           profileName: hit.parentId + " " + hit.rating,
           size: getMarkerSizeFromRating(10 * Number(hit.rating) || 1),
           visible: true,
         };
       });
-  // .filter((marker) => {
-  //   return pt ? marker._tags.includes(t3 ? t3 : pt) : true;
-  // });
 
   return (
     <Foobar profileZoom={profile.mapZoom} markers={topMarkers.flat()}>
-      {topMarkers.map((marker, index) => {
+      {topMarkers.map((marker) => {
         const size = marker.size;
+        const profileId = marker?.id?.split("/")?.[1];
         return (
           // <Marker key={index} position={marker.latlng} />
           <AdvancedMarker
             key={marker.id}
+            id={marker.id}
             // ref={isActiveMarker ? markerRef : null}
             position={marker._geoloc}
             title={marker.profileName}
-            // onClick={() => console.log(profile)}
           >
             <div
               style={{
@@ -132,14 +131,14 @@ export default async function Page({
               }}
               className={`animate-fadeIn drop-shadow-md_ ${marker.visible ? "bg-[#4c98fd] border-4" : ""}  border-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
             >
-              {marker.visible ? (
+              {marker.visible && activeId === profileId ? (
                 <Image
                   // id={marker.id}
                   alt="vote"
                   src={config.logoPath}
                   width={size}
                   height={size}
-                  className={`relative hidden border border-muted-foreground/50 bg-white rounded-full p-[8px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
+                  className={`relative border border-muted-foreground/50 bg-white rounded-full p-[8px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
                 />
               ) : null}
             </div>

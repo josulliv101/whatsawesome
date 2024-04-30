@@ -10,7 +10,7 @@ export default function Foobar({
   profileZoom = 14,
   children,
   markers = [],
-}: PropsWithChildren<{ profileZoom: number; markers: Array<any> }>) {
+}: PropsWithChildren<{ profileZoom?: number; markers: Array<any> }>) {
   const router = useRouter();
   const map = useMap();
   const searchParams = useSearchParams();

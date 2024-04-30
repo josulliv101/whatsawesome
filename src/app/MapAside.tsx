@@ -4,15 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-select";
 import { BuildingIcon, FolderSearch, LockIcon } from "lucide-react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { PropsWithChildren, useEffect, useRef } from "react";
 
 export default function MapAside({}: {}) {
   const { hub } = useParams();
   const prevHub = usePreviousHub();
+  const searchParams = useSearchParams();
+  const activeId = searchParams.get("activeId");
 
   const hubToUse = hub || prevHub;
-  if (!hubToUse) {
+  if (!hubToUse || activeId) {
     return null;
   }
   return (
