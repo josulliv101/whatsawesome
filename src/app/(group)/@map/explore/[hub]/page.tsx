@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   fetchClaimsForHub,
   fetchHubProfiles,
@@ -16,6 +15,7 @@ import {
   searchTopAoeByRadius,
   searchTopAoeByTagFilter,
 } from "@/lib/search";
+import { CheckIcon } from "lucide-react";
 
 function getMarkerSizeFromRating(rating: number) {
   if (rating > 10 && rating < 40) {
@@ -80,7 +80,7 @@ export default async function Page({
   //     id: datum.id,
   //     profileName: datum.name,
   //   }));
-  const topMarkers = !pt
+  const topMarkers = false
     ? [
         {
           _geoloc: profile._geoloc,
@@ -91,22 +91,45 @@ export default async function Page({
           visible: true,
         },
       ]
-    : topAoe[0]?.hits.map((hit: any) => {
-        return {
-          _geoloc: hit._geoloc,
-          _tags: hit._tags,
-          id: hit.path,
-          profileName: hit.parentId + " " + hit.rating,
-          size: getMarkerSizeFromRating(10 * Number(hit.rating) || 1),
+    : topAoe[0]?.hits
+        .map((hit: any) => {
+          return {
+            _geoloc: hit._geoloc,
+            _tags: hit._tags,
+            id: hit.path,
+            photoUrl: hit.photoUrl,
+            profileName: hit.parent?.name,
+            reason: hit.reason,
+            rating: hit.rating,
+            size: getMarkerSizeFromRating(10 * Number(hit.rating) || 1),
+            visible: true,
+          };
+        })
+        .concat({
+          _geoloc: profile._geoloc,
+          _tags: profile._tags,
+          id: profile.name,
+          profileName: profile.name,
+          size: getMarkerSizeFromRating(1),
           visible: true,
-        };
-      });
-
+        });
+  const isActiveMarker = !!topMarkers.find(
+    (marker) => activeId && activeId === marker?.id?.split("/")?.[1]
+  );
   return (
     <Foobar profileZoom={profile.mapZoom} markers={topMarkers.flat()}>
       {topMarkers.map((marker) => {
         const size = marker.size;
         const profileId = marker?.id?.split("/")?.[1];
+        let bgColor = isActiveMarker
+          ? activeId === profileId
+            ? "bg-[#4c98fd]"
+            : "bg-gray-400"
+          : "bg-[#4c98fd]";
+
+        if (marker._tags?.includes("city")) {
+          bgColor = "bg-black";
+        }
         return (
           // <Marker key={index} position={marker.latlng} />
           <AdvancedMarker
@@ -114,32 +137,45 @@ export default async function Page({
             id={marker.id}
             // ref={isActiveMarker ? markerRef : null}
             position={marker._geoloc}
-            title={marker.profileName}
+            photoUrl={marker.photoUrl}
+            profileName={marker.profileName}
+            reason={marker.reason}
+            tags={marker._tags}
+            rating={marker.rating}
+            // title={marker.profileName}
           >
             <div
               style={{
                 width: size,
                 height: size,
+
                 //  position: "absolute",
-                top: 0,
-                left: 0,
+                // top: 0,
+                // left: 0,
                 // background: "#1dbe80",
                 // border: "2px solid #0e6443",
                 // borderRadius: "50%",
                 // transform: "translate(-50%, -50%)",
-                opacity: marker.visible ? 1 : 0,
+                // opacity: isActiveMarker
+                //   ? activeId === profileId
+                //     ? 1
+                //     : 0.5
+                //   : 1,
               }}
-              className={`animate-fadeIn drop-shadow-md_ ${marker.visible ? "bg-[#4c98fd] border-4" : ""}  border-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center `}
+              className={`relative z-10 animate-fadeIn drop-shadow-md_ ${marker.visible ? bgColor + " border-4" : ""}  border-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center justify-center `}
             >
-              {marker.visible && activeId === profileId ? (
-                <Image
+              {marker.visible && activeId && activeId === profileId ? (
+                <>
+                  <CheckIcon className="h-4 w-4 text-white" />
+                  {/* <Image
                   // id={marker.id}
                   alt="vote"
                   src={config.logoPath}
                   width={size}
                   height={size}
                   className={`relative border border-muted-foreground/50 bg-white rounded-full p-[8px] origin-bottom-right _top-[-3px] opacity-100 transition-all duration-500 `}
-                />
+                /> */}
+                </>
               ) : null}
             </div>
           </AdvancedMarker>

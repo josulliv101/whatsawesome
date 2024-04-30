@@ -20,6 +20,8 @@ export default function AsideBlurb() {
         setProfile(p);
       }
       getStackedData();
+    } else {
+      setProfile(undefined);
     }
   }, [activeId]);
 

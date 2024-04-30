@@ -192,7 +192,7 @@ export const getPrimaryTags = () => {
 
 export const getPrimaryTagsFromTags = (tags: Array<string>) => {
   return tags
-    ? tags.filter(
+    ? tags?.filter(
         (tag) =>
           tagDefinitions.place.children.includes(tag) ||
           tagDefinitions.person.children.includes(tag)
@@ -201,11 +201,11 @@ export const getPrimaryTagsFromTags = (tags: Array<string>) => {
 };
 
 export const getLevel3TagsFromTags = (tags: Array<string>) => {
-  return tags.filter((tag) => tagDefinitions[tag]?.level === 3);
+  return tags?.filter((tag) => tagDefinitions[tag]?.level === 3) || [];
 };
 
 export const getHubTagsFromTags = (tags: Array<string>) => {
-  return tags.filter((tag) => !tagDefinitions[tag]);
+  return tags?.filter((tag) => !tagDefinitions[tag]) || [];
 };
 
 export const getPlural = (tag: string) => tagDefinitions[tag]?.plural || tag;
