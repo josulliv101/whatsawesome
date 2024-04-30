@@ -22,6 +22,7 @@ export default function Page() {
             </Button>
             {["Chicago", "Houston", "NYC", "Seattle"].map((id) => (
               <Button
+                key={id}
                 disabled
                 // onClick={() =>
                 //   toast(

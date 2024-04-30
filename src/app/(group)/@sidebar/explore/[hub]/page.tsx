@@ -107,7 +107,7 @@ export default async function Page({
               </div>
               <div className="flex justify-end">
                 {getPrimaryTagsFromTags(activeProfile._tags).map((tag) => (
-                  <Badge>{tag}</Badge>
+                  <Badge key={tag}>{tag}</Badge>
                 ))}
               </div>
             </div>
