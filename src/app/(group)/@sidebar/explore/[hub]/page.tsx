@@ -60,14 +60,7 @@ export default async function Page({
   params: any;
   searchParams: any;
 }>) {
-  const {
-    pt,
-    st,
-    t3,
-    activeId,
-    catalog,
-    searchRadius = NEAR_RADIUS,
-  } = searchParams;
+  const { pt, st, t3, activeId, catalog, searchRadius = "0" } = searchParams;
   const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
   // const profile = await fetchProfile(hub);
   const activeProfile = activeId ? await fetchProfile(activeId) : null;

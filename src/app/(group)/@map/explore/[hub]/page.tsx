@@ -35,7 +35,7 @@ export default async function Page({
     t3,
     bounds,
     catalog,
-    searchRadius = 4,
+    searchRadius = 0,
     searchMapBounds,
     activeId,
   },
@@ -89,6 +89,7 @@ export default async function Page({
           profileName: profile.name,
           size: getMarkerSizeFromRating(1),
           visible: true,
+          isCity: true,
         },
       ]
     : topAoe[0]?.hits
@@ -102,7 +103,7 @@ export default async function Page({
             reason: hit.reason,
             rating: hit.rating,
             size: getMarkerSizeFromRating(10 * Number(hit.rating) || 1),
-            visible: true,
+            visible: !!hit.photoUrl,
           };
         })
         .concat({
@@ -111,13 +112,17 @@ export default async function Page({
           id: profile.name,
           profileName: profile.name,
           size: getMarkerSizeFromRating(1),
-          visible: true,
+          visible: false,
+          isCity: true,
         });
   const isActiveMarker = !!topMarkers.find(
     (marker) => activeId && activeId === marker?.id?.split("/")?.[1]
   );
   return (
-    <Foobar profileZoom={profile.mapZoom} markers={topMarkers.flat()}>
+    <Foobar
+      profileZoom={profile.mapZoom}
+      markers={topMarkers.flat().filter((item) => item.visible)}
+    >
       {topMarkers.map((marker) => {
         const size = marker.size;
         const profileId = marker?.id?.split("/")?.[1];
@@ -126,6 +131,10 @@ export default async function Page({
             ? "bg-[#4c98fd]"
             : "bg-gray-400"
           : "bg-[#4c98fd]";
+
+        if (!marker.visible) {
+          return null;
+        }
 
         if (marker._tags?.includes("city")) {
           bgColor = "bg-black";
@@ -162,7 +171,7 @@ export default async function Page({
                 //     : 0.5
                 //   : 1,
               }}
-              className={`relative z-10 animate-fadeIn drop-shadow-md_ ${marker.visible ? bgColor + " border-4" : ""}  border-white rounded-full origin-bottom-right transition-all duration-500  flex gap-0.5 items-center justify-center `}
+              className={`relative z-10 animate-fadeIn drop-shadow-md_ ${marker.visible ? bgColor + " border-4" : ""}  border-white ${marker.isCity ? "rounded-md" : "rounded-full"} origin-bottom-right transition-all duration-500  flex gap-0.5 items-center justify-center `}
             >
               {marker.visible && activeId && activeId === profileId ? (
                 <>

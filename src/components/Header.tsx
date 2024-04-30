@@ -14,6 +14,8 @@ import { useIsMounted } from "./useIsMounted";
 import { Suspense, useState } from "react";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
 
 export default function Header() {
   const isMounted = useIsMounted();
@@ -166,7 +168,16 @@ export default function Header() {
             20
           </Badge>
         </div> */}
-        <div className="absolute top-2 right-20 rel scale-95_ hidden_">
+        <div className="absolute top-3 right-56 rel scale-95_ hidden_">
+          <Button variant={"ghost"} asChild>
+            <Link href="/">How It Works</Link>
+          </Button>
+        </div>
+        <Separator
+          className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
+          orientation="vertical"
+        />
+        <div className="absolute top-2 right-28 rel scale-95_ hidden_">
           <div className="hidden text-sm text-muted-foreground absolute left-0 w-[240px] -translate-x-full">
             Leave a mushroom to vouch for a business/area of excellence.
           </div>
@@ -179,7 +190,7 @@ export default function Header() {
           />
           <Badge
             variant={"default"}
-            className="absolute -bottom-1 -right-2 font-normal_ rounded-full scale-75 px-1"
+            className="absolute -bottom-1 -right-2 font-normal_ rounded-full scale-110 px-1"
           >
             20
           </Badge>
