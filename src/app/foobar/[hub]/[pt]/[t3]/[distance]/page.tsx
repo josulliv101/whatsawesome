@@ -21,7 +21,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
       <nav className="flex items-center gap-2">
         {navItems.map(([pt, t3]) => {
           return (
-            <Button key={`${pt}-${t3}`}>
+            <Button key={`${pt}-${t3}`} asChild>
               <Link href={`/foobar/${hub}/${pt}/${t3}`}>
                 {pt} / {t3}
               </Link>
