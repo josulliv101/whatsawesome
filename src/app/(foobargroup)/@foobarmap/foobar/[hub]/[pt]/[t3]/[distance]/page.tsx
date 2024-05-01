@@ -6,9 +6,9 @@ import Link from "next/link";
 import Marker from "./FoobarMarker";
 import MapPosition from "./MapPosition";
 
-// export function generateStaticParams() {
-//   return [];
-// }
+export function generateStaticParams() {
+  return [];
+}
 
 export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
