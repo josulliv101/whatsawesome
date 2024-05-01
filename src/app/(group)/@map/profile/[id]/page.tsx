@@ -4,8 +4,8 @@ import { fetchClaimsForHub, fetchProfile } from "@/lib/firebase";
 import { tagDefinitions } from "@/lib/tags";
 
 import { config } from "@/lib/config";
-import Foobar from "../../explore/[hub]/Foobar";
-import AdvancedMarker from "../../explore/[hub]/Marker";
+import Foobar from "../../explore/[...tags]/Foobar";
+import AdvancedMarker from "../../explore/[...tags]/Marker";
 
 export default async function Page({
   params: { id },

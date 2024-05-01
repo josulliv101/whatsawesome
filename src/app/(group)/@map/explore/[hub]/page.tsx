@@ -61,8 +61,8 @@ export default async function Page({
   const profilesByCategory = !pt
     ? await searchProfilesByCategory(hub)
     : await searchProfilesByCategory(hub, pt ? [pt, t3] : undefined);
-  console.log("topAoe MAP", topAoe[0]?.hits);
-  console.log("searchMapBounds", searchMapBounds);
+  // console.log("topAoe MAP", topAoe[0]?.hits);
+  // console.log("searchMapBounds", searchMapBounds);
   const profile = await fetchProfile(hub);
   // const data = await fetchClaimsForHub(hub, [pt], [st], [t3]);
   // const profilesByTag = await fetchHubProfiles(

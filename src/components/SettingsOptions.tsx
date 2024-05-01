@@ -58,7 +58,7 @@ export function SettingsOptions({
     }
   }, [forcePlayAnimation]);
 
-  console.log("useruser", user);
+  // console.log("useruser", user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
