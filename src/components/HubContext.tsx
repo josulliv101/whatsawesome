@@ -19,7 +19,7 @@ export function HubContextProvider({
   initialValue,
 }: PropsWithChildren<{ initialValue?: PrimaryTagType }>) {
   const params = useParams();
-  console.log("params changes", params);
+  // console.log("params changes", params);
 
   const [storedPrimaryTag, setStoredPrimaryTag] =
     useLocalStorage<PrimaryTagType>(
