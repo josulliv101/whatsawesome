@@ -16,6 +16,7 @@ const navItems = [
 export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
   const { hits } = topProfiles?.[0];
+  console.log("generateStaticParams()", { hub, pt, t3, distance });
   return (
     <>
       <nav className="flex items-center gap-2">
