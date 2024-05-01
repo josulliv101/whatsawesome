@@ -300,7 +300,9 @@ export async function searchTopAoeByRadius(
   searchRadius: number = 1,
   tags: string[] = [],
   radius: number = 10,
-  hitsPerCategory: number = 10
+  hitsPerCategory: number = 10,
+  asArray?: boolean,
+  latlng?: any
 ): Promise<any> {
   const dedup = new Set([...tags]);
   const query = [...dedup].join(",");
@@ -315,7 +317,7 @@ export async function searchTopAoeByRadius(
     body: JSON.stringify({
       attributesToHighlight: [],
       hitsPerPage: hitsPerCategory,
-      aroundLatLng: "42.360484995562764, -71.05769136293631",
+      aroundLatLng: latlng || "42.360484995562764, -71.05769136293631",
       aroundRadius: searchRadius ? 2000 * searchRadius : undefined, // searchRadius * 16.0934 * 1000, // 1km ~ .0.621371 mile
       // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
       tagFilters: !searchRadius ? [hub, ...tags] : [...tags],
@@ -339,22 +341,26 @@ export async function searchTopAoeByRadius(
     };
   }, {});
 
-  return {
+  const data = {
     ...results,
     hits: results.hits.map((hit: any) => {
       const parentId = getParentIdFromPath(hit.path);
       const profile = profileMap[parentId];
       return {
         ...hit,
+        parentId,
         parent: {
           id: parentId,
           name: profile?.name,
           parentPhotoUrl: profile?.pic,
           latlng: profile?._geoloc,
+          _geoloc: profile?._geoloc,
         },
       };
     }),
   };
+
+  return !asArray ? data : [data];
 }
 
 export async function searchLocations(
