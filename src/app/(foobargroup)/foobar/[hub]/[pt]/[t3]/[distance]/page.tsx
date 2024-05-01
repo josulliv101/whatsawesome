@@ -35,7 +35,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
     <>
       <nav className="my-8 px-8 flex items-center gap-2">
         {[0, 1, 4, 8, 12, 20, 40].map((distance) => (
-          <Button variant={"outline"} asChild>
+          <Button key={distance} variant={"outline"} asChild>
             <Link href={`/foobar/${hub}/${pt}/${t3}/${distance}`}>
               {distance}
             </Link>
