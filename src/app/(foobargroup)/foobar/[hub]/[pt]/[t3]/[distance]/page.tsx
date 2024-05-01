@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { searchTopAoeByCategory } from "@/lib/search";
 import Link from "next/link";
+import FoobarMap from "./FoobarMap";
 
 export function generateStaticParams() {
   return [];
