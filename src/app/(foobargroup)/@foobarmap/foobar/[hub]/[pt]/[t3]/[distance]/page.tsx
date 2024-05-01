@@ -32,7 +32,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   }, {});
 
   const markers = Object.values(uniqueMarkersMap);
-  console.log("topProfiles", distance, uniqueMarkersMap);
+  console.log("topProfiles", distance, uniqueMarkersMap.length);
   return (
     <>
       <MapPosition markers={markers}>
