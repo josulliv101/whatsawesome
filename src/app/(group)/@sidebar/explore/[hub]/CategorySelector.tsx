@@ -47,7 +47,7 @@ export default function CategorySelector({ profilesByCategory = [] }: any) {
     return null;
   }
 
-  console.log("CatSel render() activePtTemp", activePtTemp);
+  // console.log("CatSel render() activePtTemp", activePtTemp);
   return (
     <>
       <h2 className="flex items-center justify-between font-semibold text-md text-muted-foreground mb-2 capitalize">

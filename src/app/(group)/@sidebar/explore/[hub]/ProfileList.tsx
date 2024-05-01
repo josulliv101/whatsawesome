@@ -20,7 +20,7 @@ export default function ProfileList({ profileMap }: any) {
   useEffect(() => {
     // setTimeout(() => setIsMounted(true), 2500);
   }, []);
-  console.log("inView", inView);
+  // console.log("inView", inView);
   if (!ref || !isMounted || !pt || inView === null) {
     // return null;
   }

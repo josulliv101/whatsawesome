@@ -238,6 +238,9 @@ devDependencies:
   typescript:
     specifier: ^5
     version: 5.3.3
+  undici:
+    specifier: ^6.15.0
+    version: 6.15.0
 
 packages:
 
@@ -13779,6 +13782,11 @@ packages:
     dependencies:
       '@fastify/busboy': 2.1.0
     dev: false
+
+  /undici@6.15.0:
+    resolution: {integrity: sha512-VviMt2tlMg1BvQ0FKXxrz1eJuyrcISrL2sPfBf7ZskX/FCEc/7LeThQaoygsMJpNqrATWQIsRVx+1Dpe4jaYuQ==}
+    engines: {node: '>=18.17'}
+    dev: true
 
   /unicode-canonical-property-names-ecmascript@2.0.0:
     resolution: {integrity: sha512-yY5PpDlfVIU5+y/BSCxAJRBIS1Zc2dDG3Ujq+sR0U+JjUevW2JhocOF+soROYDSaAezOzOKuyyixhD6mBknSmQ==}

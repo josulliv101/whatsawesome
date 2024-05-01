@@ -20,7 +20,7 @@ export function FilterContextProvider({
   initialValue,
 }: PropsWithChildren<{ initialValue?: TagOptions }>) {
   const params = useParams();
-  console.log("params changes", params);
+  // console.log("params changes", params);
 
   const tagOptionsPlace = tagDefinitions.place.children.map((tag: string) => ({
     label: tag,

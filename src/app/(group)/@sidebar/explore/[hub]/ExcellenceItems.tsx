@@ -79,7 +79,7 @@ export default async function ExcellenceItems({
   // const profile = await fetchProfile(hub);
 
   const categories = await searchTopAoeByCategory(hub);
-  console.log("my cats", categories);
+  // console.log("my cats", categories);
   const topClaims = categories.map((category) => {
     return {
       labels: "",

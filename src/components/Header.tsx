@@ -22,8 +22,8 @@ export default function Header() {
   const [forcePlayAnimation, setForcePlayAnimation] = useState(false);
   const [storedEnableLogoAnimation, setStoredEnableLogoAnimation] =
     useLocalStorage("enableLogoAnimation", false);
-  console.log("storedEnableLogoAnimation", storedEnableLogoAnimation);
-  console.log("forcePlayAnimation", forcePlayAnimation);
+  // console.log("storedEnableLogoAnimation", storedEnableLogoAnimation);
+  // console.log("forcePlayAnimation", forcePlayAnimation);
   return (
     <header className="bg-white dark:bg-gray-950 border-b sticky top-0 z-50">
       <div className="relative">

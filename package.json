@@ -90,7 +90,8 @@
     "postcss": "^8",
     "storybook": "0.0.0-pr-25787-sha-ce3d85aa",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "undici": "^6.15.0"
   },
   "msw": {
     "workerDirectory": "public"
