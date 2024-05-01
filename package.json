@@ -54,9 +54,9 @@
     "next-themes": "^0.2.1",
     "node-fetch": "^3.3.2",
     "openai": "^4.27.0",
-    "react": "19.0.0-beta-4508873393-20240430",
+    "react": "18.3.0-canary-98b8359f6-20240223",
     "react-cookie": "^7.0.2",
-    "react-dom": "19.0.0-beta-4508873393-20240430",
+    "react-dom": "18.3.0-canary-98b8359f6-20240223",
     "react-hook-form": "^7.50.1",
     "react-intersection-observer": "^9.8.2",
     "recharts": "^2.12.0",
@@ -80,8 +80,8 @@
     "@types/lodash.debounce": "^4.0.9",
     "@types/lodash.mergewith": "^4.6.9",
     "@types/node": "^20",
-    "@types/react": "npm:types-react@19.0.0-beta.1",
-    "@types/react-dom": "npm:types-react-dom@beta",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
@@ -91,10 +91,6 @@
     "storybook": "0.0.0-pr-25787-sha-ce3d85aa",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@beta",
-    "@types/react-dom": "npm:types-react-dom@beta"
   },
   "msw": {
     "workerDirectory": "public"
