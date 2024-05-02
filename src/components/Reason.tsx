@@ -81,6 +81,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { getPrimaryTagsFromTags, tagDefinitions } from "@/lib/tags";
 import { toast } from "sonner";
 import MushroomHoverCard from "./MushroomHoverCard";
+import { useAuthContext } from "./AuthContext";
+import { leaveMushroom } from "@/lib/actions";
 
 export function Reason({
   id,
@@ -127,6 +129,7 @@ export function Reason({
   showLinkToProfile?: boolean;
   displayRank?: boolean;
 }>) {
+  const user = useAuthContext();
   const [mushroomCount, setMushroomCount] = useState(
     roundToInteger(rating < 10 ? rating * 10 : rating)
   );
@@ -159,6 +162,8 @@ export function Reason({
       rank: 3,
     },
   ];
+
+  console.log("user", user);
   const totalPeople = ratings.reduce((acc, item) => {
     return acc + item.value;
   }, 0);
@@ -364,28 +369,8 @@ export function Reason({
       }
       {/* <Tooltip>
         <TooltipTrigger asChild> */}
-      <Button
-        onClick={() =>
-          toast(
-            <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">
-                Functionality not yet implemented.
-              </code>
-            </pre>
-          )
-        }
-        variant={"ghost"}
-        className="group/btn text-sm absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0_ py-4_ gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
-      >
-        <Image
-          alt="vote"
-          src={config.logoPath}
-          width={24}
-          height={24}
-          className="opacity-0 group-hover/btn:opacity-100 transition-all duration-500 mr-1"
-        />
-        Leave a Mushroom
-      </Button>
+      <div className="absolute top-0 right-2">{children}</div>
+
       {/* <Button
             onClick={() =>
               toast(
@@ -441,30 +426,37 @@ export function Reason({
         >
           {id && !isAnalyticsView && (
             <>
-              <Button
-                onClick={() =>
-                  toast(
-                    <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
-                      <code className="text-white">
-                        Functionality not yet implemented.
-                      </code>
-                    </pre>
-                  )
-                }
-                variant={"ghost"}
-                className=" flex bg-muted_ rounded-md items-center px-0 py-4 gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
-              >
-                <Image
-                  alt="vote"
-                  src={config.logoPath}
-                  width={20}
-                  height={20}
-                  className="opacity-80"
-                />
-                <span className="text-md text-muted-foreground mt-0 font-bold_ pb-0">
-                  {mushroomCount}
-                </span>
-              </Button>
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={() =>
+                      toast(
+                        <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
+                          <code className="text-white">
+                            Functionality not yet implemented.
+                          </code>
+                        </pre>
+                      )
+                    }
+                    variant={"ghost"}
+                    className=" flex bg-muted_ rounded-md items-center px-0 py-4 gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
+                  >
+                    <Image
+                      alt="vote"
+                      src={config.logoPath}
+                      width={20}
+                      height={20}
+                      className="opacity-80"
+                    />
+                    <span className="text-md text-muted-foreground mt-0 font-bold_ pb-0">
+                      {mushroomCount}
+                    </span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p>{mushroomCount} people endorsed this item.</p>
+                </TooltipContent>
+              </Tooltip>
               <Tooltip delayDuration={200}>
                 <TooltipTrigger asChild>
                   <Button

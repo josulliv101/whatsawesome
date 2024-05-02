@@ -9,6 +9,7 @@ import {
 } from "@/lib/search";
 import AoeByCategory from "./AoeByCategory";
 import { Separator } from "@/components/ui/separator";
+import MushroomButton from "../../@sidebar/explore/[hub]/MushroomButton";
 
 // export function generateStaticParams() {
 //   return [];
@@ -65,6 +66,7 @@ export default async function Page({
             t3={t3}
             profileMap={profileMap}
             showHint
+            MushroomButton={MushroomButton}
           />
           {/* <ExcellenceItems
             searchMapBounds={searchMapBounds}

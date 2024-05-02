@@ -1,4 +1,3 @@
-import MapPanel from "@/app/explore/[hub]/MapPanel";
 import Image from "next/image";
 import { ClientAPIProvider } from "@/app__/tags/[...tagIds]/GoogleMap";
 import { BreadcrumbSide } from "@/components/BreadcrumbSide";
@@ -65,6 +64,7 @@ export default async function ExcellenceItems({
   showHint,
   profileMap,
   hideNav = false,
+  MushroomButton,
 }: {
   hub: string;
   pt?: string;
@@ -76,6 +76,7 @@ export default async function ExcellenceItems({
   showHint?: boolean;
   profileMap?: any;
   hideNav?: boolean;
+  MushroomButton?: any;
 }) {
   // const profile = await fetchProfile(hub);
 
@@ -145,11 +146,12 @@ export default async function ExcellenceItems({
               src={config.logoPath}
               width={15}
               height={15}
-              className={`inline-flex ml-2 mr-1 grayscale opacity-80`}
+              className={`inline-flex ml-2 mr-2 grayscale opacity-80`}
             />{" "}
-            on items you endorse.
-            <Button variant={"ghost"} size={"icon"}>
-              <InfoCircledIcon className="stroke-1 h-4 w-4 text-white bg-muted-foreground rounded-full" />
+            on the items where you can confirm the excellence.
+            <Button variant={"ghost"} size={"sm"}>
+              More on how it works.
+              <ChevronRight className="stroke-1 h-4 w-4 text-muted-foreground bg-muted-foreground_ rounded-full" />
             </Button>
           </p>
         )}
@@ -164,6 +166,7 @@ export default async function ExcellenceItems({
                   displayRank={index + 1}
                   item={result}
                   Component={Component}
+                  MushroomButton={MushroomButton}
                 />
               </div>
             ))}
@@ -172,7 +175,11 @@ export default async function ExcellenceItems({
             <div>
               {topAoe?.[0].hits?.map((result: any, index: number) => {
                 <div key={result.name} className="last:mb-8">
-                  <ExcellenceItem item={result} Component={Component} />
+                  <ExcellenceItem
+                    MushroomButton={MushroomButton}
+                    item={result}
+                    Component={Component}
+                  />
                 </div>;
               })}
             </div>
@@ -543,7 +550,7 @@ function StackedReason({
   );
 }
 
-function ExcellenceItem({ item, Component, displayRank }: any) {
+function ExcellenceItem({ item, Component, displayRank, MushroomButton }: any) {
   return (
     <Fragment key={item.id}>
       <div key={item.id} className="py-2">
@@ -564,7 +571,14 @@ function ExcellenceItem({ item, Component, displayRank }: any) {
           id={item.objectID}
           isForceRatingToShow
           // latestBacker={backers[index % 10]}
-        />
+        >
+          <Suspense fallback={<div>loading...</div>}>
+            <MushroomButton
+              excellenceId={item.objectID}
+              profileId={item.parentId}
+            />
+          </Suspense>
+        </Component>
         <div
           key={item.id}
           className="flex_ hidden items-start gap-4 mb-4 mt-4 px-0 flex-1"

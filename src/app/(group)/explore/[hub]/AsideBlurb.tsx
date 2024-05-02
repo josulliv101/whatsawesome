@@ -39,8 +39,8 @@ export default function AsideBlurb() {
   }
   return (
     <p>
-      <span className="font-semibold">Blue Mushroom</span> &mdash; your platform
-      for discovering excellence in the world around you. &nbsp;More
+      <span className="font-semibold">Blue Mushroom</span> &mdash; the premiere
+      platform for discovering excellence in the world around you. &nbsp;More
       <img
         className="inline-block mr-1 ml-2 w-4 h-4 opacity-80 grayscale relative top-[-.5px]"
         src={config.logoPath}

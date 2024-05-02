@@ -842,3 +842,51 @@ export async function updateProfilePic(id: string, pic: string) {
 
   await setDoc(docRef, { pic }, { merge: true });
 }
+
+export async function addMushroom(
+  userId: string,
+  profileId: string,
+  excellenceId: string,
+  isAdd: boolean = true
+): Promise<any> {
+  const docRef = doc(
+    db,
+    "entity",
+    profileId,
+    "whyawesome",
+    excellenceId,
+    "mushrooms",
+    userId
+  );
+
+  await setDoc(
+    docRef,
+    {
+      mushroom: isAdd,
+      userId,
+    },
+    { merge: true }
+  );
+
+  return true;
+}
+
+export async function isMushroomPresentByUser(
+  userId: string,
+  profileId: string,
+  excellenceId: string
+): Promise<any> {
+  const docRef = doc(
+    db,
+    "entity",
+    profileId,
+    "whyawesome",
+    excellenceId,
+    "mushrooms",
+    userId
+  );
+
+  const snapshot = await getDoc(docRef);
+
+  return snapshot.exists() && snapshot.get("mushroom") === true;
+}

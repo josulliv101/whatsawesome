@@ -136,7 +136,7 @@ export default async function Page({
             </p>
           </div>
           <Separator className="h-px bg-gray-300 mb-8" />
-          <div className="px-8 mb-8">
+          <div className="px-6 mb-8">
             {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}
 
             {pt && (
@@ -193,7 +193,7 @@ export default async function Page({
             )}
             {!pt && (
               <>
-                <div className="pt-2 flex items-center justify-between w-full mb-8 font-semibold text-md capitalize text-muted-foreground">
+                <div className="pt-0 flex items-center justify-between w-full mb-8 font-semibold text-md capitalize text-muted-foreground">
                   <div className="flex items-center">
                     {hub} <SlashIcon className="h-4 w-4 mx-4" /> Featured
                     <span className="font-normal text-sm"></span>
@@ -254,7 +254,7 @@ export default async function Page({
                               {hit.parent?.name}
                             </div>
                             <p className="text-base">
-                              {truncateString(hit.reason, 86)}
+                              {truncateString(hit.reason, 106)}
                             </p>
                             <div className="absolute p-4 bottom-0 left-0 flex items-center justify-between w-full">
                               <Badge
