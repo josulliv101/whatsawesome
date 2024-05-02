@@ -179,9 +179,9 @@ export function Reason({
       {photoUrlAside && (
         <div className="bg-white shadow-sm rounded-tl-md rounded-bl-md rounded-md border border-r-1 border-gray-200 bg-gray-100_ __min-w-[200px] flex items-center absolute -bottom-1 -right-1 z-[10]  rounded-tr-md rounded-br-md">
           <Image
-            className={` border rounded-tl-md rounded-bl-md rounded-md w-[88px] h-[88px] object-cover`}
-            width="48"
-            height="48"
+            className={`origin-bottom-right hover:scale-100 transition-all duration-500 border rounded-tl-md rounded-bl-md rounded-md w-[88px] h-[88px] object-cover`}
+            width="120"
+            height="120"
             src={photoUrlAside}
             alt=""
           />

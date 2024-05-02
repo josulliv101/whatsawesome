@@ -223,9 +223,9 @@ export default async function Page({
                       const spot1 = (
                         <Link
                           href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
-                          className="block col-span-6 "
+                          className="block col-span-4 "
                         >
-                          <div className="relative aspect-square bg-gray-100">
+                          <div className="group relative aspect-square bg-gray-100">
                             <Image
                               src={hit.photoUrl}
                               alt=""
@@ -237,7 +237,7 @@ export default async function Page({
                             <Image
                               src={hit.parent?.parentPhotoUrl}
                               alt=""
-                              className={`w-20 border border-gray-50 bg-gray-50 absolute -bottom-1 ${true ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
+                              className={`origin-bottom-right transition-all duration-500 group-hover:scale-50 w-16 border border-gray-400 bg-gray-50 absolute -bottom-1 ${true ? "-right-1" : "-left-1"} rounded-md object-cover aspect-square`}
                               width="200"
                               height="200"
                             />
@@ -247,13 +247,13 @@ export default async function Page({
                       const spot2 = (
                         <Link
                           href={`/explore/${hub}?pt=${primaryTags[0]}&t3=${t3Tags[0]}`}
-                          className="block col-span-6"
+                          className="block col-span-8"
                         >
-                          <div className=" text-muted-foreground px-6 py-4 bg-gray-50 relative border aspect-square">
-                            <div className="font-semibold text-lg mb-4">
+                          <div className="min-h-44 text-muted-foreground px-6 py-4 bg-gray-50 relative border aspect-square_">
+                            <div className="font-semibold text-base mb-2">
                               {hit.parent?.name}
                             </div>
-                            <p className="text-lg">
+                            <p className="text-base">
                               {truncateString(hit.reason, 86)}
                             </p>
                             <div className="absolute p-4 bottom-0 left-0 flex items-center justify-between w-full">
