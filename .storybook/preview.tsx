@@ -22,6 +22,9 @@ const preview: Preview = {
         ),
       ],
     },
+    nextjs: {
+      appDirectory: true,
+    },
     viewport: {
       viewports: {
         small: { name: "Small", styles: { width: "640px", height: "800px" } },

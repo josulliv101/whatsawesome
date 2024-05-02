@@ -77,7 +77,7 @@ export default function ProfileCard({
           </p> */}
           </div>
         </div>
-        <h3 className="relative font-medium leading-normal pb-2 text-sm text-center text-balance">
+        <h3 className="relative font-medium leading-normal pb-2 text-lg text-center text-balance">
           {profile.name}
           {/* <Rating value={roundToInteger(profile.rating || profile.oinks)} /> */}
         </h3>

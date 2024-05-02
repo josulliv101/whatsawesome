@@ -36,11 +36,13 @@ export default function TabNav({
   const params = useParams();
   const disablePageStore = useDisablePageStore();
   const [isPending, startTransition] = useTransition();
-  const { hub, primaryTag: activeTabId, tags } = getHubTags(params.tags);
+  const { hub, primaryTag: activeTabId, tags } = getHubTags(params?.tags) || {};
   const [optimisticActiveTabId, updateToOptimistic] = useOptimistic(
     activeTabId,
     (state, newId: PrimaryTagType) => newId
   );
+
+  console.log("HUB", params, hub, activeTabId);
   // const [activeTabId, setActiveTabId] = useState(initialActiveTabId);
   const refTab1 = useRef<HTMLButtonElement>(null);
   const refTab2 = useRef<HTMLButtonElement>(null);

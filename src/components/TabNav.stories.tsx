@@ -7,8 +7,16 @@ const meta = {
   component: TabNav,
   // argTypes: { postCount: { control: { type: "range", min: 1, max: 100 } } },
   args: {
-    // params: { page: 1 },
+    // params: { tags: ["burger"] },
     // postCount: 10,
+  },
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: "centered",
+    nextjs: {
+      pathname: "/boston/place",
+      segments: [["hub", "boston"]],
+    },
   },
 } satisfies Meta<typeof TabNav>;
 export default meta;

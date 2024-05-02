@@ -2,6 +2,7 @@
 
 import { config } from "@/lib/config";
 import { fetchProfile } from "@/lib/firebase";
+import { EqualIcon } from "lucide-react";
 import Image from "next/image";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -39,14 +40,14 @@ export default function AsideBlurb() {
   return (
     <p>
       <span className="font-semibold">Blue Mushroom</span> &mdash; your platform
-      for discovering excellence in the world around you. Leave a{" "}
+      for discovering excellence in the world around you. &nbsp;More
       <img
-        className="inline-block mx-0.5 w-4 h-4 opacity-70 grayscale relative top-[-.5px]"
+        className="inline-block mr-1 ml-2 w-4 h-4 opacity-80 grayscale relative top-[-.5px]"
         src={config.logoPath}
         width="24"
         height="24"
       />{" "}
-      on items you endorse.
+      <EqualIcon className="h-4 w-4 inline-block" /> more excellence.
     </p>
   );
   return (

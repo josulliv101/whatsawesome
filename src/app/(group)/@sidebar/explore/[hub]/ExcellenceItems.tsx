@@ -37,6 +37,7 @@ import ReasonTagsFilter from "@/app__/profile/[...id]/ReasonTagsFilter";
 import { searchTopAoeByCategory, searchTopAoeByMapBounds } from "@/lib/search";
 import { boolean } from "zod";
 import ProfileList from "./ProfileList";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -135,9 +136,9 @@ export default async function ExcellenceItems({
       >
         {showHint && (
           <p
-            className={`${isStacked ? "col-span-12" : ""} hidden_ opacity-80 text-muted-foreground mt-4_ px-2 py-0 top-2_ relative`}
+            className={`${isStacked ? "col-span-12" : ""} hidden_ opacity-100 text-muted-foreground mt-4_ px-2 py-0 top-2_ relative flex items-center`}
           >
-            Vote on what&#39;s excellent by leaving a
+            Leave a{" "}
             <Image
               // id={marker.id}
               alt="vote"
@@ -145,7 +146,11 @@ export default async function ExcellenceItems({
               width={15}
               height={15}
               className={`inline-flex ml-2 mr-1 grayscale opacity-80`}
-            />
+            />{" "}
+            on items you endorse.
+            <Button variant={"ghost"} size={"icon"}>
+              <InfoCircledIcon className="stroke-1 h-4 w-4 text-white bg-muted-foreground rounded-full" />
+            </Button>
           </p>
         )}
 

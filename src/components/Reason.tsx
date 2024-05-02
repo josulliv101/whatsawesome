@@ -362,24 +362,31 @@ export function Reason({
           </div>
         </div>
       }
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            onClick={() =>
-              toast(
-                <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
-                  <code className="text-white">
-                    Functionality not yet implemented.
-                  </code>
-                </pre>
-              )
-            }
-            variant={"ghost"}
-            className="text-sm absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0_ py-4_ gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
-          >
-            Leave a Mushroom
-          </Button>
-          {/* <Button
+      {/* <Tooltip>
+        <TooltipTrigger asChild> */}
+      <Button
+        onClick={() =>
+          toast(
+            <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">
+                Functionality not yet implemented.
+              </code>
+            </pre>
+          )
+        }
+        variant={"ghost"}
+        className="group/btn text-sm absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0_ py-4_ gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
+      >
+        <Image
+          alt="vote"
+          src={config.logoPath}
+          width={24}
+          height={24}
+          className="opacity-0 group-hover/btn:opacity-100 transition-all duration-500 mr-1"
+        />
+        Leave a Mushroom
+      </Button>
+      {/* <Button
             onClick={() =>
               toast(
                 <pre className="mt-0  w-[340px] rounded-md bg-slate-950 p-4">
@@ -403,11 +410,11 @@ export function Reason({
               {mushroomCount}
             </span>
           </Button> */}
-        </TooltipTrigger>
+      {/* </TooltipTrigger>
         <TooltipContent className="max-w-48">
           <p>Support this item by leaving a mushroom</p>
         </TooltipContent>
-      </Tooltip>
+      </Tooltip> */}
       <CardHeader className="relative z-10 flex-1 pl-16 pt-0 pb-0 pr-0 grid grid-cols-[1fr] items-start gap-0s space-y-0">
         <div className="flex flex-row-reverse items-center space-y-1 gap-12">
           {/* <CardTitle>whats awesome about {name}</CardTitle> */}

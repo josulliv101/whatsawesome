@@ -15,8 +15,10 @@ import { CommandMenu } from "@/components/CommandMenu";
 import { config } from "@/lib/config";
 import {
   BadgeCheckIcon,
+  BadgeInfoIcon,
   CheckIcon,
   EqualIcon,
+  InfoIcon,
   SlashIcon,
   Slice,
 } from "lucide-react";
@@ -24,6 +26,7 @@ import { fetchProfile } from "@/lib/firebase";
 import ProfileList from "./ProfileList";
 import { getLevel3TagsFromTags, getPrimaryTagsFromTags } from "@/lib/tags";
 import { roundToInteger } from "@/lib/utils";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 function truncateString(str: string, maxLength: number) {
   // Check if the string length is less than or equal to the maxLength
@@ -111,15 +114,25 @@ export default async function Page({
               <span className="font-normal text-sm"></span>
             </div>
             <CommandMenu small />
-            <p className="w-full text-sm text-muted-foreground text-right px-2 pt-2 flex items-end justify-end gap-3">
-              more{" "}
+            <p className="w-full opacity-0 text-sm text-muted-foreground text-right px-2 pt-2 flex items-center justify-end gap-0">
+              Leave a{" "}
+              <Image
+                // id={marker.id}
+                alt="vote"
+                src={config.logoPath}
+                width={15}
+                height={15}
+                className={`inline-flex ml-2 mr-1 grayscale opacity-80`}
+              />{" "}
+              on items you endorse.
+              {/* more{" "}
               <img
                 className="w-4 h-4 opacity-70 grayscale relative -top-0.5"
                 src={config.logoPath}
                 width="24"
                 height="24"
               />{" "}
-              <EqualIcon className="h-5 w-5" /> more excellence
+              <EqualIcon className="h-5 w-5" /> more excellence */}
             </p>
           </div>
           <Separator className="h-px bg-gray-300 mb-8" />
@@ -130,7 +143,17 @@ export default async function Page({
               <>
                 <div className="flex items-center justify-between w-full mb-4 font-semibold text-md capitalize text-muted-foreground">
                   Search Area{" "}
-                  <span className="font-normal text-sm">change location</span>
+                  <div className="flex items-center gap-0">
+                    <Button
+                      variant={"link"}
+                      className="font-normal text-sm px-1"
+                    >
+                      custom search
+                    </Button>
+                    <Button variant={"ghost"} size={"icon"}>
+                      <InfoCircledIcon className="stroke-1 h-4 w-4 text-white bg-muted-foreground rounded-full" />
+                    </Button>
+                  </div>
                 </div>
 
                 <ToggleGroup
