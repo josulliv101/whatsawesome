@@ -39,7 +39,14 @@ export default function AsideBlurb() {
   return (
     <p>
       <span className="font-semibold">Blue Mushroom</span> &mdash; your platform
-      for discovering excellence in the world around you.
+      for discovering excellence in the world around you. Leave a{" "}
+      <img
+        className="inline-block mx-0.5 w-4 h-4 opacity-70 grayscale relative top-[-.5px]"
+        src={config.logoPath}
+        width="24"
+        height="24"
+      />{" "}
+      on items you endorse.
     </p>
   );
   return (
