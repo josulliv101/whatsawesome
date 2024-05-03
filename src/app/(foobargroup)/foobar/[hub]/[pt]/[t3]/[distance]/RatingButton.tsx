@@ -9,13 +9,13 @@ export default function RatingButton({
   rating,
   profileId,
   excellenceId,
-  mushroomPromise = "...",
+  mushroomPromise,
 }: any) {
-  // const isMushroomAdd = use(mushroomPromise);
-  // console.log("MushroomButton user", isMushroomAdd, excellenceId, profileId);
+  const isMushroomAdd = use(mushroomPromise);
+  console.log("MushroomButton user", isMushroomAdd, excellenceId, profileId);
   return (
-    <Button size={"sm"} onClick={() => console.log(mushroomPromise)}>
-      {rating}
+    <Button size={"sm"} onClick={() => console.log(isMushroomAdd)}>
+      {rating} {!isMushroomAdd ? "Remove" : "Add"}
     </Button>
   );
 }

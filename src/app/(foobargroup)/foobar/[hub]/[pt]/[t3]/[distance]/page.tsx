@@ -100,7 +100,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
                   rating={rating}
                   profileId={parent?.id}
                   excellenceId={excellenceId}
-                  // mushroomPromise={promiseMushroomMap[excellenceId]}
+                  mushroomPromise={promiseMushroomMap[excellenceId]}
                 />
               </Suspense>
             </ExcellenceItem>

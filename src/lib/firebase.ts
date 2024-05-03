@@ -876,21 +876,26 @@ export async function isMushroomPresentByUser(
   profileId: string,
   excellenceId: string
 ): Promise<any> {
-  const docRef = doc(
-    db,
-    "entity",
-    profileId,
-    "whyawesome",
-    excellenceId,
-    "mushrooms",
-    userId
-  );
+  // const docRef = doc(
+  //   db,
+  //   "entity",
+  //   profileId,
+  //   "whyawesome",
+  //   excellenceId,
+  //   "mushrooms",
+  //   userId
+  // );
+
+  const data = await fetch(
+    `https://firestore.googleapis.com/v1/projects/fir-abc-a965d/databases/(default)/documents/entity/${profileId}/whyawesome/${excellenceId}/mushrooms/${userId}`,
+    { cache: "no-store" }
+  ).then((resp) => resp.json());
 
   await new Promise((r) => setTimeout(r, 2000));
 
-  const snapshot = await getDoc(docRef);
+  // const snapshot = await getDoc(docRef);
 
-  return snapshot.exists() && snapshot.get("mushroom") === true;
+  return !!data?.fields?.mushroom?.booleanValue;
 }
 
 export async function incrementRating(
