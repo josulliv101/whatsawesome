@@ -13,6 +13,7 @@ export function generateStaticParams() {
 }
 
 export default async function Page({ params: { hub, pt, t3, distance } }: any) {
+  return <div>bar</div>;
   const hubProfile = await fetchProfile(hub);
   const topProfiles =
     typeof distance !== "undefined" && Number(distance) !== 0
