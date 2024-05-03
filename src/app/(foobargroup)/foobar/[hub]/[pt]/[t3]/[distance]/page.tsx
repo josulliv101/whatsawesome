@@ -93,7 +93,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
               rating={rating}
             >
               <p>{reason}</p>
-              <Suspense
+              {/* <Suspense
                 fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               >
                 <RatingButton
@@ -102,7 +102,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
                   excellenceId={excellenceId}
                   // mushroomPromise={Promise.resolve(true)}
                 />
-              </Suspense>
+              </Suspense> */}
             </ExcellenceItem>
           );
         })}
