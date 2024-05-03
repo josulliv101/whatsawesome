@@ -100,7 +100,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
                   rating={rating}
                   profileId={parent?.id}
                   excellenceId={excellenceId}
-                  mushroomPromise={new Promise((r) => setTimeout(r, 2000))}
+                  mushroomPromise={Promise.resolve(true)}
                 />
               </Suspense>
             </ExcellenceItem>
