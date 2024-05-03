@@ -3,6 +3,7 @@ import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
 import Link from "next/link";
 import FoobarMap from "./FoobarMap";
 import { fetchProfile } from "@/lib/firebase";
+import ExcellenceItem from "./ExcellenceItem";
 
 export function generateStaticParams() {
   return [];
@@ -31,6 +32,10 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
       : await searchTopAoeByCategory(hub, [[t3, pt]]);
   const { hits } = topProfiles?.[0];
   console.log("generateStaticParams()", { hub, pt, t3, distance });
+
+  if (pt === "catalog") {
+    return <div>Catalog page</div>;
+  }
   return (
     <>
       <nav className="my-8 px-8 flex items-center gap-2">
@@ -57,12 +62,11 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
         foobar: {hub} / {pt} / {t3} / {distance}
       </div>
       <div className="p-12 flex flex-col gap-4">
-        {hits.map(({ objectID, parent, reason }: any) => {
+        {hits.map(({ objectID, parent, reason, rating }: any) => {
           return (
-            <div key={objectID}>
-              <h2>{parent.name}</h2>
+            <ExcellenceItem key={objectID} name={parent.name} rating={rating}>
               <p>{reason}</p>
-            </div>
+            </ExcellenceItem>
           );
         })}
       </div>
