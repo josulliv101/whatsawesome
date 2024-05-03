@@ -6,7 +6,7 @@ import { fetchProfile, isMushroomPresentByUser } from "@/lib/firebase";
 import ExcellenceItem from "./ExcellenceItem";
 import { Suspense } from "react";
 import RatingButton from "./RatingButton";
-import { getCurrentUser } from "@/lib/auth";
+// import { getCurrentUser } from "@/lib/auth";
 import { Loader2 } from "lucide-react";
 
 export function generateStaticParams() {
