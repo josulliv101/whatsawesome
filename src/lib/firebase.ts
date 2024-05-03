@@ -886,6 +886,8 @@ export async function isMushroomPresentByUser(
     userId
   );
 
+  await new Promise((r) => setTimeout(r, 2000));
+
   const snapshot = await getDoc(docRef);
 
   return snapshot.exists() && snapshot.get("mushroom") === true;
