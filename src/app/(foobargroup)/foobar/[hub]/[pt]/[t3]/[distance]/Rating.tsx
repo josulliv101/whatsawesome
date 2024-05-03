@@ -3,7 +3,7 @@ import { isMushroomPresentByUser } from "@/lib/firebase";
 import RatingButton from "./RatingButton";
 
 export default async function Rating({ rating, profileId, excellenceId }: any) {
-  const user = await getCurrentUser();
+  const user = { uid: "UrEbctTQEUUO0rc9VMmyMqSBdr53" }; // await getCurrentUser();
   const isMushroomPresent = !user
     ? false
     : await isMushroomPresentByUser(user?.uid, profileId, excellenceId);
