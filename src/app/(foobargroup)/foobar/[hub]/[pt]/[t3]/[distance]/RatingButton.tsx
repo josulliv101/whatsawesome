@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/auth";
 import { isMushroomPresentByUser } from "@/lib/firebase";
