@@ -44,19 +44,19 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
     return <div>Catalog page</div>;
   }
 
-  const promiseMushroomMap = !user?.uid
-    ? {}
-    : hits.reduce(
-        (acc: any, { objectID: excellenceId, parent }: any) => ({
-          ...acc,
-          [excellenceId]: isMushroomPresentByUser(
-            user.uid,
-            parent?.id,
-            excellenceId
-          ),
-        }),
-        {}
-      );
+  // const promiseMushroomMap = !user?.uid
+  //   ? {}
+  //   : hits.reduce(
+  //       (acc: any, { objectID: excellenceId, parent }: any) => ({
+  //         ...acc,
+  //         [excellenceId]: isMushroomPresentByUser(
+  //           user.uid,
+  //           parent?.id,
+  //           excellenceId
+  //         ),
+  //       }),
+  //       {}
+  //     );
   // const isMushroomPresentPromise = await Promise.all(isMushroomPresentPromises);
 
   return (
@@ -100,7 +100,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
                   rating={rating}
                   profileId={parent?.id}
                   excellenceId={excellenceId}
-                  mushroomPromise={promiseMushroomMap[excellenceId]}
+                  mushroomPromise={new Promise((r) => setTimeout(r, 2000))}
                 />
               </Suspense>
             </ExcellenceItem>
