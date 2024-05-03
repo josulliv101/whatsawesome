@@ -21,6 +21,7 @@ const navItems = [
 ];
 
 export default async function Page({ params: { hub, pt, t3, distance } }: any) {
+  return <div>foo</div>;
   const hubProfile = await fetchProfile(hub);
 
   // const user = await getCurrentUser();
