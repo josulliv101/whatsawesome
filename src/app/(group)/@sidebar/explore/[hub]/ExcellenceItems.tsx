@@ -150,7 +150,7 @@ export default async function ExcellenceItems({
             />{" "}
             on the items where you can confirm the excellence.
             <Button variant={"ghost"} size={"sm"}>
-              More on how it works.
+              How it works
               <ChevronRight className="stroke-1 h-4 w-4 text-muted-foreground bg-muted-foreground_ rounded-full" />
             </Button>
           </p>
@@ -560,7 +560,7 @@ function ExcellenceItem({ item, Component, displayRank, MushroomButton }: any) {
           description={item.reason}
           name={item.parent?.name}
           profileId={item.parentId}
-          rating={Math.max(2, roundToInteger(item.rating * 10.34))}
+          rating={Math.max(2, roundToInteger(item.rating))}
           tags={item._tags}
           photoUrlAside={
             item.photoUrl && !item._tags?.includes("person")

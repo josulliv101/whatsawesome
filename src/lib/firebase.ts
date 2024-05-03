@@ -890,3 +890,26 @@ export async function isMushroomPresentByUser(
 
   return snapshot.exists() && snapshot.get("mushroom") === true;
 }
+
+export async function incrementRating(
+  profileId: string,
+  excellenceId: string,
+  isAdd?: boolean
+): Promise<any> {
+  const docRef = doc(db, "entity", profileId, "whyawesome", excellenceId);
+
+  const snapshot = await getDoc(docRef);
+  const rating = snapshot.exists() && snapshot.get("rating");
+  const updatedRating =
+    typeof rating === "number" ? rating + (isAdd ? 1 : -1) : 1;
+
+  console.log("updatedRating", rating, updatedRating);
+  await setDoc(
+    docRef,
+    {
+      rating: updatedRating,
+    },
+    { merge: true }
+  );
+  return updatedRating;
+}

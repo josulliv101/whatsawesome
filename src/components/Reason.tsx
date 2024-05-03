@@ -131,7 +131,7 @@ export function Reason({
 }>) {
   const user = useAuthContext();
   const [mushroomCount, setMushroomCount] = useState(
-    roundToInteger(rating < 10 ? rating * 10 : rating)
+    roundToInteger(rating < 10 ? rating : rating)
   );
   const photoUrl = photoUrlProp; // || config.logoPath;
   const isDefaultImage = !photoUrlProp;

@@ -5,6 +5,7 @@ import {
   addMushroom,
   addReasonToProfile,
   fetchProfile,
+  incrementRating,
   updateReason,
 } from "./firebase";
 import { getCurrentUser } from "./auth";
@@ -39,7 +40,9 @@ export async function leaveMushroom(
   console.log("leaveMushroom...", user?.uid, userId, profileId, excellenceId);
   const isSuccess = await addMushroom(userId, profileId, excellenceId, isAdd);
 
-  revalidatePath(`/explore/boston?pt=restaurant&t3=burger`);
+  const rating = await incrementRating(profileId, excellenceId, isAdd);
+  // await new Promise((r) => setTimeout(r, 10000));
+  revalidatePath(`/explore/boston?pt=restaurant&t3=burger`, "page");
 
-  return { isSuccess, uid: user?.uid, userId, excellenceId, profileId };
+  return { isSuccess, rating, uid: user?.uid, userId, excellenceId, profileId };
 }

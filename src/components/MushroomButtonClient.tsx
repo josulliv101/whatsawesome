@@ -5,6 +5,8 @@ import { Button } from "./ui/button";
 import { config } from "@/lib/config";
 import { leaveMushroom } from "@/lib/actions";
 import { toast } from "sonner";
+import { useEffect, useState, useTransition } from "react";
+import { cn } from "@/lib/utils";
 
 export default function MushroomButtonClient({
   userId,
@@ -12,6 +14,12 @@ export default function MushroomButtonClient({
   excellenceId,
   isMushroomPresent,
 }: any) {
+  const [isActive, setIsActive] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  useEffect(() => {
+    setIsActive(false);
+  }, [isMushroomPresent]);
+
   const handleLeaveMushroom = async () => {
     if (!userId) {
       toast(
@@ -20,29 +28,39 @@ export default function MushroomButtonClient({
         </pre>
       );
     } else if (userId && profileId && excellenceId) {
-      const foo = await leaveMushroom(
+      setIsActive(true);
+      const { rating } = await leaveMushroom(
         userId,
         profileId,
         excellenceId,
         !isMushroomPresent
       );
-      console.log(foo);
+      console.log(rating, "rating");
     }
   };
   return (
-    <Button
-      onClick={handleLeaveMushroom}
-      variant={"ghost"}
-      className="group/btn text-sm absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0_ py-4_ gap-2 min-w-[80px] transition-all duration-500 text-muted-foreground"
-    >
-      <Image
-        alt="vote"
-        src={config.logoPath}
-        width={24}
-        height={24}
-        className="opacity-0 group-hover/btn:opacity-100 transition-all duration-500 mr-1"
-      />
-      {isMushroomPresent ? "Take Back" : "Leave"} Mushroom
-    </Button>
+    <>
+      <Button
+        onClick={handleLeaveMushroom}
+        variant={"ghost"}
+        className="group/btn min-w-[60px] text-sm absolute top-2 right-2 flex bg-muted_ rounded-md items-center px-0_ py-4_ gap-2  transition-all duration-500 text-muted-foreground"
+      >
+        {isMushroomPresent || isActive ? (
+          <Image
+            alt="vote"
+            src={config.logoPath}
+            width={24}
+            height={24}
+            className={cn(
+              `_group-hover/btn:opacity-100 origin-bottom mx-1`,
+              isActive || isMushroomPresent ? "opacity-100" : "opacity-0",
+              isActive ? "animate-rubberBandJumpNoDelay" : ""
+            )}
+          />
+        ) : (
+          "Leave Mushroom"
+        )}
+      </Button>
+    </>
   );
 }
