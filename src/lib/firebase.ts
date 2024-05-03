@@ -888,7 +888,7 @@ export async function isMushroomPresentByUser(
 
   const data = await fetch(
     `https://firestore.googleapis.com/v1/projects/fir-abc-a965d/databases/(default)/documents/entity/${profileId}/whyawesome/${excellenceId}/mushrooms/${userId}`,
-    { cache: "no-store" } // TODO: switch to "force-cache"
+    { cache: "force-cache" } // TODO: switch to "force-cache"
   ).then((resp) => resp.json());
 
   await new Promise((r) => setTimeout(r, 2000));
