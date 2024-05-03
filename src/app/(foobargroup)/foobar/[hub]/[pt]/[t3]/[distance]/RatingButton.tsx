@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { leaveMushroom } from "@/lib/actions";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export default function RatingButton({
@@ -11,6 +12,7 @@ export default function RatingButton({
   isAdd,
   userId,
 }: any) {
+  const [ratingBasedOnVote, setRatingBasedOnVote] = useState(rating);
   console.log("RatingButton..", excellenceId, isAdd);
   console.log("MushroomButton user", isAdd, excellenceId, profileId);
 
@@ -22,19 +24,20 @@ export default function RatingButton({
         </pre>
       );
     } else if (userId && profileId && excellenceId) {
-      const { rating } = await leaveMushroom(
+      const { rating: updatedRating } = await leaveMushroom(
         userId,
         profileId,
         excellenceId,
         isAdd
       );
-      console.log(rating, "rating");
+      setRatingBasedOnVote(updatedRating);
+      console.log(updatedRating, "updatedRating");
     }
   };
 
   return (
     <Button size={"sm"} onClick={handleLeaveMushroom}>
-      {rating} {!isAdd ? "Remove" : "Add"}
+      {ratingBasedOnVote} {!isAdd ? "Remove" : "Add"}
     </Button>
   );
 }
