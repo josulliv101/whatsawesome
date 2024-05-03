@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import RatingButton from "./RatingButton";
 // import { getCurrentUser } from "@/lib/auth";
 import { Loader2 } from "lucide-react";
+import Rating from "./Rating";
 
 export function generateStaticParams() {
   return [];
@@ -96,11 +97,11 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
               <Suspense
                 fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               >
-                <RatingButton
+                <Rating
                   rating={rating}
                   profileId={parent?.id}
                   excellenceId={excellenceId}
-                  mushroomPromise={Promise.resolve(true)}
+                  // mushroomPromise={Promise.resolve(true)}
                 />
               </Suspense>
             </ExcellenceItem>

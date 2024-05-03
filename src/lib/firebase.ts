@@ -888,14 +888,14 @@ export async function isMushroomPresentByUser(
 
   const data = await fetch(
     `https://firestore.googleapis.com/v1/projects/fir-abc-a965d/databases/(default)/documents/entity/${profileId}/whyawesome/${excellenceId}/mushrooms/${userId}`,
-    { cache: "no-store" }
+    { cache: "no-store" } // TODO: switch to "force-cache"
   ).then((resp) => resp.json());
 
   await new Promise((r) => setTimeout(r, 2000));
-
-  // const snapshot = await getDoc(docRef);
-
-  return !!data?.fields?.mushroom?.booleanValue;
+  if (typeof data?.fields?.mushroom?.booleanValue === "boolean") {
+    return data?.fields?.mushroom?.booleanValue;
+  }
+  return false;
 }
 
 export async function incrementRating(
