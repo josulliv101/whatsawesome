@@ -29,7 +29,7 @@ import {
 import { allTags, config } from "./config";
 import { PrimaryTagType, getPlural, tagDefinitions } from "./tags";
 import { Profile, Reason } from "./profile";
-import { generateRandomDecimal } from "./utils";
+import { generateRandomDecimal, roundToInteger } from "./utils";
 import { revalidatePath } from "next/cache";
 
 const firebaseConfig = {
@@ -885,17 +885,37 @@ export async function isMushroomPresentByUser(
   //   "mushrooms",
   //   userId
   // );
-
-  const data = await fetch(
-    `https://firestore.googleapis.com/v1/projects/fir-abc-a965d/databases/(default)/documents/entity/${profileId}/whyawesome/${excellenceId}/mushrooms/${userId}`,
-    { cache: "force-cache" } // TODO: switch to "force-cache"
-  ).then((resp) => resp.json());
-
   await new Promise((r) => setTimeout(r, 2000));
-  if (typeof data?.fields?.mushroom?.booleanValue === "boolean") {
-    return data?.fields?.mushroom?.booleanValue;
-  }
-  return false;
+  let rating = 0;
+  let isPresent = false;
+
+  try {
+    const ratingData = await fetch(
+      `https://firestore.googleapis.com/v1/projects/fir-abc-a965d/databases/(default)/documents/entity/${profileId}/whyawesome/${excellenceId}`,
+      { cache: "no-store" } // TODO: switch to "force-cache"
+    ).then((resp) => resp.json());
+
+    if (ratingData?.fields?.rating) {
+      rating = Number(
+        ratingData.fields.rating?.integerValue ??
+          ratingData.fields.rating?.doubleValue ??
+          0
+      );
+    }
+  } catch {}
+
+  try {
+    const userData = await fetch(
+      `https://firestore.googleapis.com/v1/projects/fir-abc-a965d/databases/(default)/documents/entity/${profileId}/whyawesome/${excellenceId}/mushrooms/${userId}`,
+      { cache: "no-store" } // TODO: switch to "force-cache"
+    ).then((resp) => resp.json());
+
+    if (typeof userData?.fields?.mushroom?.booleanValue === "boolean") {
+      isPresent = userData?.fields?.mushroom?.booleanValue;
+    }
+  } catch {}
+
+  return { isPresent, rating };
 }
 
 export async function incrementRating(
@@ -908,7 +928,7 @@ export async function incrementRating(
   const snapshot = await getDoc(docRef);
   const rating = snapshot.exists() && snapshot.get("rating");
   const updatedRating =
-    typeof rating === "number" ? rating + (isAdd ? 1 : -1) : 1;
+    typeof rating === "number" ? roundToInteger(rating) + (isAdd ? 1 : -1) : 1;
 
   console.log("updatedRating", rating, updatedRating);
   await setDoc(

@@ -42,7 +42,7 @@ export async function leaveMushroom(
 
   const rating = await incrementRating(profileId, excellenceId, isAdd);
   // await new Promise((r) => setTimeout(r, 10000));
-  revalidatePath(`/explore/boston?pt=restaurant&t3=burger`, "page");
+  revalidatePath(`/foobar/boston/restaurant/burger/20`, "page");
 
   return { isSuccess, rating, uid: user?.uid, userId, excellenceId, profileId };
 }

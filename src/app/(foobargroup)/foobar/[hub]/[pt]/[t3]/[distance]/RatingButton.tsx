@@ -1,18 +1,44 @@
 "use client";
 
+import { useAuthContext } from "@/components/AuthContext";
 import { Button } from "@/components/ui/button";
 import { leaveMushroom } from "@/lib/actions";
-import { useState } from "react";
+import { isMushroomPresentByUser } from "@/lib/firebase";
+import { use, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function RatingButton({
-  rating,
+  // rating,
   profileId,
   excellenceId,
-  isAdd,
-  userId,
+  // mushroomPromise,
+  // isAdd,
+  // userId,
 }: any) {
-  const [ratingBasedOnVote, setRatingBasedOnVote] = useState(rating);
+  const { id: userId = "" } = useAuthContext() || {};
+  const [{ isPresent: isMushroomPresent, rating }, setRatingDetails] = useState(
+    {
+      rating: 0,
+      isPresent: false,
+    }
+  );
+  const isAdd = !isMushroomPresent;
+
+  useEffect(() => {
+    async function getData() {
+      if (!userId) {
+        return;
+      }
+      const data = await isMushroomPresentByUser(
+        userId,
+        profileId,
+        excellenceId
+      );
+      setRatingDetails(data);
+    }
+    getData();
+  }, [userId]);
+
   console.log("RatingButton..", excellenceId, isAdd);
   console.log("MushroomButton user", isAdd, excellenceId, profileId);
 
@@ -30,14 +56,17 @@ export default function RatingButton({
         excellenceId,
         isAdd
       );
-      setRatingBasedOnVote(updatedRating);
+      setRatingDetails({
+        isPresent: !isMushroomPresent,
+        rating: updatedRating,
+      });
       console.log(updatedRating, "updatedRating");
     }
   };
 
   return (
     <Button size={"sm"} onClick={handleLeaveMushroom}>
-      {ratingBasedOnVote} {!isAdd ? "Remove" : "Add"}
+      {rating} {isAdd ? "Add" : "Remove"}
     </Button>
   );
 }
