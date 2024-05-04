@@ -88,7 +88,7 @@ export default async function Page({
         })}
       </nav>
       <div className="p-12">
-        foobar: {hub} / {pt} / {t3} / {distance}
+        foobar: {hub} / {pt} / {t3} / {distance} / {uid}
       </div>
       <div className="p-12 flex flex-col gap-4">
         {hits.map(({ objectID: excellenceId, parent, reason, rating }: any) => {

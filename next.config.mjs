@@ -34,6 +34,11 @@ const nextConfig = {
           destination: "/foobar/:hub/:pt/:t3/:distance/index",
           // has: [{ type: 'query', key: 'overrideMe' }],
         },
+        {
+          source: "/foobar/:hub/:pt/:t3/:distance/:uid",
+          destination: "/foobar/:hub/:pt/:t3/:distance/:uid",
+          // has: [{ type: 'query', key: 'overrideMe' }],
+        },
       ],
     };
   },

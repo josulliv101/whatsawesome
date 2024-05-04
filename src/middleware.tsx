@@ -15,14 +15,17 @@ export async function middleware(request: NextRequest, params: any) {
   // const decodedIdToken = await auth.verifySessionCookie(sess!);
   console.log("middleware uid", cookieValue);
   if (cookieValue?.value) {
-    const updatedUrl = url
-      .split("/")
-      .map((token, index, list) => {
-        return index === list.length - 1 ? cookieValue?.value : token;
-      })
-      .join("/");
-    console.log("updatedUrl", updatedUrl);
-    return NextResponse.rewrite("http://localhost:3000/" + updatedUrl);
+    const [
+      base,
+      hub = "index",
+      pt = "index",
+      t3 = "index",
+      distance = 0,
+      uid = cookieValue?.value || "index",
+    ] = url.split("/");
+    const fullUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${base}/${hub}/${pt}/${t3}/${distance}/${uid}`;
+    console.log("tokens", base, hub, pt, t3, distance, uid, ":", fullUrl);
+    // return NextResponse.rewrite(process.env.NEXT_PUBLIC_DOMAIN + "/");
   }
 
   const response = NextResponse.next();
