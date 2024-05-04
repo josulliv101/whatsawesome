@@ -21,6 +21,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PrimaryTagType } from "@/lib/tags";
+import { UserMushroomMapContextProvider } from "@/components/UserMushroomMapContext";
 
 export const metadata = {
   title: "Next.js",
@@ -46,18 +47,22 @@ export default function RootLayout({
         >
           {" "}
           <StrictMode>
-            <AuthContextProvider>
-              <ThemeProvider attribute="class">
-                <ClientAPIProvider apiKey={API_KEY}>
-                  <HubContextProvider initialValue={tags[1] as PrimaryTagType}>
-                    <Header />
-                    {children}
-                    <Toaster duration={8000} />
-                    <Footer />
-                  </HubContextProvider>
-                </ClientAPIProvider>
-              </ThemeProvider>
-            </AuthContextProvider>
+            <UserMushroomMapContextProvider>
+              <AuthContextProvider>
+                <ThemeProvider attribute="class">
+                  <ClientAPIProvider apiKey={API_KEY}>
+                    <HubContextProvider
+                      initialValue={tags[1] as PrimaryTagType}
+                    >
+                      <Header />
+                      {children}
+                      <Toaster duration={8000} />
+                      <Footer />
+                    </HubContextProvider>
+                  </ClientAPIProvider>
+                </ThemeProvider>
+              </AuthContextProvider>
+            </UserMushroomMapContextProvider>
           </StrictMode>
           <SpeedInsights />
           <Analytics />

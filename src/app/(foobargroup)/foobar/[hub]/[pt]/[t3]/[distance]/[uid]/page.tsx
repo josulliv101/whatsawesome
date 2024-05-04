@@ -17,6 +17,7 @@ import RatingButton from "./RatingButton";
 import { Loader2 } from "lucide-react";
 import Rating from "./Rating";
 import Foobar from "./Foobar";
+import { cookies } from "next/headers";
 
 // export const dynamic = "force-static";
 
@@ -36,7 +37,11 @@ export default async function Page({
 }: any) {
   const hubProfile = await fetchProfile(hub);
 
-  // const user = await getCurrentUser();
+  async function deleteUidCookie() {
+    "use server";
+
+    cookies().delete("uid");
+  }
 
   const topProfiles =
     typeof distance !== "undefined" && Number(distance) !== 0
@@ -86,34 +91,40 @@ export default async function Page({
         foobar: {hub} / {pt} / {t3} / {distance} / {uid}
       </div>
       <div className="p-12 flex flex-col gap-4">
-        {hits.map(({ objectID: excellenceId, parent, reason, rating }: any) => {
-          return (
-            <ExcellenceItem
-              key={excellenceId}
-              name={parent.name}
-              rating={rating}
-            >
-              <p>{reason}</p>
-              <Suspense
-                fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {hits.map(
+          (
+            { objectID: excellenceId, parent, reason, rating }: any,
+            index: number
+          ) => {
+            return (
+              <ExcellenceItem
+                key={excellenceId}
+                name={parent.name}
+                rating={rating}
               >
-                <Foobar
-                  rating={rating}
-                  profileId={parent?.id}
-                  uid={uid}
-                  excellenceId={excellenceId}
-                  mushroomMapPromise={mushroomMapPromise}
-                />
-              </Suspense>
-              {/*<RatingButton
+                <p>{reason}</p>
+                <Suspense
+                  fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                >
+                  <Foobar
+                    rating={rating}
+                    profileId={parent?.id}
+                    uid={uid}
+                    excellenceId={excellenceId}
+                    mushroomMapPromise={mushroomMapPromise}
+                    deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
+                  />
+                </Suspense>
+                {/*<RatingButton
                 rating={rating}
                 profileId={parent?.id}
                 excellenceId={excellenceId}
                 // mushroomPromise={Promise.resolve(true)}
               /> */}
-            </ExcellenceItem>
-          );
-        })}
+              </ExcellenceItem>
+            );
+          }
+        )}
       </div>
     </>
   );

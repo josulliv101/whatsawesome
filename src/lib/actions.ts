@@ -34,15 +34,23 @@ export async function leaveMushroom(
   userId: string,
   profileId: string,
   excellenceId: string,
+  pathname: string,
   isAdd?: boolean
 ) {
   const user = await getCurrentUser();
-  console.log("leaveMushroom...", user?.uid, userId, profileId, excellenceId);
+  console.log(
+    "leaveMushroom...",
+    pathname,
+    user?.uid,
+    userId,
+    profileId,
+    excellenceId
+  );
   const isSuccess = await addMushroom(userId, profileId, excellenceId, isAdd);
 
   const rating = await incrementRating(profileId, excellenceId, isAdd);
   // await new Promise((r) => setTimeout(r, 10000));
-  revalidatePath(`/foobar/boston/restaurant/burger/20`, "page");
+  revalidatePath(pathname, "page");
 
   return { isSuccess, rating, uid: user?.uid, userId, excellenceId, profileId };
 }

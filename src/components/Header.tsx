@@ -16,9 +16,14 @@ import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { useUserMushroomMapContext } from "./UserMushroomMapContext";
 
 export default function Header() {
   const isMounted = useIsMounted();
+  const [userMushroomMap] = useUserMushroomMapContext();
+  const usedMushrooms = Object.values(userMushroomMap || {}).filter(
+    (item) => item.mushroom === true
+  );
   const [forcePlayAnimation, setForcePlayAnimation] = useState(false);
   const [storedEnableLogoAnimation, setStoredEnableLogoAnimation] =
     useLocalStorage("enableLogoAnimation", false);
@@ -192,7 +197,7 @@ export default function Header() {
             variant={"default"}
             className="absolute -bottom-1 -right-2 font-normal_ rounded-full scale-110 px-1"
           >
-            20
+            {40 - usedMushrooms.length}
           </Badge>
         </div>
       </div>

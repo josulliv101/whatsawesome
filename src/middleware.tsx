@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getHubTags } from "./lib/tags";
 import { auth, getCurrentUser } from "./lib/auth";
+import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest, params: any) {
   const {
@@ -25,7 +26,10 @@ export async function middleware(request: NextRequest, params: any) {
     ] = url.split("/");
     const fullUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${base}/${hub}/${pt}/${t3}/${distance}/${uid}`;
     console.log("tokens", base, hub, pt, t3, distance, uid, ":", fullUrl);
-    return NextResponse.rewrite(fullUrl);
+
+    const response = NextResponse.rewrite(fullUrl);
+
+    return response;
   }
 
   const response = NextResponse.next();
