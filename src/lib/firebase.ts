@@ -871,6 +871,35 @@ export async function addMushroom(
   return true;
 }
 
+export async function fetchMushroomMapForUser(
+  uid: string
+): Promise<Record<string, any>> {
+  console.log("fetchMushroomMapForUser", uid);
+
+  if (!uid || uid === "index") {
+    return {};
+  }
+
+  const dataMap: Record<string, any> = {};
+  const mushrooms = query(
+    collectionGroup(db, "mushrooms") // ,
+    // where("userId", "==", uid)
+  );
+
+  const querySnapshot = await getDocs(mushrooms); // await
+
+  querySnapshot.forEach((doc) => {
+    // console.log("mushroom", doc.id, " => ", doc?.ref?.parent?.parent?.id);
+    dataMap[doc?.ref?.parent?.parent?.id || ""] = {
+      ...doc.data(),
+      excellenceId: doc?.ref?.parent?.parent?.id,
+      profileId: doc?.ref?.parent?.parent?.parent?.parent?.id,
+    };
+  });
+
+  return dataMap;
+}
+
 export async function isMushroomPresentByUser(
   userId: string,
   profileId: string,

@@ -1,8 +1,15 @@
+import { collectionGroup, query, where, getDocs } from "firebase/firestore";
+
 import { Button } from "@/components/ui/button";
 import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
 import Link from "next/link";
 import FoobarMap from "./FoobarMap";
-import { fetchProfile, isMushroomPresentByUser } from "@/lib/firebase";
+import {
+  db,
+  fetchMushroomMapForUser,
+  fetchProfile,
+  isMushroomPresentByUser,
+} from "@/lib/firebase";
 import ExcellenceItem from "./ExcellenceItem";
 import { Suspense } from "react";
 import RatingButton from "./RatingButton";
@@ -50,20 +57,8 @@ export default async function Page({
     return <div>Catalog page</div>;
   }
 
-  // const promiseMushroomMap = !user?.uid
-  //   ? {}
-  //   : hits.reduce(
-  //       (acc: any, { objectID: excellenceId, parent }: any) => ({
-  //         ...acc,
-  //         [excellenceId]: isMushroomPresentByUser(
-  //           user.uid,
-  //           parent?.id,
-  //           excellenceId
-  //         ),
-  //       }),
-  //       {}
-  //     );
-  // const isMushroomPresentPromise = await Promise.all(isMushroomPresentPromises);
+  const mushroomMapPromise = fetchMushroomMapForUser(uid);
+  console.log("mushroomMapPromise", mushroomMapPromise);
 
   return (
     <>
@@ -99,7 +94,7 @@ export default async function Page({
               rating={rating}
             >
               <p>{reason}</p>
-              {/* <Suspense
+              <Suspense
                 fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               >
                 <Foobar
@@ -107,9 +102,10 @@ export default async function Page({
                   profileId={parent?.id}
                   uid={uid}
                   excellenceId={excellenceId}
+                  mushroomMapPromise={mushroomMapPromise}
                 />
               </Suspense>
-              <RatingButton
+              {/*<RatingButton
                 rating={rating}
                 profileId={parent?.id}
                 excellenceId={excellenceId}

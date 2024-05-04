@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest, params: any) {
     ] = url.split("/");
     const fullUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${base}/${hub}/${pt}/${t3}/${distance}/${uid}`;
     console.log("tokens", base, hub, pt, t3, distance, uid, ":", fullUrl);
-    // return NextResponse.rewrite(process.env.NEXT_PUBLIC_DOMAIN + "/");
+    return NextResponse.rewrite(fullUrl);
   }
 
   const response = NextResponse.next();
