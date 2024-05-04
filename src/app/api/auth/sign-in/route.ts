@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 import { APIResponse } from "@/lib/firebase";
-import { createSessionCookie } from "@/lib/auth";
+import { auth, createSessionCookie } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   const reqBody = (await request.json()) as { idToken: string };
@@ -12,7 +12,15 @@ export async function POST(request: NextRequest) {
 
   const sessionCookie = await createSessionCookie(idToken, { expiresIn });
 
+  const user = await auth.verifySessionCookie(sessionCookie, true);
+  console.log("user", user);
   cookies().set("__session", sessionCookie, {
+    maxAge: expiresIn,
+    httpOnly: true,
+    secure: true,
+  });
+
+  cookies().set("uid", user.uid, {
     maxAge: expiresIn,
     httpOnly: true,
     secure: true,

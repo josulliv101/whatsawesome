@@ -9,7 +9,7 @@ export default async function MushroomButton({ excellenceId, profileId }: any) {
   const isMushroomPresent = !user?.uid
     ? false
     : await isMushroomPresentByUser(user.uid, profileId, excellenceId);
-  console.log("MushroomButton user", user?.uid, excellenceId, profileId);
+  // console.log("MushroomButton user", user?.uid, excellenceId, profileId);
   // const foo = await new Promise((r) => setTimeout(r, 8000));
   return (
     <MushroomButtonClient

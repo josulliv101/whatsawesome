@@ -255,7 +255,7 @@ export async function searchTopAoeByTagFilter(
   const parentIds = Object.keys(parentMap);
 
   const profiles = await getProfilesFromIds(parentIds);
-  console.log("profiles", profiles);
+  // console.log("profiles", profiles);
 
   const profileMap = profiles.reduce((acc, item) => {
     return {
@@ -330,7 +330,7 @@ export async function searchTopAoeByRadius(
   const parentIds = Object.keys(parentMap);
 
   const profiles = await getProfilesFromIds(parentIds);
-  console.log("profiles", profiles);
+  // console.log("profiles", profiles);
 
   const profileMap = profiles.reduce((acc, item) => {
     return {

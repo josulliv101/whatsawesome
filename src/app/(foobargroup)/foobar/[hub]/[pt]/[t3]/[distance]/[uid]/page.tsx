@@ -9,6 +9,9 @@ import RatingButton from "./RatingButton";
 // import { getCurrentUser } from "@/lib/auth";
 import { Loader2 } from "lucide-react";
 import Rating from "./Rating";
+import Foobar from "./Foobar";
+
+// export const dynamic = "force-static";
 
 export function generateStaticParams() {
   return [];
@@ -21,7 +24,9 @@ const navItems = [
   ["coffeehouse", "pastries"],
 ];
 
-export default async function Page({ params: { hub, pt, t3, distance } }: any) {
+export default async function Page({
+  params: { hub, pt, t3, distance, uid },
+}: any) {
   const hubProfile = await fetchProfile(hub);
 
   // const user = await getCurrentUser();
@@ -96,14 +101,20 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
               <p>{reason}</p>
               {/* <Suspense
                 fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              > */}
+              >
+                <Foobar
+                  rating={rating}
+                  profileId={parent?.id}
+                  uid={uid}
+                  excellenceId={excellenceId}
+                />
+              </Suspense>
               <RatingButton
                 rating={rating}
                 profileId={parent?.id}
                 excellenceId={excellenceId}
                 // mushroomPromise={Promise.resolve(true)}
-              />
-              {/* </Suspense> */}
+              /> */}
             </ExcellenceItem>
           );
         })}

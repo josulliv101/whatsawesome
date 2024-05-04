@@ -43,9 +43,6 @@ export default function RatingButton({
     getData();
   }, [userId]);
 
-  console.log("RatingButton..", excellenceId, isAdd);
-  console.log("MushroomButton user", isAdd, excellenceId, profileId);
-
   const handleLeaveMushroom = async () => {
     if (!userId) {
       toast(
@@ -72,7 +69,7 @@ export default function RatingButton({
 
   return (
     <div className="flex items-center gap-1">
-      <Button size={"sm"} onClick={handleLeaveMushroom}>
+      <Button disabled={isPending} size={"sm"} onClick={handleLeaveMushroom}>
         {rating} {isAdd ? "Add" : "Remove"}
       </Button>
       {isPending && (

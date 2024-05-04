@@ -1,20 +1,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getHubTags } from "./lib/tags";
+import { auth, getCurrentUser } from "./lib/auth";
 
-export function middleware(request: NextRequest, params: any) {
+export async function middleware(request: NextRequest, params: any) {
   const {
     nextUrl: { pathname },
   } = request;
 
   const url = pathname.substring(1);
 
-  const hubUrl = getHubTags(url ? url.split("/") : []);
-  console.log("middleware params", url, hubUrl, params);
+  const cookieValue = request.cookies.get("uid");
 
-  const cookieName = `filter-${hubUrl.primaryTag}`;
-  const filterCookie = request.cookies.get(cookieName);
-  console.log("middleware filterCookie", filterCookie);
+  // const decodedIdToken = await auth.verifySessionCookie(sess!);
+  console.log("middleware uid", cookieValue);
+  if (cookieValue?.value) {
+    const updatedUrl = url
+      .split("/")
+      .map((token, index, list) => {
+        return index === list.length - 1 ? cookieValue?.value : token;
+      })
+      .join("/");
+    console.log("updatedUrl", updatedUrl);
+    return NextResponse.rewrite("http://localhost:3000/" + updatedUrl);
+  }
 
   const response = NextResponse.next();
   // response.cookies.set("myCookie", "123");
@@ -86,11 +95,7 @@ export function middleware(request: NextRequest) {
 }
 */
 export const config = {
-  matcher: [
-    "/",
-    "/:hub(boston|chicago|new-york-city|all)",
-    "/:hub/(person|place)/:tags*",
-  ],
+  matcher: ["/foobar/:hub*"],
 };
 // See "Matching Paths" below to learn more
 // export const config = {
