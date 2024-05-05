@@ -40,7 +40,14 @@ export default function Foobar({
     setUserMushroomMap(userMushroomMap);
   }, []);
   async function handleMushroomChange() {
-    console.log(userMushroomMap, "foobar", user, userMushroomMap, excellenceId);
+    console.log(
+      "handleMushroomChange",
+      userMushroomMap,
+      "foobar",
+      user,
+      userMushroomMap,
+      excellenceId
+    );
     if (user?.id) {
       const { rating: updatedRating } = await leaveMushroom(
         user?.id,
