@@ -1,15 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { getCurrentUser } from "@/lib/auth";
-import { fetchProfile } from "@/lib/firebase";
+import { fetchMushroomMapForUser, fetchProfile } from "@/lib/firebase";
 import { sleep } from "@/lib/utils";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 
 export default async function MushroomBasket() {
   unstable_noStore();
-  await sleep(5000);
+  // await sleep(5000);
   const user = await getCurrentUser();
-  const data = await fetchProfile("arlington-ma");
+  const userMushroomMap = user?.uid
+    ? await fetchMushroomMapForUser(user?.uid)
+    : {};
   return (
     <div className="absolute top-2 right-28 rel scale-95_ hidden_">
       <div className="hidden text-sm text-muted-foreground absolute left-0 w-[240px] -translate-x-full">
@@ -26,7 +28,10 @@ export default async function MushroomBasket() {
         variant={"default"}
         className="absolute -bottom-1 -right-2 font-normal_ rounded-full scale-110 px-1"
       >
-        {40 - 1} {user?.uid}
+        {20 -
+          Object.values(userMushroomMap).filter(
+            (item) => item?.mushroom === true
+          ).length}
       </Badge>
     </div>
   );
