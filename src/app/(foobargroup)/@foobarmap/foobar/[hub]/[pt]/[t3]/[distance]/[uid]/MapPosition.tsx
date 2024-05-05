@@ -4,7 +4,7 @@ import { useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { PropsWithChildren, useEffect, useState } from "react";
 
 export default function MapPosition({
-  markers,
+  markers = [],
   children,
 }: PropsWithChildren<{ markers: Array<any> }>) {
   const map = useMap();

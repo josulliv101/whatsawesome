@@ -54,16 +54,7 @@ export default async function Page({
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
-      : await searchTopAoeByRadius(
-          hub,
-          Number(1),
-          [pt, t3],
-          10,
-          10,
-          true,
-          `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
-        );
-  // : await searchTopAoeByCategory(hub, [[t3, pt]]);
+      : await searchTopAoeByCategory(hub, [[t3, pt]]);
   const { hits } = topProfiles?.[0];
   console.log("generateStaticParams()", { hub, pt, t3, distance });
 
@@ -100,7 +91,7 @@ export default async function Page({
         foobar: {hub} / {pt} / {t3} / {distance} / {uid}
       </div>
       <div className="p-12 flex flex-col gap-4">
-        {hits.map(
+        {hits?.map(
           (
             { objectID: excellenceId, parent, reason, rating }: any,
             index: number

@@ -135,7 +135,7 @@ export async function searchTopAoeByCategory(
   ],
   hitsPerCategory: number = 20
 ): Promise<Array<any>> {
-  const promises = categories.map((category) =>
+  const promises = categories?.map((category) =>
     searchTopAoe(
       hub,
       typeof category === "string" ? [category] : category || [],
@@ -143,7 +143,7 @@ export async function searchTopAoeByCategory(
     )
   );
   const data = await Promise.all(promises);
-  const parentIds = data.reduce((acc: any, category: any) => {
+  const parentIds = data?.reduce((acc: any, category: any) => {
     const map = category?.hits?.reduce(
       (acc2: any, item: any) => ({
         ...acc2,
@@ -156,18 +156,20 @@ export async function searchTopAoeByCategory(
       ...map,
     };
   }, {});
-  const parentProfilePromises = Object.keys(parentIds).map(async (parentId) => {
-    return fetchProfile(parentId);
-  });
+  const parentProfilePromises = Object.keys(parentIds)?.map(
+    async (parentId) => {
+      return fetchProfile(parentId);
+    }
+  );
   const parentData = await Promise.all(parentProfilePromises);
-  const parentMap = parentData.reduce((acc, profile) => {
+  const parentMap = parentData?.reduce((acc, profile) => {
     return { ...acc, [profile.id]: profile };
   }, {});
 
   return data.map((category) => {
     return {
       ...category,
-      hits: (category.hits as Array<any>).map((hit: any) => {
+      hits: (category?.hits as Array<any>)?.map((hit: any) => {
         const parentId = getParentIdFromPath(hit?.path);
         const profile = parentMap[parentId] as any;
         return {
@@ -258,7 +260,7 @@ export async function searchTopAoeByTagFilter(
   const profiles = await getProfilesFromIds(parentIds);
   // console.log("profiles", profiles);
 
-  const profileMap = profiles.reduce((acc, item) => {
+  const profileMap = profiles?.reduce((acc, item) => {
     return {
       ...acc,
       [item.id]: item,
@@ -323,7 +325,7 @@ export async function searchTopAoeByRadius(
     }),
   }).then((resp) => resp.json());
 
-  const parentMap = results.hits?.reduce((acc: any, hit: any) => {
+  const parentMap = results?.hits?.reduce((acc: any, hit: any) => {
     const parentId = getParentIdFromPath(hit.path);
     return { ...acc, [parentId]: true };
   }, {});
@@ -333,7 +335,7 @@ export async function searchTopAoeByRadius(
   const profiles = await getProfilesFromIds(parentIds);
   // console.log("profiles", profiles);
 
-  const profileMap = profiles.reduce((acc, item) => {
+  const profileMap = profiles?.reduce((acc, item) => {
     return {
       ...acc,
       [item.id]: item,
@@ -342,7 +344,7 @@ export async function searchTopAoeByRadius(
 
   const data = {
     ...results,
-    hits: results.hits.map((hit: any) => {
+    hits: results?.hits?.map((hit: any) => {
       const parentId = getParentIdFromPath(hit.path);
       const profile = profileMap[parentId];
       return {

@@ -27,12 +27,12 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
         )
       : await searchTopAoeByCategory(hub, [[t3, pt]]);
   const { hits } = topProfiles?.[0];
-  const uniqueMarkersMap = hits.reduce((acc: any, hit: any) => {
+  const uniqueMarkersMap = hits?.reduce((acc: any, hit: any) => {
     return { ...acc, [hit.parentId]: hit };
   }, {});
 
-  const markers = Object.values(uniqueMarkersMap);
-  console.log("topProfiles", distance, uniqueMarkersMap.length);
+  const markers = Object.values(uniqueMarkersMap || {}) || [];
+  console.log("topProfiles", distance, uniqueMarkersMap?.length);
   return (
     <>
       <MapPosition markers={markers}>

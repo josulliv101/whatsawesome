@@ -484,7 +484,7 @@ export async function updateReason(
 ): Promise<boolean> {
   const docRef = doc(db, "entity", profileId, "whyawesome", reasonId);
   const { tags = [], rating, id, description, ...dataNoTags } = data;
-  const tagMap = tags.reduce((acc: Record<string, true>, tag: string) => {
+  const tagMap = tags?.reduce((acc: Record<string, true>, tag: string) => {
     return { ...acc, [tag]: true };
   }, {});
 
@@ -526,7 +526,7 @@ export async function updateReasonTag(
         ]?.includes(tag))
   );
 
-  const map = [...tags, ...parentHubTags].reduce((acc, tag) => {
+  const map = [...tags, ...parentHubTags]?.reduce((acc, tag) => {
     return { ...acc, [tag]: true };
   }, {});
 
@@ -657,7 +657,7 @@ export async function fetchTopClaimsForHub(
   });
   const parentPayloads: any = {};
 
-  const parentIds = data.reduce((acc, dataItem) => {
+  const parentIds = data?.reduce((acc, dataItem) => {
     return [...acc, ...dataItem.results.map((result: any) => result.parentId)];
   }, []);
 
@@ -667,7 +667,7 @@ export async function fetchTopClaimsForHub(
 
   const profiles = await Promise.all(promises);
 
-  const newData = data.reduce((acc, dataItem) => {
+  const newData = data?.reduce((acc, dataItem) => {
     const data = {
       ...dataItem,
       results: dataItem.results.map((result: any) => {
@@ -877,7 +877,7 @@ export async function fetchMushroomMapForUser(
   if (!uid || uid === "index") {
     return {};
   }
-  await sleep(3000);
+  // await sleep(3000);
 
   const dataMap: Record<string, any> = {};
   const mushrooms = query(
