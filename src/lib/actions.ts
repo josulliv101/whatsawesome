@@ -38,9 +38,17 @@ export async function leaveMushroom(
   pathname: string,
   isAdd?: boolean
 ) {
+  console.log(
+    "leaveMushroom...1",
+    pathname,
+    userId,
+    userId,
+    profileId,
+    excellenceId
+  );
   const user = await getCurrentUser();
   console.log(
-    "leaveMushroom...",
+    "leaveMushroom...2",
     pathname,
     user?.uid,
     userId,
