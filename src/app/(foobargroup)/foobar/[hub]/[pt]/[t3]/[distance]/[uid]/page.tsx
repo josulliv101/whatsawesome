@@ -62,7 +62,7 @@ export default async function Page({
     return <div>Catalog page</div>;
   }
 
-  const mushroomMapPromise = fetchMushroomMapForUser(uid);
+  // const mushroomMapPromise = fetchMushroomMapForUser(uid);
   // console.log("mushroomMapPromise", mushroomMapPromise);
 
   return (
@@ -106,13 +106,13 @@ export default async function Page({
                 <Suspense
                   fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 >
-                  <Foobar
+                  <Rating
                     rating={rating}
                     profileId={parent?.id}
                     uid={uid}
                     excellenceId={excellenceId}
-                    mushroomMapPromise={mushroomMapPromise}
-                    deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
+                    // mushroomMapPromise={mushroomMapPromise}
+                    // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
                   />
                 </Suspense>
                 {/*<RatingButton

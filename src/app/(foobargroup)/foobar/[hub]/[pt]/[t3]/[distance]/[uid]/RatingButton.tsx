@@ -5,43 +5,44 @@ import { Button } from "@/components/ui/button";
 import { leaveMushroom } from "@/lib/actions";
 import { isMushroomPresentByUser } from "@/lib/firebase";
 import { Loader2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function RatingButton({
-  // rating,
+  rating,
   profileId,
   excellenceId,
   // mushroomPromise,
-  // isAdd,
-  // userId,
+  isAdd,
+  userId,
 }: any) {
-  const { id: userId = "" } = useAuthContext() || {};
-  const [{ isPresent: isMushroomPresent, rating }, setRatingDetails] = useState(
-    {
-      rating: 0,
-      isPresent: false,
-    }
-  );
-
+  const pathname = usePathname();
+  // const [{ isPresent: isMushroomPresent }, setRatingDetails] = useState(
+  //   {
+  //     rating: 0,
+  //     isPresent: false,
+  //   }
+  // );
+  console.log(isAdd, "isAdd RatingButton", pathname);
   const [isPending, setIsPending] = useState(false);
 
-  const isAdd = !isMushroomPresent;
+  // const isAdd = !isMushroomPresent;
 
-  useEffect(() => {
-    async function getData() {
-      if (!userId) {
-        return;
-      }
-      const data = await isMushroomPresentByUser(
-        userId,
-        profileId,
-        excellenceId
-      );
-      setRatingDetails(data);
-    }
-    getData();
-  }, [userId]);
+  // useEffect(() => {
+  //   async function getData() {
+  //     if (!userId) {
+  //       return;
+  //     }
+  //     const data = await isMushroomPresentByUser(
+  //       userId,
+  //       profileId,
+  //       excellenceId
+  //     );
+  //     setRatingDetails(data);
+  //   }
+  //   getData();
+  // }, [userId]);
 
   const handleLeaveMushroom = async () => {
     if (!userId) {
@@ -52,18 +53,20 @@ export default function RatingButton({
       );
     } else if (userId && profileId && excellenceId) {
       setIsPending(true);
+      console.log("CLIENT", isAdd);
       const { rating: updatedRating } = await leaveMushroom(
         userId,
         profileId,
         excellenceId,
+        pathname,
         isAdd
       );
-      setRatingDetails({
-        isPresent: !isMushroomPresent,
-        rating: updatedRating,
-      });
+      // setRatingDetails({
+      //   isPresent: !isMushroomPresent,
+      //   rating: updatedRating,
+      // });
       setIsPending(false);
-      console.log(updatedRating, "updatedRating");
+      console.log(updatedRating, "updatedRating", isAdd);
     }
   };
 

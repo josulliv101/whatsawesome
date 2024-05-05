@@ -38,28 +38,29 @@ export async function leaveMushroom(
   pathname: string,
   isAdd?: boolean
 ) {
+  console.log("LEAVE isAdd is", isAdd);
   console.log(
     "leaveMushroom...1",
     pathname,
     userId,
-    userId,
+
     profileId,
     excellenceId
   );
-  const user = await getCurrentUser();
+  // const user = await getCurrentUser();
   console.log(
     "leaveMushroom...2",
     pathname,
-    user?.uid,
+
     userId,
     profileId,
     excellenceId
   );
-  const isSuccess = await addMushroom(userId, profileId, excellenceId, isAdd);
+  const isSuccess = await addMushroom(userId, profileId, excellenceId, !!isAdd);
 
-  const rating = await incrementRating(profileId, excellenceId, isAdd);
+  const rating = await incrementRating(profileId, excellenceId, !!isAdd);
   await sleep(10000);
   revalidatePath(pathname + "/UrEbctTQEUUO0rc9VMmyMqSBdr53", "page");
 
-  return { isSuccess, rating, uid: user?.uid, userId, excellenceId, profileId };
+  return { isSuccess, rating, uid: userId, userId, excellenceId, profileId };
 }

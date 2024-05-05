@@ -856,7 +856,7 @@ export async function addMushroom(
     "mushrooms",
     userId
   );
-
+  console.log("addMushroom, doing add?");
   await setDoc(
     docRef,
     {
