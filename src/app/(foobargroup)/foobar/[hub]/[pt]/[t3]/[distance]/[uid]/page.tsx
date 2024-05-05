@@ -107,7 +107,7 @@ export default async function Page({
                   fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 >
                   <Rating
-                    rating={rating}
+                    // rating={rating}
                     profileId={parent?.id}
                     uid={uid}
                     excellenceId={excellenceId}

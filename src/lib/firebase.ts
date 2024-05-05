@@ -968,3 +968,15 @@ export async function incrementRating(
   );
   return updatedRating;
 }
+
+export async function getExcellenceRating(
+  profileId: string,
+  excellenceId: string
+): Promise<any> {
+  const docRef = doc(db, "entity", profileId, "whyawesome", excellenceId);
+
+  const snapshot = await getDoc(docRef);
+  const rating = snapshot.exists() && snapshot.get("rating");
+
+  return rating;
+}
