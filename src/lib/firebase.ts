@@ -29,7 +29,7 @@ import {
 import { allTags, config } from "./config";
 import { PrimaryTagType, getPlural, tagDefinitions } from "./tags";
 import { Profile, Reason } from "./profile";
-import { generateRandomDecimal, roundToInteger } from "./utils";
+import { generateRandomDecimal, roundToInteger, sleep } from "./utils";
 import { revalidatePath } from "next/cache";
 
 const firebaseConfig = {
@@ -40,8 +40,6 @@ const firebaseConfig = {
   messagingSenderId: "360517790730",
   appId: "1:360517790730:web:0488ed0f086ee54e26c3f3",
 };
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export { type User, onAuthStateChanged } from "firebase/auth";
 
@@ -879,6 +877,7 @@ export async function fetchMushroomMapForUser(
   if (!uid || uid === "index") {
     return {};
   }
+  await sleep(3000);
 
   const dataMap: Record<string, any> = {};
   const mushrooms = query(

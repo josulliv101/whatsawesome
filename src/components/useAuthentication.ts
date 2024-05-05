@@ -9,7 +9,7 @@ export default function useAuthentication(): [
   SimpleUser | null,
   (user: any) => void,
 ] {
-  const [_, setUserMushroomMap] = useUserMushroomMapContext();
+  // const [_, setUserMushroomMap] = useUserMushroomMapContext();
   const [authUser, setAuthUser] = useState<SimpleUser | null>(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function useAuthentication(): [
       ): Promise<(SimpleUser & { userMushroomMap: any }) | null> => {
         const userData = await user?.getIdTokenResult();
         const userMushroomMap = await fetchMushroomMapForUser(user?.uid || "");
-        setUserMushroomMap(userMushroomMap);
+        // setUserMushroomMap(userMushroomMap);
         return userData
           ? {
               displayName: userData.claims.name as string,

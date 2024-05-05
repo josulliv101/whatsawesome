@@ -16,7 +16,7 @@ export default function Foobar({
   uid,
   excellenceId,
   profileId,
-  rating: ratingProp,
+  rating, // : ratingProp,
   mushroomMapPromise,
   deleteUidCookie,
 }: {
@@ -27,13 +27,18 @@ export default function Foobar({
   mushroomMapPromise: Promise<any>;
   deleteUidCookie?: () => Promise<void>;
 }) {
-  const [rating, setRating] = useState(ratingProp);
-
-  const [userMushroomMap, setUserMushroomMap] = useUserMushroomMapContext();
+  // const [rating, setRating] = useState(ratingProp);
+  const userMushroomMap = use(mushroomMapPromise);
+  const [_, setUserMushroomMap] = useUserMushroomMapContext();
   const pathname = usePathname();
   const isAdd = userMushroomMap?.[excellenceId]?.mushroom !== true;
   const [user, setAuthUser] = useAuthentication();
 
+  console.log("Foobar render()", userMushroomMap);
+  useEffect(() => {
+    console.log("Foobar useEffect", userMushroomMap);
+    setUserMushroomMap(userMushroomMap);
+  }, []);
   async function handleMushroomChange() {
     console.log(userMushroomMap, "foobar", user, userMushroomMap, excellenceId);
     if (user?.id) {
@@ -44,14 +49,14 @@ export default function Foobar({
         pathname,
         isAdd
       );
-      setUserMushroomMap({
-        ...userMushroomMap,
-        [excellenceId]: {
-          ...userMushroomMap[excellenceId],
-          mushroom: !userMushroomMap[excellenceId]?.mushroom,
-        },
-      });
-      setRating(updatedRating);
+      // setUserMushroomMap({
+      //   ...userMushroomMap,
+      //   [excellenceId]: {
+      //     ...userMushroomMap[excellenceId],
+      //     mushroom: !userMushroomMap[excellenceId]?.mushroom,
+      //   },
+      // });
+      // setRating(updatedRating);
     }
   }
   return (

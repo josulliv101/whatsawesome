@@ -9,6 +9,7 @@ import {
   updateReason,
 } from "./firebase";
 import { getCurrentUser } from "./auth";
+import { sleep } from "./utils";
 
 export async function handleAddEntityToCompare(entityId: string) {
   console.log("server logging...", entityId);
@@ -49,8 +50,8 @@ export async function leaveMushroom(
   const isSuccess = await addMushroom(userId, profileId, excellenceId, isAdd);
 
   const rating = await incrementRating(profileId, excellenceId, isAdd);
-  // await new Promise((r) => setTimeout(r, 10000));
-  revalidatePath(pathname, "page");
+  await sleep(10000);
+  revalidatePath(pathname + "/UrEbctTQEUUO0rc9VMmyMqSBdr53", "page");
 
   return { isSuccess, rating, uid: user?.uid, userId, excellenceId, profileId };
 }

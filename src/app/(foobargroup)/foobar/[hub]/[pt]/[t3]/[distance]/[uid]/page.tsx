@@ -63,7 +63,7 @@ export default async function Page({
   }
 
   const mushroomMapPromise = fetchMushroomMapForUser(uid);
-  console.log("mushroomMapPromise", mushroomMapPromise);
+  // console.log("mushroomMapPromise", mushroomMapPromise);
 
   return (
     <>
