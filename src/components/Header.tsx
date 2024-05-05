@@ -18,7 +18,7 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useUserMushroomMapContext } from "./UserMushroomMapContext";
 
-export default function Header() {
+export default function Header({ children }: any) {
   const isMounted = useIsMounted();
   const [userMushroomMap] = useUserMushroomMapContext();
   const usedMushrooms = Object.values(userMushroomMap || {}).filter(
@@ -43,94 +43,6 @@ export default function Header() {
           />
 
           <div className="relative items-center gap-4 flex flex-0 justify-between lg:justify-end">
-            {/* <CommandMenu /> */}
-            {/* <ThemeToggle /> */}
-            {/* <LoginButton /> */}
-
-            {/* <Badge variant={"default"} className="absolute top-0 left-0 z-50">
-              12
-            </Badge>
-            <div className="relative">
-              <Image
-                src="/crate.png"
-                alt="crate"
-                width="64"
-                height="24"
-                className="relative z-10"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 -top-2 left-0 rotate-45"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 -top-2 right-0 rotate-45"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 -top-1 right-10 -rotate-12"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 -top-1 right-5 -rotate-3"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 -top-1 right-3 rotate-45"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 -top-2 right-7 rotate-12"
-              />
-
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-4 top-2 right-10 -rotate-12"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 top-3 right-5 -rotate-3"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 top-3 right-3 rotate-45"
-              />
-              <Image
-                alt="vote"
-                src={config.logoPath}
-                width={16}
-                height={16}
-                className="opacity-80 absolute z-1 top-3 right-7 rotate-12"
-              />
-            </div> */}
-
             <Suspense>
               <SettingsOptions
                 enableLogoAnimation={storedEnableLogoAnimation}
@@ -182,24 +94,7 @@ export default function Header() {
           className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
           orientation="vertical"
         />
-        <div className="absolute top-2 right-28 rel scale-95_ hidden_">
-          <div className="hidden text-sm text-muted-foreground absolute left-0 w-[240px] -translate-x-full">
-            Leave a mushroom to vouch for a business/area of excellence.
-          </div>
-          <Image
-            src="/basket-low.png"
-            width="400"
-            height="211"
-            alt="basket"
-            className="w-[80px] h-auto"
-          />
-          <Badge
-            variant={"default"}
-            className="absolute -bottom-1 -right-2 font-normal_ rounded-full scale-110 px-1"
-          >
-            {40 - usedMushrooms.length}
-          </Badge>
-        </div>
+        {children}
       </div>
     </header>
   );

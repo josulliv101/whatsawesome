@@ -15,13 +15,15 @@ import { HubContextProvider } from "@/components/HubContext";
 
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { AuthContextProvider } from "@/components/AuthContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PrimaryTagType } from "@/lib/tags";
 import { UserMushroomMapContextProvider } from "@/components/UserMushroomMapContext";
+import { Badge } from "@/components/ui/badge";
+import MushroomBasket from "./MushroomBasket";
 
 export const metadata = {
   title: "Next.js",
@@ -34,7 +36,7 @@ const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
 export default function RootLayout({
   children,
-  params: { hub, tags = [] },
+  params: { hub, tags = [], uid },
 }: {
   children: React.ReactNode;
   params: any;
@@ -54,7 +56,11 @@ export default function RootLayout({
                     <HubContextProvider
                       initialValue={tags[1] as PrimaryTagType}
                     >
-                      <Header />
+                      <Header>
+                        <Suspense fallback={<div>loading...</div>}>
+                          <MushroomBasket />
+                        </Suspense>
+                      </Header>
                       {children}
                       <Toaster duration={8000} />
                       <Footer />
