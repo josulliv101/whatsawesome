@@ -54,7 +54,7 @@ export function SettingsOptions({
 
   useEffect(() => {
     if (!forcePlayAnimation) {
-      refPlayButton.current?.focus();
+      // refPlayButton.current?.focus();
     }
   }, [forcePlayAnimation]);
 
@@ -143,7 +143,7 @@ export function SettingsOptions({
           </Button>
         </DropdownMenuLabel> */}
         <DropdownMenuItem
-          ref={refPlayButton}
+          // ref={refPlayButton}
           className="capitalize text-sm justify-between items-center px-0"
           asChild
         >

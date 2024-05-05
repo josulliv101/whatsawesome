@@ -82,7 +82,7 @@ export default function NavMenu({
   const [animationState, setAnimationState] = useState(
     "" //, enableLogoAnimation ? "" : "disabled"
   );
-  const refLogo = useRef(null);
+  // const refLogo = useRef(null);
   const hub = tags?.length ? tags[0] : "all";
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function NavMenu({
       <div className="relative flex lg:flex-0 items-center">
         <Link href="/" className="flex items-center -m-1.5 p-1.5 gap-3">
           <img
-            ref={refLogo}
+            // ref={refLogo}
             className={`h-8 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
             src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
