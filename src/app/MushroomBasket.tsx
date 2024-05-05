@@ -1,9 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { fetchProfile } from "@/lib/firebase";
 import { sleep } from "@/lib/utils";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 
 export default async function MushroomBasket() {
+  unstable_noStore();
   await sleep(5000);
   const data = await fetchProfile("arlington-ma");
   return (
