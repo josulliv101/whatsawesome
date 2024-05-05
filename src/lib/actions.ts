@@ -59,7 +59,7 @@ export async function leaveMushroom(
   const isSuccess = await addMushroom(userId, profileId, excellenceId, !!isAdd);
 
   const rating = await incrementRating(profileId, excellenceId, !!isAdd);
-  await sleep(10000);
+  await sleep(600);
   revalidatePath(pathname + "/UrEbctTQEUUO0rc9VMmyMqSBdr53", "page");
 
   return { isSuccess, rating, uid: userId, userId, excellenceId, profileId };
