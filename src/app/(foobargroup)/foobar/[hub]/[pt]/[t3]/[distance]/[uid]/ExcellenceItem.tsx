@@ -35,7 +35,11 @@ export default function ExcellenceItem({
         <div className="absolute top-0 left-0 flex items-center gap-4">
           <span className="font-semibold text-lg">{name}</span>
           {!!tags.length && <SlashIcon className="w-4 h-4" />}
-          {tags?.map((tag) => <Badge variant={"outline"}>{tag}</Badge>)}
+          {tags?.map((tag) => (
+            <Badge key={tag} variant={"outline"}>
+              {tag}
+            </Badge>
+          ))}
         </div>
         {children}
       </div>
