@@ -103,18 +103,21 @@ export default async function Page({
                 rating={rating}
               >
                 <p>{reason}</p>
-                <Suspense
-                  fallback={<Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                >
-                  <Rating
-                    // rating={rating}
-                    profileId={parent?.id}
-                    uid={uid}
-                    excellenceId={excellenceId}
-                    // mushroomMapPromise={mushroomMapPromise}
-                    // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
-                  />
-                </Suspense>
+                <Button size={"sm"} className="min-w-28 px-0">
+                  <Suspense
+                    fallback={<Loader2 className="h-4 w-4 animate-spin" />}
+                  >
+                    <Rating
+                      // rating={rating}
+                      profileId={parent?.id}
+                      uid={uid}
+                      excellenceId={excellenceId}
+                      // mushroomMapPromise={mushroomMapPromise}
+                      // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
+                    />
+                  </Suspense>
+                </Button>
+
                 {/*<RatingButton
                 rating={rating}
                 profileId={parent?.id}

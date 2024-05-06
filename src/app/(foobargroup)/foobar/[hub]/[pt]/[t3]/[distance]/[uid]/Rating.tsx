@@ -21,6 +21,7 @@ export default async function Rating({
   console.log("Rating...", user?.uid, uid, isMushroomPresent);
   return (
     <RatingButton
+      key={isMushroomPresent}
       rating={rating}
       profileId={profileId}
       excellenceId={excellenceId}

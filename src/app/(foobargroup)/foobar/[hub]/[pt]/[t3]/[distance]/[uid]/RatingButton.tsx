@@ -65,22 +65,29 @@ export default function RatingButton({
       //   isPresent: !isMushroomPresent,
       //   rating: updatedRating,
       // });
-      setIsPending(false);
+      // setIsPending(false);
       console.log(updatedRating, "updatedRating", isAdd);
     }
   };
 
   return (
     <div className="flex items-center gap-1">
-      <Button disabled={isPending} size={"sm"} onClick={handleLeaveMushroom}>
-        {rating} {isAdd ? "Add" : "Remove"}
+      <Button
+        className="min-w-28 gap-2 disabled:opacity-100"
+        disabled={isPending}
+        size={"sm"}
+        onClick={handleLeaveMushroom}
+      >
+        {isPending ? (
+          <>
+            <Loader2 className="h-4 w-4 text-white animate-spin relative z-50" />{" "}
+          </>
+        ) : (
+          <>
+            {rating} {isAdd ? "Add" : "Remove"}
+          </>
+        )}
       </Button>
-      {isPending && (
-        <>
-          <Loader2 className="ml-2 h-3 w-3 opacity-50 animate-spin" />{" "}
-          <span className="text-xs text-muted-foreground">Saving</span>
-        </>
-      )}
     </div>
   );
 }
