@@ -9,7 +9,7 @@ export default async function MushroomBasket() {
   unstable_noStore();
   // await sleep(5000);
   const user = await getCurrentUser();
-  await sleep(2000);
+  // await sleep(2000);
   const userMushroomMap = user?.uid
     ? await fetchMushroomMapForUser(user?.uid)
     : {};

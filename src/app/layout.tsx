@@ -62,7 +62,7 @@ export default function RootLayout({
                       initialValue={tags[1] as PrimaryTagType}
                     >
                       <Header>
-                        <>
+                        <Suspense fallback={null}>
                           <nav
                             className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
                             aria-label="Global"
@@ -72,9 +72,7 @@ export default function RootLayout({
                               enableLogoAnimation={true}
                               // setForcePlayAnimation={() => null}
                             />
-                            <Suspense fallback={<div></div>}>
-                              <AuthButton />
-                            </Suspense>
+                            <AuthButton />
                           </nav>
                           <div className="absolute top-3 right-56 rel scale-95_ hidden_">
                             <Button variant={"ghost"} asChild>
@@ -85,10 +83,8 @@ export default function RootLayout({
                             className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
                             orientation="vertical"
                           />
-                          <Suspense fallback={<div>loading...</div>}>
-                            <MushroomBasket />
-                          </Suspense>
-                        </>
+                          <MushroomBasket />
+                        </Suspense>
                       </Header>
                       {children}
                       <Toaster duration={8000} />
