@@ -163,6 +163,7 @@ export function CommandMenu({
     .filter((key) => !["all", "person", "place", "profile"].includes(key))
     .filter((key) => key.startsWith(value))
     .map((key) => ({ id: key, name: key, isTag: true }));
+
   return (
     <>
       <Button
@@ -252,7 +253,7 @@ export function CommandMenu({
           </CommandGroup> */}
           {/* <CommandSeparator /> */}
           <CommandGroup heading="Company">
-            <CommandItemLink href="/about">
+            {/* <CommandItemLink href="/about">
               <LinkIcon className="mr-2 h-3 w-3" />
               <span>About</span>
             </CommandItemLink>
@@ -263,7 +264,7 @@ export function CommandMenu({
             <CommandItemLink href="/suggest">
               <LinkIcon className="mr-2 h-3 w-3" />
               <span>Suggest</span>
-            </CommandItemLink>
+            </CommandItemLink> */}
           </CommandGroup>
         </CommandList>
       </CommandDialog>

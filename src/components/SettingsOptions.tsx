@@ -1,3 +1,5 @@
+"use client";
+
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import {
@@ -24,31 +26,62 @@ import { signOut } from "@/lib/firebase";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+function getFirstLetters(name: string) {
+  // Split the name into an array of words.
+  const nameParts = name.split(" ");
+
+  // Get the first letter of each word.
+  const initials = nameParts.map((word) => word[0]);
+
+  // Convert the initials to uppercase.
+  const initialsUppercase = initials.map((letter) => letter.toUpperCase());
+
+  // Return the initials.
+  return initialsUppercase.join("");
+}
 
 export function SettingsOptions({
+  initialUser,
   enableLogoAnimation,
   onEnableLogoAnimationChange,
   onPlayAnimation,
   forcePlayAnimation,
   setForcePlayAnimation,
-}: {
+}: PropsWithChildren<{
+  initialUser?: any;
   enableLogoAnimation?: boolean;
-  onEnableLogoAnimationChange: (b: boolean) => void;
-  onPlayAnimation: () => void;
+  onEnableLogoAnimationChange?: (b: boolean) => void;
+  onPlayAnimation?: () => void;
   forcePlayAnimation?: boolean;
-  setForcePlayAnimation: Dispatch<SetStateAction<boolean>>;
-}) {
+  setForcePlayAnimation?: Dispatch<SetStateAction<boolean>>;
+}>) {
+  const [userState, setUser] = useState(initialUser);
+  const authUser = useAuthContext();
+  const clientAuthComplete = typeof authUser !== "undefined";
+
+  const user = clientAuthComplete ? authUser : userState;
+
   const refPlayButton = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
-  const user = useAuthContext();
+
   const pathName = usePathname();
   const router = useRouter();
-
+  console.log("auth/user State", authUser, userState);
   const handleLogout = async () => {
-    const isSuccess = await signOut();
+    const isSuccess = await signOut(pathName);
+
     if (isSuccess && pathName === "/login") {
-      router.push("/", {});
+      router.push("/");
+      setUser(null);
     }
   };
 
@@ -72,10 +105,12 @@ export function SettingsOptions({
             <Avatar className="mr-0 flex items-center w-8">
               <AvatarImage
                 className="h-8 w-8"
-                src={user.photoUrl}
+                src={user.photoURL || user.photoUrl}
                 alt={user.displayName ?? ""}
               />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback delayMs={1000}>
+                {getFirstLetters(user.displayName)}
+              </AvatarFallback>
             </Avatar>
           )}
         </Button>
@@ -122,7 +157,7 @@ export function SettingsOptions({
           className="capitalize text-sm justify-between items-center"
           checked={enableLogoAnimation}
           onCheckedChange={(val, ...rest) => {
-            onEnableLogoAnimationChange(val);
+            onEnableLogoAnimationChange?.(val);
           }}
         >
           Play Once on Page Load
@@ -153,7 +188,7 @@ export function SettingsOptions({
             onClick={(ev) => {
               ev.stopPropagation();
               ev.preventDefault();
-              setForcePlayAnimation(true);
+              setForcePlayAnimation?.(true);
             }}
             style={{ outline: "none", boxShadow: "none" }}
             variant="secondary"

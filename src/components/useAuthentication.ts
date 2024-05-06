@@ -9,8 +9,10 @@ export default function useAuthentication(): [
   SimpleUser | null,
   (user: any) => void,
 ] {
-  // const [_, setUserMushroomMap] = useUserMushroomMapContext();
-  const [authUser, setAuthUser] = useState<SimpleUser | null>(null);
+  //const [_, setUserMushroomMap] = useUserMushroomMapContext();
+  const [authUser, setAuthUser] = useState<SimpleUser | null | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     const unlisten = auth.onAuthStateChanged(async (user: User | null) => {

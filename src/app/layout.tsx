@@ -24,6 +24,11 @@ import { PrimaryTagType } from "@/lib/tags";
 import { UserMushroomMapContextProvider } from "@/components/UserMushroomMapContext";
 import { Badge } from "@/components/ui/badge";
 import MushroomBasket from "./MushroomBasket";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import NavMenu from "@/components/NavMenu";
+import AuthButton from "./AuthButton";
 
 export const metadata = {
   title: "Next.js",
@@ -57,9 +62,33 @@ export default function RootLayout({
                       initialValue={tags[1] as PrimaryTagType}
                     >
                       <Header>
-                        <Suspense fallback={<div>loading...</div>}>
-                          <MushroomBasket />
-                        </Suspense>
+                        <>
+                          <nav
+                            className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
+                            aria-label="Global"
+                          >
+                            <NavMenu
+                              forcePlayAnimation={false}
+                              enableLogoAnimation={true}
+                              // setForcePlayAnimation={() => null}
+                            />
+                            <Suspense fallback={<div></div>}>
+                              <AuthButton />
+                            </Suspense>
+                          </nav>
+                          <div className="absolute top-3 right-56 rel scale-95_ hidden_">
+                            <Button variant={"ghost"} asChild>
+                              <Link href="/">How It Works</Link>
+                            </Button>
+                          </div>
+                          <Separator
+                            className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
+                            orientation="vertical"
+                          />
+                          <Suspense fallback={<div>loading...</div>}>
+                            <MushroomBasket />
+                          </Suspense>
+                        </>
                       </Header>
                       {children}
                       <Toaster duration={8000} />

@@ -6,10 +6,23 @@ import {
   addReasonToProfile,
   fetchProfile,
   incrementRating,
+  signOut,
   updateReason,
 } from "./firebase";
 import { getCurrentUser } from "./auth";
 import { sleep } from "./utils";
+import { redirect } from "next/navigation";
+
+// export async function logoutServerAction(pathName: string) {
+//   console.log("logoutServerAction...", pathName);
+//   const isSuccess = await signOut(pathName);
+
+//   revalidatePath(pathName);
+
+//   if (isSuccess && pathName === "/login") {
+//     redirect("/");
+//   }
+// }
 
 export async function handleAddEntityToCompare(entityId: string) {
   console.log("server logging...", entityId);

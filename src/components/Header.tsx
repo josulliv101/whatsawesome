@@ -18,7 +18,7 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useUserMushroomMapContext } from "./UserMushroomMapContext";
 
-export default function Header({ children }: any) {
+export default function Header({ children, authButton }: any) {
   const isMounted = useIsMounted();
   const [userMushroomMap] = useUserMushroomMapContext();
   const usedMushrooms = Object.values(userMushroomMap || {}).filter(
@@ -31,71 +31,7 @@ export default function Header({ children }: any) {
   // console.log("forcePlayAnimation", forcePlayAnimation);
   return (
     <header className="bg-white dark:bg-gray-950 border-b sticky top-0 z-50">
-      <div className="relative">
-        <nav
-          className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
-          aria-label="Global"
-        >
-          <NavMenu
-            forcePlayAnimation={forcePlayAnimation}
-            enableLogoAnimation={storedEnableLogoAnimation}
-            setForcePlayAnimation={setForcePlayAnimation}
-          />
-
-          <div className="relative items-center gap-4 flex flex-0 justify-between lg:justify-end">
-            <Suspense>
-              <SettingsOptions
-                enableLogoAnimation={storedEnableLogoAnimation}
-                onEnableLogoAnimationChange={setStoredEnableLogoAnimation}
-                onPlayAnimation={() => ""}
-                forcePlayAnimation={forcePlayAnimation}
-                setForcePlayAnimation={setForcePlayAnimation}
-              />
-            </Suspense>
-          </div>
-        </nav>
-        <div className="hidden lg:hidden" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 z-10"></div>
-          <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div className="flex items-center justify-between">
-              <Link href="/" className="-m-1.5 p-1.5">
-                <span className="sr-only">Whats Awesome</span>
-                <img
-                  className="h-8 w-auto"
-                  src={config.logoPath}
-                  alt="whatsawesome"
-                />
-              </Link>
-            </div>
-            <div className="mt-6 flow-root"></div>
-          </div>
-        </div>
-        {/* <div className="absolute top-2 right-20 rel scale-95_ hidden_">
-          <Image
-            src="/watercan-level.png"
-            width="200"
-            height="170"
-            alt="basket"
-            className="w-[50px] h-auto"
-          />
-          <Badge
-            variant={"secondary"}
-            className="absolute -bottom-1 -right-2 bg-gray-100 font-normal rounded-full scale-75 px-1"
-          >
-            20
-          </Badge>
-        </div> */}
-        <div className="absolute top-3 right-56 rel scale-95_ hidden_">
-          <Button variant={"ghost"} asChild>
-            <Link href="/">How It Works</Link>
-          </Button>
-        </div>
-        <Separator
-          className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
-          orientation="vertical"
-        />
-        {children}
-      </div>
+      <div className="relative">{children}</div>
     </header>
   );
 }

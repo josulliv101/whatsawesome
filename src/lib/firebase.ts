@@ -343,7 +343,7 @@ export async function signInWithEmailAndPassword(
   }
 }
 
-export async function signOut() {
+export async function signOut(pathName: string) {
   try {
     await auth.signOut();
 
@@ -352,6 +352,12 @@ export async function signOut() {
         "Content-Type": "application/json",
       },
     });
+
+    if (pathName) {
+      console.log("logging out, current path is", pathName);
+      // revalidatePath(pathName);
+    }
+
     const resBody = (await response.json()) as unknown as APIResponse<string>;
     if (response.ok && resBody.success) {
       return true;

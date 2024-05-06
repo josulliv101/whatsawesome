@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
 import { ThumbsDownIcon, Globe as NetworkIcon, Slash } from "lucide-react";
@@ -74,7 +76,7 @@ export default function NavMenu({
 }: React.PropsWithChildren<{
   enableLogoAnimation?: boolean;
   forcePlayAnimation?: boolean;
-  setForcePlayAnimation: Dispatch<SetStateAction<boolean>>;
+  setForcePlayAnimation?: Dispatch<SetStateAction<boolean>>;
 }>) {
   const { tags, id: profileId } = useParams();
   const isMountedFn = useIsMounted();
@@ -103,7 +105,7 @@ export default function NavMenu({
             onAnimationEnd={(ev) => {
               console.log("animation", ev);
               setAnimationState("done");
-              setForcePlayAnimation(false);
+              setForcePlayAnimation?.(false);
             }}
           />
           <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
