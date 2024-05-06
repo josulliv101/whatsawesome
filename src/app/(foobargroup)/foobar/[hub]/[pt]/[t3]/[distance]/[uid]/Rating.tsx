@@ -5,6 +5,7 @@ import {
   isMushroomPresentByUser,
 } from "@/lib/firebase";
 import RatingButton from "./RatingButton";
+import { getCurrentUser } from "@/lib/auth";
 
 export default async function Rating({
   // rating,
@@ -13,10 +14,11 @@ export default async function Rating({
   uid,
 }: any) {
   unstable_noStore();
+  const user = await getCurrentUser();
   const rating = await getExcellenceRating(profileId, excellenceId);
   const userMushroomMap = await fetchMushroomMapForUser(uid);
   const isMushroomPresent = userMushroomMap[excellenceId]?.mushroom === true;
-  console.log("Rating...", uid, isMushroomPresent);
+  console.log("Rating...", user?.uid, uid, isMushroomPresent);
   return (
     <RatingButton
       rating={rating}
