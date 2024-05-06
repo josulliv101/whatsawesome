@@ -4,34 +4,49 @@ import Image from "next/image";
 import { Marker, AdvancedMarker } from "@vis.gl/react-google-maps";
 import { config } from "@/lib/config";
 import { CheckIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { TooltipPortal } from "@radix-ui/react-tooltip";
 
-const bgColor = "bg-[#4c98fd]";
+const thumbnailSize = 140;
 
-export default function FoobarMarker(props: any) {
-  const size = 24;
-  const marker = {};
+export default function FoobarMarker({
+  children,
+  excellence,
+  photoUrl,
+  size = 24,
+  title,
+  ...props
+}: any) {
   return (
-    <AdvancedMarker {...props}>
-      <div
-        style={{
-          width: size,
-          height: size,
-
-          //  position: "absolute",
-          // top: 0,
-          // left: 0,
-          // background: "#1dbe80",
-          // border: "2px solid #0e6443",
-          // borderRadius: "50%",
-          // transform: "translate(-50%, -50%)",
-          // opacity: isActiveMarker
-          //   ? activeId === profileId
-          //     ? 1
-          //     : 0.5
-          //   : 1,
-        }}
-        className={`relative z-10 animate-fadeIn drop-shadow-md_ ${marker ? bgColor + " border-4" : ""}  border-white ${marker.isCity ? "rounded-md" : "rounded-full"} origin-bottom-right transition-all duration-500  flex gap-0.5 items-center justify-center `}
-      ></div>
+    <AdvancedMarker {...props} onClick={() => console.log("click")}>
+      <Tooltip>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipPortal>
+          <TooltipContent
+            side="top"
+            className="z-50 relative flex   items-start justify-start gap-4 min-h-24 min-w-[440px] max-w-[440px]"
+          >
+            {photoUrl && (
+              <Image
+                className={`w-[140px] h-[140px] object-cover`}
+                src={photoUrl}
+                width={thumbnailSize}
+                height={thumbnailSize}
+                alt={title}
+              />
+            )}
+            <div>
+              <h2 className="font-semibold text-lg mb-2">{title}</h2>
+              <p>{excellence}</p>
+            </div>
+          </TooltipContent>
+        </TooltipPortal>
+      </Tooltip>
     </AdvancedMarker>
   );
 }

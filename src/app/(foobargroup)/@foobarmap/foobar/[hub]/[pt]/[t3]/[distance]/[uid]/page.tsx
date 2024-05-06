@@ -12,6 +12,8 @@ export function generateStaticParams() {
   return [];
 }
 
+const bgColor = "bg-[#4c98fd]";
+
 export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   const hubProfile = await fetchProfile(hub);
   const topProfiles =
@@ -32,18 +34,43 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   }, {});
 
   const markers = Object.values(uniqueMarkersMap || {}) || [];
-  console.log("topProfiles", distance, uniqueMarkersMap?.length);
+  console.log("uniqueMarkersMap", distance, uniqueMarkersMap);
+
   return (
     <>
       <MapPosition markers={markers}>
-        {markers.map((hit: any, index: number) => (
-          <Marker
-            key={hit.objectID}
-            position={hit._geoloc}
-            title={hit.parent.name}
-          />
-        ))}
+        {markers.map((hit: any, index: number) => {
+          const size = getMarkerSizeFromRating(Number(hit.rating));
+          return (
+            <Marker
+              key={hit.objectID}
+              id={hit.objectID}
+              position={hit._geoloc}
+              title={hit.parent.name}
+              photoUrl={hit.photoUrl}
+              excellence={hit.reason}
+            >
+              <div
+                style={{
+                  width: size,
+                  height: size,
+                }}
+                className={`relative z-[999] animate-fadeIn drop-shadow-md_ ${true ? bgColor + " border-4" : ""}  border-white ${false ? "rounded-md" : "rounded-full"} origin-bottom-right transition-all duration-500  flex gap-0.5 items-center justify-center `}
+              ></div>
+            </Marker>
+          );
+        })}
       </MapPosition>
     </>
   );
+}
+
+function getMarkerSizeFromRating(rating: number) {
+  if (rating > 10 && rating < 40) {
+    return 32;
+  }
+  if (rating >= 40) {
+    return 40;
+  }
+  return 24;
 }
