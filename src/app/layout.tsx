@@ -62,28 +62,30 @@ export default function RootLayout({
                       initialValue={tags[1] as PrimaryTagType}
                     >
                       <Header>
-                        <Suspense fallback={null}>
-                          <nav
-                            className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
-                            aria-label="Global"
-                          >
-                            <NavMenu
-                              forcePlayAnimation={false}
-                              enableLogoAnimation={true}
-                              // setForcePlayAnimation={() => null}
+                        <Suspense>
+                          <div className="animate-fadeIn">
+                            <nav
+                              className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
+                              aria-label="Global"
+                            >
+                              <NavMenu
+                                forcePlayAnimation={false}
+                                enableLogoAnimation={true}
+                                // setForcePlayAnimation={() => null}
+                              />
+                              <AuthButton />
+                            </nav>
+                            <div className="absolute top-3 right-56 rel scale-95_ hidden_">
+                              <Button variant={"ghost"} asChild>
+                                <Link href="/">How It Works</Link>
+                              </Button>
+                            </div>
+                            <Separator
+                              className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
+                              orientation="vertical"
                             />
-                            <AuthButton />
-                          </nav>
-                          <div className="absolute top-3 right-56 rel scale-95_ hidden_">
-                            <Button variant={"ghost"} asChild>
-                              <Link href="/">How It Works</Link>
-                            </Button>
+                            <MushroomBasket />
                           </div>
-                          <Separator
-                            className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
-                            orientation="vertical"
-                          />
-                          <MushroomBasket />
                         </Suspense>
                       </Header>
                       {children}

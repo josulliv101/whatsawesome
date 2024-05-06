@@ -30,7 +30,7 @@ export default function Header({ children, authButton }: any) {
   // console.log("storedEnableLogoAnimation", storedEnableLogoAnimation);
   // console.log("forcePlayAnimation", forcePlayAnimation);
   return (
-    <header className="bg-white dark:bg-gray-950 border-b sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-950 border-b sticky min-h-[64px] top-0 z-50">
       <div className="relative">{children}</div>
     </header>
   );
