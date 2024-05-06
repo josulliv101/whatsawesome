@@ -118,7 +118,7 @@ export async function searchTopAoe(
       "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
       "X-Algolia-Application-Id": "1P2U1C41BE",
     },
-    cache: "no-cache",
+    cache: "force-cache",
   })
     .then((response) => response.json())
 
