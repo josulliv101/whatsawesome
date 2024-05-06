@@ -18,6 +18,7 @@ import { Loader2 } from "lucide-react";
 import Rating from "./Rating";
 import Foobar from "./Foobar";
 import { cookies } from "next/headers";
+import { getLevel3TagsFromTags, getPrimaryTagsFromTags } from "@/lib/tags";
 
 // export const dynamic = "force-static";
 
@@ -93,18 +94,34 @@ export default async function Page({
       <div className="p-12 flex flex-col gap-4">
         {hits?.map(
           (
-            { objectID: excellenceId, parent, photoUrl, reason, rating }: any,
+            {
+              objectID: excellenceId,
+              parent,
+              photoUrl,
+              reason,
+              rating,
+              _tags = [],
+            }: any,
             index: number
           ) => {
+            const tags = [
+              ...getPrimaryTagsFromTags(_tags),
+              ...getLevel3TagsFromTags(_tags),
+            ];
             return (
               <ExcellenceItem
                 key={excellenceId}
                 name={parent.name}
                 rating={rating}
                 photoUrl={photoUrl}
+                tags={tags}
               >
-                <p className="w-full relative top-1/2 -translate-y-1/2">
-                  {reason}
+                <p className="w-full px-12 text-balance text-center relative top-1/2 -translate-y-1/2 text-2xl">
+                  {reason || (
+                    <span className="text-muted-foreground text-base">
+                      &lt; empty item &gt;
+                    </span>
+                  )}
                 </p>
                 <div className="flex justify-center bg-black items-center mx-auto w-28 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-0">
                   <Suspense
