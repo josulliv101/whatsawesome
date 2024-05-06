@@ -1,4 +1,5 @@
 import { PropsWithChildren, Suspense } from "react";
+import Image from "next/image";
 import RatingButton from "./RatingButton";
 
 export default function ExcellenceItem({
@@ -7,18 +8,31 @@ export default function ExcellenceItem({
   rating,
   profileId,
   excellenceId,
+  photoUrl,
 }: PropsWithChildren<{
   name: string;
   rating: number;
   profileId?: string;
   excellenceId?: string;
+  photoUrl?: string;
 }>) {
   return (
-    <div>
-      <h2 className="text-lg font-semibold flex items-center justify-between">
-        {name}
-      </h2>
-      <div>{children}</div>
+    <div className="flex items-stretch gap-8">
+      {photoUrl && (
+        <Image
+          className="w-[240px] h-[240px] object-cover"
+          alt={name}
+          src={photoUrl}
+          width="240"
+          height="240"
+        />
+      )}
+      <div className="relative">
+        <div className="absolute top-0 left-0">
+          <span className="font-semibold text-lg">{name}</span>
+        </div>
+        {children}
+      </div>
     </div>
   );
 }

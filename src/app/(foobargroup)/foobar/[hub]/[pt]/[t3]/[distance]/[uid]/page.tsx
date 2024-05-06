@@ -93,7 +93,7 @@ export default async function Page({
       <div className="p-12 flex flex-col gap-4">
         {hits?.map(
           (
-            { objectID: excellenceId, parent, reason, rating }: any,
+            { objectID: excellenceId, parent, photoUrl, reason, rating }: any,
             index: number
           ) => {
             return (
@@ -101,9 +101,10 @@ export default async function Page({
                 key={excellenceId}
                 name={parent.name}
                 rating={rating}
+                photoUrl={photoUrl}
               >
-                <p>{reason}</p>
-                <Button size={"sm"} className="min-w-28 px-0">
+                <p className="relative top-1/2 -translate-y-1/2">{reason}</p>
+                <div className="flex justify-center bg-gray-200 items-center mx-auto w-28 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-0">
                   <Suspense
                     fallback={<Loader2 className="h-4 w-4 animate-spin" />}
                   >
@@ -112,11 +113,12 @@ export default async function Page({
                       profileId={parent?.id}
                       uid={uid}
                       excellenceId={excellenceId}
+
                       // mushroomMapPromise={mushroomMapPromise}
                       // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
                     />
                   </Suspense>
-                </Button>
+                </div>
 
                 {/*<RatingButton
                 rating={rating}
