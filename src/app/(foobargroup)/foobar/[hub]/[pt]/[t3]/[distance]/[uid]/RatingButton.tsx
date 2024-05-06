@@ -73,7 +73,7 @@ export default function RatingButton({
   return (
     <div className="flex items-center gap-1">
       <Button
-        className="min-w-28 gap-2 disabled:opacity-100"
+        className="animate-fadeIn min-w-28 gap-2 disabled:opacity-100"
         disabled={isPending}
         size={"sm"}
         onClick={handleLeaveMushroom}

@@ -17,7 +17,7 @@ export default function ExcellenceItem({
   photoUrl?: string;
 }>) {
   return (
-    <div className="flex items-stretch gap-8">
+    <div className="flex items-stretch gap-8 w-full">
       {photoUrl && (
         <Image
           className="w-[240px] h-[240px] object-cover"
@@ -27,7 +27,7 @@ export default function ExcellenceItem({
           height="240"
         />
       )}
-      <div className="relative">
+      <div className="relative w-full">
         <div className="absolute top-0 left-0">
           <span className="font-semibold text-lg">{name}</span>
         </div>

@@ -103,10 +103,14 @@ export default async function Page({
                 rating={rating}
                 photoUrl={photoUrl}
               >
-                <p className="relative top-1/2 -translate-y-1/2">{reason}</p>
-                <div className="flex justify-center bg-gray-200 items-center mx-auto w-28 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-0">
+                <p className="w-full relative top-1/2 -translate-y-1/2">
+                  {reason}
+                </p>
+                <div className="flex justify-center bg-black items-center mx-auto w-28 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-0">
                   <Suspense
-                    fallback={<Loader2 className="h-4 w-4 animate-spin" />}
+                  // fallback={
+                  //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
+                  // }
                   >
                     <Rating
                       // rating={rating}
