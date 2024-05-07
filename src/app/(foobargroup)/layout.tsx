@@ -19,7 +19,9 @@ export default function RootFoobarLayout({
         <FoobarMap>{foobarmap}</FoobarMap>
         {children}
       </div>
-      <div className="hidden md:block md:col-span-4">{foobarsidebar}</div>
+      <div className="bg-gray-100 hidden md:block md:col-span-4">
+        {foobarsidebar}
+      </div>
     </div>
   );
 }

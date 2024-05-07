@@ -1,7 +1,8 @@
+import AoeByCategory from "./AoeByCategory";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default async function Page({ params: { hub, pt, t3 } }: any) {
+export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   return (
     <>
       <nav className="my-8 px-8 grid grid-cols-4 md:flex items-center gap-2">
@@ -11,6 +12,7 @@ export default async function Page({ params: { hub, pt, t3 } }: any) {
           </Button>
         ))}
       </nav>
+      <AoeByCategory hub={hub} distance={distance} />
     </>
   );
 }
