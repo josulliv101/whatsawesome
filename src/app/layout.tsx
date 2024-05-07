@@ -41,7 +41,7 @@ const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
 export default function RootLayout({
   children,
-  params: { hub, tags = [], uid },
+  params: { hub, tags = [] },
 }: {
   children: React.ReactNode;
   params: any;

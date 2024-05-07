@@ -11,10 +11,11 @@ export default async function Rating({
   // rating,
   profileId,
   excellenceId,
-  uid,
+  // uid,
 }: any) {
   unstable_noStore();
   const user = await getCurrentUser();
+  const uid = user?.uid;
   const rating = await getExcellenceRating(profileId, excellenceId);
   const userMushroomMap = await fetchMushroomMapForUser(uid);
   const isMushroomPresent = userMushroomMap[excellenceId]?.mushroom === true;

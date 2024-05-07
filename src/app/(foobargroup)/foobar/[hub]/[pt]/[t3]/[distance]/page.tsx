@@ -33,29 +33,23 @@ const navItems = [
   ["coffeehouse", "pastries"],
 ];
 
-export default async function Page({
-  params: { hub, pt, t3, distance, uid },
-}: any) {
+export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   const hubProfile = await fetchProfile(hub);
-
-  async function deleteUidCookie() {
-    "use server";
-
-    cookies().delete("uid");
-  }
 
   const topProfiles =
     typeof distance !== "undefined" && Number(distance) !== 0
       ? await searchTopAoeByRadius(
           hub,
           Number(distance),
-          [pt, t3],
+          [pt, t3].filter((tag) => tag !== "index"),
           10,
           10,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
-      : await searchTopAoeByCategory(hub, [[t3, pt]]);
+      : await searchTopAoeByCategory(hub, [
+          [t3, pt].filter((tag) => tag !== "index"),
+        ]);
   const { hits } = topProfiles?.[0];
   console.log("generateStaticParams()", { hub, pt, t3, distance });
 
@@ -63,25 +57,9 @@ export default async function Page({
     return <div>Catalog page</div>;
   }
 
-  // const mushroomMapPromise = fetchMushroomMapForUser(uid);
-  // console.log("mushroomMapPromise", mushroomMapPromise);
-
   return (
     <>
-      <nav className="my-8 px-8 grid grid-cols-4 md:flex items-center gap-2">
-        {[0, 1, 4, 8, 12, 20, 40].map((distance) => (
-          <Button
-            key={distance}
-            className="col-span-1"
-            variant={"outline"}
-            asChild
-          >
-            <Link href={`/foobar/${hub}/${pt}/${t3}/${distance}`}>
-              {distance}
-            </Link>
-          </Button>
-        ))}
-      </nav>
+      test {hub} {pt} {t3} {distance}
       <nav className="flex flex-col md:flex-row items-center gap-2 px-8">
         {navItems.map(([pt, t3]) => {
           return (
@@ -93,9 +71,6 @@ export default async function Page({
           );
         })}
       </nav>
-      <div className="p-12">
-        foobar: {hub} / {pt} / {t3} / {distance} / {uid}
-      </div>
       <div className="px-0 py-2 md:px-12 md:py-12 flex flex-col gap-4">
         {hits?.map(
           (
@@ -137,7 +112,7 @@ export default async function Page({
                     <Rating
                       // rating={rating}
                       profileId={parent?.id}
-                      uid={uid}
+                      // uid={uid}
                       excellenceId={excellenceId}
 
                       // mushroomMapPromise={mushroomMapPromise}

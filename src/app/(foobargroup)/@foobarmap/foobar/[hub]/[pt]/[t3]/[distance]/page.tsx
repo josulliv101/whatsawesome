@@ -21,13 +21,15 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
       ? await searchTopAoeByRadius(
           hub,
           Number(distance),
-          [pt, t3],
+          [pt, t3].filter((tag) => tag !== "index"),
           10,
           10,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
-      : await searchTopAoeByCategory(hub, [[t3, pt]]);
+      : await searchTopAoeByCategory(hub, [
+          [t3, pt].filter((tag) => tag !== "index"),
+        ]);
   const { hits } = topProfiles?.[0];
   const uniqueMarkersMap = hits?.reduce((acc: any, hit: any) => {
     return { ...acc, [hit.parentId]: hit };
@@ -65,7 +67,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   );
 }
 
-function getMarkerSizeFromRating(rating: number) {
+export function getMarkerSizeFromRating(rating: number) {
   if (rating > 10 && rating < 40) {
     return 32;
   }

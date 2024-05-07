@@ -15,22 +15,22 @@ export async function middleware(request: NextRequest, params: any) {
 
   // const decodedIdToken = await auth.verifySessionCookie(sess!);
   console.log("middleware uid", cookieValue);
-  if (cookieValue?.value) {
-    const [
-      base,
-      hub = "index",
-      pt = "index",
-      t3 = "index",
-      distance = 0,
-      uid = cookieValue?.value || "index",
-    ] = url.split("/");
-    const fullUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${base}/${hub}/${pt}/${t3}/${distance}/${uid}`;
-    console.log("tokens", base, hub, pt, t3, distance, uid, ":", fullUrl);
+  // if (cookieValue?.value) {
+  //   const [
+  //     base,
+  //     hub = "index",
+  //     pt = "index",
+  //     t3 = "index",
+  //     distance = 0,
+  //     uid = cookieValue?.value || "index",
+  //   ] = url.split("/");
+  //   const fullUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/${base}/${hub}/${pt}/${t3}/${distance}/${uid}`;
+  //   console.log("tokens", base, hub, pt, t3, distance, uid, ":", fullUrl);
 
-    const response = NextResponse.rewrite(fullUrl);
+  //   const response = NextResponse.rewrite(fullUrl);
 
-    return response;
-  }
+  //   return response;
+  // }
 
   const response = NextResponse.next();
   // response.cookies.set("myCookie", "123");
