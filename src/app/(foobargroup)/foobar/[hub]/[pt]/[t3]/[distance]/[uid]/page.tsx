@@ -68,19 +68,24 @@ export default async function Page({
 
   return (
     <>
-      <nav className="my-8 px-8 flex items-center gap-2">
+      <nav className="my-8 px-8 grid grid-cols-4 md:flex items-center gap-2">
         {[0, 1, 4, 8, 12, 20, 40].map((distance) => (
-          <Button key={distance} variant={"outline"} asChild>
+          <Button
+            key={distance}
+            className="col-span-1"
+            variant={"outline"}
+            asChild
+          >
             <Link href={`/foobar/${hub}/${pt}/${t3}/${distance}`}>
               {distance}
             </Link>
           </Button>
         ))}
       </nav>
-      <nav className="flex items-center gap-2 px-8">
+      <nav className="flex flex-col md:flex-row items-center gap-2 px-8">
         {navItems.map(([pt, t3]) => {
           return (
-            <Button key={`${pt}-${t3}`} asChild>
+            <Button className="w-full " key={`${pt}-${t3}`} asChild>
               <Link href={`/foobar/${hub}/${pt}/${t3}`}>
                 {pt} / {t3}
               </Link>
@@ -91,7 +96,7 @@ export default async function Page({
       <div className="p-12">
         foobar: {hub} / {pt} / {t3} / {distance} / {uid}
       </div>
-      <div className="p-12 flex flex-col gap-4">
+      <div className="px-0 py-2 md:px-12 md:py-12 flex flex-col gap-4">
         {hits?.map(
           (
             {
@@ -116,14 +121,14 @@ export default async function Page({
                 photoUrl={photoUrl}
                 tags={tags}
               >
-                <p className="w-full px-12 text-balance text-center relative top-1/2 -translate-y-1/2 text-2xl">
+                <p className="w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-2xl">
                   {reason || (
                     <span className="text-muted-foreground text-base">
                       &lt; empty item &gt;
                     </span>
                   )}
                 </p>
-                <div className="flex justify-center bg-black items-center mx-auto w-28 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-0">
+                <div className="flex justify-center bg-black items-center mx-auto w-28 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-4 md:right-0">
                   <Suspense
                   // fallback={
                   //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />

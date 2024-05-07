@@ -75,13 +75,13 @@ export default function RootLayout({
                               />
                               <AuthButton />
                             </nav>
-                            <div className="absolute top-3 right-56 rel scale-95_ hidden_">
+                            <div className="absolute top-3 right-56 rel scale-95_ hidden md:block">
                               <Button variant={"ghost"} asChild>
                                 <Link href="/">How It Works</Link>
                               </Button>
                             </div>
                             <Separator
-                              className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50"
+                              className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50 hidden md:block"
                               orientation="vertical"
                             />
                             <MushroomBasket />
