@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { PropsWithChildren, useEffect, useState } from "react";
 
@@ -39,5 +40,15 @@ export default function MapPosition({
 
     // setInitialBounds(bounds.toJSON());
   }, [coreLib, markers, map]);
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Button
+        size="lg"
+        className="absolute z-50 bottom-10 left-8 text-2xl px-4 py-8 min-w-60"
+      >
+        Boston
+      </Button>
+    </>
+  );
 }

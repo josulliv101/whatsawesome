@@ -64,7 +64,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
         {navItems.map(([pt, t3]) => {
           return (
             <Button className="w-full " key={`${pt}-${t3}`} asChild>
-              <Link href={`/foobar/${hub}/${pt}/${t3}`}>
+              <Link href={`/foobar/${hub}/${pt}/${t3}/${distance}`}>
                 {pt} / {t3}
               </Link>
             </Button>
