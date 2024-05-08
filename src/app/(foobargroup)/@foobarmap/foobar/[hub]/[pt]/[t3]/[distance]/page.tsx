@@ -50,7 +50,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
                 Neighboring Cities
               </Badge>
               {hubProfile?.neighbors.map((id: string) => (
-                <Badge variant={"outline"}>
+                <Badge key={id} variant={"outline"}>
                   <Link href={`/foobar/${id}`}>{id}</Link>
                 </Badge>
               ))}

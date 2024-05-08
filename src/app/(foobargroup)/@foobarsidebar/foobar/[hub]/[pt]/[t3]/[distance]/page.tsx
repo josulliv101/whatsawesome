@@ -16,6 +16,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { isHubHomepage } from "@/lib/utils";
 
 const NEAR_RADIUS = "4";
 
@@ -106,8 +107,13 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
           </Button>
         ))}
       </nav> */}
-      <div className="px-8 pt-2 flex items-center justify-between w-full mb-0 font-semibold text-lg capitalize text-muted-foreground">
+      <div className="px-8 pt-2 flex items-center justify-between w-full mb-0 font-semibold text-lg capitalize text-muted-foreground min-h-[48px]">
         Explore a Category
+        {!isHubHomepage({ hub, pt, t3 }) && (
+          <Button size="sm" variant={"link"} className="text-xs px-0" asChild>
+            <Link href={`/foobar/${hub}`}>View {hub} Profile</Link>
+          </Button>
+        )}
       </div>
       <AoeByCategory hub={hub} distance={distance} />
     </>
