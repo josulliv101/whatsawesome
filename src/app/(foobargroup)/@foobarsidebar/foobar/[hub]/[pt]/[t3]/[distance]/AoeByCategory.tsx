@@ -28,7 +28,7 @@ export default async function AoeByCategory({
   const aoeByCategory = ["restaurant", "coffeehouse", "hotel", "museum"];
   return (
     <>
-      <div className="pl-8 mt-8">
+      <div className="pl-6 mt-4">
         {aoeByCategory.map((category: any) => {
           const tags = tagDefinitions[category].tags;
           return (
