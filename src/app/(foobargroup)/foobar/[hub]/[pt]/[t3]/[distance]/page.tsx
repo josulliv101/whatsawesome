@@ -21,6 +21,7 @@ import { cookies } from "next/headers";
 import { getLevel3TagsFromTags, getPrimaryTagsFromTags } from "@/lib/tags";
 import Breadcrumb from "./Breadcrumb";
 import { isHubHomepage } from "@/lib/utils";
+import ProfilePageContent from "@/app__/profile/[...id]/ProfilePageContent";
 
 // export const dynamic = "force-static";
 
@@ -141,6 +142,9 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
               </ExcellenceItem>
             );
           }
+        )}
+        {isHubHomepage({ hub, pt, t3 }) && (
+          <ProfilePageContent params={{ id: hub }} isEmbed />
         )}
       </div>
     </>

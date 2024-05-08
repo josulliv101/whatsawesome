@@ -43,9 +43,11 @@ import { PresetSelector } from "@/app/(group)/@sidebar/explore/[hub]/PresetSelec
 
 export default async function ProfilePageContent({
   className = "",
+  isEmbed = false,
   params: { id: idProp, ...rest },
 }: {
   className?: string;
+  isEmbed?: boolean;
   params: { id: string };
 }) {
   const id = Array.isArray(idProp) && idProp.length ? idProp[0] : idProp;
@@ -96,7 +98,8 @@ export default async function ProfilePageContent({
     <AnalyticsContextProvider>
       <main
         className={cn(
-          "relative flex min-h-screen max-w-7xl mx-auto mt-0 flex-col items-start justify-start px-4 py-6 lg:px-8 lg:py-12",
+          "relative flex py-6 min-h-screen max-w-7xl mx-auto mt-0 flex-col items-start justify-start ",
+          `${isEmbed ? "px-0 lg:px-0" : "px-4  lg:px-8"} lg:py-12`,
           className
         )}
       >

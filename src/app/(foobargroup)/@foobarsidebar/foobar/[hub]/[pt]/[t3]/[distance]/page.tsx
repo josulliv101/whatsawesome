@@ -54,7 +54,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
       <div className="px-8 mb-0">
         {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}
 
-        {pt && (
+        {true && (
           <>
             <div className="flex items-center justify-between w-full mb-4 font-semibold text-lg capitalize text-muted-foreground">
               Search Area{" "}
@@ -110,12 +110,17 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
       <div className="px-8 pt-2 flex items-center justify-between w-full mb-0 font-semibold text-lg capitalize text-muted-foreground min-h-[48px]">
         Explore a Category
         {!isHubHomepage({ hub, pt, t3 }) && (
-          <Button size="sm" variant={"link"} className="text-xs px-0" asChild>
+          <Button
+            size="sm"
+            variant={"link"}
+            className="text-xs px-0 text-muted-foreground"
+            asChild
+          >
             <Link href={`/foobar/${hub}`}>View {hub} Profile</Link>
           </Button>
         )}
       </div>
-      <AoeByCategory hub={hub} distance={distance} />
+      <AoeByCategory hub={hub} t3={t3} distance={distance} />
     </>
   );
 }

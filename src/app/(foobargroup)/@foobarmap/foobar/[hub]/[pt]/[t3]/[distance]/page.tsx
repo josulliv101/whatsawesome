@@ -67,7 +67,12 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
 
   return (
     <>
-      <MapPosition hub={hub} hubName={hubProfile?.name} markers={markers}>
+      <MapPosition
+        hub={hub}
+        distance={distance}
+        hubName={hubProfile?.name}
+        markers={markers}
+      >
         {markers.map((hit: any, index: number) => {
           const size = getMarkerSizeFromRating(Number(hit.rating));
           return (
