@@ -6,6 +6,7 @@ import Link from "next/link";
 import Marker from "./FoobarMarker";
 import MapPosition from "./MapPosition";
 import { fetchProfile } from "@/lib/firebase";
+import { Badge } from "@/components/ui/badge";
 
 export function generateStaticParams() {
   // TODO: may not be needed
@@ -21,26 +22,52 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
       ? await searchTopAoeByRadius(
           hub,
           Number(distance),
-          [pt, t3].filter((tag) => tag !== "index"),
+          ["place", pt, t3].filter((tag) => tag !== "index"),
           10,
           10,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
       : await searchTopAoeByCategory(hub, [
-          [t3, pt].filter((tag) => tag !== "index"),
+          ["place", t3, pt].filter((tag) => tag !== "index"),
         ]);
   const { hits } = topProfiles?.[0];
-  const uniqueMarkersMap = hits?.reduce((acc: any, hit: any) => {
-    return { ...acc, [hit.parentId]: hit };
-  }, {});
+  const uniqueMarkersMap = hits
+    ?.filter((hit: any) => !!hit._geoloc)
+    ?.filter((hit: any) => (pt !== "index" && t3 !== "index" ? true : false))
+    ?.reduce(
+      (acc: any, hit: any) => {
+        return { ...acc, [hit.parentId]: hit };
+      },
+      {
+        [hubProfile.id]: {
+          ...hubProfile,
+          objectID: hubProfile.id,
+          isCity: true,
+          reason: hubProfile?.neighbors ? (
+            <div className="flex items-center gap-2 flex-wrap">
+              <Badge variant="outline" className="border-0 font-semibold">
+                Neighboring Cities
+              </Badge>
+              {hubProfile?.neighbors.map((id: string) => (
+                <Badge variant={"outline"}>
+                  <Link href={`/foobar/${id}`}>{id}</Link>
+                </Badge>
+              ))}
+            </div>
+          ) : (
+            ""
+          ),
+        },
+      }
+    );
 
   const markers = Object.values(uniqueMarkersMap || {}) || [];
   console.log("uniqueMarkersMap", distance, uniqueMarkersMap);
 
   return (
     <>
-      <MapPosition markers={markers}>
+      <MapPosition hub={hub} hubName={hubProfile?.name} markers={markers}>
         {markers.map((hit: any, index: number) => {
           const size = getMarkerSizeFromRating(Number(hit.rating));
           return (
@@ -48,7 +75,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
               key={hit.objectID}
               id={hit.objectID}
               position={hit._geoloc}
-              title={hit.parent.name}
+              title={hit?.parent?.name || hit.name}
               photoUrl={hit.photoUrl}
               excellence={hit.reason}
             >
@@ -57,7 +84,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
                   width: size,
                   height: size,
                 }}
-                className={`relative z-[999] animate-fadeIn drop-shadow-md_ ${true ? bgColor + " border-4" : ""}  border-white ${false ? "rounded-md" : "rounded-full"} origin-bottom-right transition-all duration-500  flex gap-0.5 items-center justify-center `}
+                className={`relative z-[999] animate-fadeIn drop-shadow-md_ border-4 ${!hit.isCity ? bgColor + "  rounded-full" : "bg-black rounded-md"}  border-white origin-bottom-right transition-all duration-500  flex gap-0.5 items-center justify-center `}
               ></div>
             </Marker>
           );

@@ -29,3 +29,11 @@ export function roundToDecimal(n: number, places: number = 2) {
 export function roundToNearestHalf(num: number) {
   return Math.round(num / 0.5) * 0.5;
 }
+
+export function isHubHomepage(params: any = {}) {
+  const { hub, pt, t3 } = params;
+  if (hub && pt === "index" && t3 === "index") {
+    return true;
+  }
+  return false;
+}

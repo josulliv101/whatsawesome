@@ -133,7 +133,7 @@ export async function searchTopAoeByCategory(
     ["restaurant", "steak"],
     ["coffeehouse", "coffee"],
   ],
-  hitsPerCategory: number = 20
+  hitsPerCategory: number = 10
 ): Promise<Array<any>> {
   const promises = categories?.map((category) =>
     searchTopAoe(

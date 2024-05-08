@@ -1,13 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { formatHubIdToName } from "@/lib/format";
 import { useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
+import Link from "next/link";
 import { PropsWithChildren, useEffect, useState } from "react";
 
 export default function MapPosition({
   markers = [],
+  hub,
+  hubName,
   children,
-}: PropsWithChildren<{ markers: Array<any> }>) {
+}: PropsWithChildren<{ hub?: string; hubName?: string; markers: Array<any> }>) {
   const map = useMap();
 
   const coreLib = useMapsLibrary("core");
@@ -30,7 +34,7 @@ export default function MapPosition({
     }
     if (markers.length === 1) {
       map.setCenter(markers[0]._geoloc);
-      return; // map.setZoom(profileZoom);
+      return map.setZoom(markers[0].mapZoom || 13);
     }
     if (true) {
       map.fitBounds(bounds);
@@ -40,15 +44,5 @@ export default function MapPosition({
 
     // setInitialBounds(bounds.toJSON());
   }, [coreLib, markers, map]);
-  return (
-    <>
-      {children}
-      <Button
-        size="lg"
-        className="absolute z-50 bottom-10 left-8 text-2xl px-4 py-8 min-w-60"
-      >
-        Boston
-      </Button>
-    </>
-  );
+  return <>{children}</>;
 }

@@ -28,7 +28,7 @@ export default async function AoeByCategory({
   const aoeByCategory = ["restaurant", "coffeehouse", "hotel", "museum"];
   return (
     <>
-      <div className="pl-6 mt-4">
+      <div className="pl-8 mt-4">
         {aoeByCategory.map((category: any) => {
           const tags = tagDefinitions[category].tags;
           return (
@@ -97,7 +97,7 @@ function Row({
                   backgroundSize: "cover",
                   backgroundPosition: "top",
                 }}
-                className={`border-gray-400/50 capitalize ${profile ? "bg-muted" : "bg-black"} ${profile.length >= 10 ? "text-xs" : "text-sm"} gap-2 min-h-20 min-w-20 max-w-20 border flex flex-col items-center justify-center rounded-md px-6 py-2 bg-muted_ text-muted-foreground text-balance text-center font-semibold`}
+                className={`border-gray-400/50 capitalize ${profile ? "bg-muted" : "bg-black"} ${false && profile.length >= 10 ? "text-xs" : "text-sm"} gap-2 min-h-24 min-w-24 max-w-24 border flex flex-col items-center justify-center rounded-md px-6 py-2 bg-muted_ text-muted-foreground text-balance text-center font-semibold`}
               >
                 <BadgeCheckIcon className="h-6 w-6 mr-0 text-blue-500 opacity-80" />
                 {profile}

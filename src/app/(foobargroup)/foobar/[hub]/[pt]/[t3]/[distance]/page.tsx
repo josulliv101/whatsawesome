@@ -19,6 +19,8 @@ import Rating from "./Rating";
 import Foobar from "./Foobar";
 import { cookies } from "next/headers";
 import { getLevel3TagsFromTags, getPrimaryTagsFromTags } from "@/lib/tags";
+import Breadcrumb from "./Breadcrumb";
+import { isHubHomepage } from "@/lib/utils";
 
 // export const dynamic = "force-static";
 
@@ -41,16 +43,16 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
       ? await searchTopAoeByRadius(
           hub,
           Number(distance),
-          [pt, t3].filter((tag) => tag !== "index"),
+          ["place", pt, t3].filter((tag) => tag !== "index"),
           10,
           10,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
       : await searchTopAoeByCategory(hub, [
-          [t3, pt].filter((tag) => tag !== "index"),
+          ["place", t3, pt].filter((tag) => tag !== "index"),
         ]);
-  const { hits } = topProfiles?.[0];
+  const { hits = [] } = isHubHomepage({ hub, pt, t3 }) ? {} : topProfiles?.[0];
   console.log("generateStaticParams()", { hub, pt, t3, distance });
 
   if (pt === "catalog") {
@@ -59,8 +61,17 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
 
   return (
     <>
-      test {hub} {pt} {t3} {distance}
-      <nav className="flex flex-col md:flex-row items-center gap-2 px-8">
+      <Breadcrumb>
+        <div className="capitalize">
+          {hubProfile.name} /{" "}
+          {pt !== "index" && t3 !== "index" ? `${pt} / ${t3}` : "Featured"}
+        </div>
+        <div>
+          test {hub} {pt} {t3} {distance}
+        </div>
+      </Breadcrumb>
+
+      {/* <nav className="flex flex-col md:flex-row items-center gap-2 px-8">
         {navItems.map(([pt, t3]) => {
           return (
             <Button className="w-full " key={`${pt}-${t3}`} asChild>
@@ -70,7 +81,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
             </Button>
           );
         })}
-      </nav>
+      </nav> */}
       <div className="px-0 py-2 md:px-12 md:py-12 flex flex-col gap-4">
         {hits?.map(
           (

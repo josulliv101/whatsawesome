@@ -49,8 +49,8 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
               <EqualIcon className="h-5 w-5" /> more excellence */}
         </p>
       </div>
-      <Separator className="h-px bg-gray-300 mb-8" />
-      <div className="px-6 mb-0">
+      <Separator className="h-px bg-gray-300 mb-6" />
+      <div className="px-8 mb-0">
         {/* <p className="text-xl text-muted-foreground mb-4">Search</p> */}
 
         {pt && (
@@ -106,7 +106,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
           </Button>
         ))}
       </nav> */}
-      <div className="px-6 pt-2 flex items-center justify-between w-full mb-0 font-semibold text-lg capitalize text-muted-foreground">
+      <div className="px-8 pt-2 flex items-center justify-between w-full mb-0 font-semibold text-lg capitalize text-muted-foreground">
         Explore a Category
       </div>
       <AoeByCategory hub={hub} distance={distance} />
