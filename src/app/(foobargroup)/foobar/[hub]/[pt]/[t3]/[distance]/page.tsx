@@ -83,7 +83,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
           );
         })}
       </nav> */}
-      <div className="px-0 py-2 md:px-12 md:py-12 flex flex-col gap-4">
+      <div className="px-0 py-2 md:px-8 md:py-4 flex flex-col gap-4">
         {hits?.map(
           (
             {
@@ -115,7 +115,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
                     </span>
                   )}
                 </p>
-                <div className="flex justify-center bg-black items-center mx-auto w-28 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-4 md:right-0">
+                <div className="flex justify-center bg-gray-100 items-center mx-auto w-24 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-4 md:right-0">
                   <Suspense
                   // fallback={
                   //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />

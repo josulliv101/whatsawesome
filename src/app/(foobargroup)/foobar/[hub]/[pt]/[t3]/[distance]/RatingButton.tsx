@@ -73,14 +73,14 @@ export default function RatingButton({
   return (
     <div className="flex items-center gap-1">
       <Button
-        className="animate-fadeInQuick min-w-28 gap-2 disabled:opacity-100"
+        className="animate-fadeInQuick bg-gray-100 hover:bg-gray-50 text-muted-foreground min-w-24 gap-2 disabled:opacity-100"
         disabled={isPending}
         size={"sm"}
         onClick={handleLeaveMushroom}
       >
         {isPending ? (
           <>
-            <Loader2 className="h-4 w-4 text-white animate-spin relative z-50" />{" "}
+            <Loader2 className="h-4 w-4 text-muted-foreground animate-spin relative z-50" />{" "}
           </>
         ) : (
           <>

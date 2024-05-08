@@ -7,6 +7,8 @@ import Marker from "./FoobarMarker";
 import MapPosition from "./MapPosition";
 import { fetchProfile } from "@/lib/firebase";
 import { Badge } from "@/components/ui/badge";
+import { BadgeCheckIcon } from "lucide-react";
+import { isHubHomepage } from "@/lib/utils";
 
 export function generateStaticParams() {
   // TODO: may not be needed
@@ -67,6 +69,14 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
 
   return (
     <>
+      {!isHubHomepage({ hub, pt, t3 }) && (
+        <div className="border border-gray-100/0 shadow-sm opacity-100 bg-blue-500 flex gap-2 items-center text-base text-white px-3 py-1 absolute top-4 left-4 z-10 rounded-md">
+          {pt} <span>/</span>{" "}
+          <span className="flex items-center gap-1">
+            <BadgeCheckIcon className="h-4 w-4 text-white" /> {t3}
+          </span>
+        </div>
+      )}
       <MapPosition
         hub={hub}
         distance={distance}

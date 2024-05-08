@@ -121,6 +121,7 @@ export default async function ProfilePageContent({
               className={cn(
                 `shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px]  rounded-md md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105`,
                 imgPosition,
+                // "border-8 border-blue-500 block",
                 pic ? "opacity-80" : "p-12 grayscale opacity-40"
               )}
             />
