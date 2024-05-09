@@ -71,7 +71,7 @@ export default async function Page({
   return (
     <>
       {!isHubHomepage({ hub, pt, t3 }) && (
-        <div className="border border-gray-100/0 shadow-sm opacity-100 bg-blue-500 flex gap-2 items-center text-base text-white px-3 py-1 absolute top-4 left-4 z-10 rounded-full">
+        <div className="border border-gray-100/0 shadow-sm opacity-100 bg-blue-500 flex gap-2 items-center text-base text-white px-3 py-1 absolute top-4 right-4 z-10 rounded-full">
           {pt} <span>/</span>{" "}
           <span className="flex items-center gap-1">
             <BadgeCheckIcon className="h-4 w-4 text-white" /> {t3}

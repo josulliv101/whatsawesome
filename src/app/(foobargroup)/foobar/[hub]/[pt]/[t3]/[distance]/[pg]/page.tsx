@@ -23,6 +23,7 @@ import Breadcrumb from "./Breadcrumb";
 import { isHubHomepage } from "@/lib/utils";
 import ProfilePageContent from "@/app__/profile/[...id]/ProfilePageContent";
 import SearchResultLogos from "./SearchResultLogos";
+import { Separator } from "@/components/ui/separator";
 
 // export const dynamic = "force-static";
 
@@ -61,7 +62,13 @@ export default async function Page({
       : await searchTopAoeByCategory(hub, [
           ["place", t3, pt].filter((tag) => tag !== "index"),
         ]);
-  const { hits = [] } = isHubHomepage({ hub, pt, t3 }) ? {} : topProfiles?.[0];
+  const {
+    hits = [],
+    nbHits = 0,
+    nbPages = 0,
+    hitsPerPage = 0,
+    page = 0,
+  } = isHubHomepage({ hub, pt, t3 }) ? {} : topProfiles?.[0];
   console.log("generateStaticParams()", { hub, pt, t3, distance });
 
   if (pt === "catalog") {
@@ -75,38 +82,49 @@ export default async function Page({
           {hubProfile.name} /{" "}
           {pt !== "index" && t3 !== "index" ? `${pt} / ${t3}` : "Featured"}
         </div>
-        <div>
-          test {hub} {pt} {t3} {distance} {pg}
-        </div>
-        <div className="flex items-center gap-2">
-          <Button
-            className={` w-8 h-8 ${pageParam === 0 ? "opacity-50" : ""}`}
-            disabled
-            size="icon"
-            variant={"ghost"}
-            asChild
-          >
-            {pageParam === 0 ? (
-              <ChevronLeftIcon className="w-6 h-6" />
-            ) : (
-              <Link
-                href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
-              >
-                <ChevronLeftIcon className="w-6 h-6" />
-              </Link>
-            )}
-          </Button>
-          <Button variant={"ghost"} size="icon" className="w-8 h-8" asChild>
-            <Link
-              href={`/foobar/${hub}/${pt}/${t3}/${distance}/${pageParam + 1}`}
+        <div className="flex items-center gap-4">
+          <div className="pr-2">
+            {/* test {hub} {pt} {t3} {distance} {pg} | Showing{" "} */}
+            showing results {page * hitsPerPage + 1}-
+            {page * hitsPerPage + hitsPerPage} of {nbHits}
+          </div>
+          <Separator className="h-5 bg-gray-400" orientation="vertical" />
+          <div className="flex items-center gap-6">
+            <Button
+              className={`px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
+              disabled
+              size="sm"
+              variant={"ghost"}
+              asChild
             >
-              <ChevronRightIcon className="w-6 h-6" />
-            </Link>
-          </Button>
+              {pageParam === 99 ? (
+                <ChevronLeftIcon className="w-6 h-6" />
+              ) : (
+                <Link
+                  href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
+                >
+                  <ChevronLeftIcon className="w-6 h-6" />
+                  Prev
+                </Link>
+              )}
+            </Button>
+            <Button
+              variant={"ghost"}
+              size="sm"
+              className={`px-0 ${page < nbPages ? "opacity-100" : "opacity-50"}`}
+              asChild
+            >
+              <Link
+                href={`/foobar/${hub}/${pt}/${t3}/${distance}/${pageParam + 1}`}
+              >
+                Next <ChevronRightIcon className="w-6 h-6" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </Breadcrumb>
 
-      <SearchResultLogos hits={hits} />
+      <SearchResultLogos pg={pg} hits={hits} />
 
       <div className="px-0 py-2 md:px-8 md:py-4 flex flex-col gap-4">
         {hits?.map(
