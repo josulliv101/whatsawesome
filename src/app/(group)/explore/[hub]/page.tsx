@@ -23,7 +23,9 @@ export default async function Page({
   searchParams: any;
 }>) {
   console.log("HUB", hub);
-  const topProfiles = await searchTopAoeByCategory(hub, [[t3, pt]]);
+  const topProfiles = await searchTopAoeByCategory(hub, [
+    ["place", t3, pt].filter((tag) => tag !== "index"),
+  ]);
 
   const profileMap = topProfiles
     .map((category) => category.hits || [])

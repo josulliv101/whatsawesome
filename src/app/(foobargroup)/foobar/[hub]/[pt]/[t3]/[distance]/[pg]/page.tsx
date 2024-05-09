@@ -1,5 +1,5 @@
 import { collectionGroup, query, where, getDocs } from "firebase/firestore";
-
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
 import Link from "next/link";
@@ -22,6 +22,7 @@ import { getLevel3TagsFromTags, getPrimaryTagsFromTags } from "@/lib/tags";
 import Breadcrumb from "./Breadcrumb";
 import { isHubHomepage } from "@/lib/utils";
 import ProfilePageContent from "@/app__/profile/[...id]/ProfilePageContent";
+import SearchResultLogos from "./SearchResultLogos";
 
 // export const dynamic = "force-static";
 
@@ -53,7 +54,7 @@ export default async function Page({
           ["place", pt, t3].filter((tag) => tag !== "index"),
           10,
           5,
-          pg,
+          pageParam,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
@@ -78,12 +79,21 @@ export default async function Page({
           test {hub} {pt} {t3} {distance} {pg}
         </div>
         <div className="flex items-center gap-2">
-          <Button size="icon" asChild>
-            <Link
-              href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
-            >
-              Prev
-            </Link>
+          <Button
+            className={pageParam === 0 ? "opacity-50" : ""}
+            disabled
+            size="icon"
+            asChild
+          >
+            {pageParam === 0 ? (
+              <div>Prev</div>
+            ) : (
+              <Link
+                href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
+              >
+                Prev
+              </Link>
+            )}
           </Button>
           <Button size="icon" asChild>
             <Link
@@ -95,17 +105,8 @@ export default async function Page({
         </div>
       </Breadcrumb>
 
-      {/* <nav className="flex flex-col md:flex-row items-center gap-2 px-8">
-        {navItems.map(([pt, t3]) => {
-          return (
-            <Button className="w-full " key={`${pt}-${t3}`} asChild>
-              <Link href={`/foobar/${hub}/${pt}/${t3}/${distance}`}>
-                {pt} / {t3}
-              </Link>
-            </Button>
-          );
-        })}
-      </nav> */}
+      <SearchResultLogos hits={hits} />
+
       <div className="px-0 py-2 md:px-8 md:py-4 flex flex-col gap-4">
         {hits?.map(
           (

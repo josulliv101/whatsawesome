@@ -11,10 +11,12 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { TooltipPortal } from "@radix-ui/react-tooltip";
+import { useMapContext } from "@/components/MapContext";
 
 const thumbnailSize = 140;
 
 export default function FoobarMarker({
+  id,
   children,
   excellence,
   photoUrl,
@@ -22,10 +24,24 @@ export default function FoobarMarker({
   title,
   ...props
 }: any) {
+  const { mapState, setMapState } = useMapContext();
   return (
     <AdvancedMarker {...props} onClick={() => console.log("click")}>
-      <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <Tooltip open={mapState === id}>
+        <TooltipTrigger
+          onMouseOver={() => setMapState(id)}
+          onMouseOut={() => setMapState("")}
+          asChild
+          className={
+            mapState && id === mapState
+              ? "opacity-100"
+              : !mapState
+                ? "opacity-100"
+                : "opacity-30"
+          }
+        >
+          {children}
+        </TooltipTrigger>
         <TooltipPortal>
           <TooltipContent
             side="top"

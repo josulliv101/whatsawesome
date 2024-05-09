@@ -1,5 +1,3 @@
-import FoobarMap from "@/app/(foobargroup)/foobar/[hub]/[pt]/[t3]/[distance]/FoobarMap";
-import { Button } from "@/components/ui/button";
 import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
 // import { AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import Link from "next/link";
