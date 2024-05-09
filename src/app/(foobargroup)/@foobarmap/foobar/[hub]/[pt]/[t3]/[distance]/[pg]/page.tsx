@@ -17,7 +17,9 @@ export function generateStaticParams() {
 
 const bgColor = "bg-[#4c98fd]";
 
-export default async function Page({ params: { hub, pt, t3, distance } }: any) {
+export default async function Page({
+  params: { hub, pt, t3, distance, pg },
+}: any) {
   const hubProfile = await fetchProfile(hub);
   const topProfiles =
     typeof distance !== "undefined" && Number(distance) !== 0
@@ -26,7 +28,8 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
           Number(distance),
           ["place", pt, t3].filter((tag) => tag !== "index"),
           10,
-          10,
+          5,
+          pg,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
@@ -70,7 +73,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   return (
     <>
       {!isHubHomepage({ hub, pt, t3 }) && (
-        <div className="border border-gray-100/0 shadow-sm opacity-100 bg-blue-500 flex gap-2 items-center text-base text-white px-3 py-1 absolute top-4 left-4 z-10 rounded-md">
+        <div className="border border-gray-100/0 shadow-sm opacity-100 bg-blue-500 flex gap-2 items-center text-base text-white px-3 py-1 absolute top-4 left-4 z-10 rounded-full">
           {pt} <span>/</span>{" "}
           <span className="flex items-center gap-1">
             <BadgeCheckIcon className="h-4 w-4 text-white" /> {t3}

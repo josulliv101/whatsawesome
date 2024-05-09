@@ -110,60 +110,61 @@ export default async function ProfilePageContent({
             Sponsor <BadgeCheckIcon className="h-6 w-6 text-blue-500" />
           </div>
         )}
-        <div className="relative md:max-h-[200px] flex md:flex-row items-center gap-8 mb-6 animate-vflip__">
-          <div className="relative w-full md:w-auto md:flex-initial flex bg-gray-400">
-            <Image
-              priority
-              src={pic || config.logoPath}
-              alt={name}
-              width={220}
-              height={220}
-              className={cn(
-                `shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px]  rounded-md md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105`,
-                imgPosition,
-                // "border-8 border-blue-500 block",
-                pic ? "opacity-80" : "p-12 grayscale opacity-40"
-              )}
-            />
-          </div>
-          <PageHeading
-            className="pl-8 mb-0"
-            heading={
-              <div className="flex flex-col items-start justify-end gap-4 pt-8 mb-2">
-                <Heading className="mb-2">{name}</Heading>
-                <span className="hidden text-2xl ml-2 mt-[-6px]">/</span>
-                <div className="flex_ hidden items-flex text-muted-foreground opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex_ items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-3">
-                  <div className="flex gap-1">
-                    <Image
-                      alt="vote"
-                      src={config.logoPath}
-                      width={36}
-                      height={36}
-                    />
-                    <Image
-                      alt="vote"
-                      src={config.logoPath}
-                      width={36}
-                      height={36}
-                    />
-                  </div>
-                  {/* <div className="absolute top-[3px] left-[10px] border-none bg-transparent ">
+        {!isEmbed && (
+          <div className="relative md:max-h-[200px] flex md:flex-row items-center gap-8 mb-6 animate-vflip__">
+            <div className="relative w-full md:w-auto md:flex-initial flex bg-gray-400">
+              <Image
+                priority
+                src={pic || config.logoPath}
+                alt={name}
+                width={220}
+                height={220}
+                className={cn(
+                  `shadow-md grayscale__ hover:grayscale-0__ w-full h-full min-w-full md:h-[220px] md:w-[200px] md:min-w-[220px]  rounded-md md:max-h-[220px] overflow-hidden object-cover transition-all scale-100 duration-300 hover:scale-105`,
+                  imgPosition,
+                  // "border-8 border-blue-500 block",
+                  pic ? "opacity-80" : "p-12 grayscale opacity-40"
+                )}
+              />
+            </div>
+            <PageHeading
+              className="pl-8 mb-0"
+              heading={
+                <div className="flex flex-col items-start justify-end gap-4 pt-8 mb-2">
+                  <Heading className="mb-2">{name}</Heading>
+                  <span className="hidden text-2xl ml-2 mt-[-6px]">/</span>
+                  <div className="flex_ hidden items-flex text-muted-foreground opacity-100 px-0 py-1 rounded-md min-w-max relative top-[-3px]  flex_ items-center flex-nowrap text-nowrap whitespace-nowrap text-md gap-3">
+                    <div className="flex gap-1">
+                      <Image
+                        alt="vote"
+                        src={config.logoPath}
+                        width={36}
+                        height={36}
+                      />
+                      <Image
+                        alt="vote"
+                        src={config.logoPath}
+                        width={36}
+                        height={36}
+                      />
+                    </div>
+                    {/* <div className="absolute top-[3px] left-[10px] border-none bg-transparent ">
                     <StarIcon className="scale-120 h-3 w-3  fill-white stroke-white stroke-2" />
                   </div>
                   <div className="opacity-100 absolute top-[2px] left-[11px] border-none bg-transparent ">
                     <StarIcon className="h-3 w-3  fill-yellow-300 stroke-2" />
                   </div> */}{" "}
-                  <span className="px-2.5 ml-2 bg-gray-200/60 rounded-sm py-1">
-                    overall excellence 2.4
-                  </span>
-                  <span className="text-inherit"></span>
+                    <span className="px-2.5 ml-2 bg-gray-200/60 rounded-sm py-1">
+                      overall excellence 2.4
+                    </span>
+                    <span className="text-inherit"></span>
+                  </div>
                 </div>
-              </div>
-            }
-            subhead={description || "description"}
-          >
-            <div className="absolute top-0 right-0">
-              {/* <Button variant={"outline"} className="flex gap-2">
+              }
+              subhead={description || "description"}
+            >
+              <div className="absolute top-0 right-0">
+                {/* <Button variant={"outline"} className="flex gap-2">
                 <Image
                   alt="vote"
                   src={config.logoPath}
@@ -173,8 +174,8 @@ export default async function ProfilePageContent({
                 4 backers
                  
               </Button> */}
-            </div>
-            {/* <div className="flex_ gap-2 mt-6 hidden">
+              </div>
+              {/* <div className="flex_ gap-2 mt-6 hidden">
               {tags
                 .sort()
                 .filter((tag) => !tagDefinitions.all.children.includes(tag))
@@ -188,11 +189,12 @@ export default async function ProfilePageContent({
                   </Badge>
                 ))}
             </div> */}
-          </PageHeading>
-          {/* <Button variant={"secondary"} className="absolute -bottom-6 right-0">
+            </PageHeading>
+            {/* <Button variant={"secondary"} className="absolute -bottom-6 right-0">
             Follow
           </Button> */}
-        </div>
+          </div>
+        )}
         {/* <Separator className="mt-8" /> */}
 
         <div className="flex justify-start items-center mb-4 w-full">

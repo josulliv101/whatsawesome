@@ -107,18 +107,29 @@ export async function searchProfilesByMapBounds(
 export async function searchTopAoe(
   hub: string,
   tags: string[] = [],
-  hitsPerCategory: number = 10
+  hitsPerCategory: number = 10,
+  pg: number = 0
 ): Promise<Array<any>> {
   const dedup = new Set([hub, ...tags]);
   const query = [...dedup].join(",");
-  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating?&attributesToHighlight=&hitsPerPage=${hitsPerCategory}&query=${query}`;
+  const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`; // ?&attributesToHighlight=&hitsPerPage=${hitsPerCategory}&query=${query}`;
   return await fetch(url, {
-    method: "GET",
+    method: "POST",
     headers: {
       "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
       "X-Algolia-Application-Id": "1P2U1C41BE",
     },
     cache: "force-cache",
+    body: JSON.stringify({
+      attributesToHighlight: [],
+      hitsPerPage: hitsPerCategory,
+      query,
+      page: 1,
+      // aroundLatLng: latlng || "42.360484995562764, -71.05769136293631",
+      // aroundRadius: searchRadius ? 2000 * searchRadius : undefined, // searchRadius * 16.0934 * 1000, // 1km ~ .0.621371 mile
+      // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
+      // tagFilters: !searchRadius ? [hub, ...tags] : [...tags],
+    }),
   })
     .then((response) => response.json())
 
@@ -133,13 +144,15 @@ export async function searchTopAoeByCategory(
     ["restaurant", "steak"],
     ["coffeehouse", "coffee"],
   ],
-  hitsPerCategory: number = 10
+  hitsPerCategory: number = 10,
+  pg: number = 0
 ): Promise<Array<any>> {
   const promises = categories?.map((category) =>
     searchTopAoe(
       hub,
       typeof category === "string" ? [category] : category || [],
-      hitsPerCategory
+      hitsPerCategory,
+      pg
     )
   );
   const data = await Promise.all(promises);
@@ -304,10 +317,17 @@ export async function searchTopAoeByRadius(
   tags: string[] = [],
   radius: number = 10,
   hitsPerCategory: number = 10,
+  pg: number = 0,
   asArray?: boolean,
   latlng?: any
 ): Promise<any> {
+  const pageParam =
+    (typeof pg === "number" && pg) ||
+    (typeof pg === "string" && pg && pg !== "index")
+      ? Number(pg)
+      : 0;
   const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`;
+  console.log(">>>>", pg, pageParam);
   const results = await fetch(url, {
     method: "POST",
     headers: {
@@ -318,6 +338,7 @@ export async function searchTopAoeByRadius(
     body: JSON.stringify({
       attributesToHighlight: [],
       hitsPerPage: hitsPerCategory,
+      page: pageParam,
       aroundLatLng: latlng || "42.360484995562764, -71.05769136293631",
       aroundRadius: searchRadius ? 2000 * searchRadius : undefined, // searchRadius * 16.0934 * 1000, // 1km ~ .0.621371 mile
       // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",

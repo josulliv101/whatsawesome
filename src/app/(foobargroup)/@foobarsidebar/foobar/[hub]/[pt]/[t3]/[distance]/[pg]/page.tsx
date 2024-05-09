@@ -108,7 +108,7 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
         ))}
       </nav> */}
       <div className="px-8 pt-2 flex items-center justify-between w-full mb-0 font-semibold text-lg capitalize text-muted-foreground min-h-[48px]">
-        Explore a Category
+        Search by Category
         {!isHubHomepage({ hub, pt, t3 }) && (
           <Button
             size="sm"

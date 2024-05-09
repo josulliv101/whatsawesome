@@ -36,9 +36,15 @@ const navItems = [
   ["coffeehouse", "pastries"],
 ];
 
-export default async function Page({ params: { hub, pt, t3, distance } }: any) {
+export default async function Page({
+  params: { hub, pt, t3, distance, pg },
+}: any) {
   const hubProfile = await fetchProfile(hub);
-
+  const pageParam =
+    (typeof pg === "number" && pg) ||
+    (typeof pg === "string" && pg && pg !== "index")
+      ? Number(pg)
+      : 0;
   const topProfiles =
     typeof distance !== "undefined" && Number(distance) !== 0
       ? await searchTopAoeByRadius(
@@ -46,7 +52,8 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
           Number(distance),
           ["place", pt, t3].filter((tag) => tag !== "index"),
           10,
-          10,
+          5,
+          pg,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
         )
@@ -68,7 +75,23 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
           {pt !== "index" && t3 !== "index" ? `${pt} / ${t3}` : "Featured"}
         </div>
         <div>
-          test {hub} {pt} {t3} {distance}
+          test {hub} {pt} {t3} {distance} {pg}
+        </div>
+        <div className="flex items-center gap-2">
+          <Button size="icon" asChild>
+            <Link
+              href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
+            >
+              Prev
+            </Link>
+          </Button>
+          <Button size="icon" asChild>
+            <Link
+              href={`/foobar/${hub}/${pt}/${t3}/${distance}/${pageParam + 1}`}
+            >
+              Next
+            </Link>
+          </Button>
         </div>
       </Breadcrumb>
 
