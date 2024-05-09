@@ -14,7 +14,7 @@ import ExcellenceItem from "./ExcellenceItem";
 import { Suspense } from "react";
 import RatingButton from "./RatingButton";
 // import { getCurrentUser } from "@/lib/auth";
-import { Loader2 } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
 import Rating from "./Rating";
 import Foobar from "./Foobar";
 import { cookies } from "next/headers";
@@ -80,26 +80,27 @@ export default async function Page({
         </div>
         <div className="flex items-center gap-2">
           <Button
-            className={pageParam === 0 ? "opacity-50" : ""}
+            className={` w-8 h-8 ${pageParam === 0 ? "opacity-50" : ""}`}
             disabled
             size="icon"
+            variant={"ghost"}
             asChild
           >
             {pageParam === 0 ? (
-              <div>Prev</div>
+              <ChevronLeftIcon className="w-6 h-6" />
             ) : (
               <Link
                 href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
               >
-                Prev
+                <ChevronLeftIcon className="w-6 h-6" />
               </Link>
             )}
           </Button>
-          <Button size="icon" asChild>
+          <Button variant={"ghost"} size="icon" className="w-8 h-8" asChild>
             <Link
               href={`/foobar/${hub}/${pt}/${t3}/${distance}/${pageParam + 1}`}
             >
-              Next
+              <ChevronRightIcon className="w-6 h-6" />
             </Link>
           </Button>
         </div>

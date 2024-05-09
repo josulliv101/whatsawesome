@@ -32,13 +32,13 @@ export default function FoobarMarker({
           onMouseOver={() => setMapState(id)}
           onMouseOut={() => setMapState("")}
           asChild
-          className={
-            mapState && id === mapState
-              ? "opacity-100"
-              : !mapState
-                ? "opacity-100"
-                : "opacity-30"
-          }
+          // className={
+          //   mapState && id === mapState
+          //     ? "opacity-100"
+          //     : !mapState
+          //       ? "opacity-100"
+          //       : "opacity-0"
+          // }
         >
           {children}
         </TooltipTrigger>
