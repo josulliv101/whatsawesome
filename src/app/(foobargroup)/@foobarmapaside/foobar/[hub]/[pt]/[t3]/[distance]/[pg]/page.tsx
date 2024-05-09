@@ -65,7 +65,6 @@ export default async function Page({
           <p>
             <span className="font-semibold">Blue Mushroom</span> — the leading
             platform in discovering excellence in the world around you.
-            {hits.length}
           </p>
           {hubProfile.name && (
             <Button size="lg" className="text-2xl px-4 py-10 w-full" asChild>
@@ -74,13 +73,13 @@ export default async function Page({
           )}
         </>
       )}
-      {false && !isHubHomepage({ hub, pt, t3 }) && (
+      {/* {false && !isHubHomepage({ hub, pt, t3 }) && (
         <div className=" w-full h-full grid grid-cols-12 gap-x-1 gap-y-1">
           {[...new Array(9)].map((_) => (
             <div className="bg-gray-50 col-span-4 aspect-square"></div>
           ))}
         </div>
-      )}
+      )} */}
     </aside>
   );
 }

@@ -14,7 +14,10 @@ export default function SearchResultLogos({ hits }: any) {
     <div className="grid grid-cols-5 px-8 py-4 gap-4">
       {hits.map((hit: any) => {
         return (
-          <div className="col-span-1 text-white bg-black text-balance rounded-md  text-center flex items-center justify-center">
+          <div
+            key={hit.objectID}
+            className="col-span-1 text-white bg-black text-balance rounded-md  text-center flex items-center justify-center"
+          >
             {hit.parent?.parentPhotoUrl && (
               <Image
                 key={hit.parentId}
