@@ -6,6 +6,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 
 export default function Page() {
+  console.log("rendering home page");
   return (
     <>
       <div className="bg-blue-100/50  flex justify-center items-center h-full">
