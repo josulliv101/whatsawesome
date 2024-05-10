@@ -16,7 +16,7 @@ export default function SearchResultLogos({ hits, pg = 0 }: any) {
 
   // map?.addListener("mousemove", (...args) => console.log("m", ...args));
   return (
-    <div className="grid grid-cols-5 px-8 py-4 gap-4">
+    <div className="grid grid-cols-5 px-8 py-4 gap-8">
       {hits.map((hit: any, index: number) => {
         return (
           <div

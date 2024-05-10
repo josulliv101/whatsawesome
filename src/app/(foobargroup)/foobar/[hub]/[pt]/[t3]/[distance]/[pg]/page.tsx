@@ -82,46 +82,48 @@ export default async function Page({
           {hubProfile.name} /{" "}
           {pt !== "index" && t3 !== "index" ? `${pt} / ${t3}` : "Featured"}
         </div>
-        <div className="flex items-center gap-4">
-          <div className="pr-2">
-            {/* test {hub} {pt} {t3} {distance} {pg} | Showing{" "} */}
-            showing results {page * hitsPerPage + 1}-
-            {page * hitsPerPage + hitsPerPage} of {nbHits}
-          </div>
-          <Separator className="h-5 bg-gray-400" orientation="vertical" />
-          <div className="flex items-center gap-6">
-            <Button
-              className={`px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
-              disabled
-              size="sm"
-              variant={"ghost"}
-              asChild
-            >
-              {pageParam === 99 ? (
-                <ChevronLeftIcon className="w-6 h-6" />
-              ) : (
-                <Link
-                  href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
-                >
-                  <ChevronLeftIcon className="w-6 h-6" />
-                  Prev
-                </Link>
-              )}
-            </Button>
-            <Button
-              variant={"ghost"}
-              size="sm"
-              className={`px-0 ${page < nbPages ? "opacity-100" : "opacity-50"}`}
-              asChild
-            >
-              <Link
-                href={`/foobar/${hub}/${pt}/${t3}/${distance}/${pageParam + 1}`}
+        {!isHubHomepage({ hub, pt, t3 }) && (
+          <div className="flex items-center gap-4">
+            <div className="pr-2">
+              {/* test {hub} {pt} {t3} {distance} {pg} | Showing{" "} */}
+              showing results {page * hitsPerPage + 1}-
+              {page * hitsPerPage + hitsPerPage} of {nbHits}
+            </div>
+            <Separator className="h-5 bg-gray-400" orientation="vertical" />
+            <div className="flex items-center gap-6">
+              <Button
+                className={`px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
+                disabled
+                size="sm"
+                variant={"ghost"}
+                asChild
               >
-                Next <ChevronRightIcon className="w-6 h-6" />
-              </Link>
-            </Button>
+                {pageParam === 99 ? (
+                  <ChevronLeftIcon className="w-6 h-6 stroke-1" />
+                ) : (
+                  <Link
+                    href={`/foobar/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
+                  >
+                    <ChevronLeftIcon className="w-6 h-6 stroke-1" />
+                    Prev
+                  </Link>
+                )}
+              </Button>
+              <Button
+                variant={"ghost"}
+                size="sm"
+                className={`px-0 ${page < nbPages ? "opacity-100" : "opacity-50"}`}
+                asChild
+              >
+                <Link
+                  href={`/foobar/${hub}/${pt}/${t3}/${distance}/${pageParam + 1}`}
+                >
+                  Next <ChevronRightIcon className="w-6 h-6 stroke-1" />
+                </Link>
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </Breadcrumb>
 
       <SearchResultLogos pg={pg} hits={hits} />
