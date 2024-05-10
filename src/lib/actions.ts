@@ -73,8 +73,12 @@ export async function leaveMushroom(
 
   const rating = await incrementRating(profileId, excellenceId, !!isAdd);
   // await sleep(600);
+
+  const [base, hub, pt, t3, distance, pg] = pathname.split("/");
+  const cacheTag = [hub, pt, t3, distance].join("-");
+  console.log("cache params", cacheTag, { base, hub, pt, t3, distance, pg });
   revalidatePath(pathname, "page");
-  revalidateTag("foobar");
+  revalidateTag(cacheTag);
 
   return { isSuccess, rating, uid: userId, userId, excellenceId, profileId };
 }

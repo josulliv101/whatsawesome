@@ -331,13 +331,14 @@ export async function searchTopAoeByRadius(
   asArray?: boolean,
   latlng?: any
 ): Promise<any> {
+  const cacheTag = [hub, ...tags, searchRadius].join("-");
   const pageParam =
     (typeof pg === "number" && pg) ||
     (typeof pg === "string" && pg && pg !== "index")
       ? Number(pg)
       : 0;
   const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`;
-  console.log(">>>>", pg, pageParam);
+  console.log(">>>>", pg, pageParam, cacheTag);
   const results = await fetch(url, {
     method: "POST",
     headers: {
@@ -345,7 +346,7 @@ export async function searchTopAoeByRadius(
       "X-Algolia-Application-Id": "1P2U1C41BE",
     },
     cache: "force-cache",
-    next: { tags: ["foobar"] },
+    next: { tags: [cacheTag] },
     body: JSON.stringify({
       attributesToHighlight: [],
       hitsPerPage: hitsPerCategory,
