@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import {
   addMushroom,
   addReasonToProfile,
@@ -74,6 +74,7 @@ export async function leaveMushroom(
   const rating = await incrementRating(profileId, excellenceId, !!isAdd);
   // await sleep(600);
   revalidatePath(pathname, "page");
+  revalidateTag("foobar");
 
   return { isSuccess, rating, uid: userId, userId, excellenceId, profileId };
 }

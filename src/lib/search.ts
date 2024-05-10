@@ -345,6 +345,7 @@ export async function searchTopAoeByRadius(
       "X-Algolia-Application-Id": "1P2U1C41BE",
     },
     cache: "force-cache",
+    next: { tags: ["foobar"] },
     body: JSON.stringify({
       attributesToHighlight: [],
       hitsPerPage: hitsPerCategory,
