@@ -107,7 +107,9 @@ export function CommandMenu({
       console.log("handle search", val, results);
       setResults(results);
     };
-    handleSearchChange(value);
+    if (value) {
+      handleSearchChange(value);
+    }
   }, [value]);
 
   React.useEffect(() => {

@@ -110,10 +110,12 @@ export async function searchTopAoe(
   hitsPerCategory: number = 10,
   pg: number = 0
 ): Promise<Array<any>> {
+  console.log("searchTopAoe", hub, tags, hitsPerCategory, pg);
   const dedup = new Set([hub, ...tags]);
   const query = [...dedup].join(",");
+  console.log("query", query);
   const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`; // ?&attributesToHighlight=&hitsPerPage=${hitsPerCategory}&query=${query}`;
-  return await fetch(url, {
+  const data = await fetch(url, {
     method: "POST",
     headers: {
       "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
@@ -123,17 +125,23 @@ export async function searchTopAoe(
     body: JSON.stringify({
       attributesToHighlight: [],
       hitsPerPage: hitsPerCategory,
-      query,
-      page: 1,
+      query: "",
+      page: pg,
       // aroundLatLng: latlng || "42.360484995562764, -71.05769136293631",
       // aroundRadius: searchRadius ? 2000 * searchRadius : undefined, // searchRadius * 16.0934 * 1000, // 1km ~ .0.621371 mile
       // insideBoundingBox: bounds, // "42.353451,-71.077697,42.363994,-71.046782",
-      // tagFilters: !searchRadius ? [hub, ...tags] : [...tags],
+      tagFilters: [hub, ...tags],
     }),
   })
-    .then((response) => response.json())
+    .then(async (response) => {
+      const data = await response.json();
+      console.log("response.json()", data);
+      return data;
+    })
 
     .catch((err) => console.error(err));
+
+  return data;
 }
 
 export async function searchTopAoeByCategory(
@@ -147,6 +155,7 @@ export async function searchTopAoeByCategory(
   hitsPerCategory: number = 10,
   pg: number = 0
 ): Promise<Array<any>> {
+  console.log("searchTopAoeByCategory", hub, categories, hitsPerCategory, pg);
   const promises = categories?.map((category) =>
     searchTopAoe(
       hub,
@@ -156,6 +165,7 @@ export async function searchTopAoeByCategory(
     )
   );
   const data = await Promise.all(promises);
+  console.log("...", data);
   const parentIds = data?.reduce((acc: any, category: any) => {
     const map = category?.hits?.reduce(
       (acc2: any, item: any) => ({
