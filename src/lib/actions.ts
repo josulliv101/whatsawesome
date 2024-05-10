@@ -78,7 +78,9 @@ export async function leaveMushroom(
   const cacheTag = [hub, pt, t3, distance].join("-");
   console.log("cache params", cacheTag, { base, hub, pt, t3, distance, pg });
   revalidatePath(pathname, "page");
-  revalidateTag(cacheTag);
+  revalidateTag(`${cacheTag}-0`);
+  revalidateTag(`${cacheTag}-1`);
+  revalidateTag(`${cacheTag}-2`);
 
   return { isSuccess, rating, uid: userId, userId, excellenceId, profileId };
 }
