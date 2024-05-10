@@ -37,7 +37,7 @@ export default async function Page({
     };
   }, {});
 
-  console.log("parentMap", parentMap);
+  // console.log("parentMap", parentMap);
 
   // if (hits.length && pt !== "index") {
   //   return (

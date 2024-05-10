@@ -34,9 +34,9 @@ export default function Foobar({
   const isAdd = userMushroomMap?.[excellenceId]?.mushroom !== true;
   const [user, setAuthUser] = useAuthentication();
 
-  console.log("Foobar render()", userMushroomMap);
+  // console.log("Foobar render()", userMushroomMap);
   useEffect(() => {
-    console.log("Foobar useEffect", userMushroomMap);
+    // console.log("Foobar useEffect", userMushroomMap);
     setUserMushroomMap(userMushroomMap);
   }, []);
   async function handleMushroomChange() {

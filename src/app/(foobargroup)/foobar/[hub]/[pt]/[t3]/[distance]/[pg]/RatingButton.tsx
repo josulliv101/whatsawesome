@@ -24,7 +24,7 @@ export default function RatingButton({
   //     isPresent: false,
   //   }
   // );
-  console.log(isAdd, "isAdd RatingButton", pathname);
+  // console.log(isAdd, "isAdd RatingButton", pathname);
   const [isPending, setIsPending] = useState(false);
 
   // const isAdd = !isMushroomPresent;
@@ -53,7 +53,7 @@ export default function RatingButton({
       );
     } else if (userId && profileId && excellenceId) {
       setIsPending(true);
-      console.log("CLIENT", isAdd);
+      // console.log("CLIENT", isAdd);
       const { rating: updatedRating } = await leaveMushroom(
         userId,
         profileId,
@@ -66,7 +66,7 @@ export default function RatingButton({
       //   rating: updatedRating,
       // });
       // setIsPending(false);
-      console.log(updatedRating, "updatedRating", isAdd);
+      // console.log(updatedRating, "updatedRating", isAdd);
     }
   };
 

@@ -66,7 +66,7 @@ export default async function Page({
     );
 
   const markers = Object.values(uniqueMarkersMap || {}) || [];
-  console.log("uniqueMarkersMap", distance, uniqueMarkersMap);
+  // console.log("uniqueMarkersMap", distance, uniqueMarkersMap);
 
   return (
     <>

@@ -40,7 +40,7 @@ export default async function ProfilesByCategory({
 
   // const profile = await fetchProfile(hub);
   // const profilesByTag = await fetchHubProfilesForAllTags(hub, pt);
-  console.log("profilesByCategory..", profilesByCategory);
+  // console.log("profilesByCategory..", profilesByCategory);
   // return JSON.stringify(profilesByCategory);
   return (
     <>

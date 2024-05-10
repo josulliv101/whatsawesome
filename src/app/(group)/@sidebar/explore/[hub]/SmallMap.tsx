@@ -102,7 +102,7 @@ const SmallMap = ({
       mapTypeId={"roadmap"}
       mapId={"739af084373f96fe"}
       onCameraChanged={(ev, ...args) => {
-        console.log("camera change", ev.map.getBounds()?.toUrlValue(), ...args);
+        // console.log("camera change", ev.map.getBounds()?.toUrlValue(), ...args);
         // router.replace(`?bounds=${ev.map.getBounds()?.toUrlValue()}`);
       }}
       onClick={async (arg) => {

@@ -96,7 +96,7 @@ export default async function ExcellenceItems({
 
   if (searchMapBounds) {
     const hits2 = await searchTopAoeByMapBounds(hub, [t3], searchMapBounds);
-    console.log("hits2", hits2);
+    // console.log("hits2", hits2);
     hits = hits2.hits;
   }
 

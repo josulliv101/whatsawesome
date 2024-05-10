@@ -41,7 +41,7 @@ export default function Marker({
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
-  console.log("marker", tags);
+  // console.log("marker", tags);
   // const [infowindowOpen, setInfowindowOpen] = useState(false);
   // const [markerRef, marker] = useAdvancedMarkerRef();
 
@@ -52,7 +52,7 @@ export default function Marker({
     const searchRadius = searchParams.get("searchRadius");
     const paramActiveId = searchParams.get("activeId");
     const tokens = id.split("/");
-    console.log("*", tokens[1]);
+    // console.log("*", tokens[1]);
 
     if (tokens[1] === paramActiveId) {
       router.push(

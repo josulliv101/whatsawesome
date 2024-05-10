@@ -18,7 +18,7 @@ export default async function Page({
   // const data = await fetchClaimsForHub(hub, [pt], [st]);
   const items = tagDefinitions[pt]?.tags || [];
   const markers = [profile].filter((m) => m._geoloc?.lat && m._geoloc?.lng);
-  console.log("markers profile [id]", markers);
+  // console.log("markers profile [id]", markers);
   const size = 24;
 
   return (

@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest, params: any) {
   const cookieValue = request.cookies.get("uid");
 
   // const decodedIdToken = await auth.verifySessionCookie(sess!);
-  console.log("middleware uid", cookieValue);
+  console.log("middleware...", cookieValue);
   // if (cookieValue?.value) {
   //   const [
   //     base,

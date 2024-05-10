@@ -878,7 +878,7 @@ export async function addMushroom(
 export async function fetchMushroomMapForUser(
   uid: string
 ): Promise<Record<string, any>> {
-  console.log("fetchMushroomMapForUser", uid);
+  // console.log("fetchMushroomMapForUser", uid);
 
   if (!uid || uid === "index") {
     return {};

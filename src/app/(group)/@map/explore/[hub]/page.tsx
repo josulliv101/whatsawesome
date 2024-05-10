@@ -56,7 +56,7 @@ export default async function Page({
 
   if (searchMapBounds) {
     topAoe = [await searchTopAoeByMapBounds(hub, [t3], searchMapBounds)];
-    console.log("topAoe (map)", topAoe[0].hits.length);
+    // console.log("topAoe (map)", topAoe[0].hits.length);
   }
   const profilesByCategory = !pt
     ? await searchProfilesByCategory(hub)

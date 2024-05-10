@@ -41,6 +41,7 @@ const navItems = [
 export default async function Page({
   params: { hub, pt, t3, distance, pg },
 }: any) {
+  console.log("rendering page", { hub, pt, t3, distance, pg });
   const hubProfile = await fetchProfile(hub);
   const pageParam =
     (typeof pg === "number" && pg) ||
@@ -69,7 +70,7 @@ export default async function Page({
     hitsPerPage = 0,
     page = 0,
   } = isHubHomepage({ hub, pt, t3 }) ? {} : topProfiles?.[0];
-  console.log("generateStaticParams()", { hub, pt, t3, distance });
+  // console.log("generateStaticParams()", { hub, pt, t3, distance });
 
   if (pt === "catalog") {
     return <div>Catalog page</div>;
