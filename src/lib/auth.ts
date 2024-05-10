@@ -56,8 +56,7 @@ export async function getCurrentUser() {
 
 async function getSession() {
   try {
-    return "";
-    // return cookies().get("__session")?.value;
+    return cookies().get("__session")?.value;
   } catch (error) {
     return undefined;
   }
