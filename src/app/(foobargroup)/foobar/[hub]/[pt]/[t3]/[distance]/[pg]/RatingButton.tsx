@@ -54,13 +54,17 @@ export default function RatingButton({
     } else if (userId && profileId && excellenceId) {
       setIsPending(true);
       // console.log("CLIENT", isAdd);
-      const { rating: updatedRating } = await leaveMushroom(
+      const { isSuccess, rating: updatedRating } = await leaveMushroom(
         userId,
         profileId,
         excellenceId,
         pathname,
         isAdd
       );
+
+      if (isSuccess) {
+        setTimeout(() => fetch("/api/cache?tag=foobar"), 20000);
+      }
       // setRatingDetails({
       //   isPresent: !isMushroomPresent,
       //   rating: updatedRating,
