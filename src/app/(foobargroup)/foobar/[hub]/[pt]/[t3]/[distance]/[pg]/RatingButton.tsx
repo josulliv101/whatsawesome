@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { leaveMushroom } from "@/lib/actions";
 import { isMushroomPresentByUser } from "@/lib/firebase";
 import { Loader2 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -18,6 +18,7 @@ export default function RatingButton({
   userId,
 }: any) {
   const pathname = usePathname();
+  const router = useRouter();
   // const [{ isPresent: isMushroomPresent }, setRatingDetails] = useState(
   //   {
   //     rating: 0,
@@ -63,6 +64,7 @@ export default function RatingButton({
       );
 
       if (isSuccess) {
+        router.refresh();
         setTimeout(() => fetch("/api/cache?tag=foobar"), 20000);
       }
       // setRatingDetails({
