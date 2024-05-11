@@ -21,7 +21,7 @@ export default function ExcellenceItem({
   tags: Array<string>;
 }>) {
   return (
-    <div className="flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row items-stretch gap-8 w-full h-max md:h-[240px]">
+    <div className="animate-fadeIn flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row items-stretch gap-8 w-full h-max md:h-[240px]">
       {photoUrl && (
         <Image
           className="w-full md:w-[240px] md:min-w-[240px] h-72 min-h-88 md:h-full object-cover px-4 md:px-0 rounded-md"

@@ -149,7 +149,7 @@ export default async function Page({
             const cacheTag = [hub, "place", pt, t3, distance].join("-");
             return (
               <ExcellenceItem
-                key={excellenceId}
+                key={excellenceId + index}
                 name={parent.name}
                 rating={rating}
                 photoUrl={photoUrl}
@@ -162,7 +162,7 @@ export default async function Page({
                     </span>
                   )}
                 </p>
-                <div className="flex justify-center bg-gray-100 items-center mx-auto w-24 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-4 md:right-0">
+                <div className="flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-4 md:right-0">
                   <Suspense
                   // fallback={
                   //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />

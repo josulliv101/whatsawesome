@@ -251,6 +251,12 @@ const config: Config = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        fadeInAndOut: {
+          "0%": { opacity: "0" },
+          "20%": { opacity: "1" },
+          "80%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -272,6 +278,7 @@ const config: Config = {
         fadeIn: "fadeIn .5s ease-in",
         fadeInQuick: "fadeIn .2s ease-in",
         fadeInDelayed: "fadeIn .5s ease-in .5s",
+        fadeInAndOut: "fadeInAndOut 2200ms ease-in 0s",
         legendSlideIn: "legend-slide-in 0.6s ease-out 1s forwards",
       },
     },

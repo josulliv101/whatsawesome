@@ -20,7 +20,7 @@ export default function SearchResultLogos({ hits, pg = 0 }: any) {
       {hits.map((hit: any, index: number) => {
         return (
           <div
-            key={hit.objectID}
+            key={hit.objectID + index}
             className={`animate-fadeIn relative col-span-1 transition-opacity duration-500 text-white bg-black text-balance rounded-md ${false && mapState && mapState !== hit.objectID ? "opacity-10 grayscale" : "opacity-90 grayscale-0"} text-center flex items-center justify-center`}
             onMouseOver={() => setMapState(hit.objectID)}
             onMouseOut={() => setMapState("")}
