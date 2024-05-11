@@ -67,7 +67,7 @@ export default function RatingButton({
         setTimeout(async () => {
           await fetch("/api/cache?tag=foobar");
           router.refresh();
-        }, 5000);
+        }, 2000);
       }
       // setRatingDetails({
       //   isPresent: !isMushroomPresent,
