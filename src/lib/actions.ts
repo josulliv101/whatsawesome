@@ -81,7 +81,7 @@ export async function leaveMushroom(
   // revalidatePath("/foobar/boston/restaurant/burger/4/0", "page");
   // revalidatePath("/foobar/boston/restaurant/burger/4/1", "page");
   // revalidatePath("/foobar/boston/restaurant/burger/4/2", "page");
-  revalidateTag("foobar");
+  setTimeout(() => revalidateTag("foobar"), 30000);
   // revalidateTag(`${cacheTag}-1`);
   // revalidateTag(`${cacheTag}-2`);
 
