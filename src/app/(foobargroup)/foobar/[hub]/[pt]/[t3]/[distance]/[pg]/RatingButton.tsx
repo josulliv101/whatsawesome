@@ -16,6 +16,7 @@ export default function RatingButton({
   // mushroomPromise,
   isAdd,
   userId,
+  cacheTag,
 }: any) {
   const pathname = usePathname();
   const router = useRouter();
@@ -65,7 +66,7 @@ export default function RatingButton({
 
       if (isSuccess) {
         setTimeout(async () => {
-          await fetch("/api/cache?tag=foobar");
+          await fetch(`/api/cache?tag=${cacheTag}`);
           router.refresh();
         }, 3000);
       }

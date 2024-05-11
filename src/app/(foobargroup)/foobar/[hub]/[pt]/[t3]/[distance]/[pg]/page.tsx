@@ -146,6 +146,7 @@ export default async function Page({
               ...getPrimaryTagsFromTags(_tags),
               ...getLevel3TagsFromTags(_tags),
             ];
+            const cacheTag = [hub, "place", pt, t3, distance].join("-");
             return (
               <ExcellenceItem
                 key={excellenceId}
@@ -172,7 +173,7 @@ export default async function Page({
                       profileId={parent?.id}
                       // uid={uid}
                       excellenceId={excellenceId}
-
+                      cacheTag={cacheTag}
                       // mushroomMapPromise={mushroomMapPromise}
                       // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
                     />

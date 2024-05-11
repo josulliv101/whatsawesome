@@ -74,9 +74,9 @@ export async function leaveMushroom(
   const rating = await incrementRating(profileId, excellenceId, !!isAdd);
   // await sleep(600);
 
-  const [base, hub, pt, t3, distance, pg] = pathname.split("/");
-  const cacheTag = [hub, pt, t3, distance].join("-");
-  console.log("cache params", cacheTag, { base, hub, pt, t3, distance, pg });
+  // const [base, hub, pt, t3, distance, pg] = pathname.split("/");
+
+  // console.log("cache params", cacheTag, { base, hub, pt, t3, distance, pg });
   // revalidatePath(pathname, "page");
   // revalidatePath("/foobar/boston/restaurant/burger/4/0", "page");
   // revalidatePath("/foobar/boston/restaurant/burger/4/1", "page");

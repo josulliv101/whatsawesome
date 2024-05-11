@@ -11,7 +11,7 @@ export default async function Rating({
   // rating,
   profileId,
   excellenceId,
-  // uid,
+  cacheTag,
 }: any) {
   unstable_noStore();
   const user = await getCurrentUser();
@@ -19,7 +19,8 @@ export default async function Rating({
   const rating = await getExcellenceRating(profileId, excellenceId);
   const userMushroomMap = await fetchMushroomMapForUser(uid);
   const isMushroomPresent = userMushroomMap[excellenceId]?.mushroom === true;
-  // console.log("Rating...", user?.uid, uid, isMushroomPresent);
+
+  console.log("Rating...", user?.uid, uid, isMushroomPresent);
   return (
     <RatingButton
       key={isMushroomPresent}
@@ -29,6 +30,7 @@ export default async function Rating({
       // mushroomPromise={promise}
       isAdd={!isMushroomPresent}
       userId={uid}
+      cacheTag={cacheTag}
     />
   );
 }

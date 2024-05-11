@@ -331,7 +331,7 @@ export async function searchTopAoeByRadius(
   asArray?: boolean,
   latlng?: any
 ): Promise<any> {
-  const cacheTag = "foobar"; // [hub, ...tags, searchRadius, pg].join("-");
+  const cacheTag = [hub, ...tags, searchRadius].join("-");
   const pageParam =
     (typeof pg === "number" && pg) ||
     (typeof pg === "string" && pg && pg !== "index")
