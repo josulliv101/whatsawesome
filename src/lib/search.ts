@@ -345,7 +345,7 @@ export async function searchTopAoeByRadius(
       "X-Algolia-API-Key": "58f01f11963d3161cd1c627f20380344",
       "X-Algolia-Application-Id": "1P2U1C41BE",
     },
-    cache: "force-cache",
+    cache: "no-store",
     // next: { tags: [cacheTag] },
     body: JSON.stringify({
       attributesToHighlight: [],
