@@ -78,10 +78,10 @@ export async function leaveMushroom(
   const cacheTag = [hub, pt, t3, distance].join("-");
   console.log("cache params", cacheTag, { base, hub, pt, t3, distance, pg });
   revalidatePath(pathname, "page");
-  revalidatePath("/foobar/boston/restaurant/burger/4/0", "page");
-  revalidatePath("/foobar/boston/restaurant/burger/4/1", "page");
-  revalidatePath("/foobar/boston/restaurant/burger/4/2", "page");
-  // revalidateTag(`${cacheTag}-0`);
+  // revalidatePath("/foobar/boston/restaurant/burger/4/0", "page");
+  // revalidatePath("/foobar/boston/restaurant/burger/4/1", "page");
+  // revalidatePath("/foobar/boston/restaurant/burger/4/2", "page");
+  revalidateTag("foobar");
   // revalidateTag(`${cacheTag}-1`);
   // revalidateTag(`${cacheTag}-2`);
 
