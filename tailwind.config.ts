@@ -278,6 +278,11 @@ const config: Config = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        fadeInLong: {
+          "0%": { opacity: "0" },
+          "80%": { opacity: "1" },
+          "100%": { opacity: "1" },
+        },
         fadeInAndScale: {
           "0%": { opacity: "0", transform: "scale3d(.5,.5,1)" },
           "30%": { transform: "scale3d(1,1,1)" },
@@ -313,6 +318,7 @@ const config: Config = {
         fadeInAndScale: "fadeInAndScale .5s ease-in",
         fadeInQuick: "fadeIn .2s ease-in",
         fadeInDelayed: "fadeIn .5s ease-in .5s",
+        fadeInLong: "fadeInLong .5s 1 2s",
         mushroomButton: "mushroomButton 1.2s 3 300ms",
         fadeInAndOut: "fadeInAndOut 3200ms ease-in 0s",
         legendSlideIn: "legend-slide-in 0.6s ease-out 1s forwards",

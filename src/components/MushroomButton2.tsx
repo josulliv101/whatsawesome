@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { Loader2Icon } from "lucide-react";
+import { Heart, Loader2Icon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { config } from "@/lib/config";
 import { usePathname, useRouter } from "next/navigation";
@@ -23,6 +23,7 @@ export default function MushroomButton2({
   const [isTransitionToIcon, setIsTransitionToIcon] = useState(false);
   const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isShowHeart, setIsShowHeart] = useState(false);
 
   useEffect(() => {
     if (isPending) {
@@ -67,9 +68,9 @@ export default function MushroomButton2({
     }
   };
 
-  if (!isLeaveMushroom) {
-    return <Button onClick={handleLeaveMushroom}>remove</Button>;
-  }
+  // if (!isLeaveMushroom) {
+  //   return <Button onClick={handleLeaveMushroom}>remove</Button>;
+  // }
 
   return (
     <Button
@@ -78,7 +79,8 @@ export default function MushroomButton2({
       size="sm"
       className={cn(
         "relative transition-all duration-500 gap-2 text-muted-foreground",
-        isTransitionToIcon ? "w-12" : "w-44"
+        isTransitionToIcon || !isLeaveMushroom ? "w-12" : "w-44",
+        isLeaveMushroom ? "" : "border-transparent bg-transparent"
       )}
     >
       {!isSuccess && isLeaveMushroom && !isPending && "Leave a mushroom"}
@@ -109,11 +111,11 @@ export default function MushroomButton2({
           </span> */}
         </span>
       )}
-      {isPending && !isUpdatingOrder && (
+      {isPending && !isUpdatingOrder && isLeaveMushroom && (
         <Loader2Icon className="h-4 w-4 animate-spin text-blue-500 opacity-80" />
       )}
       {/* animate-rubberBandJumpNoDelay2 */}
-      {isUpdatingOrder && (
+      {((isUpdatingOrder && isLeaveMushroom) || !isLeaveMushroom) && (
         <div className="animate-fadeInAndScale origin-bottom flex flex-col items-center">
           {/* <img
             className={cn(
@@ -131,14 +133,21 @@ export default function MushroomButton2({
             className={`relative top-0.5 w-6 h-6 origin-bottom animate-mushroomButton`}
             src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
-            // onAnimationEnd={(ev) => {
-            //   console.log("animation", ev);
-            //   setAnimationState("done");
-            //   setForcePlayAnimation?.(false);
-            // }}
+            onAnimationEnd={(ev) => {
+              setIsShowHeart(true);
+            }}
           />
           <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[22px] origin-bottom rounded-full " />
         </div>
+      )}
+      {!isLeaveMushroom && isShowHeart && (
+        <Heart
+          className={cn(
+            "w-3.5 h-3.5 animate-fadeIn absolute right-[7px] top-[0px] stroke-[2.5px] text-white fill-red-500"
+            // "transition duration-300",
+            // isShowHeart ? "opacity-100" : "opacity-0"
+          )}
+        />
       )}
     </Button>
   );
