@@ -6,6 +6,7 @@ import {
 } from "@/lib/firebase";
 import RatingButton from "./RatingButton";
 import { getCurrentUser } from "@/lib/auth";
+import MushroomButton from "@/components/MushroomButton2";
 
 export default async function Rating({
   // rating,
@@ -22,13 +23,13 @@ export default async function Rating({
 
   console.log("Rating...", user?.uid, uid, isMushroomPresent);
   return (
-    <RatingButton
+    <MushroomButton
       key={isMushroomPresent}
       rating={rating}
       profileId={profileId}
       excellenceId={excellenceId}
       // mushroomPromise={promise}
-      isAdd={!isMushroomPresent}
+      isLeaveMushroom={!isMushroomPresent}
       userId={uid}
       cacheTag={cacheTag}
     />

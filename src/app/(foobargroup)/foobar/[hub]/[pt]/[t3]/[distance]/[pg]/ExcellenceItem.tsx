@@ -3,6 +3,8 @@ import Image from "next/image";
 import RatingButton from "./RatingButton";
 import { SlashIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { config } from "@/lib/config";
 
 export default function ExcellenceItem({
   children,
@@ -21,7 +23,7 @@ export default function ExcellenceItem({
   tags: Array<string>;
 }>) {
   return (
-    <div className="animate-fadeIn flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row items-stretch gap-8 w-full h-max md:h-[240px]">
+    <div className="animate-fadeIn__ flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row items-stretch gap-8 w-full h-max md:h-[240px]">
       {photoUrl && (
         <Image
           className="w-full md:w-[240px] md:min-w-[240px] h-72 min-h-88 md:h-full object-cover px-4 md:px-0 rounded-md"
@@ -44,6 +46,18 @@ export default function ExcellenceItem({
           </div>
         </div>
         {children}
+        <div className="absolute bottom-2 left-2 flex items-center gap-2">
+          {rating}{" "}
+          <img
+            className={cn(
+              "relative -top-0.5 transition-all",
+              "w-5 h-5  opacity-100 grayscale-0"
+            )}
+            src={config.logoPath}
+            width="24"
+            height="24"
+          />
+        </div>
       </div>
     </div>
   );

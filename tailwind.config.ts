@@ -175,6 +175,33 @@ const config: Config = {
             transform: "translateY(0px) scale3d(1, 1, 1)",
           },
         },
+        mushroomButton: {
+          from: {
+            transform: "translateY(0px) scale3d(1, 1, 1)",
+          },
+          "30%": {
+            transform: "translateY(1px) scale3d(1.125, 0.8075, 1)",
+          },
+          "40%": {
+            transform: "translateY(-6px) scale3d(0.875, 1.25, 1)",
+            "animation-timing-function": "ease-in-out",
+          },
+
+          "50%": {
+            transform: "translateY(.5px) scale3d(1.15, 0.85, 1)",
+          },
+
+          "65%": {
+            transform: "translateY(0px) scale3d(0.95, 1.05, 1)",
+          },
+
+          "75%": {
+            transform: "translateY(0px) scale3d(1.05, 0.95, 1)",
+          },
+          to: {
+            transform: "translateY(0px) scale3d(1, 1, 1)",
+          },
+        },
         rubberBandJumpShadow: {
           from: {
             opacity: "1",
@@ -251,6 +278,11 @@ const config: Config = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        fadeInAndScale: {
+          "0%": { opacity: "0", transform: "scale3d(.5,.5,1)" },
+          "30%": { transform: "scale3d(1,1,1)" },
+          "100%": { opacity: "1", transform: "scale3d(1,1,1)" },
+        },
         fadeInAndOut: {
           "0%": { opacity: "0" },
           "20%": { opacity: "1" },
@@ -268,6 +300,8 @@ const config: Config = {
 
         rubberBandJumpNoDelay: "rubberBandJump 1.4s 3 0s",
 
+        rubberBandJumpNoDelay2: "rubberBandJump 1.4s 1 1s",
+
         rubberBandJump: "rubberBandJump 1.4s 3 2s",
         rubberBandJumpShadow: "rubberBandJumpShadow 1.4s 3 2s",
 
@@ -276,9 +310,11 @@ const config: Config = {
         hflip: "flipHorizontal 2s 1",
         vflip: "flipVertical 2s 1",
         fadeIn: "fadeIn .5s ease-in",
+        fadeInAndScale: "fadeInAndScale .5s ease-in",
         fadeInQuick: "fadeIn .2s ease-in",
         fadeInDelayed: "fadeIn .5s ease-in .5s",
-        fadeInAndOut: "fadeInAndOut 2200ms ease-in 0s",
+        mushroomButton: "mushroomButton 1.2s 3 300ms",
+        fadeInAndOut: "fadeInAndOut 3200ms ease-in 0s",
         legendSlideIn: "legend-slide-in 0.6s ease-out 1s forwards",
       },
     },

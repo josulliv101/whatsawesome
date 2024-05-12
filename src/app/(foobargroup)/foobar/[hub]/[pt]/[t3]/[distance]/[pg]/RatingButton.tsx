@@ -1,7 +1,9 @@
 "use client";
 
 import { useAuthContext } from "@/components/AuthContext";
+import MushroomButton from "@/components/MushroomButton2";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { leaveMushroom } from "@/lib/actions";
 import { config } from "@/lib/config";
 import { isMushroomPresentByUser } from "@/lib/firebase";
@@ -13,10 +15,11 @@ import { toast } from "sonner";
 
 export default function RatingButton({
   rating,
+
+  // mushroomPromise,
+  isLeaveMushroom,
   profileId,
   excellenceId,
-  // mushroomPromise,
-  isAdd,
   userId,
   cacheTag,
 }: any) {
@@ -65,7 +68,7 @@ export default function RatingButton({
         profileId,
         excellenceId,
         pathname,
-        isAdd
+        !isLeaveMushroom
       );
 
       if (isSuccess) {
@@ -85,52 +88,43 @@ export default function RatingButton({
 
   return (
     <div className="flex items-center gap-1">
-      <Button
-        className="animate-fadeInQuick bg-gray-100 hover:bg-gray-50 text-muted-foreground min-w-0 gap-2 disabled:opacity-100"
+      <MushroomButton
+        isLeaveMushroom={isLeaveMushroom}
+        profileId={excellenceId}
+        excellenceId={excellenceId}
+        userId={userId}
+        cacheTag={cacheTag}
+      />
+      {/* <Button
+        className={cn(
+          "group animate-fadeInQuick  hover:bg-gray-100 justify-center transition-all duration-700 text-muted-foreground min-w-0 gap-2 disabled:opacity-100",
+          isPending ? "bg-gray-50" : "bg-gray-100",
+          isPending || isAdd ? "w-12" : "w-[166px]"
+        )}
         disabled={isPending}
         size={"sm"}
         onClick={handleLeaveMushroom}
       >
-        <div className="flex items-center gap-2">
-          {isPending && (
-            <div
+        {!isAdd && isPending && (
+          <span className="flex items-center gap-4 px-2">
+            <Loader2 className="h-4 w-4 opacity-60 text-muted-foreground animate-spin z-50" />
+          </span>
+        )}
+        {!isAdd && !isPending && "Leave a mushroom"}
+        {isAdd && (
+          <span>
+            <img
               className={cn(
-                "absolute animate-fadeInQuick opacity-60 flex items-center gap-2 text-sm text-muted-foreground",
-                isRecalculatingOrder ? "-left-[160px]" : "-left-[60px]"
+                "animate-rubberBandJumpNoDelay relative origin-bottom transition-all",
+                "w-7 h-7  opacity-100 grayscale-0"
               )}
-            >
-              {isPending && !isRecalculatingOrder && (
-                <span className="animate-fadeInAndOut opacity-0">Saving</span>
-              )}
-              {isPending && isRecalculatingOrder && (
-                <span className="animate-fadeInQuick">
-                  Recalculating rankings
-                </span>
-              )}
-            </div>
-          )}
-          <div className="flex items-center gap-2">
-            {isPending ? (
-              <Loader2 className="h-4 w-4 text-muted-foreground animate-spin z-50" />
-            ) : (
-              <>
-                {rating}
-                <img
-                  className={cn(
-                    "relative -top-0.5 transition-all",
-                    isAdd
-                      ? "w-4 h-4  opacity-70 grayscale"
-                      : "w-5 h-5  opacity-100 grayscale-0"
-                  )}
-                  src={config.logoPath}
-                  width="24"
-                  height="24"
-                />
-              </>
-            )}
-          </div>
-        </div>
-      </Button>
+              src={config.logoPath}
+              width="24"
+              height="24"
+            />
+          </span>
+        )}
+      </Button> */}
     </div>
   );
 }

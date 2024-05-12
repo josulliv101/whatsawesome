@@ -162,7 +162,8 @@ export default async function Page({
                     </span>
                   )}
                 </p>
-                <div className="flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 rounded-md absolute top-0 right-4 md:right-0">
+                {/* flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 */}
+                <div className=" rounded-md absolute top-0 right-4 md:right-0">
                   <Suspense
                   // fallback={
                   //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
