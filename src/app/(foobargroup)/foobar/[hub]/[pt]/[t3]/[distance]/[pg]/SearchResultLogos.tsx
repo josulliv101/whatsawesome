@@ -33,7 +33,7 @@ export default function SearchResultLogos({ hits, pg = 0 }: any) {
                 src={hit.parent?.parentPhotoUrl}
                 width="240"
                 height="240"
-                className={`rounded-t-md border`}
+                className={`rounded-t-md border block h-full object-cover`}
               />
             )}
             {!hit.parent?.parentPhotoUrl && (
