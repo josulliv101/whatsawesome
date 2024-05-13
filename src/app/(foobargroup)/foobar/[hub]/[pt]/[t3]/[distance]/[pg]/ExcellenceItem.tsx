@@ -14,6 +14,7 @@ export default function ExcellenceItem({
   excellenceId,
   photoUrl,
   tags,
+  rank,
 }: PropsWithChildren<{
   name: string;
   rating: number;
@@ -21,6 +22,7 @@ export default function ExcellenceItem({
   excellenceId?: string;
   photoUrl?: string;
   tags: Array<string>;
+  rank?: number;
 }>) {
   return (
     <div className="animate-fadeIn__ flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row items-stretch gap-8 w-full h-max md:h-[240px]">
@@ -37,7 +39,7 @@ export default function ExcellenceItem({
         <div className="px-4 md:px-0 static md:absolute top-0 left-0 flex flex-col md:flex-row items-start md:items-center gap-4">
           <span className="font-semibold text-lg">{name}</span>
           {!!tags.length && <SlashIcon className="w-4 h-4 hidden md:block" />}
-          <div>
+          <div className="flex items-center gap-2">
             {tags?.map((tag) => (
               <Badge key={tag} variant={"outline"}>
                 {tag}
@@ -46,17 +48,27 @@ export default function ExcellenceItem({
           </div>
         </div>
         {children}
-        <div className="absolute bottom-2 left-2 flex items-center gap-2">
-          {rating}{" "}
-          <img
-            className={cn(
-              "relative -top-0.5 transition-all",
-              "w-5 h-5  opacity-100 grayscale-0"
-            )}
-            src={config.logoPath}
-            width="24"
-            height="24"
-          />
+        <div className="absolute bottom-2 left-2 flex items-center gap-6 text-sm text-muted-foreground">
+          {!!rank && (
+            <span className="-mt-0">
+              ranked{" "}
+              <Badge variant={"default"} className="-mt-1 scale-[.9] ml-1">
+                {rank}
+              </Badge>
+            </span>
+          )}
+          <div className="flex items-center gap-2 border-0 rounded-full px-2 py-1 text-sm ">
+            {rating}{" "}
+            <img
+              className={cn(
+                "relative -top-0 transition-all",
+                "w-4 h-4  opacity-100 grayscale-0"
+              )}
+              src={config.logoPath}
+              width="24"
+              height="24"
+            />
+          </div>
         </div>
       </div>
     </div>

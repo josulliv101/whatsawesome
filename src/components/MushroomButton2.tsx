@@ -16,6 +16,7 @@ export default function MushroomButton2({
   excellenceId,
   userId,
   cacheTag,
+  rank,
 }: any) {
   const pathname = usePathname();
   const router = useRouter();
@@ -24,6 +25,22 @@ export default function MushroomButton2({
   const [isUpdatingOrder, setIsUpdatingOrder] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isShowHeart, setIsShowHeart] = useState(false);
+
+  const isRemoveMushroom = !isLeaveMushroom;
+
+  useEffect(() => {
+    if (isLeaveMushroom) {
+      setIsPending(false);
+      setIsUpdatingOrder(false);
+      setIsTransitionToIcon(false);
+    }
+    if (!isLeaveMushroom) {
+      setIsPending(false);
+      setIsUpdatingOrder(false);
+      setIsTransitionToIcon(false);
+      // setTimeout(() => setIsShowHeart(true), 3900);
+    }
+  }, [isLeaveMushroom]);
 
   useEffect(() => {
     if (isPending) {
@@ -42,8 +59,6 @@ export default function MushroomButton2({
       );
     } else if (userId && profileId && excellenceId) {
       setIsPending(true);
-      // setTimeout(() => setIsRecalculatingOrder(true), 2200);
-      // console.log("CLIENT", isAdd);
       const { isSuccess: isLeaveMushroomSuccess, rating: updatedRating } =
         await leaveMushroom(
           userId,
@@ -59,19 +74,8 @@ export default function MushroomButton2({
           router.refresh();
         }, 3500);
       }
-      // setRatingDetails({
-      //   isPresent: !isMushroomPresent,
-      //   rating: updatedRating,
-      // });
-      // setIsPending(false);
-      // console.log(updatedRating, "updatedRating", isAdd);
     }
   };
-
-  // if (!isLeaveMushroom) {
-  //   return <Button onClick={handleLeaveMushroom}>remove</Button>;
-  // }
-
   return (
     <Button
       variant={"outline"}
@@ -79,12 +83,14 @@ export default function MushroomButton2({
       size="sm"
       className={cn(
         "relative transition-all duration-500 gap-2 text-muted-foreground",
-        isTransitionToIcon || !isLeaveMushroom ? "w-12" : "w-44",
-        isLeaveMushroom ? "" : "border-transparent bg-transparent"
+        (isLeaveMushroom && isTransitionToIcon) || !isLeaveMushroom
+          ? "w-12"
+          : "w-44",
+        isRemoveMushroom ? "border-transparent_ bg-transparent_" : ""
       )}
     >
       {!isSuccess && isLeaveMushroom && !isPending && "Leave a mushroom"}
-      {!isSuccess && isLeaveMushroom && isPending && (
+      {!isSuccess && isPending && isLeaveMushroom && (
         <span
           className={cn(
             "absolute -left-4 -translate-x-full transition-opacity delay-1000 duration-500",
@@ -92,63 +98,41 @@ export default function MushroomButton2({
             isSuccess ? "border-0" : ""
           )}
         >
-          {/* {!isUpdatingOrder && (
-            <span className="animate-fadeInDelayed font-normal">Saving</span>
-          )} */}
           {true && (
             <span className="animate-fadeInQuick font-normal text-gray-400 flex items-center gap-2">
               <Loader2Icon className="h-3 w-3 animate-spin text-gray-500 opacity-40" />{" "}
               Saving
             </span>
           )}
-          {/* <span
-            className={cn(
-              "delay-[2000ms]",
-              isTransitionToIcon ? "opacity-100" : "opacity-0"
-            )}
-          >
-            Updating rankings
-          </span> */}
         </span>
       )}
       {isPending && !isUpdatingOrder && isLeaveMushroom && (
         <Loader2Icon className="h-4 w-4 animate-spin text-blue-500 opacity-80" />
       )}
-      {/* animate-rubberBandJumpNoDelay2 */}
-      {((isUpdatingOrder && isLeaveMushroom) || !isLeaveMushroom) && (
+      {((isUpdatingOrder && isLeaveMushroom) || isRemoveMushroom) && (
         <div className="animate-fadeInAndScale origin-bottom flex flex-col items-center">
-          {/* <img
-            className={cn(
-              "w-6 h-6",
-              "animate-mushroomButton"
-              // "transition-all duration-300",
-              // isUpdatingOrder ? "opacity-100" : "opacity-0"
-            )}
-            src={config.logoPath}
-            width="24"
-            height="24"
-          /> */}
           <img
-            // ref={refLogo}
             className={`relative top-0.5 w-6 h-6 origin-bottom animate-mushroomButton`}
             src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
             onAnimationEnd={(ev) => {
               setIsShowHeart(true);
+              // setIsPending(false);
             }}
           />
           <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[22px] origin-bottom rounded-full " />
         </div>
       )}
-      {!isLeaveMushroom && isShowHeart && (
+      {
         <Heart
           className={cn(
-            "w-3.5 h-3.5 animate-fadeIn absolute right-[7px] top-[0px] stroke-[2.5px] text-white fill-red-500"
-            // "transition duration-300",
-            // isShowHeart ? "opacity-100" : "opacity-0"
+            "w-3.5 h-3.5 transition-transform duration-500 animate-fadeIn absolute right-[7px] top-[0px] stroke-[2.5px] text-white fill-red-500",
+            isRemoveMushroom && isShowHeart && !isPending
+              ? "scale-100"
+              : "scale-0"
           )}
         />
-      )}
+      }
     </Button>
   );
 }

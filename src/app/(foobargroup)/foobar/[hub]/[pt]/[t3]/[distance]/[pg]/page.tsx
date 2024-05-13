@@ -154,6 +154,7 @@ export default async function Page({
                 rating={rating}
                 photoUrl={photoUrl}
                 tags={tags}
+                rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
               >
                 <p className="w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-2xl">
                   {reason || (

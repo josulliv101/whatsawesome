@@ -5,6 +5,7 @@ import { useMapContext } from "@/components/MapContext";
 import { useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 // import MapContext from "@/components/MapContext";
 // import { use } from "react";
 
@@ -21,7 +22,7 @@ export default function SearchResultLogos({ hits, pg = 0 }: any) {
         return (
           <div
             key={hit.objectID + index}
-            className={`animate-fadeIn relative col-span-1 transition-opacity duration-500 text-white bg-black text-balance rounded-md ${false && mapState && mapState !== hit.objectID ? "opacity-10 grayscale" : "opacity-90 grayscale-0"} text-center flex items-center justify-center`}
+            className={`animate-fadeIn relative col-span-1 transition-opacity duration-500 text-white text-balance rounded-md ${false && mapState && mapState !== hit.objectID ? "opacity-10 grayscale" : "opacity-90 grayscale-0"} text-center flex flex-col items-center justify-start`}
             onMouseOver={() => setMapState(hit.objectID)}
             onMouseOut={() => setMapState("")}
           >
@@ -32,15 +33,33 @@ export default function SearchResultLogos({ hits, pg = 0 }: any) {
                 src={hit.parent?.parentPhotoUrl}
                 width="240"
                 height="240"
-                className={`rounded-md border`}
+                className={`rounded-t-md border`}
               />
             )}
             {!hit.parent?.parentPhotoUrl && (
-              <div className="px-4">
+              <div
+                className={cn(
+                  "flex items-center justify-center",
+                  "h-full w-full",
+                  "bg-gray-100 text-primary",
+                  "px-4 rounded-t-md"
+                )}
+              >
                 {!hit.parent?.parentPhotoUrl && hit.parent?.name}
               </div>
             )}
-            <Badge className="absolute border border-white/50 bottom-2 right-2 z-10">
+            <div
+              className={cn(
+                "flex items-center justify-center",
+                "w-full min-h-[48px]",
+                "bg-black",
+                "px-2 py-1 border-t border-t-white rounded-b-md",
+                "text-balance text-sm"
+              )}
+            >
+              {hit.parent?.name}
+            </div>
+            <Badge className="absolute bg-black text-white border border-white/50 bottom-14 right-2 z-10 opacity-95">
               {paramPg * 5 + index + 1}
             </Badge>
           </div>
