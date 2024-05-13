@@ -6,7 +6,7 @@ import {
 } from "@/lib/firebase";
 import RatingButton from "./RatingButton";
 import { getCurrentUser } from "@/lib/auth";
-import MushroomButton from "@/components/MushroomButton2";
+import MushroomButton2 from "@/components/MushroomButton2";
 
 export default async function Rating({
   // rating,
@@ -18,12 +18,12 @@ export default async function Rating({
   const user = await getCurrentUser();
   const uid = user?.uid;
   const rating = await getExcellenceRating(profileId, excellenceId);
-  const userMushroomMap = await fetchMushroomMapForUser(uid);
+  const userMushroomMap = await fetchMushroomMapForUser(uid || "");
   const isMushroomPresent = userMushroomMap[excellenceId]?.mushroom === true;
 
   console.log("Rating...", user?.uid, uid, isMushroomPresent);
   return (
-    <MushroomButton
+    <MushroomButton2
       // key={isMushroomPresent}
       rating={rating}
       profileId={profileId}

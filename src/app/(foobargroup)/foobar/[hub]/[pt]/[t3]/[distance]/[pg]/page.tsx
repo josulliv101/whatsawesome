@@ -1,7 +1,11 @@
 import { collectionGroup, query, where, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
+import {
+  getCacheTagFromParams,
+  searchTopAoeByCategory,
+  searchTopAoeByRadius,
+} from "@/lib/search";
 import Link from "next/link";
 import FoobarMap from "./FoobarMap";
 import {
@@ -162,7 +166,9 @@ export default async function Page({
               ...getPrimaryTagsFromTags(_tags),
               ...getLevel3TagsFromTags(_tags),
             ];
-            const cacheTag = [hub, "place", pt, t3, distance].join("-");
+
+            const cacheTag = getCacheTagFromParams(hub, [pt, t3], distance); // [hub, "place", pt, t3, distance].join("-");
+            console.log("cache tag from page", cacheTag);
             return (
               <ExcellenceItem
                 key={excellenceId + index}

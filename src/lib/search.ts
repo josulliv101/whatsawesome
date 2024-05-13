@@ -104,6 +104,17 @@ export async function searchProfilesByMapBounds(
   return [results];
 }
 
+export function getCacheTagFromParams(
+  hub: string,
+  tags: Array<string> = [],
+  distance: number = 0
+) {
+  const sortedTags = Array.isArray(tags)
+    ? tags.filter((tag) => tag !== "place").sort()
+    : [];
+  return [hub, ...sortedTags, distance].join("-");
+}
+
 export async function searchTopAoe(
   hub: string,
   tags: string[] = [],
@@ -112,8 +123,9 @@ export async function searchTopAoe(
 ): Promise<Array<any>> {
   console.log("searchTopAoe", hub, tags, hitsPerCategory, pg);
   const dedup = new Set([hub, ...tags]);
+  const cacheTag = getCacheTagFromParams(hub, tags, 0); // [hub, ...tags, 0].join("-");
   const query = [...dedup].join(",");
-  console.log("query", query);
+  console.log("searchTopAoe cacheTag!!!", cacheTag);
   const url = `https://1P2U1C41BE-dsn.algolia.net/1/indexes/wa_entity_foobar_by_rating/query`; // ?&attributesToHighlight=&hitsPerPage=${hitsPerCategory}&query=${query}`;
   const data = await fetch(url, {
     method: "POST",
@@ -122,6 +134,7 @@ export async function searchTopAoe(
       "X-Algolia-Application-Id": "1P2U1C41BE",
     },
     cache: "force-cache",
+    next: { tags: [cacheTag] },
     body: JSON.stringify({
       attributesToHighlight: [],
       hitsPerPage: hitsPerCategory,
@@ -331,7 +344,7 @@ export async function searchTopAoeByRadius(
   asArray?: boolean,
   latlng?: any
 ): Promise<any> {
-  const cacheTag = [hub, ...tags, searchRadius].join("-");
+  const cacheTag = getCacheTagFromParams(hub, tags, searchRadius);
   const pageParam =
     (typeof pg === "number" && pg) ||
     (typeof pg === "string" && pg && pg !== "index")
