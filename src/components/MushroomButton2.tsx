@@ -69,9 +69,10 @@ export default function MushroomButton2({
 
       if (isLeaveMushroomSuccess) {
         setTimeout(async () => {
+          console.log("call endpoint to revalidate tag", cacheTag);
           await fetch(`/api/cache?tag=${cacheTag}`);
           router.refresh();
-        }, 3500);
+        }, 4000);
       }
     }
   };

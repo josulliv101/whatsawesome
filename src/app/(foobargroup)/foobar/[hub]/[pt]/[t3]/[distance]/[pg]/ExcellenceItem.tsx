@@ -51,7 +51,7 @@ export default function ExcellenceItem({
         <div className="absolute bottom-2 left-2 flex items-center gap-6 text-sm text-muted-foreground">
           {!!rank && (
             <span className="-mt-0">
-              ranked{" "}
+              rank{" "}
               <Badge variant={"default"} className="-mt-1 scale-[.9] ml-1">
                 {rank}
               </Badge>

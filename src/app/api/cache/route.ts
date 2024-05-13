@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const path = searchParams.get("path");
   const tag = searchParams.get("tag");
-
+  console.log("cache endpoint", tag, path);
   if (tag) {
     revalidateTag(tag);
   }

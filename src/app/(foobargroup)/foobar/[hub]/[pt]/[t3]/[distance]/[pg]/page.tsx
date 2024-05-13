@@ -14,7 +14,12 @@ import ExcellenceItem from "./ExcellenceItem";
 import { Suspense } from "react";
 import RatingButton from "./RatingButton";
 // import { getCurrentUser } from "@/lib/auth";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
+import {
+  BadgeCheckIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  Loader2,
+} from "lucide-react";
 import Rating from "./Rating";
 import Foobar from "./Foobar";
 import { cookies } from "next/headers";
@@ -79,9 +84,20 @@ export default async function Page({
   return (
     <>
       <Breadcrumb>
-        <div className="capitalize">
-          {hubProfile.name} /{" "}
-          {pt !== "index" && t3 !== "index" ? `${pt} / ${t3}` : "Featured"}
+        <div className="capitalize font-semibold flex items-center gap-4">
+          Results {getDistanceLabel(Number(distance))} {hubProfile.name}{" "}
+          <span>/</span>
+          {pt !== "index" && t3 !== "index" ? (
+            <div className="flex items-center gap-2">
+              <span>{pt}</span>
+              <BadgeCheckIcon
+                className={`h-5 w-5 mr-0 text-blue-500 opacity-80`}
+              />
+              <span>{t3}</span>
+            </div>
+          ) : (
+            "Featured"
+          )}
         </div>
         {!isHubHomepage({ hub, pt, t3 }) && (
           <div className="flex items-center gap-4">
@@ -198,4 +214,19 @@ export default async function Page({
       </div>
     </>
   );
+}
+
+function getDistanceLabel(distance?: number) {
+  if (distance === undefined || distance === null) {
+    return "";
+  }
+  if (distance === 0) {
+    return "in";
+  }
+
+  if (distance === 4) {
+    return "near";
+  }
+
+  return `within ${distance} miles of`;
 }
