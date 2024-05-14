@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { fetchProfile } from "@/lib/firebase";
 import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
@@ -59,7 +65,7 @@ export default async function Page({
   //   );
   // }
   return (
-    <aside className="w-[28vw] min-w-[320px] flex flex-col items-center justify-between p-8 relative bg-gray-200 border-r border-gray-300">
+    <aside className="w-[28vw] min-w-[320px] flex flex-col items-center justify-between p-8 bg-gray-200 border-r border-gray-300">
       {true && (
         <>
           <p>
@@ -67,9 +73,20 @@ export default async function Page({
             platform in discovering excellence in the world around you.
           </p>
           {hubProfile.name && (
-            <Button size="lg" className="text-2xl px-4 py-10 w-full" asChild>
-              <Link href={`/foobar/${hub}`}>{hubProfile.name}</Link>
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="lg"
+                  className="text-2xl px-4 py-10 w-full"
+                  asChild
+                >
+                  <Link href={`/foobar/${hub}`}>{hubProfile.name}</Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="top" sideOffset={20}>
+                <p>View {hubProfile.name} Profile</p>
+              </TooltipContent>
+            </Tooltip>
           )}
         </>
       )}

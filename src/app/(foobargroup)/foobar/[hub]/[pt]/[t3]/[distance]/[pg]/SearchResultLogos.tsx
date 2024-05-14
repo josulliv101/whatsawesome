@@ -59,7 +59,8 @@ export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
                     "flex items-center justify-center",
                     "h-full w-full",
                     "bg-black text-white",
-                    "px-4 rounded-t-md"
+                    "px-4 rounded-t-md",
+                    isRow ? "rounded-b-md" : ""
                   )}
                 >
                   {!hit.parent?.parentPhotoUrl && hit.parent?.name}

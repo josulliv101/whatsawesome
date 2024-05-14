@@ -17,13 +17,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { isHubHomepage } from "@/lib/utils";
+import Sidebar from "../Sidebar";
 
 const NEAR_RADIUS = "4";
 
 export default async function Page({ params: { hub, pt, t3, distance } }: any) {
   return (
-    <>
-      <div className="bg-blue-100/50 px-8 text-muted-foreground_ w-full pt-6 pb-4">
+    <Sidebar>
+      <div className=" bg-blue-100/50 px-8 text-muted-foreground_ w-full pt-6 pb-4">
         <div className="flex items-center justify-between w-full mb-4 font-semibold text-md _capitalize text-muted-foreground">
           Discover excellence in the world around you.
           <span className="font-normal text-sm"></span>
@@ -121,6 +122,6 @@ export default async function Page({ params: { hub, pt, t3, distance } }: any) {
         )}
       </div>
       <AoeByCategory hub={hub} t3={t3} distance={distance} />
-    </>
+    </Sidebar>
   );
 }

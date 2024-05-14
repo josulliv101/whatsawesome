@@ -18,12 +18,12 @@ export default function RootFoobarLayout({
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-12 md:col-span-8">
-        <div className="flex w-full">
+        <div className="flex w-full sticky top-[64px]">
           {foobarmapaside}
           <FoobarMap>{foobarmap}</FoobarMap>
         </div>
 
-        {children}
+        <div className="bg-gray-50 relative z-10">{children}</div>
       </div>
       <div className="bg-gray-100 hidden md:block md:col-span-4">
         {foobarsidebar}

@@ -35,6 +35,7 @@ import SearchResultLogos from "./SearchResultLogos";
 import { Separator } from "@/components/ui/separator";
 import NavBar from "./NavBar";
 import SearchLogoTabs from "./SearchLogoTabs";
+import AreasOfExcellenceBar from "./AreasOfExcellenceBar";
 
 // export const dynamic = "force-static";
 
@@ -88,7 +89,7 @@ export default async function Page({
   }
 
   return (
-    <>
+    <div>
       <Breadcrumb>
         <div className="capitalize text-xl font-semibold flex items-center gap-4">
           {hubProfile.name} <span>/</span>
@@ -103,7 +104,7 @@ export default async function Page({
               <span>{t3}</span>
             </div>
           ) : (
-            "Featured"
+            "Profile"
           )}
         </div>
         {!isHubHomepage({ hub, pt, t3 }) && (
@@ -144,22 +145,18 @@ export default async function Page({
           </div>
         )}
       </Breadcrumb>
-
-      {/* <NavBar>
-        <h2 className="text-muted-foreground text-lg">Top 10 Results</h2>
-      </NavBar> */}
-      <SearchResultLogos
-        pg={pg}
-        hits={hits}
-        resultsText={`Showing results ${page * hitsPerPage + 1}-
+      {!isHubHomepage({ hub, pt, t3 }) && (
+        <SearchResultLogos
+          pg={pg}
+          hits={hits}
+          resultsText={`Showing results ${page * hitsPerPage + 1}-
             ${page * hitsPerPage + hitsPerPage} of ${nbHits}`}
-      ></SearchResultLogos>
+        ></SearchResultLogos>
+      )}
+      <AreasOfExcellenceBar />
       {/* <NavBar>
         <div className="flex items-center gap-4 capitalize text-muted-foreground text-lg">
-          <div>
-           
-            {hubProfile.name}
-          </div>
+          <div>{hubProfile.name}</div>
           <span>/</span>
           <span>{pt}</span>
           <BadgeCheckIcon className={`h-6 w-6 mr-0 text-blue-500 opacity-80`} />
@@ -167,77 +164,79 @@ export default async function Page({
         </div>
       </NavBar> */}
       <div className="px-0 py-2 md:px-8 md:py-2 flex flex-col gap-4">
-        <div className="rounded-md bg-muted px-4 py-6 flex flex-col gap-4">
-          {hits?.map(
-            (
-              {
-                objectID: excellenceId,
-                parent,
-                photoUrl,
-                reason,
-                rating,
-                _tags = [],
-              }: any,
-              index: number
-            ) => {
-              const tags = [
-                ...getPrimaryTagsFromTags(_tags),
-                ...getLevel3TagsFromTags(_tags),
-              ];
+        {!isHubHomepage({ hub, pt, t3 }) && (
+          <div className="rounded-md bg-muted px-4 py-6 flex flex-col gap-4">
+            {hits?.map(
+              (
+                {
+                  objectID: excellenceId,
+                  parent,
+                  photoUrl,
+                  reason,
+                  rating,
+                  _tags = [],
+                }: any,
+                index: number
+              ) => {
+                const tags = [
+                  ...getPrimaryTagsFromTags(_tags),
+                  ...getLevel3TagsFromTags(_tags),
+                ];
 
-              const cacheTag = getCacheTagFromParams(hub, [pt, t3], distance); // [hub, "place", pt, t3, distance].join("-");
-              console.log("cache tag from page", cacheTag);
-              return (
-                <ExcellenceItem
-                  key={excellenceId + index}
-                  name={parent.name}
-                  rating={rating}
-                  photoUrl={photoUrl}
-                  tags={tags}
-                  rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
-                >
-                  <p className="text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
-                    {reason || (
-                      <span className="text-muted-foreground text-base">
-                        &lt; empty item &gt;
-                      </span>
-                    )}
-                  </p>
-                  {/* flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 */}
-                  <div className=" rounded-md absolute top-2 right-4 md:right-4">
-                    <Suspense
-                    // fallback={
-                    //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
-                    // }
-                    >
-                      <Rating
-                        // rating={rating}
-                        profileId={parent?.id}
-                        // uid={uid}
-                        excellenceId={excellenceId}
-                        cacheTag={cacheTag}
-                        // mushroomMapPromise={mushroomMapPromise}
-                        // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
-                      />
-                    </Suspense>
-                  </div>
+                const cacheTag = getCacheTagFromParams(hub, [pt, t3], distance); // [hub, "place", pt, t3, distance].join("-");
+                console.log("cache tag from page", cacheTag);
+                return (
+                  <ExcellenceItem
+                    key={excellenceId + index}
+                    name={parent.name}
+                    rating={rating}
+                    photoUrl={photoUrl}
+                    tags={tags}
+                    rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
+                  >
+                    <p className="text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
+                      {reason || (
+                        <span className="text-muted-foreground text-base">
+                          &lt; empty item &gt;
+                        </span>
+                      )}
+                    </p>
+                    {/* flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 */}
+                    <div className=" rounded-md absolute top-2 right-4 md:right-4">
+                      <Suspense
+                      // fallback={
+                      //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
+                      // }
+                      >
+                        <Rating
+                          // rating={rating}
+                          profileId={parent?.id}
+                          // uid={uid}
+                          excellenceId={excellenceId}
+                          cacheTag={cacheTag}
+                          // mushroomMapPromise={mushroomMapPromise}
+                          // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
+                        />
+                      </Suspense>
+                    </div>
 
-                  {/*<RatingButton
+                    {/*<RatingButton
                 rating={rating}
                 profileId={parent?.id}
                 excellenceId={excellenceId}
                 // mushroomPromise={Promise.resolve(true)}
               /> */}
-                </ExcellenceItem>
-              );
-            }
-          )}
-        </div>
+                  </ExcellenceItem>
+                );
+              }
+            )}
+          </div>
+        )}
         {isHubHomepage({ hub, pt, t3 }) && (
           <ProfilePageContent params={{ id: hub }} isEmbed />
         )}
       </div>
-    </>
+    </div>
   );
 }
 
