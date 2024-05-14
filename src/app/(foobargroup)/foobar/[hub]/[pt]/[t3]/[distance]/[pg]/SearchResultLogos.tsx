@@ -11,7 +11,7 @@ import SearchLogoTabs from "./SearchLogoTabs";
 // import { use } from "react";
 
 export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
-  const [activeTabValue, setTabValue] = useState("grid");
+  const [activeTabValue, setTabValue] = useState("row");
   const paramPg =
     typeof pg === "string" && !!pg && pg !== "index" ? Number(pg) : 0;
   const { mapState, setMapState } = useMapContext();
@@ -19,7 +19,7 @@ export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
   // map?.addListener("mousemove", (...args) => console.log("m", ...args));
   return (
     <>
-      <div className="flex items-end justify-between mx-8 mt-6 mb-2">
+      <div className="flex items-end justify-between mx-8 mt-6 mb-0">
         <div className="text-muted-foreground text-lg ">{resultsText}</div>
         <SearchLogoTabs value={activeTabValue} onChange={setTabValue} />
       </div>
@@ -27,7 +27,7 @@ export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
         className={cn(
           "grid",
           isRow ? "grid-cols-10" : "grid-cols-5",
-          isRow ? "md:gap-1 py-4" : "md:gap-2 md:py-4",
+          isRow ? "md:gap-1 pt-3" : "md:gap-2 md:py-4",
           "mx-8 gap-1 md:gap-y-4 mt-0"
           // "px-4 rounded-md bg-muted"
         )}

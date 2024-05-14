@@ -91,7 +91,7 @@ export default async function Page({
   return (
     <div>
       <Breadcrumb>
-        <div className="capitalize text-xl font-semibold flex items-center gap-4">
+        <div className="capitalize text-lg font-semibold flex items-center gap-4">
           {hubProfile.name} <span>/</span>
           {getDistanceLabel(Number(distance))}
           <span>/</span>

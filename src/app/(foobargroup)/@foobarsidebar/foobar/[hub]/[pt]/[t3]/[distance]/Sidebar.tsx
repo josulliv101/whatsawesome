@@ -9,7 +9,7 @@ export default function Sidebar({ children }: PropsWithChildren) {
   return (
     <div
       className={cn(
-        "",
+        "transform-gpu",
         !isStuck ? "relative top-[320px]" : "sticky top-[64px]"
       )}
     >
