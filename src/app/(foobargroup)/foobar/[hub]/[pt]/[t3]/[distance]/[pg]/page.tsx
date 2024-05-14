@@ -33,6 +33,8 @@ import { isHubHomepage } from "@/lib/utils";
 import ProfilePageContent from "@/app__/profile/[...id]/ProfilePageContent";
 import SearchResultLogos from "./SearchResultLogos";
 import { Separator } from "@/components/ui/separator";
+import NavBar from "./NavBar";
+import SearchLogoTabs from "./SearchLogoTabs";
 
 // export const dynamic = "force-static";
 
@@ -64,7 +66,7 @@ export default async function Page({
           Number(distance),
           ["place", pt, t3].filter((tag) => tag !== "index"),
           10,
-          5,
+          10,
           pageParam,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`
@@ -88,8 +90,9 @@ export default async function Page({
   return (
     <>
       <Breadcrumb>
-        <div className="capitalize font-semibold flex items-center gap-4">
-          Results {getDistanceLabel(Number(distance))} {hubProfile.name}{" "}
+        <div className="capitalize text-xl font-semibold flex items-center gap-4">
+          {hubProfile.name} <span>/</span>
+          {getDistanceLabel(Number(distance))}
           <span>/</span>
           {pt !== "index" && t3 !== "index" ? (
             <div className="flex items-center gap-2">
@@ -105,12 +108,7 @@ export default async function Page({
         </div>
         {!isHubHomepage({ hub, pt, t3 }) && (
           <div className="flex items-center gap-4">
-            <div className="pr-2">
-              {/* test {hub} {pt} {t3} {distance} {pg} | Showing{" "} */}
-              showing results {page * hitsPerPage + 1}-
-              {page * hitsPerPage + hitsPerPage} of {nbHits}
-            </div>
-            <Separator className="h-5 bg-gray-400" orientation="vertical" />
+            {/* <Separator className="h-5 bg-gray-400" orientation="vertical" /> */}
             <div className="flex items-center gap-6">
               <Button
                 className={`px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
@@ -147,73 +145,94 @@ export default async function Page({
         )}
       </Breadcrumb>
 
-      <SearchResultLogos pg={pg} hits={hits} />
+      {/* <NavBar>
+        <h2 className="text-muted-foreground text-lg">Top 10 Results</h2>
+      </NavBar> */}
+      <SearchResultLogos
+        pg={pg}
+        hits={hits}
+        resultsText={`Showing results ${page * hitsPerPage + 1}-
+            ${page * hitsPerPage + hitsPerPage} of ${nbHits}`}
+      ></SearchResultLogos>
+      {/* <NavBar>
+        <div className="flex items-center gap-4 capitalize text-muted-foreground text-lg">
+          <div>
+           
+            {hubProfile.name}
+          </div>
+          <span>/</span>
+          <span>{pt}</span>
+          <BadgeCheckIcon className={`h-6 w-6 mr-0 text-blue-500 opacity-80`} />
+          <span>{t3}</span>
+        </div>
+      </NavBar> */}
+      <div className="px-0 py-2 md:px-8 md:py-2 flex flex-col gap-4">
+        <div className="rounded-md bg-muted px-4 py-6 flex flex-col gap-4">
+          {hits?.map(
+            (
+              {
+                objectID: excellenceId,
+                parent,
+                photoUrl,
+                reason,
+                rating,
+                _tags = [],
+              }: any,
+              index: number
+            ) => {
+              const tags = [
+                ...getPrimaryTagsFromTags(_tags),
+                ...getLevel3TagsFromTags(_tags),
+              ];
 
-      <div className="px-0 py-2 md:px-8 md:py-4 flex flex-col gap-4">
-        {hits?.map(
-          (
-            {
-              objectID: excellenceId,
-              parent,
-              photoUrl,
-              reason,
-              rating,
-              _tags = [],
-            }: any,
-            index: number
-          ) => {
-            const tags = [
-              ...getPrimaryTagsFromTags(_tags),
-              ...getLevel3TagsFromTags(_tags),
-            ];
+              const cacheTag = getCacheTagFromParams(hub, [pt, t3], distance); // [hub, "place", pt, t3, distance].join("-");
+              console.log("cache tag from page", cacheTag);
+              return (
+                <ExcellenceItem
+                  key={excellenceId + index}
+                  name={parent.name}
+                  rating={rating}
+                  photoUrl={photoUrl}
+                  tags={tags}
+                  rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
+                >
+                  <p className="text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
+                    {reason || (
+                      <span className="text-muted-foreground text-base">
+                        &lt; empty item &gt;
+                      </span>
+                    )}
+                  </p>
+                  {/* flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 */}
+                  <div className=" rounded-md absolute top-2 right-4 md:right-4">
+                    <Suspense
+                    // fallback={
+                    //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
+                    // }
+                    >
+                      <Rating
+                        // rating={rating}
+                        profileId={parent?.id}
+                        // uid={uid}
+                        excellenceId={excellenceId}
+                        cacheTag={cacheTag}
+                        // mushroomMapPromise={mushroomMapPromise}
+                        // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
+                      />
+                    </Suspense>
+                  </div>
 
-            const cacheTag = getCacheTagFromParams(hub, [pt, t3], distance); // [hub, "place", pt, t3, distance].join("-");
-            console.log("cache tag from page", cacheTag);
-            return (
-              <ExcellenceItem
-                key={excellenceId + index}
-                name={parent.name}
-                rating={rating}
-                photoUrl={photoUrl}
-                tags={tags}
-                rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
-              >
-                <p className="w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-2xl">
-                  {reason || (
-                    <span className="text-muted-foreground text-base">
-                      &lt; empty item &gt;
-                    </span>
-                  )}
-                </p>
-                {/* flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 */}
-                <div className=" rounded-md absolute top-0 right-4 md:right-0">
-                  <Suspense
-                  // fallback={
-                  //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
-                  // }
-                  >
-                    <Rating
-                      // rating={rating}
-                      profileId={parent?.id}
-                      // uid={uid}
-                      excellenceId={excellenceId}
-                      cacheTag={cacheTag}
-                      // mushroomMapPromise={mushroomMapPromise}
-                      // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
-                    />
-                  </Suspense>
-                </div>
-
-                {/*<RatingButton
+                  {/*<RatingButton
                 rating={rating}
                 profileId={parent?.id}
                 excellenceId={excellenceId}
                 // mushroomPromise={Promise.resolve(true)}
               /> */}
-              </ExcellenceItem>
-            );
-          }
-        )}
+                </ExcellenceItem>
+              );
+            }
+          )}
+        </div>
         {isHubHomepage({ hub, pt, t3 }) && (
           <ProfilePageContent params={{ id: hub }} isEmbed />
         )}
@@ -234,5 +253,5 @@ function getDistanceLabel(distance?: number) {
     return "near";
   }
 
-  return `within ${distance} miles of`;
+  return `within ${distance} miles`;
 }

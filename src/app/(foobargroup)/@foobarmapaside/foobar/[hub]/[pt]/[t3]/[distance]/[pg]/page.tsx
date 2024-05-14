@@ -20,7 +20,7 @@ export default async function Page({
           Number(distance),
           ["place", pt, t3].filter((tag) => tag !== "index"),
           10,
-          5,
+          10,
           pageParam,
           true,
           `${hubProfile._geoloc.lat}, ${hubProfile._geoloc.lng}`

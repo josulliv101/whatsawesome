@@ -78,7 +78,7 @@ export default function MushroomButton2({
   };
   return (
     <Button
-      variant={"outline"}
+      variant={"ghost"}
       onClick={handleLeaveMushroom}
       size="sm"
       className={cn(
@@ -86,7 +86,7 @@ export default function MushroomButton2({
         (isLeaveMushroom && isTransitionToIcon) ||
           (isRemoveMushroom && !isTransitionToIcon && !isPending)
           ? "w-12"
-          : "w-44",
+          : "w-40",
         isPending ? "bg-muted hover:bg-muted" : "bg-transparent",
         isRemoveMushroom ? "border-transparent" : ""
       )}
