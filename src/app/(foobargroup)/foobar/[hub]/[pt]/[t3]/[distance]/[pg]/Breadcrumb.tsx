@@ -1,11 +1,13 @@
 "use client";
 
+import { useResultsLabelContext } from "@/components/ResultsLabel";
 import { useStickyBreadcrumbContext } from "@/components/StickyBreadcrumb";
 import { PropsWithChildren } from "react";
 import { useInView } from "react-intersection-observer";
 
 export default function Breadcrumb({ children }: PropsWithChildren) {
   const [_, setIsStuck] = useStickyBreadcrumbContext();
+
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 0,

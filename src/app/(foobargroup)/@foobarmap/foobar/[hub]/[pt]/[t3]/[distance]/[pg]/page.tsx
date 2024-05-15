@@ -94,6 +94,7 @@ export default async function Page({
               position={hit._geoloc}
               title={hit?.parent?.name || hit.name}
               photoUrl={hit.photoUrl}
+              parentPhotoUrl={hit?.parent?.parentPhotoUrl}
               excellence={hit.reason}
             >
               <div

@@ -11,7 +11,7 @@ import {
 const Context = createContext<any>(null);
 
 export function MapContextProvider({ children }: PropsWithChildren<{}>) {
-  const [mapState, setMapState] = useState("foob");
+  const [mapState, setMapState] = useState("");
   const value = useMemo(
     () => ({
       mapState,

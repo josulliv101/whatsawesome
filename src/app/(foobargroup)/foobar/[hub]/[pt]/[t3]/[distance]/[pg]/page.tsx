@@ -39,6 +39,7 @@ import SearchLogoTabs from "./SearchLogoTabs";
 import AreasOfExcellenceBar from "./AreasOfExcellenceBar";
 import { Badge } from "@/components/ui/badge";
 import MapRolloversButton from "./MapRolloversButton";
+import { ResultsLabelContextProvider } from "@/components/ResultsLabel";
 
 // export const dynamic = "force-static";
 
@@ -90,7 +91,8 @@ export default async function Page({
   if (pt === "catalog") {
     return <div>Catalog page</div>;
   }
-
+  const resultsText = `Showing results ${page * hitsPerPage + 1}-
+${page * hitsPerPage + hitsPerPage} of ${nbHits}`;
   return (
     <div>
       <Breadcrumb>
@@ -156,8 +158,7 @@ export default async function Page({
         <SearchResultLogos
           pg={pg}
           hits={hits}
-          resultsText={`Showing results ${page * hitsPerPage + 1}-
-            ${page * hitsPerPage + hitsPerPage} of ${nbHits}`}
+          resultsText={resultsText}
         ></SearchResultLogos>
       )}
 

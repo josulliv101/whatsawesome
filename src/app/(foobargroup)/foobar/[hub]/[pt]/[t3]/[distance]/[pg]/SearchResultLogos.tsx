@@ -17,28 +17,49 @@ import {
   useUserScrolledContext,
 } from "@/components/UserScrolled";
 import { useStickyBreadcrumbContext } from "@/components/StickyBreadcrumb";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, TriangleAlertIcon } from "lucide-react";
+import { useResultsLabelContext } from "@/components/ResultsLabel";
+import { Separator } from "@/components/ui/separator";
+import LogoSwatch from "@/components/LogoSwatch";
 // import MapContext from "@/components/MapContext";
 // import { use } from "react";
 
-export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
+export const warningMapScroll =
+  "Scroll the map into full view to enable map tooltip content.";
+
+export default function SearchResultLogos({
+  hits,
+  pg = 0,
+  resultsText = "",
+}: any) {
   const [activeTabValue, setTabValue] = useState("row");
+
+  const [resultsTextFromState, setResultsTextFromState] =
+    useResultsLabelContext();
   const [isStuck, setIsStuck] = useStickyBreadcrumbContext();
-  const [isScrolled, _1, _2, setHelpText] = useUserScrolledContext();
+  const [isScrolled, _1, helpText, setHelpText] = useUserScrolledContext();
   const paramPg =
     typeof pg === "string" && !!pg && pg !== "index" ? Number(pg) : 0;
   const { mapState, setMapState } = useMapContext();
   const isRow = activeTabValue === "row";
 
-  const handleLogoMouseOver = (objectID: string, helpText: string = "bar") => {
+  const handleLogoMouseOver = (objectID: string, name: string = "") => {
+    const parentLogoHit = hits.find((hit: any) => hit.parent?.name === name);
     if (!isScrolled && !isStuck) {
       setMapState(objectID);
     } else if (isScrolled && !isStuck) {
       setMapState(objectID);
-      setHelpText("Scroll the map into full view to see details");
+      setHelpText(warningMapScroll);
     } else if (isScrolled && isStuck) {
-      setHelpText("Scroll the map into full view to see details");
+      setHelpText(warningMapScroll);
     }
+
+    setResultsTextFromState(
+      <LogoSwatch
+        name={name}
+        photoUrl={parentLogoHit?.parent?.parentPhotoUrl}
+      />
+    );
 
     // if (!isScrolled) {
     //   setMapState(objectID);
@@ -60,6 +81,7 @@ export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
     } else if (isScrolled && isStuck) {
       setHelpText("");
     }
+    setResultsTextFromState("");
     // setMapState("");
     // if (!isScrolled) {
     //   setHelpText(defaultHelpText);
@@ -76,7 +98,17 @@ export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
         <div className="text-muted-foreground text-base relative top-0">
           {resultsText}
         </div>
-        <SearchLogoTabs value={activeTabValue} onChange={setTabValue} />
+        <div className="flex items-center gap-8">
+          {helpText && (
+            <>
+              <div className="flex items-center gap-2 animate-fadeIn text-muted-foreground text-sm">
+                <TriangleAlertIcon className="w-4 h-4 text-orange-500/80" />{" "}
+                {helpText}
+              </div>
+            </>
+          )}
+          <SearchLogoTabs value={activeTabValue} onChange={setTabValue} />
+        </div>
       </div>
       <div
         className={cn(

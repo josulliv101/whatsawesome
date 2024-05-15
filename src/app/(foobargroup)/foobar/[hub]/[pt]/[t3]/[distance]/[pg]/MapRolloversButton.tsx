@@ -1,6 +1,7 @@
 "use client";
 
 import { useMapContext } from "@/components/MapContext";
+import { useResultsLabelContext } from "@/components/ResultsLabel";
 import { useStickyBreadcrumbContext } from "@/components/StickyBreadcrumb";
 import { useUserScrolledContext } from "@/components/UserScrolled";
 import { Separator } from "@/components/ui/separator";
@@ -11,12 +12,15 @@ import {
   CheckIcon,
   CircleHelpIcon,
   ThumbsDownIcon,
+  TriangleAlertIcon,
   XCircleIcon,
   XIcon,
 } from "lucide-react";
 
 export default function MapRolloversButton() {
   const { mapState, setMapState } = useMapContext();
+  const [resultsTextFromState, setResultsTextFromState] =
+    useResultsLabelContext();
   const [isScrolled, _, helpText, setHelpText] = useUserScrolledContext();
   const [isStuck] = useStickyBreadcrumbContext();
   return (
@@ -32,7 +36,17 @@ export default function MapRolloversButton() {
           {mapState ? mapState : "map no"} / {isStuck ? "stuck" : "no stuck"} /{" "}
           {isScrolled ? "scrolled" : "no scrolled"}
         </div>
-        {helpText}
+        {resultsTextFromState && (
+          <>
+            <span className="text-lg font-semibold">
+              {resultsTextFromState}
+            </span>{" "}
+            <Separator
+              className="h-6 bg-gray-400/50 ml-4"
+              orientation="vertical"
+            />
+          </>
+        )}
         {/* <CircleHelpIcon className="w-4 h-4 text-blue-500" /> */}
         {
           false && !isScrolled ? (

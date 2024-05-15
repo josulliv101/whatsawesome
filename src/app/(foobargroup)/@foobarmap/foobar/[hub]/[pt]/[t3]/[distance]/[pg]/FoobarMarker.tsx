@@ -16,6 +16,9 @@ import { useStickyBreadcrumbContext } from "@/components/StickyBreadcrumb";
 import MapExcellence from "./MapExcellence";
 import { useUserScrolledContext } from "@/components/UserScrolled";
 import { cn } from "@/lib/utils";
+import { useResultsLabelContext } from "@/components/ResultsLabel";
+import { warningMapScroll } from "@/app/(foobargroup)/foobar/[hub]/[pt]/[t3]/[distance]/[pg]/SearchResultLogos";
+import LogoSwatch from "@/components/LogoSwatch";
 
 const thumbnailSize = 140;
 
@@ -24,11 +27,14 @@ export default function FoobarMarker({
   children,
   excellence,
   photoUrl,
+  parentPhotoUrl,
   size = 24,
   title,
   ...props
 }: any) {
   const { mapState, setMapState } = useMapContext();
+  const [_, setResultsLabel] = useResultsLabelContext();
+  // console.log("foobfoob", foob);
   const [isBreadcrumbStuck] = useStickyBreadcrumbContext();
   const [isUserScrolled, _1, helpText, setHelpText] = useUserScrolledContext();
   return (
@@ -39,19 +45,24 @@ export default function FoobarMarker({
             "relative",
             "transition-all duration-300",
             (isUserScrolled && mapState !== id) || (mapState && mapState !== id)
-              ? "grayscale"
-              : "grayscale-0",
+              ? "grayscale opacity-80"
+              : "grayscale-0 opacity-100",
             mapState && mapState === id ? "scale-125" : "scale-100"
           )}
           onMouseOver={() => {
             setMapState(id);
             if (isUserScrolled) {
-              setHelpText("Scroll the map into full view to see details");
+              setHelpText(warningMapScroll);
             }
+            // setResultsLabel(title);
+            setResultsLabel(
+              <LogoSwatch name={title} photoUrl={parentPhotoUrl} />
+            );
           }}
           onMouseOut={() => {
             setMapState("");
             setHelpText("");
+            setResultsLabel("");
           }}
           // asChild
           // className={
