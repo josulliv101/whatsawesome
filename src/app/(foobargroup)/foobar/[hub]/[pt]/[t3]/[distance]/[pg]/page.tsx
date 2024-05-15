@@ -20,6 +20,7 @@ import RatingButton from "./RatingButton";
 // import { getCurrentUser } from "@/lib/auth";
 import {
   BadgeCheckIcon,
+  CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   Loader2,
@@ -36,6 +37,8 @@ import { Separator } from "@/components/ui/separator";
 import NavBar from "./NavBar";
 import SearchLogoTabs from "./SearchLogoTabs";
 import AreasOfExcellenceBar from "./AreasOfExcellenceBar";
+import { Badge } from "@/components/ui/badge";
+import MapRolloversButton from "./MapRolloversButton";
 
 // export const dynamic = "force-static";
 
@@ -109,7 +112,11 @@ export default async function Page({
         </div>
         {!isHubHomepage({ hub, pt, t3 }) && (
           <div className="flex items-center gap-4">
-            {/* <Separator className="h-5 bg-gray-400" orientation="vertical" /> */}
+            <div className="flex items-center gap-2">
+              <MapRolloversButton />
+              {/* <Badge>Enabled</Badge> */}
+            </div>
+
             <div className="flex items-center gap-6">
               <Button
                 className={`px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
@@ -191,13 +198,14 @@ export default async function Page({
                     name={parent.name}
                     rating={rating}
                     photoUrl={photoUrl}
+                    photoAsideUrl={parent?.parentPhotoUrl}
                     tags={tags}
                     rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
                   >
                     <p className="text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
                       {reason || (
                         <span className="text-muted-foreground text-base">
-                          &lt; empty item &gt;
+                          ( empty item )
                         </span>
                       )}
                     </p>

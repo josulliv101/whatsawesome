@@ -12,6 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { TooltipPortal } from "@radix-ui/react-tooltip";
 import { useMapContext } from "@/components/MapContext";
+import { useStickyBreadcrumbContext } from "@/components/StickyBreadcrumb";
+import MapExcellence from "./MapExcellence";
+import { useUserScrolledContext } from "@/components/UserScrolled";
 
 const thumbnailSize = 140;
 
@@ -25,10 +28,12 @@ export default function FoobarMarker({
   ...props
 }: any) {
   const { mapState, setMapState } = useMapContext();
+  const [isUserScrolled] = useUserScrolledContext();
   return (
     <AdvancedMarker {...props} onClick={() => console.log("click")}>
-      <Tooltip open={mapState === id}>
+      <Tooltip open={mapState === id && !isUserScrolled}>
         <TooltipTrigger
+          className={isUserScrolled ? "grayscale" : "grayscale-0"}
           onMouseOver={() => setMapState(id)}
           onMouseOut={() => setMapState("")}
           asChild
@@ -47,19 +52,11 @@ export default function FoobarMarker({
             side="top"
             className="z-50 relative flex   items-start justify-start gap-4 min-h-24 min-w-[440px] max-w-[440px]"
           >
-            {photoUrl && (
-              <Image
-                className={`w-[140px] h-[140px] object-cover`}
-                src={photoUrl}
-                width={thumbnailSize}
-                height={thumbnailSize}
-                alt={title}
-              />
-            )}
-            <div>
-              <h2 className="font-semibold text-lg mb-2">{title}</h2>
-              <p>{excellence}</p>
-            </div>
+            <MapExcellence
+              photoUrl={photoUrl}
+              title={title}
+              excellence={excellence}
+            />
           </TooltipContent>
         </TooltipPortal>
       </Tooltip>

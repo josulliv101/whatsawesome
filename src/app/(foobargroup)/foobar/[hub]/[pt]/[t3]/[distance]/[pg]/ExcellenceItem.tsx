@@ -13,6 +13,7 @@ export default function ExcellenceItem({
   profileId,
   excellenceId,
   photoUrl,
+  photoAsideUrl,
   tags,
   rank,
 }: PropsWithChildren<{
@@ -21,16 +22,18 @@ export default function ExcellenceItem({
   profileId?: string;
   excellenceId?: string;
   photoUrl?: string;
+  photoAsideUrl?: string;
   tags: Array<string>;
   rank?: number;
 }>) {
+  const pic = photoUrl || photoAsideUrl;
   return (
     <div className="bg-white shadow-sm border animate-fadeIn__ flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row items-stretch gap-6 w-full h-max md:h-[240px]">
-      {photoUrl && (
+      {pic && (
         <Image
           className="w-full md:w-[240px] md:min-w-[240px] h-72 min-h-88 md:h-full object-cover px-4 md:px-0 rounded-l-md"
           alt={name}
-          src={photoUrl}
+          src={pic}
           width="240"
           height="240"
         />

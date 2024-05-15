@@ -1,6 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useMapContext } from "@/components/MapContext";
 import { useEffect, useState } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
@@ -48,7 +53,7 @@ export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
                   width="240"
                   height="240"
                   className={cn(
-                    "rounded-t-md border block h-full object-cover",
+                    "bg-white rounded-t-md border block h-full object-cover",
                     isRow ? "rounded-b-md" : ""
                   )}
                 />
@@ -79,9 +84,6 @@ export default function SearchResultLogos({ hits, pg = 0, resultsText }: any) {
                   {hit.parent?.name}
                 </div>
               )}
-              <Badge className="hidden absolute bg-black text-white border border-white/50 bottom-14 right-2 z-10 opacity-95">
-                {paramPg * 5 + index + 1}
-              </Badge>
             </div>
           );
         })}

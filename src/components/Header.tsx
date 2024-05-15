@@ -17,9 +17,20 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useUserMushroomMapContext } from "./UserMushroomMapContext";
+import { useUserScrolledContext } from "./UserScrolled";
+import { useInView } from "react-intersection-observer";
 
 export default function Header({ children, authButton }: any) {
-  const isMounted = useIsMounted();
+  const [_, setUserScrolled] = useUserScrolledContext();
+
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+    initialInView: true,
+    // trackVisibility: true,
+    onChange: (inView) => setUserScrolled(!inView),
+  });
+
   const [userMushroomMap] = useUserMushroomMapContext();
   const usedMushrooms = Object.values(userMushroomMap || {}).filter(
     (item) => item.mushroom === true
@@ -30,8 +41,11 @@ export default function Header({ children, authButton }: any) {
   // console.log("storedEnableLogoAnimation", storedEnableLogoAnimation);
   // console.log("forcePlayAnimation", forcePlayAnimation);
   return (
-    <header className="bg-white dark:bg-gray-950 border-b sticky min-h-[64px] top-0 z-50">
-      <div className="relative">{children}</div>
-    </header>
+    <>
+      <div ref={ref} className="w-px h-px top-2 left-0"></div>
+      <header className="bg-white dark:bg-gray-950 border-b sticky min-h-[64px] top-0 z-50">
+        <div className="relative">{children}</div>
+      </header>
+    </>
   );
 }
