@@ -1,13 +1,26 @@
 "use client";
 
-import { useState, createContext, useContext, PropsWithChildren } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  PropsWithChildren,
+  useMemo,
+} from "react";
 
 const Context = createContext<any>(false);
+
+export const defaultHelpText = "Logo/Map Icon Rollovers";
 
 export function UserScrolledContextProvider({
   children,
 }: PropsWithChildren<{}>) {
-  const list = useState(false);
+  const stateIsScrolled = useState(false);
+  const stateHelpText = useState("");
+
+  const list = useMemo(() => {
+    return [...stateIsScrolled, ...stateHelpText];
+  }, [stateIsScrolled, stateHelpText]);
 
   return <Context.Provider value={list}>{children}</Context.Provider>;
 }

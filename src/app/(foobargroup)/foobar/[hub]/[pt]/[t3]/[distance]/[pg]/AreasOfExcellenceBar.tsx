@@ -20,7 +20,7 @@ export default function AreasOfExcellenceBar() {
         "flex items-center justify-between",
         // "w-full",
         "relative",
-        "mx-8 mt-8 bg-muted px-4 py-2 rounded-md",
+        "mx-0 mt-4 bg-muted px-4 py-2 rounded-md",
         "text-lg text-muted-foreground"
       )}
     >
@@ -35,7 +35,7 @@ export default function AreasOfExcellenceBar() {
             variant={"ghost"}
             className="text-muted-foreground ml-2 gap-2"
           >
-            <CircleHelpIcon className="w-4 h-4" />
+            <CircleHelpIcon className="w-4 h-4 text-blue-500" />
             Endorse an item below by leaving a mushroom.{" "}
           </Button>
         </HoverCardTrigger>

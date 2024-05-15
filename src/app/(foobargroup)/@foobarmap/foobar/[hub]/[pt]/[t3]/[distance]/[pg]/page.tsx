@@ -90,6 +90,7 @@ export default async function Page({
             <Marker
               key={hit.objectID}
               id={hit.objectID}
+              size={size}
               position={hit._geoloc}
               title={hit?.parent?.name || hit.name}
               photoUrl={hit.photoUrl}

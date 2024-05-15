@@ -160,7 +160,7 @@ export default async function Page({
             ${page * hitsPerPage + hitsPerPage} of ${nbHits}`}
         ></SearchResultLogos>
       )}
-      <AreasOfExcellenceBar />
+
       {/* <NavBar>
         <div className="flex items-center gap-4 capitalize text-muted-foreground text-lg">
           <div>{hubProfile.name}</div>
@@ -170,7 +170,8 @@ export default async function Page({
           <span>{t3}</span>
         </div>
       </NavBar> */}
-      <div className="px-0 py-2 md:px-8 md:py-2 flex flex-col gap-4">
+      <div className="px-0 py-2 md:px-8 md:py-2 flex flex-col gap-0 rounded-md">
+        <AreasOfExcellenceBar />
         {!isHubHomepage({ hub, pt, t3 }) && (
           <div className="rounded-md bg-muted px-4 py-6 flex flex-col gap-4">
             {hits?.map(

@@ -11,7 +11,7 @@ export default function Breadcrumb({ children }: PropsWithChildren) {
     threshold: 0,
     initialInView: true,
     // trackVisibility: true,
-    onChange: (inView) => setIsStuck(inView),
+    onChange: (inView) => setIsStuck(!inView),
   });
 
   return (

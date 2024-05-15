@@ -8,7 +8,7 @@ const Context = createContext<any>(false);
 export function StickyBreadcrumbContextProvider({
   children,
 }: PropsWithChildren<{}>) {
-  const list = useState(true);
+  const list = useState(false);
 
   return <Context.Provider value={list}>{children}</Context.Provider>;
 }
