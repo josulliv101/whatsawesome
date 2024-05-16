@@ -26,6 +26,7 @@ const TooltipArrow = React.forwardRef<
     {...props}
   />
 ));
+TooltipArrow.displayName = TooltipPrimitive.Arrow.displayName;
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
