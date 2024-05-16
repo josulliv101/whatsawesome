@@ -89,12 +89,13 @@ export default function FoobarMarker({
         <TooltipPortal>
           <TooltipContent
             arrowPadding={100}
-            side="right"
+            side="left"
             sideOffset={20}
-            className="z-50 relative flex   items-start justify-start gap-4 min-h-24 min-w-[440px] max-w-[440px]"
+            className="z-50 relative flex overflow-visible   items-start justify-start gap-4 min-h-24 min-w-[440px] max-w-[440px]"
           >
             <MapExcellence
               photoUrl={photoUrl}
+              parentPhotoUrl={parentPhotoUrl}
               title={title}
               excellence={excellence}
             />

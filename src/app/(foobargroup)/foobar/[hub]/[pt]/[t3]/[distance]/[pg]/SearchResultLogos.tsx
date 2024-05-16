@@ -25,7 +25,7 @@ import LogoSwatch from "@/components/LogoSwatch";
 // import { use } from "react";
 
 export const warningMapScroll =
-  "Scroll the map into full view to enable map tooltip content.";
+  "Scroll the map into full view to enable map tooltip details.";
 
 export default function SearchResultLogos({
   hits,
@@ -96,17 +96,18 @@ export default function SearchResultLogos({
     <>
       <div className="flex items-center justify-between mx-8 mt-4 mb-0">
         <div className="text-muted-foreground text-base relative top-0">
-          {resultsText}
-        </div>
-        <div className="flex items-center gap-8">
-          {helpText && (
+          {helpText ? (
             <>
-              <div className="flex items-center gap-2 animate-fadeIn text-muted-foreground text-sm">
-                <TriangleAlertIcon className="w-4 h-4 text-orange-500/80" />{" "}
+              <div className="flex items-center gap-2 animate-fadeInQuick text-muted-foreground text-base">
+                <TriangleAlertIcon className="w-5 h-5 text-orange-500/80" />{" "}
                 {helpText}
               </div>
             </>
+          ) : (
+            resultsText
           )}
+        </div>
+        <div className="flex items-center gap-8">
           <SearchLogoTabs value={activeTabValue} onChange={setTabValue} />
         </div>
       </div>

@@ -201,6 +201,7 @@ ${page * hitsPerPage + hitsPerPage} of ${nbHits}`;
                     rating={rating}
                     photoUrl={photoUrl}
                     photoAsideUrl={parent?.parentPhotoUrl}
+                    profileId={parent?.id}
                     tags={tags}
                     rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
                   >
