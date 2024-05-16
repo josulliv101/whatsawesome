@@ -121,7 +121,7 @@ ${page * hitsPerPage + hitsPerPage} of ${nbHits}`;
 
             <div className="flex items-center gap-6">
               <Button
-                className={`px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
+                className={`font-semibold px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
                 disabled
                 size="sm"
                 variant={"ghost"}
@@ -141,7 +141,7 @@ ${page * hitsPerPage + hitsPerPage} of ${nbHits}`;
               <Button
                 variant={"ghost"}
                 size="sm"
-                className={`px-0 ${page < nbPages ? "opacity-100" : "opacity-50"}`}
+                className={`font-semibold px-0 ${page < nbPages ? "opacity-100" : "opacity-50"}`}
                 asChild
               >
                 <Link

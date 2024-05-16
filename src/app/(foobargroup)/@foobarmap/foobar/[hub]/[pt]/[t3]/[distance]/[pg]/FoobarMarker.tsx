@@ -8,9 +8,11 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  TooltipArrow,
+  TooltipPortal,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { TooltipArrow, TooltipPortal } from "@radix-ui/react-tooltip";
+
 import { useMapContext } from "@/components/MapContext";
 import { useStickyBreadcrumbContext } from "@/components/StickyBreadcrumb";
 import MapExcellence from "./MapExcellence";
@@ -91,7 +93,7 @@ export default function FoobarMarker({
             arrowPadding={100}
             side="left"
             sideOffset={20}
-            className="z-50 relative flex overflow-visible   items-start justify-start gap-4 min-h-24 min-w-[440px] max-w-[440px]"
+            className="z-50 bg-black text-white py-2 relative flex overflow-visible   items-start justify-start gap-4 min-h-24 min-w-[440px] max-w-[440px]"
           >
             <MapExcellence
               photoUrl={photoUrl}

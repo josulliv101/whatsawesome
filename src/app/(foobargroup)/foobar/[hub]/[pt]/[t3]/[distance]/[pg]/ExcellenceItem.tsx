@@ -63,7 +63,9 @@ export default function ExcellenceItem({
             </TooltipContent>
           </Tooltip>
 
-          {!!tags.length && <SlashIcon className="w-4 h-4 hidden md:block" />}
+          {false && !!tags.length && (
+            <SlashIcon className="w-4 h-4 hidden md:block" />
+          )}
           <div className="flex items-center gap-2">
             <Badge variant={"outline"} className="py-1 gap-2">
               {tags?.map((tag, index) => (
@@ -118,7 +120,7 @@ export default function ExcellenceItem({
       )}{" "}
       {photoAsideUrl && (
         <Image
-          className="peer-has-[.nav-btn[data-state='delayed-open']]:translate-x-0 z-0 transition-all bg-white duration-500 translate-x-full absolute top-0 left-0 w-full  md:w-[240px] md:min-w-[240px] h-72 min-h-88 md:h-full object-cover px-4 md:px-0 rounded-l-md"
+          className="peer-has-[.nav-btn[data-state='instant-open']]:translate-x-0 peer-has-[.nav-btn[data-state='delayed-open']]:translate-x-0 z-0 transition-all bg-white duration-500 translate-x-full absolute top-0 left-0 w-full  md:w-[240px] md:min-w-[240px] h-72 min-h-88 md:h-full object-cover px-4 md:px-0 rounded-l-md"
           alt={name}
           src={photoAsideUrl}
           width="240"

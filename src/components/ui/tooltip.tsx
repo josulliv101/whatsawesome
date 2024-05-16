@@ -13,6 +13,20 @@ const TooltipTrigger = TooltipPrimitive.Trigger;
 
 const TooltipPortal = TooltipPrimitive.Portal;
 
+const TooltipArrow = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Arrow>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Arrow>
+>(({ className, ...props }, ref) => (
+  <TooltipPrimitive.Arrow
+    ref={ref}
+    className={cn(
+      "fill-black stroke-1 relative bottom-0 -z-10 shadow-md origin-top scale-[3.0]",
+      className
+    )}
+    {...props}
+  />
+));
+
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
@@ -35,4 +49,5 @@ export {
   TooltipContent,
   TooltipPortal,
   TooltipProvider,
+  TooltipArrow,
 };

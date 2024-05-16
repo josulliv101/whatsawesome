@@ -115,7 +115,7 @@ export default function SearchResultLogos({
         className={cn(
           "grid",
           isRow ? "grid-cols-10" : "grid-cols-6",
-          isRow ? "md:gap-1 pt-3" : "md:gap-2 md:py-4",
+          isRow ? "md:gap-2 pt-3" : "md:gap-2 md:py-4",
           "mx-8 gap-1 md:gap-y-4 mt-0"
           // "px-4 rounded-md bg-muted"
         )}
