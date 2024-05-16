@@ -1,7 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Marker, AdvancedMarker } from "@vis.gl/react-google-maps";
+import {
+  Marker,
+  AdvancedMarker,
+  useAdvancedMarkerRef,
+  InfoWindow,
+  useMap,
+  useMapsLibrary,
+} from "@vis.gl/react-google-maps";
 import { config } from "@/lib/config";
 import { CheckIcon } from "lucide-react";
 import {
@@ -21,6 +28,8 @@ import { cn } from "@/lib/utils";
 import { useResultsLabelContext } from "@/components/ResultsLabel";
 import { warningMapScroll } from "@/app/(foobargroup)/foobar/[hub]/[pt]/[t3]/[distance]/[pg]/SearchResultLogos";
 import LogoSwatch from "@/components/LogoSwatch";
+import { useEffect } from "react";
+import { useMapMarkerContext } from "@/components/MapMarkerContext";
 
 const thumbnailSize = 140;
 
@@ -34,14 +43,58 @@ export default function FoobarMarker({
   title,
   ...props
 }: any) {
+  const map = useMap();
+  const coreLib = useMapsLibrary("core");
+
   const { mapState, setMapState } = useMapContext();
+  const [markerRef, marker] = useAdvancedMarkerRef();
   const [_, setResultsLabel] = useResultsLabelContext();
-  // console.log("foobfoob", foob);
+  const [markerStatusMap, setMarkerStatusMap] = useMapMarkerContext();
+  // console.log("markerStatusMap", markerStatusMap);
   const [isBreadcrumbStuck] = useStickyBreadcrumbContext();
   const [isUserScrolled, _1, helpText, setHelpText] = useUserScrolledContext();
+
+  const requestToPan = !!markerStatusMap[id]?.pan;
+  const isWithinBounds =
+    !isBreadcrumbStuck &&
+    !!marker?.position &&
+    map?.getBounds()?.contains(marker?.position);
+
+  const handleMouseOver = () => {
+    setMapState(id);
+    if (isUserScrolled) {
+      setHelpText(!isWithinBounds ? "oh oh again" : warningMapScroll);
+    }
+    // setResultsLabel(title);
+    setResultsLabel(<LogoSwatch name={title} photoUrl={parentPhotoUrl} />);
+  };
+
+  // useEffect(() => {
+  //   if (!coreLib || !map || !marker) return;
+  //   if (requestToPan) {
+  //     setMapState("");
+  //     marker.position && map.panTo(marker.position);
+  //   }
+  // }, [coreLib, map, requestToPan]);
+
+  // useEffect(() => {
+  //   if (mapState === id) {
+  //     const isWithinBounds =
+  //       !!marker?.position && map?.getBounds()?.contains(marker?.position);
+  //     console.log("mapState change", isWithinBounds, marker?.position);
+  //     if (isWithinBounds) {
+  //       handleMouseOver();
+  //     }
+  //   }
+  // }, [mapState]);
+
   return (
-    <AdvancedMarker {...props} onClick={() => console.log("click")}>
-      <Tooltip open={mapState === id && !isUserScrolled}>
+    <AdvancedMarker
+      ref={markerRef}
+      {...props}
+      onClick={(ev, ...args) => console.log("click", ev, args, marker)}
+    >
+      <Tooltip open={isWithinBounds && mapState === id && !isUserScrolled}>
         <TooltipTrigger
           className={cn(
             "relative",
@@ -51,16 +104,7 @@ export default function FoobarMarker({
               : "grayscale-0 opacity-100",
             mapState && mapState === id ? "scale-125" : "scale-100"
           )}
-          onMouseOver={() => {
-            setMapState(id);
-            if (isUserScrolled) {
-              setHelpText(warningMapScroll);
-            }
-            // setResultsLabel(title);
-            setResultsLabel(
-              <LogoSwatch name={title} photoUrl={parentPhotoUrl} />
-            );
-          }}
+          onMouseOver={handleMouseOver}
           onMouseOut={() => {
             setMapState("");
             setHelpText("");

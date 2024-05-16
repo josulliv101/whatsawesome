@@ -1,12 +1,15 @@
 import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
 // import { AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import Link from "next/link";
+
 import Marker from "./FoobarMarker";
 import MapPosition from "./MapPosition";
 import { fetchProfile } from "@/lib/firebase";
 import { Badge } from "@/components/ui/badge";
-import { BadgeCheckIcon } from "lucide-react";
+import { BadgeCheckIcon, HomeIcon } from "lucide-react";
 import { isHubHomepage } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import ResetMapPosition from "./ResetMapButton";
 
 export function generateStaticParams() {
   // TODO: may not be needed
@@ -78,6 +81,7 @@ export default async function Page({
           </span>
         </div>
       )}
+      {!isHubHomepage({ hub, pt, t3 }) && null}
       <MapPosition
         hub={hub}
         distance={distance}

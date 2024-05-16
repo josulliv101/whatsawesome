@@ -33,6 +33,7 @@ import { MapContextProvider } from "@/components/MapContext";
 import { StickyBreadcrumbContextProvider } from "@/components/StickyBreadcrumb";
 import { UserScrolledContextProvider } from "@/components/UserScrolled";
 import { ResultsLabelContextProvider } from "@/components/ResultsLabel";
+import { MapMarkerContextProvider } from "@/components/MapMarkerContext";
 
 export const metadata = {
   title: "Next.js",
@@ -58,56 +59,58 @@ export default function RootLayout({
         >
           {" "}
           <StrictMode>
-            <ResultsLabelContextProvider>
-              <UserScrolledContextProvider>
-                <StickyBreadcrumbContextProvider>
-                  <MapContextProvider>
-                    <UserMushroomMapContextProvider>
-                      <AuthContextProvider>
-                        <ThemeProvider attribute="class">
-                          <ClientAPIProvider apiKey={API_KEY}>
-                            <HubContextProvider
-                              initialValue={tags[1] as PrimaryTagType}
-                            >
-                              <Header>
-                                <Suspense>
-                                  <div className="animate-fadeIn">
-                                    <nav
-                                      className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
-                                      aria-label="Global"
-                                    >
-                                      <NavMenu
-                                        forcePlayAnimation={false}
-                                        enableLogoAnimation={true}
-                                        // setForcePlayAnimation={() => null}
+            <MapMarkerContextProvider>
+              <ResultsLabelContextProvider>
+                <UserScrolledContextProvider>
+                  <StickyBreadcrumbContextProvider>
+                    <MapContextProvider>
+                      <UserMushroomMapContextProvider>
+                        <AuthContextProvider>
+                          <ThemeProvider attribute="class">
+                            <ClientAPIProvider apiKey={API_KEY}>
+                              <HubContextProvider
+                                initialValue={tags[1] as PrimaryTagType}
+                              >
+                                <Header>
+                                  <Suspense>
+                                    <div className="animate-fadeIn">
+                                      <nav
+                                        className="mx-auto flex max-w-8xl items-center justify-between p-4 lg:px-8"
+                                        aria-label="Global"
+                                      >
+                                        <NavMenu
+                                          forcePlayAnimation={false}
+                                          enableLogoAnimation={true}
+                                          // setForcePlayAnimation={() => null}
+                                        />
+                                        <AuthButton />
+                                      </nav>
+                                      <div className="absolute top-3 right-56 rel scale-95_ hidden md:block">
+                                        <Button variant={"ghost"} asChild>
+                                          <Link href="/">How It Works</Link>
+                                        </Button>
+                                      </div>
+                                      <Separator
+                                        className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50 hidden md:block"
+                                        orientation="vertical"
                                       />
-                                      <AuthButton />
-                                    </nav>
-                                    <div className="absolute top-3 right-56 rel scale-95_ hidden md:block">
-                                      <Button variant={"ghost"} asChild>
-                                        <Link href="/">How It Works</Link>
-                                      </Button>
+                                      <MushroomBasket />
                                     </div>
-                                    <Separator
-                                      className="absolute top-5 right-52 mr-3 mt-1 h-5 bg-muted-foreground/50 hidden md:block"
-                                      orientation="vertical"
-                                    />
-                                    <MushroomBasket />
-                                  </div>
-                                </Suspense>
-                              </Header>
-                              {children}
-                              <Toaster duration={8000} />
-                              <Footer />
-                            </HubContextProvider>
-                          </ClientAPIProvider>
-                        </ThemeProvider>
-                      </AuthContextProvider>
-                    </UserMushroomMapContextProvider>
-                  </MapContextProvider>
-                </StickyBreadcrumbContextProvider>
-              </UserScrolledContextProvider>
-            </ResultsLabelContextProvider>
+                                  </Suspense>
+                                </Header>
+                                {children}
+                                <Toaster duration={8000} />
+                                <Footer />
+                              </HubContextProvider>
+                            </ClientAPIProvider>
+                          </ThemeProvider>
+                        </AuthContextProvider>
+                      </UserMushroomMapContextProvider>
+                    </MapContextProvider>
+                  </StickyBreadcrumbContextProvider>
+                </UserScrolledContextProvider>
+              </ResultsLabelContextProvider>
+            </MapMarkerContextProvider>
           </StrictMode>
           <SpeedInsights />
           <Analytics />
