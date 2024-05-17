@@ -135,16 +135,16 @@ export default function ExcellenceItem({
                 ...getPrimaryTagsFromTags(tagsAll),
                 ...getLevel2TagsFromTags(tagsAll),
               ].map((tag) => (
-                <span>{tag}</span>
+                <span key={tag}>{tag}</span>
               ))
               // .join(" / ")
             }
           </Badge>
-
           {[...getLevel3TagsFromTags(tagsAll)]
             .slice(0, excellencePromoLimit)
             .map((tag) => (
               <Badge
+                key={tag}
                 variant={"outline"}
                 className="py-1 gap-2 border-0 rounded-md "
               >
@@ -157,7 +157,7 @@ export default function ExcellenceItem({
           {getLevel3TagsFromTags(tagsAll).length - excellencePromoLimit > 0 ? (
             <Badge
               variant={"outline"}
-              className="text-blue-500 py-1 gap-2 pl-0 border-0 rounded-md "
+              className="text-blue-500 py-1 gap-2 pl-2 border-0 rounded-md "
             >
               & {getLevel3TagsFromTags(tagsAll).length - excellencePromoLimit}{" "}
               more
