@@ -214,6 +214,7 @@ export async function searchTopAoeByCategory(
           parent: {
             id: parentId,
             name: profile.name,
+            description: profile?.description,
             parentPhotoUrl: profile.pic,
             latlng: profile._geoloc,
           },
@@ -399,6 +400,7 @@ export async function searchTopAoeByRadius(
         parent: {
           id: parentId,
           name: profile?.name,
+          description: profile?.description,
           parentPhotoUrl: profile?.pic,
           latlng: profile?._geoloc,
           _geoloc: profile?._geoloc,

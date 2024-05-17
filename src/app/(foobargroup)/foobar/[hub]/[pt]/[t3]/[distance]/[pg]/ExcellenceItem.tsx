@@ -24,9 +24,11 @@ export default function ExcellenceItem({
   photoUrl,
   photoAsideUrl,
   tags,
+
   rank,
 }: PropsWithChildren<{
   name: string;
+
   rating: number;
   profileId?: string;
   excellenceId?: string;
@@ -39,14 +41,15 @@ export default function ExcellenceItem({
   return (
     <div className="relative bg-white shadow-sm border animate-fadeIn__ flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row-reverse items-stretch gap-0 w-full h-max md:h-[240px]">
       <div className="peer relative w-full bg-white z-20 pl-6">
-        <div className="px-4 md:px-0 static md:absolute top-3 left-6 flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div className="peer/tags px-4 md:px-0 static z-10 md:absolute top-3 left-6 flex flex-col md:flex-row items-start md:items-center gap-4">
           {/* <span className="font-semibold text-lg">{name}</span> */}
-          <Tooltip>
+          <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
               <Button
                 variant={"ghost"}
                 className={cn(
                   "nav-btn",
+                  "peer/badge",
                   "transition-all duration-500",
                   "text-blue-500",
                   photoAsideUrl ? "px-1 pr-3" : "px-3"
@@ -66,8 +69,11 @@ export default function ExcellenceItem({
           {false && !!tags.length && (
             <SlashIcon className="w-4 h-4 hidden md:block" />
           )}
-          <div className="flex items-center gap-2">
-            <Badge variant={"outline"} className="py-1 gap-2">
+          <div className="peer-active/badge:opacity-0 peer-[[data-state='delayed-open']]/badge:opacity-0 peer-[[data-state='instant-open']]/badge:opacity-0 transition-all duration-300 flex items-center gap-2">
+            <Badge
+              variant={"outline"}
+              className="py-1 gap-2 border-0 rounded-md "
+            >
               {tags?.map((tag, index) => (
                 <>
                   <span className="capitalize">{tag}</span>
@@ -82,15 +88,7 @@ export default function ExcellenceItem({
           </div>
         </div>
         {children}
-        <div className="absolute bottom-2 left-6 flex items-center gap-6 text-sm text-muted-foreground">
-          {/* {!!rank && (
-            <span className="-mt-0">
-              rank{" "}
-              <Badge variant={"default"} className="-mt-1 scale-[.9] ml-1">
-                {rank}
-              </Badge>
-            </span>
-          )} */}
+        <div className="peer-has-[a[data-state='delayed-open']]/tags:opacity-0 peer-has-[a[data-state='instant-open']]/tags:opacity-0 transition-all duration-300 absolute bottom-2 left-6 flex items-center gap-6 text-sm text-muted-foreground">
           <div className="flex items-center gap-2 border-0 rounded-full px-0 py-1 text-sm ">
             {rating}{" "}
             <img
@@ -120,7 +118,7 @@ export default function ExcellenceItem({
       )}{" "}
       {photoAsideUrl && (
         <Image
-          className="peer-has-[.nav-btn[data-state='instant-open']]:translate-x-0 peer-has-[.nav-btn[data-state='delayed-open']]:translate-x-0 z-0 transition-all bg-white duration-500 translate-x-full absolute top-0 left-0 w-full  md:w-[240px] md:min-w-[240px] h-72 min-h-88 md:h-full object-cover px-4 md:px-0 rounded-l-md"
+          className="peer-has-[[.nav-btn&:active]]:translate-x-0 peer-has-[.nav-btn[data-state='instant-open']]:translate-x-0 peer-has-[.nav-btn[data-state='delayed-open']]:translate-x-0 z-0 transition-all ease-out bg-white duration-300 translate-x-full absolute top-0 left-0 w-full  md:w-[240px] md:min-w-[240px] h-72 min-h-88 md:h-full object-cover px-4 md:px-0 rounded-l-md"
           alt={name}
           src={photoAsideUrl}
           width="240"
