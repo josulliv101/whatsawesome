@@ -118,7 +118,7 @@ export default function SearchResultLogos({
   // map?.addListener("mousemove", (...args) => console.log("m", ...args));
   return (
     <>
-      <div className="flex items-center justify-between mx-8 mt-4 mb-0">
+      <div className="flex flex-row-reverse items-center justify-between mx-8 mt-4 mb-0">
         <div className="text-muted-foreground text-base relative top-0">
           {helpText ? (
             <>
@@ -140,7 +140,7 @@ export default function SearchResultLogos({
           "grid",
           isRow ? "grid-cols-10" : "grid-cols-6",
           isRow ? "md:gap-2 pt-3" : "md:gap-2 md:py-4",
-          "mx-8 gap-1 md:gap-y-4 mt-0"
+          "mx-8 gap-1 md:gap-y-4 mt-2"
           // "px-4 rounded-md bg-muted"
         )}
       >

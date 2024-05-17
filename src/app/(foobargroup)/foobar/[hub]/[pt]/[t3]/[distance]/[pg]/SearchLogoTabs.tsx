@@ -13,11 +13,11 @@ export default function SearchLogoTabs({
     <>
       <Tabs value={value} onValueChange={onChange}>
         <TabsList className="grid grid-cols-2">
-          <TabsTrigger value="row" className="max-w-[36px]">
+          <TabsTrigger value="row" className="max-w-[36px] py-2">
             <span className="sr-only">Row</span>
             <RowIcon className="w-3.5 h-3.5 text-muted-foreground min-h-[16px]" />
           </TabsTrigger>
-          <TabsTrigger value="grid" className="max-w-[36px]">
+          <TabsTrigger value="grid" className="max-w-[36px] py-2">
             <span className="sr-only">Grid</span>
             <GridIcon className="w-4 h-4 text-muted-foreground" />
           </TabsTrigger>

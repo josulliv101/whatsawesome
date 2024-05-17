@@ -204,6 +204,10 @@ export const getLevel3TagsFromTags = (tags: Array<string>) => {
   return tags?.filter((tag) => tagDefinitions[tag]?.level === 3) || [];
 };
 
+export const getLevel2TagsFromTags = (tags: Array<string>) => {
+  return tags?.filter((tag) => tagDefinitions[tag]?.level === 2) || ["moo"];
+};
+
 export const getHubTagsFromTags = (tags: Array<string>) => {
   return tags?.filter((tag) => !tagDefinitions[tag]) || [];
 };

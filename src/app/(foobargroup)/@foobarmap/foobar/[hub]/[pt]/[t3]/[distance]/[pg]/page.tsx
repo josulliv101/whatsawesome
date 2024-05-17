@@ -77,7 +77,7 @@ export default async function Page({
         <div className="capitalize border border-gray-100/0 shadow-sm opacity-100 bg-blue-500 flex gap-2 items-center text-base text-white px-3 py-1 absolute top-4 right-4 z-10 rounded-full">
           {pt}
           <span className="flex items-center gap-2">
-            <BadgeCheckIcon className="h-4 w-4 text-white mr-0.5" /> {t3}
+            <BadgeCheckIcon className="h-4 w-4 ml-2 text-white mr-0.5" /> {t3}
           </span>
         </div>
       )}

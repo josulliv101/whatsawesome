@@ -14,6 +14,11 @@ import { config } from "@/lib/config";
 import LogoSwatch from "@/components/LogoSwatch";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import {
+  getLevel2TagsFromTags,
+  getLevel3TagsFromTags,
+  getPrimaryTagsFromTags,
+} from "@/lib/tags";
 
 export default function ExcellenceItem({
   children,
@@ -24,7 +29,8 @@ export default function ExcellenceItem({
   photoUrl,
   photoAsideUrl,
   tags,
-
+  tagsAll,
+  parentTags,
   rank,
 }: PropsWithChildren<{
   name: string;
@@ -35,9 +41,12 @@ export default function ExcellenceItem({
   photoUrl?: string;
   photoAsideUrl?: string;
   tags: Array<string>;
+  tagsAll: Array<string>;
+  parentTags: Array<string>;
   rank?: number;
 }>) {
   const pic = photoUrl || photoAsideUrl;
+  const excellencePromoLimit = 4;
   return (
     <div className="relative bg-white shadow-sm border animate-fadeIn__ flex border-b md:border-b-0 mb-8 md:mb-0 flex-col md:flex-row-reverse items-stretch gap-0 w-full h-max md:h-[240px]">
       <div className="peer relative w-full bg-white z-20 pl-6">
@@ -69,26 +78,9 @@ export default function ExcellenceItem({
           {false && !!tags.length && (
             <SlashIcon className="w-4 h-4 hidden md:block" />
           )}
-          <div className="peer-active/badge:opacity-0 peer-[[data-state='delayed-open']]/badge:opacity-0 peer-[[data-state='instant-open']]/badge:opacity-0 transition-all duration-300 flex items-center gap-2">
-            <Badge
-              variant={"outline"}
-              className="py-1 gap-2 border-0 rounded-md "
-            >
-              {tags?.map((tag, index) => (
-                <>
-                  <span className="capitalize">{tag}</span>
-                  {index < tags.length - 1 && (
-                    <BadgeCheckIcon
-                      className={`h-4 w-4 mr-0 text-blue-500 opacity-80`}
-                    />
-                  )}
-                </>
-              ))}
-            </Badge>
-          </div>
         </div>
         {children}
-        <div className="peer-has-[a[data-state='delayed-open']]/tags:opacity-0 peer-has-[a[data-state='instant-open']]/tags:opacity-0 transition-all duration-300 absolute bottom-2 left-6 flex items-center gap-6 text-sm text-muted-foreground">
+        <div className="peer-has-[a[data-state='delayed-open']]/tags:opacity-0 peer-has-[a[data-state='instant-open']]/tags:opacity-0 transition-all duration-300 absolute bottom-2 right-6 flex items-center gap-6 text-sm text-muted-foreground">
           <div className="flex items-center gap-2 border-0 rounded-full px-0 py-1 text-sm ">
             {rating}{" "}
             <img
@@ -102,9 +94,81 @@ export default function ExcellenceItem({
             />
           </div>
         </div>
+        <div
+          className={cn(
+            "peer-has-[[.nav-btn&:active]]/tags:opacity-0 peer-has-[.nav-btn[data-state='instant-open']]/tags:opacity-0 peer-has-[.nav-btn[data-state='delayed-open']]/tags:opacity-0",
+            " transition-all duration-300 flex items-center gap-2",
+            "absolute bottom-2 left-4 z-20"
+          )}
+          // className="peer-active/badge:opacity-0 peer-[[data-state='delayed-open']]/badge:opacity-0 peer-[[data-state='instant-open']]/badge:opacity-0 transition-all duration-300 flex items-center gap-2"
+        >
+          <Badge
+            variant={"outline"}
+            className="py-1 gap-2 border-0 rounded-md "
+          >
+            {tags?.map((tag, index) => (
+              <>
+                <span className="capitalize">{tag}</span>
+                {index < tags.length - 1 && (
+                  <BadgeCheckIcon
+                    className={`h-4 w-4 mr-0 ml-2 text-blue-500 opacity-80`}
+                  />
+                )}
+              </>
+            ))}
+          </Badge>
+        </div>
+        <div
+          className={cn(
+            "peer-has-[[.nav-btn&:active]]/tags:opacity-100 peer-has-[.nav-btn[data-state='instant-open']]/tags:opacity-100 peer-has-[.nav-btn[data-state='delayed-open']]/tags:opacity-100",
+            "opacity-0 transition-all duration-300 flex items-center gap-0",
+            "absolute bottom-2 left-4 z-20"
+          )}
+          // className="peer-active/badge:opacity-0 peer-[[data-state='delayed-open']]/badge:opacity-0 peer-[[data-state='instant-open']]/badge:opacity-0 transition-all duration-300 flex items-center gap-2"
+        >
+          <Badge
+            variant={"outline"}
+            className=" py-1  gap-3 border-0 rounded-md capitalize"
+          >
+            {
+              [
+                ...getPrimaryTagsFromTags(tagsAll),
+                ...getLevel2TagsFromTags(tagsAll),
+              ].map((tag) => (
+                <span>{tag}</span>
+              ))
+              // .join(" / ")
+            }
+          </Badge>
+
+          {[...getLevel3TagsFromTags(tagsAll)]
+            .slice(0, excellencePromoLimit)
+            .map((tag) => (
+              <Badge
+                variant={"outline"}
+                className="py-1 gap-2 border-0 rounded-md "
+              >
+                <BadgeCheckIcon
+                  className={`h-4 w-4 mr-0 ml-2 text-blue-500 opacity-80`}
+                />
+                <span className="capitalize">{tag}</span>
+              </Badge>
+            ))}
+          {getLevel3TagsFromTags(tagsAll).length - excellencePromoLimit > 0 ? (
+            <Badge
+              variant={"outline"}
+              className="text-blue-500 py-1 gap-2 pl-0 border-0 rounded-md "
+            >
+              & {getLevel3TagsFromTags(tagsAll).length - excellencePromoLimit}{" "}
+              more
+            </Badge>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
       {pic && (
-        <div className="border-r">
+        <div className="border-r hidden md:block">
           <nav>
             <Image
               className=" w-full md:w-[240px] md:min-w-[240px] h-72 min-h-[240px] md:h-[240px] object-cover px-4 md:px-0 rounded-l-md"

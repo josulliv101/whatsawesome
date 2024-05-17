@@ -29,7 +29,12 @@ import {
 import { allTags, config } from "./config";
 import { PrimaryTagType, getPlural, tagDefinitions } from "./tags";
 import { Profile, Reason } from "./profile";
-import { generateRandomDecimal, roundToInteger, sleep } from "./utils";
+import {
+  deduplicateArray,
+  generateRandomDecimal,
+  roundToInteger,
+  sleep,
+} from "./utils";
 import { revalidatePath } from "next/cache";
 
 const firebaseConfig = {
@@ -103,9 +108,15 @@ export async function fetchProfile(
       })) as Profile["reasons"])
     : [];
 
+  const tagsAll = qSnap.docs.reduce((acc, item) => {
+    const tags = item?.data()?._tags || [];
+    return acc.concat(tags);
+  }, []);
+
   return {
     ...(data as Profile),
     tags: Object.keys(tagMap || {}),
+    tagsAll: deduplicateArray(tagsAll).sort(),
     id: docSnap.id,
     reasons: reasons
       .filter((item) => !item.userId)

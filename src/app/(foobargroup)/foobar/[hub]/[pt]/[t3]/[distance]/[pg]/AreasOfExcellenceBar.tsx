@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function AreasOfExcellenceBar() {
+export default function AreasOfExcellenceBar({ areaOfExcellence }: any) {
   return (
     <div
       className={cn(
@@ -26,7 +26,7 @@ export default function AreasOfExcellenceBar() {
     >
       <div className="flex place-items-center">
         <BadgeCheckIcon className="h-5 w-5 mr-2 text-blue-500 opacity-80" />
-        <strong className="font-[500]">Areas of Excellence</strong>
+        <strong className="font-[500] capitalize">{areaOfExcellence}</strong>
       </div>
       <HoverCard>
         <HoverCardTrigger asChild>

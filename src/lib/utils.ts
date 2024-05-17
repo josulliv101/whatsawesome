@@ -37,3 +37,7 @@ export function isHubHomepage(params: any = {}) {
   }
   return false;
 }
+
+export function deduplicateArray<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr));
+}
