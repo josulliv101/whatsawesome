@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from "react";
-import FoobarMap from "./foobar/[hub]/[pt]/[t3]/[distance]/[pg]/FoobarMap";
+import FoobarMap from "./foobar/explore/[hub]/[pt]/[t3]/[distance]/[pg]/FoobarMap";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
