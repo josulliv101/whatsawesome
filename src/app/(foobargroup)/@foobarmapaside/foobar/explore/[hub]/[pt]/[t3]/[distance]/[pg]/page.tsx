@@ -69,8 +69,8 @@ export default async function Page({
       {true && (
         <>
           <p>
-            <span className="font-semibold">Blue Mushroom</span> — the leading
-            platform in discovering excellence in the world around you.
+            Discover what&#39;s good in the world around you. 20 mushrooms is a
+            leading ai-powered recommendation engine.
           </p>
           {hubProfile.name && (
             <Tooltip>

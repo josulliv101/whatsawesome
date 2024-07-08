@@ -96,7 +96,11 @@ export default function NavMenu({
   return (
     <>
       <div className="relative flex lg:flex-0 items-center">
-        <Link href="/" className="flex items-center -m-1.5 p-1.5 gap-3">
+        <div className="text-sm font-normal text-gray-600">
+          <span className="text-base font-normal">20</span>{" "}
+          <span className="text-base">mushrooms</span>
+        </div>
+        <Link href="/" className="flex_ items-center -m-1.5 p-1.5 gap-3 hidden">
           <img
             // ref={refLogo}
             className={`h-8 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
@@ -108,12 +112,12 @@ export default function NavMenu({
               setForcePlayAnimation?.(false);
             }}
           />
-          <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" />
-          <span className="sr-only">Blue Mushroom</span>
+          {/* <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" /> */}
+          <span className="sr-only">20 mushrooms</span>
         </Link>
         {
           <>
-            <span className="px-3 ml-1 w-8 pr-4 block_ hidden">
+            {/* <span className="px-3 ml-1 w-8 pr-4 block_ hidden">
               <Slash className="h-4 w-4 mr-4" />{" "}
             </span>
             <Badge
@@ -133,15 +137,11 @@ export default function NavMenu({
                   {!isRootHub(hub) ? (
                     tags[0].replace(/[-]/g, " ")
                   ) : (
-                    <span>
-                      Blue
-                      <br />
-                      Mushroom
-                    </span>
+                    <span className="hidden">20 Mushrooms</span>
                   )}
                 </span>
               </Link>
-            </Badge>
+            </Badge> */}
           </>
         }
       </div>

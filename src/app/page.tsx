@@ -12,7 +12,7 @@ export default function Page() {
       <div className="bg-blue-100/50  flex justify-center items-center h-full">
         <div className="w-1/2 my-36 max-w-1/2 px-2 flex flex-col items-center">
           <div className="flex items-center justify-between w-full mb-4 font-semibold text-lg _capitalize text-muted-foreground">
-            Discover excellence in the world around you.
+            Discover what&#39;s good in the world around you.
             <span className="font-normal text-sm"></span>
           </div>
           <CommandMenu />
