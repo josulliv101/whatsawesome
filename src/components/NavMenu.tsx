@@ -95,15 +95,15 @@ export default function NavMenu({
 
   return (
     <>
-      <div className="relative flex lg:flex-0 items-center">
-        <div className="text-sm font-normal text-gray-600">
-          <span className="text-base font-normal">20</span>{" "}
-          <span className="text-base">mushrooms</span>
-        </div>
-        <Link href="/" className="flex_ items-center -m-1.5 p-1.5 gap-3 hidden">
+      <div className="relative flex lg:flex-0 items-end gap-0">
+        <span className="text-sm pr-1.5 font-semibold text-gray-600 hidden">
+          20
+        </span>
+
+        <Link href="/" className="flex_ relative top-[2px] _p-1.5 gap-3">
           <img
             // ref={refLogo}
-            className={`h-8 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
+            className={`h-5 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
             src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
             onAnimationEnd={(ev) => {
@@ -115,6 +115,11 @@ export default function NavMenu({
           {/* <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" /> */}
           <span className="sr-only">20 mushrooms</span>
         </Link>
+
+        <span className="text-xs pl-0.5 font-normal text-gray-600 hidden">
+          's
+        </span>
+
         {
           <>
             {/* <span className="px-3 ml-1 w-8 pr-4 block_ hidden">
