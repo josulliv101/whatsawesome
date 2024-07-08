@@ -117,7 +117,7 @@ export default function NavMenu({
         </Link>
 
         <span className="text-xs pl-0.5 font-normal text-gray-600 hidden">
-          's
+          s
         </span>
 
         {
