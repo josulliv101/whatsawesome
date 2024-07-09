@@ -220,7 +220,6 @@ export default function SearchResultLogos({
                   )}
                 >
                   {" "}
-                  {isWithinMapBounds ? "yes map" : "no in map"}
                   {hit.parent?.name}
                 </div>
               )}

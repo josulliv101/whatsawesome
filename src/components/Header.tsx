@@ -45,6 +45,9 @@ export default function Header({ children, authButton }: any) {
       <div ref={ref} className="w-px h-px top-2 left-0"></div>
       <header className="bg-white dark:bg-gray-950 border-b sticky min-h-[64px] top-0 z-50">
         <div className="relative">{children}</div>
+        <div className="hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-gray-700 rounded-full px-4 py-1 border ">
+          20 Mushrooms
+        </div>
       </header>
     </>
   );

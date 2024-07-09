@@ -100,7 +100,7 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
   return (
     <div>
       <Breadcrumb>
-        <div className="capitalize text-sm  flex items-center gap-4">
+        <div className="capitalize text-xs  flex items-center gap-4">
           {hubProfile.name} <span>/</span>
           {getDistanceLabel(Number(distance))}
           <span>/</span>
@@ -125,19 +125,19 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
 
             <div className="flex items-center gap-6">
               <Button
-                className={`font-semibold px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
+                className={`font-semibold text-xs px-0 ${pageParam === 0 ? "opacity-50" : ""}`}
                 disabled
                 size="sm"
                 variant={"default"}
                 asChild
               >
                 {pageParam === 99 ? (
-                  <ChevronLeftIcon className="w-6 h-6 stroke-1" />
+                  <ChevronLeftIcon className="w-4 h-4 stroke-1" />
                 ) : (
                   <Link
                     href={`/foobar/explore/${hub}/${pt}/${t3}/${distance}/${Math.max(0, pageParam - 1)}`}
                   >
-                    <ChevronLeftIcon className="w-6 h-6 stroke-1" />
+                    <ChevronLeftIcon className="w-4 h-4 stroke-1" />
                     Prev
                   </Link>
                 )}
@@ -145,13 +145,13 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
               <Button
                 variant={"default"}
                 size="sm"
-                className={`font-semibold px-0 ${pageParam + 1 < totalPages ? "opacity-100" : "opacity-50"}`}
+                className={`font-semibold text-xs px-0 ${pageParam + 1 < totalPages ? "opacity-100" : "opacity-50"}`}
                 asChild
               >
                 <Link
                   href={`/foobar/explore/${hub}/${pt}/${t3}/${distance}/${pageParam + 1}`}
                 >
-                  Next <ChevronRightIcon className="w-6 h-6 stroke-1" />
+                  Next <ChevronRightIcon className="w-4 h-4 stroke-1" />
                 </Link>
               </Button>
             </div>

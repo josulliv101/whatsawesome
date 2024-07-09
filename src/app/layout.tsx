@@ -71,7 +71,7 @@ export default function RootLayout({
                               <HubContextProvider
                                 initialValue={tags[1] as PrimaryTagType}
                               >
-                                <Header>
+                                {/* <Header>
                                   <Suspense>
                                     <div className="animate-fadeIn">
                                       <nav
@@ -97,7 +97,7 @@ export default function RootLayout({
                                       <MushroomBasket />
                                     </div>
                                   </Suspense>
-                                </Header>
+                                </Header> */}
                                 {children}
                                 <Toaster duration={8000} />
                                 <Footer />

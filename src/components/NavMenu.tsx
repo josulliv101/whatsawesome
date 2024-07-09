@@ -28,6 +28,7 @@ import {
 } from "react";
 import { useIsMounted } from "./useIsMounted";
 import { BreadcrumbSeparator } from "./ui/breadcrumb";
+import { Separator } from "./ui/separator";
 
 const components: {
   title: string;
@@ -95,15 +96,25 @@ export default function NavMenu({
 
   return (
     <>
-      <div className="relative flex lg:flex-0 items-end gap-0">
-        <span className="text-sm pr-1.5 font-semibold text-gray-600 hidden">
-          20
+      <div className="relative flex lg:flex-0 items-center gap-0">
+        <Link
+          href="/"
+          className="text-xs px-2 py-1 rounded-md  bg-primary_ border-0 text-primary font-normal"
+        >
+          20 Mushrooms
+        </Link>
+        <Separator orientation="vertical" className="h-4 mx-1" />
+        <span className="text-xs pl-1.5 font-normal opacity-60 text-gray-700 ">
+          ai-powered recommendation engine
         </span>
 
-        <Link href="/" className="flex_ relative top-[2px] _p-1.5 gap-3">
+        <Link
+          href="/"
+          className="flex_ relative _top-[2px] _p-1.5 gap-3 hidden"
+        >
           <img
             // ref={refLogo}
-            className={`h-5 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
+            className={`h-4 w-auto origin-bottom ${forcePlayAnimation ? "animate-rubberBandJumpNoDelay" : ""} ${isMounted && !animationState && enableLogoAnimation ? "animate-rubberBandJump" : `no-jump-${animationState}-${enableLogoAnimation}`}`}
             src={"/cute-mushroom-no-shadow.png"}
             alt="whatsawesome"
             onAnimationEnd={(ev) => {
@@ -115,10 +126,6 @@ export default function NavMenu({
           {/* <div className="animate-rubberBandJumpShadow__ bg-black dark:bg-blue-700/90 h-[2px] w-[27.0px] origin-bottom rounded-full absolute top-[29.5px] left-[2px]" /> */}
           <span className="sr-only">20 mushrooms</span>
         </Link>
-
-        <span className="text-xs pl-0.5 font-normal text-gray-600 hidden">
-          s
-        </span>
 
         {
           <>

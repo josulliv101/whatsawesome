@@ -18,7 +18,7 @@ export default function RootFoobarLayout({
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-12 md:col-span-8">
-        <div className="flex w-full sticky top-[64px]">
+        <div className="flex w-full sticky_ top-[64px]">
           {foobarmapaside}
           <FoobarMap>{foobarmap}</FoobarMap>
         </div>

@@ -36,7 +36,7 @@ export default function SearchResultLogos({
   pg = 0,
   resultsText = "",
 }: any) {
-  const [activeTabValue, setTabValue] = useState("row");
+  const [activeTabValue, setTabValue] = useState("");
   const [markerStatusMap, setMarkerStatusMap] = use(MapMarkerContext);
   const [resultsTextFromState, setResultsTextFromState] =
     useResultsLabelContext();
@@ -118,39 +118,24 @@ export default function SearchResultLogos({
   // map?.addListener("mousemove", (...args) => console.log("m", ...args));
   return (
     <>
-      <div className="flex flex-row-reverse items-center justify-between mx-8 mt-4 mb-0">
-        <div className="text-muted-foreground text-base relative top-0">
-          {helpText ? (
-            <>
-              <div className="flex items-center gap-2 animate-fadeInQuick text-muted-foreground text-base">
-                <TriangleAlertIcon className="w-5 h-5 text-orange-500/80" />{" "}
-                {helpText}
-              </div>
-            </>
-          ) : (
-            resultsText
-          )}
-        </div>
-        <div className="flex items-center gap-8">
-          <SearchLogoTabs value={activeTabValue} onChange={setTabValue} />
-        </div>
-      </div>
       <div
         className={cn(
           "grid",
-          isRow ? "grid-cols-10" : "grid-cols-6",
-          isRow ? "md:gap-2 pt-3" : "md:gap-2 md:py-4",
-          "mx-8 gap-1 md:gap-y-4 mt-2"
+          isRow ? "grid-cols-10" : "grid-cols-5",
+          isRow ? "md:gap-2 pt-0" : "md:gap-2 md:py-4",
+          "mx-2 gap-1 md:gap-y-4 -mt-2"
           // "px-4 rounded-md bg-muted"
         )}
       >
-        {hits.map((hit: any, index: number) => {
+        {hits.slice(0, 5).map((hit: any, index: number) => {
           const isWithinMapBounds =
             markerStatusMap[hit.objectID]?.isWithinBounds;
+          console.log("hit", hit);
           return (
             <div
               key={hit.objectID + index}
               className={cn(
+                "relative",
                 ` z-0 animate-fadeIn relative col-span-1 transition-all duration-500 text-white text-balance rounded-md ${false && mapState && mapState !== hit.objectID ? " grayscale" : "  grayscale-0"} text-center flex flex-col items-center justify-start`,
                 "transition-all duration-300",
                 isWithinMapBounds ? "opacity-100" : "opacity-50",
@@ -183,19 +168,21 @@ export default function SearchResultLogos({
                 )
               }
             >
-              {hit.parent?.parentPhotoUrl && (
+              {hit?.photoUrl && (
                 <Image
                   key={hit.parentId}
                   alt={hit.parent?.name}
-                  src={hit.parent?.parentPhotoUrl}
+                  src={hit?.photoUrl}
                   width="240"
                   height="240"
                   className={cn(
                     "bg-white rounded-t-md border block h-full object-cover relative z-0",
-                    isRow ? "rounded-b-md" : ""
+                    isRow ? "rounded-b-md" : "",
+                    "h-[100px]"
                   )}
                 />
               )}
+
               {!hit.parent?.parentPhotoUrl && (
                 <div
                   className={cn(
@@ -212,15 +199,28 @@ export default function SearchResultLogos({
               {!isRow && (
                 <div
                   className={cn(
-                    "flex items-center justify-center",
-                    "w-full min-h-[48px]",
+                    "flex items-center justify-center relative",
+                    "w-full min-h-[32px]",
                     "bg-black",
                     "px-2 py-1 border-t border-t-white rounded-b-md",
-                    "text-balance text-sm"
+                    "text-balance_ text-xs text-center",
+                    "_pl-[48px]"
                   )}
                 >
-                  {" "}
-                  {isWithinMapBounds ? "yes map" : "no in map"}
+                  {false && hit.parent?.parentPhotoUrl && (
+                    <Image
+                      key={hit.parentId}
+                      alt={hit.parent?.name}
+                      src={hit.parent?.parentPhotoUrl}
+                      width="240"
+                      height="240"
+                      className={cn(
+                        "absolute left-2",
+                        "max-w-[34px] max-h-[34px]",
+                        "bg-white rounded-md border block h-full object-cover z-0"
+                      )}
+                    />
+                  )}
                   {hit.parent?.name}
                 </div>
               )}
@@ -242,6 +242,23 @@ export default function SearchResultLogos({
             </div>
           );
         })}
+      </div>
+      <div className="flex flex-row-reverse items-center justify-between mx-8 mt-4 mb-0">
+        <div className="text-muted-foreground text-base relative top-0">
+          {helpText ? (
+            <>
+              <div className="flex items-center gap-2 animate-fadeInQuick text-muted-foreground text-base">
+                <TriangleAlertIcon className="w-5 h-5 text-orange-500/80" />{" "}
+                {helpText}
+              </div>
+            </>
+          ) : (
+            resultsText
+          )}
+        </div>
+        <div className="flex items-center gap-8">
+          <SearchLogoTabs value={activeTabValue} onChange={setTabValue} />
+        </div>
       </div>
     </>
   );

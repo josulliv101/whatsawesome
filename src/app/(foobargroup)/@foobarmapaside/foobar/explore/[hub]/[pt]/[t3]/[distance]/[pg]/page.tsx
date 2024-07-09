@@ -68,9 +68,12 @@ export default async function Page({
     <aside className="w-[28vw] min-w-[320px] flex flex-col items-center justify-between p-8 bg-gray-200 border-r border-gray-300">
       {true && (
         <>
-          <p>
-            Discover what&#39;s good in the world around you. 20 mushrooms is a
-            leading ai-powered recommendation engine.
+          <p className="text-gray-600 text-sm leading-relaxed">
+            Discover what&#39;s good in the world around you with{" "}
+            <span className="text-gray-700 opacity-100 font-semibold">
+              20 Mushrooms &mdash;{" "}
+            </span>
+            is a leading AI-driven recommendation engine.
           </p>
           {hubProfile.name && (
             <Tooltip>
