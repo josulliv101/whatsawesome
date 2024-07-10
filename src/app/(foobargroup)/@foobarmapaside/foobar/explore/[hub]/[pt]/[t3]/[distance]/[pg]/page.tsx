@@ -4,11 +4,22 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { fetchProfile } from "@/lib/firebase";
 import { searchTopAoeByCategory, searchTopAoeByRadius } from "@/lib/search";
 import { isHubHomepage } from "@/lib/utils";
 import Link from "next/link";
+import { config } from "@/lib/config";
+import {
+  BadgeCheckIcon,
+  SearchIcon,
+  SparkleIcon,
+  SparklesIcon,
+  TelescopeIcon,
+} from "lucide-react";
+import MenuUserOptions from "./MenuUserOptions";
+import SearchButton from "./SearchButton";
 
 export default async function Page({
   params: { hub, pt, t3, distance, pg },
@@ -65,35 +76,60 @@ export default async function Page({
   //   );
   // }
   return (
-    <aside className="w-[28vw] min-w-[320px] flex flex-col items-center justify-between p-8 bg-gray-200 border-r border-gray-300">
-      {true && (
-        <>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            Discover what&#39;s good in the world around you with{" "}
-            <span className="text-gray-700 opacity-100 font-semibold">
-              20 Mushrooms &mdash;{" "}
-            </span>
-            is a leading AI-driven recommendation engine.
-          </p>
-          {hubProfile.name && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant={"default"}
-                  size="lg"
-                  className="text-2xl px-4 py-10 w-full"
-                  asChild
-                >
-                  <Link href={`/explore/foobar/${hub}`}>{hubProfile.name}</Link>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="top" sideOffset={20}>
-                <p>View {hubProfile.name} Profile</p>
-              </TooltipContent>
-            </Tooltip>
-          )}
-        </>
-      )}
+    <aside className="w-[28vw] min-w-[320px] flex flex-col items-center justify-between pb-4 bg-gray-200 border-r border-gray-300">
+      <div className="bg-gray-100 flex gap-2 items-center justify-between text-xs w-full border-b border-gray-300 pt-2 px-4 min-h-[36px] pb-2">
+        <div className="flex items-center">
+          <Link href="/">
+            <img
+              className="w-4 h-4 relative mr-0.5"
+              src={config.logoPath}
+              width="24"
+              height="24"
+            />
+          </Link>{" "}
+          <div className="flex items-center gap-2 opacity-75">
+            <span className="opacity-20">/</span>
+            {/* <span className="opacity-70">20 Mushrooms</span>
+          <span className="opacity-20">/</span> */}
+            <span className="opacity-70">Boston, MA</span>
+          </div>
+        </div>
+        <SearchButton />
+      </div>
+      <div className="px-4 h-full flex flex-col justify-between">
+        {true && (
+          <>
+            <p className="text-gray-600 text-sm leading-relaxed pt-8">
+              Discover what&#39;s good in the world around you with{" "}
+              <span className="text-gray-700 opacity-100 font-semibold">
+                20 Mushrooms &mdash;{" "}
+              </span>
+              is a leading AI-driven recommendation engine.
+            </p>
+            <MenuUserOptions />
+            {false && hubProfile.name && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"default"}
+                    size="lg"
+                    className="text-2xl px-4 py-10 w-full"
+                    asChild
+                  >
+                    <Link href={`/explore/foobar/${hub}`}>
+                      {hubProfile.name}
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" sideOffset={20}>
+                  <p>View {hubProfile.name} Profile</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
+          </>
+        )}
+      </div>
+
       {/* {false && !isHubHomepage({ hub, pt, t3 }) && (
         <div className=" w-full h-full grid grid-cols-12 gap-x-1 gap-y-1">
           {[...new Array(9)].map((_) => (

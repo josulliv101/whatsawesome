@@ -199,7 +199,7 @@ export default function SearchResultLogos({
               {!isRow && (
                 <div
                   className={cn(
-                    "flex items-center justify-center relative",
+                    "flex items-center justify-center relative gap-2",
                     "w-full min-h-[32px]",
                     "bg-black",
                     "px-2 py-1 border-t border-t-white rounded-b-md",
@@ -207,7 +207,7 @@ export default function SearchResultLogos({
                     "_pl-[48px]"
                   )}
                 >
-                  {false && hit.parent?.parentPhotoUrl && (
+                  {true && hit.parent?.parentPhotoUrl && (
                     <Image
                       key={hit.parentId}
                       alt={hit.parent?.name}
@@ -215,9 +215,9 @@ export default function SearchResultLogos({
                       width="240"
                       height="240"
                       className={cn(
-                        "absolute left-2",
-                        "max-w-[34px] max-h-[34px]",
-                        "bg-white rounded-md border block h-full object-cover z-0"
+                        // "absolute left-2",
+                        "max-w-[20px] max-h-[20px]",
+                        "bg-white rounded-full border border-gray-400 block h-full object-cover z-0"
                       )}
                     />
                   )}
