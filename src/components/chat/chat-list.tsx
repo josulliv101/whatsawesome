@@ -6,7 +6,7 @@ import ChatBottombar from "./chat-bottombar";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface ChatListProps {
-  messages?: Message[];
+  messages?: Array<any>;
   selectedUser: UserData;
   sendMessage: (newMessage: Message) => void;
   isMobile: boolean;
@@ -28,7 +28,7 @@ export function ChatList({
   }, [messages]);
 
   return (
-    <div className="w-full overflow-y-auto overflow-x-hidden h-full flex flex-col pt-2">
+    <div className="w-full overflow-y-auto overflow-x-hidden h-full flex flex-col pt-4">
       <div
         ref={messagesContainerRef}
         className="w-full overflow-y-auto overflow-x-hidden h-full flex flex-col"
@@ -55,28 +55,28 @@ export function ChatList({
               }}
               className={cn(
                 "flex flex-col gap-2 px-4 py-1 whitespace-pre-wrap",
-                message.name !== selectedUser.name ? "items-end" : "items-start"
+                message.role !== "assistant" ? "items-end" : "items-start"
               )}
             >
               <div className="flex gap-3 items-center">
-                {message.name === selectedUser.name && (
+                {message.role === "assistant" && (
                   <Avatar className="flex justify-center items-center">
                     <AvatarImage
-                      src={message.avatar}
-                      alt={message.name}
+                      src={"/carmen.png"}
+                      alt={"Carmen"}
                       width={6}
                       height={6}
                     />
                   </Avatar>
                 )}
-                <span className=" bg-accent p-3 rounded-md max-w-xs">
-                  {message.message}
+                <span className=" bg-accent p-3 rounded-md max-w-xs text-xs">
+                  {message.content}
                 </span>
-                {message.name !== selectedUser.name && (
+                {message.role === "user" && (
                   <Avatar className="flex justify-center items-center">
                     <AvatarImage
-                      src={message.avatar}
-                      alt={message.name}
+                      src={"/cute-mushroom-blue-chat.png"}
+                      alt={"user"}
                       width={6}
                       height={6}
                     />

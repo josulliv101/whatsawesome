@@ -28,10 +28,13 @@ export default function ChatTopbar({ selectedUser }: ChatTopbarProps) {
         </Avatar>
         <div className="flex flex-col">
           <span className="font-medium">{selectedUser.name}</span>
-          <span className="text-xs">
+          <span className="text-sm">
             AI Assistant &mdash; here to help you find new restaurants & dishes
             to try.
           </span>
+          <div className="text-xs text-muted-foreground">
+            The AI Assistant functionality is currently experimental.
+          </div>
         </div>
       </div>
 

@@ -86,8 +86,8 @@ export type UserData = (typeof userData)[number];
 
 export const loggedInUserData = {
   id: 5,
-  avatar: config.logoPath,
-  name: "Jakob Hoeg",
+  avatar: "/cute-mushroom-blue-chat.png",
+  name: "Joe",
 };
 
 export type LoggedInUserData = typeof loggedInUserData;

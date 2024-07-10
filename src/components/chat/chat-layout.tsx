@@ -2,6 +2,7 @@
 
 // import { userData } from "@/app/data";
 import React, { useEffect, useState } from "react";
+// import { useChat } from "ai/react";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -17,6 +18,8 @@ interface ChatLayoutProps {
   defaultCollapsed?: boolean;
   navCollapsedSize: number;
 }
+
+const endpoint = "/api/agent";
 
 export function ChatLayout({
   defaultLayout = [320, 480],
