@@ -28,7 +28,7 @@ export function ChatList({
   }, [messages]);
 
   return (
-    <div className="w-full overflow-y-auto overflow-x-hidden h-full flex flex-col">
+    <div className="w-full overflow-y-auto overflow-x-hidden h-full flex flex-col pt-2">
       <div
         ref={messagesContainerRef}
         className="w-full overflow-y-auto overflow-x-hidden h-full flex flex-col"
@@ -54,7 +54,7 @@ export function ChatList({
                 originY: 0.5,
               }}
               className={cn(
-                "flex flex-col gap-2 p-4 whitespace-pre-wrap",
+                "flex flex-col gap-2 px-4 py-1 whitespace-pre-wrap",
                 message.name !== selectedUser.name ? "items-end" : "items-start"
               )}
             >

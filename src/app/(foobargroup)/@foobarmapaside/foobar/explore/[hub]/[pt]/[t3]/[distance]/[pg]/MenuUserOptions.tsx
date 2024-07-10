@@ -16,6 +16,7 @@ export default function MenuUserOptions() {
       {options.map(([label, Component, id], index) => {
         return (
           <Button
+            key={id}
             variant={"outline"}
             onClick={() => updateActiveId(id)}
             className="text-xs bg-gray-100_ gap-2 border-gray-300 col-span-6 flex items-center justify-center p-2 rounded-md min-h-16 "

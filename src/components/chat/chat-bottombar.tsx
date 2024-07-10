@@ -174,7 +174,7 @@ export default function ChatBottombar({
             onKeyDown={handleKeyPress}
             onChange={handleInputChange}
             name="message"
-            placeholder="Aa"
+            placeholder="What type of restaurants / dishes are you looking for?"
             className=" w-full border rounded-full flex items-center h-9 resize-none overflow-hidden bg-background"
           ></Textarea>
         </motion.div>

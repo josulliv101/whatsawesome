@@ -10,7 +10,7 @@ export const userData = [
         avatar: "/carmen.png",
         name: "Carmen",
         message:
-          "Hi! What can I help you find? We currently have data for burgers & steak in the Greater Boston area.",
+          "Hi! What can I help you find? We currently have details for burgers & steak in the Greater Boston area.",
       },
 
       //   {
