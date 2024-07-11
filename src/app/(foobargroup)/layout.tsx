@@ -20,20 +20,28 @@ export default function RootFoobarLayout({
   params: any;
 }>) {
   return (
-    <div className="container mx-auto max-w-[1080px]">
-      <div className="grid grid-cols-12">
-        <div className="col-span-12 md:col-span-12">
-          <div className="flex w-full sticky_ top-[64px]">
-            {foobarmapaside}
-            <FoobarMap>{foobarmap}</FoobarMap>
+    <>
+      <div className="bg-gray-300">
+        <div className="container mx-auto max-w-[1080px] py-6">
+          <div className="grid grid-cols-12 rounded-lg">
+            <div className="col-span-12 md:col-span-12 rounded-lg">
+              <div className="flex w-full sticky_ top-[64px] gap-2">
+                {foobarmapaside}
+                <FoobarMap>{foobarmap}</FoobarMap>
+              </div>
+            </div>
           </div>
-
-          <div className="bg-gray-50 relative z-10">{children}</div>
-        </div>
-        <div className="bg-gray-100 hidden md:block md:col-span-4">
-          <Sidebar>{foobarsidebar}</Sidebar>
         </div>
       </div>
-    </div>
+
+      <div className="grid grid-cols-12">
+        <div className="col-span-12 md:col-span-12">
+          <div className="bg-gray-50 relative z-10">{children}</div>
+        </div>
+      </div>
+      <div className="bg-gray-100 hidden md:block md:col-span-4">
+        <Sidebar>{foobarsidebar}</Sidebar>
+      </div>
+    </>
   );
 }

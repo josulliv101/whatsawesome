@@ -157,16 +157,20 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
             </div>
           </div>
         )}
-      </Breadcrumb>
-      {!isHubHomepage({ hub, pt, t3 }) && (
-        <SearchResultLogos
-          pg={pg}
-          hits={hits}
-          resultsText={resultsText}
-        ></SearchResultLogos>
-      )}
-
-      {/* <NavBar>
+      </Breadcrumb>{" "}
+      <div className="bg-gray-50 pt-2">
+        <div className="container mx-auto max-w-[1080px] bg-gray-50">
+          {!isHubHomepage({ hub, pt, t3 }) && (
+            <SearchResultLogos
+              pg={pg}
+              hits={hits}
+              resultsText={resultsText}
+            ></SearchResultLogos>
+          )}
+        </div>
+      </div>
+      <div className="container mx-auto max-w-[1080px]">
+        {/* <NavBar>
         <div className="flex items-center gap-4 capitalize text-muted-foreground text-lg">
           <div>{hubProfile.name}</div>
           <span>/</span>
@@ -175,86 +179,91 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
           <span>{t3}</span>
         </div>
       </NavBar> */}
-      <div className="px-0 py-2 md:px-8 md:py-2 flex flex-col gap-0 rounded-lg">
-        <AreasOfExcellenceBar areaOfExcellence={t3} />
-        {!isHubHomepage({ hub, pt, t3 }) && (
-          <div className="rounded-md bg-muted px-4 py-0 pb-6 flex flex-col gap-4">
-            {hits?.map(
-              (
-                {
-                  objectID: excellenceId,
-                  parent,
-                  photoUrl,
-                  reason,
-                  rating,
-                  _tags = [],
-                }: any,
-                index: number
-              ) => {
-                const tags = [
-                  ...getPrimaryTagsFromTags(_tags),
-                  ...getLevel3TagsFromTags(_tags),
-                ];
+        <div className="px-0 py-2 md:px-8 md:py-2 flex flex-col gap-0 rounded-lg">
+          <AreasOfExcellenceBar areaOfExcellence={t3} />
+          {!isHubHomepage({ hub, pt, t3 }) && (
+            <div className="rounded-md bg-muted px-4 py-0 pb-6 flex flex-col gap-4">
+              {hits?.map(
+                (
+                  {
+                    objectID: excellenceId,
+                    parent,
+                    photoUrl,
+                    reason,
+                    rating,
+                    _tags = [],
+                  }: any,
+                  index: number
+                ) => {
+                  const tags = [
+                    ...getPrimaryTagsFromTags(_tags),
+                    ...getLevel3TagsFromTags(_tags),
+                  ];
 
-                const cacheTag = getCacheTagFromParams(hub, [pt, t3], distance); // [hub, "place", pt, t3, distance].join("-");
-                console.log("cache tag from page", cacheTag);
-                return (
-                  <ExcellenceItem
-                    key={excellenceId + index}
-                    name={parent.name}
-                    rating={rating}
-                    photoUrl={photoUrl}
-                    parentTags={parent?.tags || []}
-                    photoAsideUrl={parent?.parentPhotoUrl}
-                    profileId={parent?.id}
-                    tags={tags}
-                    tagsAll={parent?.tagsAll || []}
-                    rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
-                  >
-                    <p className="peer-has-[a[data-state='delayed-open']]/tags:opacity-0 peer-has-[a[data-state='instant-open']]/tags:opacity-0 transition-all duration-300 text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
-                      {reason || (
-                        <span className="text-muted-foreground text-base">
-                          ( empty item )
-                        </span>
-                      )}
-                    </p>
-                    <p className="  z-0  top-0 left-0 absolute opacity-0 animate-fadeInQuick hidden peer-has-[a[data-state='delayed-open']]/tags:flex peer-has-[a[data-state='instant-open']]/tags:flex peer-has-[a[data-state='delayed-open']]/tags:opacity-100 peer-has-[a[data-state='instant-open']]/tags:opacity-100 transition-all duration-300 justify-center items-center  h-full text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center  text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
-                      {parent?.description}
-                    </p>
-                    {/* flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 */}
-                    <div className="peer-has-[a[data-state='delayed-open']]/tags:opacity-0 peer-has-[a[data-state='instant-open']]/tags:opacity-0 transition-all duration-300 rounded-md absolute top-4 right-4 md:right-4">
-                      <Suspense
-                      // fallback={
-                      //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
-                      // }
-                      >
-                        <Rating
-                          // rating={rating}
-                          profileId={parent?.id}
-                          // uid={uid}
-                          excellenceId={excellenceId}
-                          cacheTag={cacheTag}
-                          // mushroomMapPromise={mushroomMapPromise}
-                          // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
-                        />
-                      </Suspense>
-                    </div>
+                  const cacheTag = getCacheTagFromParams(
+                    hub,
+                    [pt, t3],
+                    distance
+                  ); // [hub, "place", pt, t3, distance].join("-");
+                  console.log("cache tag from page", cacheTag);
+                  return (
+                    <ExcellenceItem
+                      key={excellenceId + index}
+                      name={parent.name}
+                      rating={rating}
+                      photoUrl={photoUrl}
+                      parentTags={parent?.tags || []}
+                      photoAsideUrl={parent?.parentPhotoUrl}
+                      profileId={parent?.id}
+                      tags={tags}
+                      tagsAll={parent?.tagsAll || []}
+                      rank={(pg === "index" ? 0 : Number(pg)) * 5 + index + 1}
+                    >
+                      <p className="peer-has-[a[data-state='delayed-open']]/tags:opacity-0 peer-has-[a[data-state='instant-open']]/tags:opacity-0 transition-all duration-300 text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center relative top-1/2 -translate-y-1/2 text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
+                        {reason || (
+                          <span className="text-muted-foreground text-base">
+                            ( empty item )
+                          </span>
+                        )}
+                      </p>
+                      <p className="  z-0  top-0 left-0 absolute opacity-0 animate-fadeInQuick hidden peer-has-[a[data-state='delayed-open']]/tags:flex peer-has-[a[data-state='instant-open']]/tags:flex peer-has-[a[data-state='delayed-open']]/tags:opacity-100 peer-has-[a[data-state='instant-open']]/tags:opacity-100 transition-all duration-300 justify-center items-center  h-full text-muted-foreground w-full px-4 md:px-12 mt-24 md:mt-0 text-wrap md:leading-7 md:text-balance text-left md:text-center  text-xl md:text-xl first-letter:text-4xl first-letter:pr-0.5">
+                        {parent?.description}
+                      </p>
+                      {/* flex justify-center bg-gray-100 items-center mx-auto min-w-0 h-24 max-h-[36px] px-0 */}
+                      <div className="peer-has-[a[data-state='delayed-open']]/tags:opacity-0 peer-has-[a[data-state='instant-open']]/tags:opacity-0 transition-all duration-300 rounded-md absolute top-4 right-4 md:right-4">
+                        <Suspense
+                        // fallback={
+                        //   <Loader2 className="h-4 w-4 animate-spin opacity-60 text-white" />
+                        // }
+                        >
+                          <Rating
+                            // rating={rating}
+                            profileId={parent?.id}
+                            // uid={uid}
+                            excellenceId={excellenceId}
+                            cacheTag={cacheTag}
+                            // mushroomMapPromise={mushroomMapPromise}
+                            // deleteUidCookie={index === 0 ? deleteUidCookie : undefined}
+                          />
+                        </Suspense>
+                      </div>
 
-                    {/*<RatingButton
+                      {/*<RatingButton
                 rating={rating}
                 profileId={parent?.id}
                 excellenceId={excellenceId}
                 // mushroomPromise={Promise.resolve(true)}
               /> */}
-                  </ExcellenceItem>
-                );
-              }
-            )}
-          </div>
-        )}
-        {isHubHomepage({ hub, pt, t3 }) && (
-          <ProfilePageContent params={{ id: hub }} isEmbed />
-        )}
+                    </ExcellenceItem>
+                  );
+                }
+              )}
+            </div>
+          )}
+          {isHubHomepage({ hub, pt, t3 }) && (
+            <ProfilePageContent params={{ id: hub }} isEmbed />
+          )}
+        </div>
       </div>
     </div>
   );

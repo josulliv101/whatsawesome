@@ -17,12 +17,16 @@ export default function Breadcrumb({ children }: PropsWithChildren) {
   });
 
   return (
-    <div className="sticky top-[0px] z-50 w-full flex items-center justify-between px-4 py-0 bg-primary border-b border-r border-r-gray-200 border-b-gray-300 text-white min-h-[4px]">
-      <div
-        ref={ref}
-        className="absolute top-[-65.5px] w-[4px] h-[1px] z-[99999]"
-      />
-      {children}
+    <div className="bg-primary/100 sticky top-[0px] z-50 border-b">
+      <div className="container mx-auto max-w-[1080px]">
+        <div className="w-full bg-primary flex items-center justify-between px-4 py-0 text-white min-h-[4px]">
+          <div
+            ref={ref}
+            className="absolute top-[-65.5px] w-[4px] h-[1px] z-[99999]"
+          />
+          {children}
+        </div>{" "}
+      </div>{" "}
     </div>
   );
 }

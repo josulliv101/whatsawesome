@@ -10,6 +10,12 @@ interface ChatProps {
   isMobile: boolean;
 }
 
+const assistantMessage1: any = {
+  id: "9990",
+  content: `Need help finding restaurants & highly rated dishes near you?\n\nWe currently have details on burger & steak dishes in the Greater Boston area.`,
+  role: "assistant",
+};
+
 export function Chat({ selectedUser, isMobile }: ChatProps) {
   const {
     messages,
@@ -43,14 +49,7 @@ export function Chat({ selectedUser, isMobile }: ChatProps) {
 
   useEffect(() => {
     setTimeout(() => {
-      setMessages([
-        {
-          id: "9999",
-          content:
-            "What are you looking for - restuarants, specific dishes, prices, hours of operation?",
-          role: "assistant",
-        },
-      ]);
+      setMessages([assistantMessage1]);
     }, 800);
   }, []);
 
