@@ -1,8 +1,8 @@
-import { Message, UserData } from "@/app/data";
+import { UserData } from "@/app/data";
 import { useChat } from "ai/react";
 import ChatTopbar from "./chat-topbar";
 import { ChatList } from "./chat-list";
-import React from "react";
+import React, { useEffect } from "react";
 
 interface ChatProps {
   // messages?: Message[];
@@ -41,6 +41,19 @@ export function Chat({ selectedUser, isMobile }: ChatProps) {
   //   console.log("newMessage", newMessage);
   // };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setMessages([
+        {
+          id: "9999",
+          content:
+            "What are you looking for - restuarants, specific dishes, prices, hours of operation?",
+          role: "assistant",
+        },
+      ]);
+    }, 800);
+  }, []);
+
   async function sendMessage(newMessage: any) {
     console.log("sendMessage", { chatEndpointIsLoading, newMessage });
     if (chatEndpointIsLoading) {
@@ -54,6 +67,7 @@ export function Chat({ selectedUser, isMobile }: ChatProps) {
       role: "user",
     });
     setMessages(messagesWithUserReply);
+
     const response = await fetch("/api/agent", {
       method: "POST",
       body: JSON.stringify({
@@ -61,6 +75,27 @@ export function Chat({ selectedUser, isMobile }: ChatProps) {
         show_intermediate_steps: true,
       }),
     });
+
+    // if (response?.body) {
+    //   const reader = response.body.getReader();
+
+    //   while (true) {
+    //     const { done, value } = await reader.read();
+    //     if (done) break;
+
+    //     const textDecoder = new TextDecoder("utf-8");
+    //     const chunk = textDecoder.decode(value);
+    //     const lines = chunk.split("\n\n");
+
+    //     for (const line of lines) {
+    //       if (line.startsWith("data:")) {
+    //         const data = JSON.parse(line.substring(5));
+    //         console.log("streaming...", data);
+    //       }
+    //     }
+    //   }
+    // }
+
     const json = await response.json();
 
     if (response.status === 200) {
