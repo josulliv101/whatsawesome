@@ -73,7 +73,7 @@ export default function RootLayout({
                                 initialValue={tags[1] as PrimaryTagType}
                               >
                                 <div className="container mx-auto max-w-[1080px] relative">
-                                  <nav className="text-xs absolute z-50 w-full py-1 px-2 right-0 flex items-center justify-end">
+                                  <nav className="text-xs absolute z-50 w-full py-1 px-2 right-6 flex items-center justify-end">
                                     <span className="text-gray-500 text-[10px]">
                                       Login
                                     </span>
