@@ -93,7 +93,7 @@ export default function Page() {
                   </div>
                 </div>
                 <p className="text-xs text-muted-foreground pt-4">
-                  "Intro from Carmen" (total: 10s)
+                  &quot;Intro from Carmen&quot; (total: 10s)
                 </p>
               </div>
               <div>
