@@ -118,7 +118,7 @@ export default function Page() {
                   personalized dining experiences tailored to your taste.
                 </p>
                 <p className="text-muted-foreground text-sm leading-relaxed pt-4">
-                  Whether you're looking for a hidden gem or sharing your
+                  Whether you&#39;re looking for a hidden gem or sharing your
                   favorite finds, 20 Mushrooms makes it easy to explore and
                   recommend top dishes to fellow food enthusiasts. Join our
                   community today and elevate your culinary adventures!
