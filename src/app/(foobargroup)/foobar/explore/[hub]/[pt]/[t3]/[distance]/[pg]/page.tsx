@@ -101,6 +101,7 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
     <div>
       <Breadcrumb>
         <div className="capitalize text-xs  flex items-center gap-4">
+          20 Mushrooms <span>/</span>
           {hubProfile.name} <span>/</span>
           {getDistanceLabel(Number(distance))}
           <span>/</span>
@@ -158,8 +159,8 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
           </div>
         )}
       </Breadcrumb>{" "}
-      <div className="bg-gray-50 pt-2">
-        <div className="container mx-auto max-w-[1080px] bg-gray-50">
+      <div className=" pt-2 bg-muted border-b pb-1">
+        <div className="container mx-auto max-w-[1080px] ">
           {!isHubHomepage({ hub, pt, t3 }) && (
             <SearchResultLogos
               pg={pg}
@@ -179,7 +180,7 @@ ${Math.min(endAt, nbHits)} of ${nbHits}`;
           <span>{t3}</span>
         </div>
       </NavBar> */}
-        <div className="px-0 py-2 md:px-8 md:py-2 flex flex-col gap-0 rounded-lg">
+        <div className="px-0 py-2 md:px-0 md:py-2 flex flex-col gap-0 rounded-lg">
           <AreasOfExcellenceBar areaOfExcellence={t3} />
           {!isHubHomepage({ hub, pt, t3 }) && (
             <div className="rounded-md bg-muted px-4 py-0 pb-6 flex flex-col gap-4">

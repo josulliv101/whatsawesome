@@ -1,77 +1,135 @@
 import { CommandMenu } from "@/components/CommandMenu";
 import { Button } from "@/components/ui/button";
 import { config } from "@/lib/config";
-import { EqualIcon } from "lucide-react";
+import { ChevronRightIcon, EqualIcon, TelescopeIcon } from "lucide-react";
 import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { toast } from "sonner";
+import Breadcrumb from "./(foobargroup)/foobar/explore/[hub]/[pt]/[t3]/[distance]/[pg]/Breadcrumb";
+import React, { PropsWithChildren } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 
 export default function Page() {
   console.log("rendering home page");
   return (
     <>
-      <div className="bg-blue-100/50  flex justify-center items-center h-full">
-        <div className="w-1/2 my-36 max-w-1/2 px-2 flex flex-col items-center">
-          <div className="flex items-center justify-between w-full mb-4 font-semibold text-lg _capitalize text-muted-foreground">
-            Discover what&#39;s good in the world around you.
-            <span className="font-normal text-sm"></span>
+      <div className="bg-gray-300/80 bg-[url('/support-waves.svg')] ">
+        <div className="container mx-auto max-w-[1080px] pb-4 pt-6 h-full">
+          <div className="grid grid-cols-12 rounded-lg overflow-hidden">
+            <div className="col-span-12 md:col-span-12 rounded-lg overflow-hidden bg-gray-100 h-[320px] p-8 flex gap-2 items-start w-full">
+              <div className="flex items-center flex-1">
+                <Link href="/">
+                  <img
+                    className="w-6 h-6 relative mr-1.5"
+                    src={config.logoPath}
+                    width="24"
+                    height="24"
+                  />
+                </Link>
+                <div className="flex items-center gap-2 opacity-75">
+                  <span className="opacity-20 pl-1.5">/</span>
+                  <span className="opacity-70">20 Mushrooms</span>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <Callout title="How It Works">
+                  <div className="flex items-center justify-between gap-4 w-full">
+                    <img
+                      className="h-12 w-12 min-w-12 opacity-90 stroke-1 bg-gray-200 rounded-full p-3.5 border-2 border-gray-300"
+                      src={config.logoPath}
+                      width="24"
+                      height="24"
+                    />
+                    <div>
+                      Leave a mushroom on dishes you endorse. Spend your
+                      mushrooms wisely - you only get 20.
+                    </div>
+                  </div>
+                </Callout>
+                <Separator className="opacity-100 bg-gray-300" />
+                <Callout title="Go Exploring">
+                  <div className="flex items-center justify-between gap-4 w-full">
+                    <TelescopeIcon className="h-12 w-12 min-w-12 opacity-90 stroke-1 bg-gray-200 rounded-full p-3 border-2 border-gray-300" />
+                    <div>
+                      Explore an area. Search by location, type of dish,
+                      restaurant and more.
+                    </div>
+                  </div>
+                </Callout>
+                <Separator className="opacity-100 bg-gray-300" />
+                <Callout title="Meet Carmen" moreLink="AI Assistant">
+                  <div className="flex items-center justify-between gap-4 w-full">
+                    <Avatar className="hidden h-12 w-12 sm:flex border-2 border-gray-400">
+                      <AvatarImage src="/carmen.png" alt="Meet Carmen" />
+                      <AvatarFallback>AI</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      Carmen is an AI Assistant that helps connect you to
+                      restaurants & dishes in your area.
+                    </div>
+                  </div>
+                </Callout>
+              </div>
+            </div>
           </div>
-          <CommandMenu />
-          <div className="w-full py-3 px-2 flex items-center justify-between">
-            <p className="w-2/3 text-muted-foreground text-sm flex items-center">
-              Quick links:{" "}
-              <Button asChild variant="link" className="text-blue-500">
-                <Link href="/explore/boston">Boston</Link>
-              </Button>
-              {["Chicago", "Houston", "NYC", "Seattle"].map((id) => (
-                <Button
-                  key={id}
-                  disabled
-                  // onClick={() =>
-                  //   toast(
-                  //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                  //       <code className="text-white">
-                  //         Functionality not yet implemented.
-                  //       </code>
-                  //     </pre>
-                  //   )
-                  // }
-                  variant="link"
-                >
-                  {id}
-                </Button>
-              ))}
-            </p>
-            <p className="w-1/3 text-sm text-muted-foreground text-right  flex items-end justify-end gap-3">
-              more{" "}
-              <img
-                className="w-4 h-4 opacity-70 grayscale relative -top-0.5"
-                src={config.logoPath}
-                width="24"
-                height="24"
-              />{" "}
-              <EqualIcon className="h-5 w-5" /> more excellence
-            </p>
+        </div>
+      </div>{" "}
+      <Breadcrumb>
+        <div className="h-[36px] flex items-center text-sm"></div>
+      </Breadcrumb>
+      <div className="container mx-auto max-w-[1080px] py-4">
+        <div className="grid grid-cols-12">
+          <div className="col-span-12 md:col-span-12">
+            <div className="bg-gray-50 relative z-10 p-8">
+              <h2>How It Works</h2>
+              <Link href="/foobar/explore/boston/restaurant/burger/4">
+                Boston
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-      <div className="px-10 py-8">
-        <h2 className="font-semibold text-2xl mb-4">How It Works</h2>
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-          quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-          exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-          ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-          ea voluptate velit esse quam nihil molestiae consequatur, vel illum
-          qui dolorem eum fugiat quo voluptas nulla pariatur.
-        </p>
+      <div className=" bg-[#cbd5e4]/30">
+        <div className="grid grid-cols-12 container mx-auto max-w-[1080px] py-4">
+          <div className="col-span-12 md:col-span-12">
+            <div className=" relative z-10 p-8">
+              <h2>Meet Carmen</h2>
+              <Link href="/foobar/explore/boston/restaurant/burger/4">
+                Boston
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </>
+  );
+}
+
+function Callout({
+  title,
+  moreLink = "",
+  children,
+}: PropsWithChildren<{ title?: React.ReactNode; moreLink?: React.ReactNode }>) {
+  return (
+    <Card className="max-w-sm h-1/2 border-0 bg-transparent shadow-none pt-1">
+      <CardHeader className="px-4 py-0">
+        {/* <CardTitle className="text-base">{title}</CardTitle> */}
+        <CardDescription className="flex items-center gap-2 text-xs text-primary">
+          {children}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="px-4 py-0 text-right">
+        <Button size="sm" variant="link" className="text-xs text-gray-600 h-6">
+          {moreLink || title} <ChevronRightIcon className="w-3 h-3" />
+        </Button>
+      </CardContent>
+    </Card>
   );
 }

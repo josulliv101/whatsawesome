@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="background-color:#eee; display: block; transform: scale(1,-1);" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="390" viewBox="0 0 1920 390">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_1187" d="M0,0H1920V390H0Z" transform="translate(2.989 1.229)" fill="#151950" />
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.523" y1="-0.538" x2="0.49" y2="1.617" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#68a1ef" stop-opacity="0.13" />
+      <stop offset="1" stop-color="#1b74c1" stop-opacity="0.30" />
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.581" y1="0.251" x2="0.482" y2="1.943" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#84afff" />
+      <stop offset="1" stop-color="#4494d0" stop-opacity="0.7" />
+    </linearGradient>
+  </defs>
+  <g id="Background-Waves-GetStarted" transform="translate(-2.989 -1.229)" clip-path="url(#clip-path)">
+    <path id="Path_566" d="M-7438.84-8709.93s-20.236,5.011-66.286-16.727-289.863-136.572-289.863-136.572v391.59h1922.33l.86-390.514s-440.681,293.809-483.731,322.094-68.658,26.82-117.172,9.134-412.608-149.955-443.081-160.658-43.228-18.193-74.064-18.252S-7438.84-8709.93-7438.84-8709.93Z" transform="translate(7794.989 8863.229)" fill="url(#linear-gradient)" />
+    <path id="Path_565" d="M-7792-8520.946s240.893-214.4,281.526-252.742,69.479-34.029,95.624-34.869,419.224,0,419.224,0,31.825-3.359,69.638,11.675,345.294,122.233,345.294,122.233,37.44,13.728,75.833-10.883,158.146-106.031,196.775-128.585,54.441-16.879,120.906-8.9,315.454,32.689,315.454,32.689l-.333,319.835-1919.94-.563Z" transform="translate(7794.989 8860.229)" opacity="0.154" fill="url(#linear-gradient-2)" />
+  </g>
+</svg>

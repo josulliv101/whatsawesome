@@ -33,7 +33,8 @@ export default function ChatTopbar({ selectedUser }: ChatTopbarProps) {
             to try.
           </span>
           <div className="text-xs text-muted-foreground">
-            The AI Assistant functionality is currently experimental.
+            The AI Assistant functionality is currently experimental. Check
+            important info.
           </div>
         </div>
       </div>

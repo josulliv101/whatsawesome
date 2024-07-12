@@ -122,8 +122,8 @@ export default function SearchResultLogos({
         className={cn(
           "grid",
           isRow ? "grid-cols-10" : "grid-cols-5",
-          isRow ? "md:gap-2 pt-0" : "md:gap-2 md:py-4",
-          "mx-2 gap-1 md:gap-y-4 -mt-2"
+          isRow ? "md:gap-2" : "md:gap-2",
+          "mx-0 pt-3 gap-1"
           // "px-4 rounded-md bg-muted"
         )}
       >
@@ -243,8 +243,8 @@ export default function SearchResultLogos({
           );
         })}
       </div>
-      <div className="flex flex-row-reverse items-center justify-between mx-8 mt-4 mb-0">
-        <div className="text-muted-foreground text-base relative top-0">
+      <div className="flex flex-row-reverse items-center justify-between mx-0 mt-2 mb-1">
+        <div className="text-muted-foreground text-xs relative top-0">
           {helpText ? (
             <>
               <div className="flex items-center gap-2 animate-fadeInQuick text-muted-foreground text-base">
@@ -256,7 +256,7 @@ export default function SearchResultLogos({
             resultsText
           )}
         </div>
-        <div className="flex items-center gap-8">
+        <div className="flex_ items-center gap-8 hidden">
           <SearchLogoTabs value={activeTabValue} onChange={setTabValue} />
         </div>
       </div>

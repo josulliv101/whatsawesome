@@ -21,9 +21,9 @@ export default function RootFoobarLayout({
 }>) {
   return (
     <>
-      <div className="bg-gray-300">
-        <div className="container mx-auto max-w-[1080px] py-6">
-          <div className="grid grid-cols-12 rounded-lg">
+      <div className="bg-gray-300/80 bg-[url('/support-waves.svg')]">
+        <div className="container mx-auto max-w-[1080px] pb-4 pt-6">
+          <div className="grid grid-cols-12 rounded-lg overflow-hidden">
             <div className="col-span-12 md:col-span-12 rounded-lg">
               <div className="flex w-full sticky_ top-[64px] gap-2">
                 {foobarmapaside}

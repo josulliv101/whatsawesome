@@ -19,7 +19,7 @@ export default function MenuUserOptions() {
             key={id}
             variant={"outline"}
             onClick={() => updateActiveId(id)}
-            className="text-xs bg-gray-100_ gap-2 border-gray-300 col-span-6 flex items-center justify-center p-2 rounded-md min-h-16 "
+            className="text-xs bg-gray-100 gap-2 border-gray-300 col-span-6 flex items-center justify-center p-2 rounded-md min-h-16 "
           >
             {index === -1 && (
               <TelescopeIcon className="h-5 w-5 mr-2 text-gray-500 opacity-80_" />

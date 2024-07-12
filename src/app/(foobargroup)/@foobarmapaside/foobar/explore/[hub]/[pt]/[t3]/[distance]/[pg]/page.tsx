@@ -88,7 +88,7 @@ export default async function Page({
             />
           </Link>{" "}
           <div className="flex items-center gap-2 opacity-75">
-            <span className="opacity-20">/</span>
+            <span className="opacity-20 pl-1.5">/</span>
             {/* <span className="opacity-70">20 Mushrooms</span>
           <span className="opacity-20">/</span> */}
             <span className="opacity-70">Boston, MA</span>

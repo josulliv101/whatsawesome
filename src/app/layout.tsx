@@ -34,6 +34,7 @@ import { StickyBreadcrumbContextProvider } from "@/components/StickyBreadcrumb";
 import { UserScrolledContextProvider } from "@/components/UserScrolled";
 import { ResultsLabelContextProvider } from "@/components/ResultsLabel";
 import { MapMarkerContextProvider } from "@/components/MapMarkerContext";
+import { UserIcon } from "lucide-react";
 
 export const metadata = {
   title: "Next.js",
@@ -71,6 +72,14 @@ export default function RootLayout({
                               <HubContextProvider
                                 initialValue={tags[1] as PrimaryTagType}
                               >
+                                <div className="container mx-auto max-w-[1080px] relative">
+                                  <nav className="text-xs absolute z-50 w-full py-1 px-2 right-0 flex items-center justify-end">
+                                    <span className="text-gray-500 text-[10px]">
+                                      Login
+                                    </span>
+                                  </nav>
+                                </div>
+
                                 {/* <Header>
                                   <Suspense>
                                     <div className="animate-fadeIn">

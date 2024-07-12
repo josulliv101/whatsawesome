@@ -21,7 +21,7 @@ export default function AreasOfExcellenceBar({ areaOfExcellence }: any) {
         // "w-full",
         "relative",
         "mx-0 mt-4 bg-muted px-4 py-2 rounded-md",
-        "text-lg text-muted-foreground"
+        "text-lg text-muted-foreground border"
       )}
     >
       <div className="flex place-items-center">
