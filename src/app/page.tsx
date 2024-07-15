@@ -25,18 +25,22 @@ export default function Page() {
           <div className="grid grid-cols-12 rounded-lg overflow-hidden">
             <div className="col-span-12 md:col-span-12 rounded-lg overflow-hidden bg-gray-100 h-[320px] px-6 py-4 flex gap-10 items-start w-full">
               <div>
-                <div className="flex items-center">
-                  <Link href="/">
-                    <img
-                      className="w-6 h-6 relative mr-2"
-                      src={config.logoPath}
-                      width="24"
-                      height="24"
-                    />
-                  </Link>
-                  <div className="flex items-center gap-2 opacity-75">
-                    <span className="opacity-20 pl-1.5">/</span>
-                    <span className="opacity-70">20 Mushrooms</span>
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center">
+                    <Link href="/">
+                      <img
+                        className="w-6 h-6 relative mr-2"
+                        src={config.logoPath}
+                        width="24"
+                        height="24"
+                      />
+                    </Link>
+                    <div className="flex items-center gap-2 opacity-75">
+                      <span className="opacity-20 pl-1.5">/</span>
+                      <span className="opacity-100 text-gray-900">
+                        20 Mushrooms
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <p className="text-muted-foreground text-base leading-relaxed pt-6">
@@ -53,7 +57,23 @@ export default function Page() {
                   free!
                 </p>
 
-                <div className="flex items-center gap-4">
+                <div className="flex flex-row-reverse items-center gap-4">
+                  <div className="flex items-center gap-4 w-1/2 border rounded-lg px-4 py-2 min-h-[100px] relative">
+                    <div>
+                      <p className="font-semibold text-muted-foreground text-xs hidden">
+                        Find Dishes & Restaurants
+                      </p>
+                      <p className="text-muted-foreground text-xs leading-relaxed pt-0">
+                        Explore on your own. Find dishes & restaurants in your
+                        area. Search by location, type of dish, restaurant and
+                        more.
+                        <br /> &nbsp;
+                      </p>
+                      <p className="text-xs absolute bottom-2 right-2 flex items-center gap-1 text-blue-500">
+                        Go Exploring <ChevronRightIcon className="w-3 h-3" />
+                      </p>
+                    </div>
+                  </div>
                   <div className="flex items-center gap-4 w-1/2 border rounded-lg px-4 py-2 min-h-[100px] relative">
                     <Avatar className="hidden h-16 w-16 sm:flex border-2 border-gray-400">
                       <AvatarImage src="/carmen.png" alt="Meet Carmen" />
@@ -65,35 +85,30 @@ export default function Page() {
                       </p> */}
                       <p className="text-muted-foreground text-xs leading-relaxed pt-0">
                         Carmen is an AI Assistant here to help you connect to
-                        restaurants & dishes in your area.
+                        restaurants & dishes in your area.{" "}
+                        <span className="opacity-70 text-[10px]">
+                          (experimental)
+                        </span>
                       </p>
                       <p className="text-xs absolute bottom-2 right-2 flex items-center gap-1 text-blue-500">
                         Ask Carmen <ChevronRightIcon className="w-3 h-3" />
                       </p>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-4 w-1/2 border rounded-lg px-4 py-2 min-h-[100px] relative">
-                    <div>
-                      <p className="font-semibold text-muted-foreground text-xs hidden">
-                        Find Dishes & Restaurants
-                      </p>
-                      <p className="text-muted-foreground text-xs leading-relaxed pt-0">
-                        Find dishes & restaurants in your area. Search by
-                        location, type of dish, restaurant and more.
-                        <br /> &nbsp;
-                      </p>
-                      <p className="text-xs absolute bottom-2 right-2 flex items-center gap-1 text-blue-500">
-                        Go Exploring <ChevronRightIcon className="w-3 h-3" />
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col items-end gap-2 min-w-[200px] mt-[48px]">
-                <Callout title="More">
-                  <div className="flex items-center justify-between gap-4 w-full">
+              <div className="flex flex-col items-end gap-4 min-w-[200px] ">
+                <div className="flex items-center justify-end gap-4 mb-4">
+                  {/* <Link className="text-xs text-muted-foreground" href="/login">
+                    How It Works
+                  </Link> */}
+                  <Link className="text-xs text-muted-foreground" href="/login">
+                    Login
+                  </Link>
+                </div>
+                <Callout title="how it works">
+                  <div className="flex items-center justify-between gap-2 w-full">
                     {/* <img
                       className="h-12 w-12 min-w-12 opacity-90 stroke-1 bg-gray-200 rounded-full p-3.5 border-2 border-gray-300"
                       src={config.logoPath}
@@ -101,14 +116,14 @@ export default function Page() {
                       height="24"
                     /> */}
                     <div>
-                      How It Works: Leave a mushroom on dishes you recommend.
-                      Choose wisely - you only get 20 mushrooms.
+                      Leave a mushroom on dishes you recommend. Choose wisely -
+                      you only get 20 mushrooms.
                     </div>
                   </div>
                 </Callout>
                 {/* <Separator className="opacity-100 bg-gray-300" /> */}
-                <Callout title="Read">
-                  <div className="flex items-center justify-between gap-4 w-full">
+                <Callout title="read">
+                  <div className="flex items-center justify-between gap-2 w-full">
                     {/* <TelescopeIcon className="h-12 w-12 min-w-12  opacity-90 stroke-1 bg-gray-200 rounded-full p-3 border-2 border-gray-300" />
                      */}
                     <div>
@@ -117,8 +132,8 @@ export default function Page() {
                     </div>
                   </div>
                 </Callout>
-                <Callout title="Read">
-                  <div className="flex items-center justify-between gap-4 w-full">
+                <Callout title="read">
+                  <div className="flex items-center justify-between gap-2 w-full">
                     {/* <TelescopeIcon className="h-12 w-12 min-w-12  opacity-90 stroke-1 bg-gray-200 rounded-full p-3 border-2 border-gray-300" />
                      */}
                     <div>
@@ -386,14 +401,15 @@ function Callout({
           {children}
         </CardDescription>
       </CardHeader>
-      <CardContent className="px-1 py-0 text-right">
-        <Button
-          size="sm"
-          variant="link"
-          className="text-xs text-blue-500 mt-0 font-normal"
+      <CardContent className="px-1 py-0 pt-0 pb-0 flex items-center justify-end">
+        <Link
+          href="/"
+          // size="sm"
+          // variant="link"
+          className="text-xs text-blue-500 mt-0 font-normal h-6 flex items-center"
         >
           {moreLink || title} <ChevronRightIcon className="w-3 h-3" />
-        </Button>
+        </Link>
       </CardContent>
     </Card>
   );
