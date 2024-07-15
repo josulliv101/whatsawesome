@@ -45,8 +45,12 @@ export default function Page() {
                 <p className="text-muted-foreground text-sm leading-relaxed pt-4 pb-8">
                   Whether you&#39;re looking for a hidden gem or sharing your
                   favorite finds, 20 Mushrooms makes it easy to explore and
-                  recommend top dishes to fellow food enthusiasts. Join our
-                  community today and elevate your culinary adventures!
+                  recommend top dishes to fellow food enthusiasts.{" "}
+                  <Link className="text-blue-500" href="/">
+                    Join our community
+                  </Link>{" "}
+                  today and elevate your culinary adventures &mdash; it&#39;
+                  free!
                 </p>
 
                 <div className="flex items-center gap-4">
