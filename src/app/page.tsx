@@ -23,7 +23,7 @@ export default function Page() {
       <div className="bg-gray-300/80 bg-[url('/support-waves.svg')] ">
         <div className="container mx-auto max-w-[1080px] pb-4 pt-6 h-full">
           <div className="grid grid-cols-12 rounded-lg overflow-hidden">
-            <div className="col-span-12 md:col-span-12 rounded-lg overflow-hidden bg-gray-100 h-[320px] p-8 flex gap-12 items-start w-full">
+            <div className="col-span-12 md:col-span-12 rounded-lg overflow-hidden bg-gray-100 h-[320px] px-6 py-4 flex gap-12 items-start w-full">
               <div>
                 <div className="flex items-center">
                   <Link href="/">
@@ -54,7 +54,7 @@ export default function Page() {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 min-w-[320px]">
+              <div className="flex flex-col gap-2 min-w-[340px]">
                 <Callout title="How It Works">
                   <div className="flex items-center justify-between gap-4 w-full">
                     <img
@@ -100,7 +100,7 @@ export default function Page() {
       <Breadcrumb>
         <div className="h-[36px] flex items-center text-sm"></div>
       </Breadcrumb>
-      <div className="container mx-auto max-w-[1080px] py-4">
+      <div className="container mx-auto max-w-[1080px] py-6">
         <div className="grid grid-cols-12">
           <div className="col-span-12 md:col-span-12">
             <div className="bg-gray-50 relative z-10 p-8">
@@ -246,6 +246,74 @@ export default function Page() {
                     &quot;Carmen: 20 Mushrooms&quot; (10s)
                   </p>
                 </div>
+                <div className="min-w-[200px] w-[200px]">
+                  <script
+                    src="https://fast.wistia.com/embed/medias/6kkrpuhz59.jsonp"
+                    async
+                  ></script>
+                  <div
+                    className="wistia_responsive_padding"
+                    style={{
+                      padding: "100.0% 0 0 0",
+                      position: "relative",
+                    }}
+
+                    // style="padding:100.0% 0 0 0;position:relative;"
+                  >
+                    <div
+                      className="wistia_responsive_wrapper"
+                      style={{
+                        height: "100%",
+                        left: 0,
+                        top: 0,
+                        width: "100%",
+                        position: "absolute",
+                      }}
+                      // style="height:100%;left:0;position:absolute;top:0;width:100%;"
+                    >
+                      <div
+                        className="wistia_embed wistia_async_6kkrpuhz59 seo=false videoFoam=true"
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          position: "relative",
+                        }}
+                        // style="height:100%;position:relative;width:100%"
+                      >
+                        <div
+                          className="wistia_swatch"
+                          style={{
+                            height: "100%",
+                            left: 0,
+                            top: 0,
+                            opacity: 0.5,
+                            width: "100%",
+                            position: "absolute",
+                            overflow: "hidden",
+                          }}
+                          // style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"
+                        >
+                          <img
+                            src="https://fast.wistia.com/embed/medias/6kkrpuhz59/swatch"
+                            style={{
+                              filter: "blur(5px)",
+                              height: "100%",
+                              objectFit: "contain",
+                              width: "100%",
+                            }}
+                            // style="filter:blur(5px);height:100%;object-fit:contain;width:100%;"
+                            alt=""
+                            aria-hidden="true"
+                            // onLoad="this.parentNode.style.opacity=1;"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>{" "}
+                  <p className="text-xs text-muted-foreground pt-4">
+                    &quot;Carmen: Boston&quot; (10s)
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -281,7 +349,11 @@ function Callout({
         </CardDescription>
       </CardHeader>
       <CardContent className="px-1 py-0 text-right">
-        <Button size="sm" variant="link" className="text-xs text-gray-600 h-6">
+        <Button
+          size="sm"
+          variant="outline"
+          className="text-xs text-gray-600 h-8"
+        >
           {moreLink || title} <ChevronRightIcon className="w-3 h-3" />
         </Button>
       </CardContent>
