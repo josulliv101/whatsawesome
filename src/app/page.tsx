@@ -23,7 +23,7 @@ export default function Page() {
       <div className="bg-gray-300/80 bg-[url('/support-waves.svg')] ">
         <div className="container mx-auto max-w-[1080px] pb-4 pt-6 h-full">
           <div className="grid grid-cols-12 rounded-lg overflow-hidden">
-            <div className="col-span-12 md:col-span-12 rounded-lg overflow-hidden bg-gray-100 h-[320px] px-6 py-4 flex gap-12 items-start w-full">
+            <div className="col-span-12 md:col-span-12 rounded-lg overflow-hidden bg-gray-100 h-[320px] px-6 py-4 flex gap-10 items-start w-full">
               <div>
                 <div className="flex items-center">
                   <Link href="/">
@@ -40,58 +40,91 @@ export default function Page() {
                   </div>
                 </div>
                 <p className="text-muted-foreground text-base leading-relaxed pt-6">
-                  Welcome to 20 Mushrooms, your new go-to destination for
-                  discovering the best dishes and restaurants around you!
-                  Powered by advanced AI & a community of food enthusiasts, our
-                  recommendation engine curates personalized dining experiences
-                  tailored to your taste.
+                  Discover the best dishes and restaurants in your area.
                 </p>
-                <p className="text-muted-foreground text-base leading-relaxed pt-4">
+                <p className="text-muted-foreground text-sm leading-relaxed pt-4 pb-8">
                   Whether you&#39;re looking for a hidden gem or sharing your
                   favorite finds, 20 Mushrooms makes it easy to explore and
                   recommend top dishes to fellow food enthusiasts. Join our
                   community today and elevate your culinary adventures!
                 </p>
-              </div>
 
-              <div className="flex flex-col gap-2 min-w-[340px]">
-                <Callout title="How It Works">
-                  <div className="flex items-center justify-between gap-4 w-full">
-                    <img
-                      className="h-12 w-12 min-w-12 opacity-90 stroke-1 bg-gray-200 rounded-full p-3.5 border-2 border-gray-300"
-                      src={config.logoPath}
-                      width="24"
-                      height="24"
-                    />
-                    <div>
-                      Leave a mushroom on dishes you recommend. Choose wisely -
-                      you only get 20 mushrooms.
-                    </div>
-                  </div>
-                </Callout>
-                <Separator className="opacity-100 bg-gray-300" />
-                <Callout title="Go Exploring">
-                  <div className="flex items-center justify-between gap-4 w-full">
-                    <TelescopeIcon className="h-12 w-12 min-w-12  opacity-90 stroke-1 bg-gray-200 rounded-full p-3 border-2 border-gray-300" />
-                    <div>
-                      Explore an area. Search by location, type of dish,
-                      restaurant and more.
-                    </div>
-                  </div>
-                </Callout>
-                <Separator className="opacity-100 bg-gray-300" />
-                <Callout title="Meet Carmen" moreLink="AI Assistant">
-                  <div className="flex items-center justify-between gap-4 w-full">
-                    <Avatar className="hidden h-12 w-12 sm:flex border-2 border-gray-400">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 w-1/2 border rounded-lg px-4 py-2 min-h-[100px] relative">
+                    <Avatar className="hidden h-16 w-16 sm:flex border-2 border-gray-400">
                       <AvatarImage src="/carmen.png" alt="Meet Carmen" />
                       <AvatarFallback>AI</AvatarFallback>
                     </Avatar>
                     <div>
-                      Carmen is an AI Assistant that helps connect you to
-                      restaurants & dishes in your area.
+                      {/* <p className="font-semibold text-muted-foreground text-xs">
+                        Meet Carmen
+                      </p> */}
+                      <p className="text-muted-foreground text-xs leading-relaxed pt-0">
+                        Carmen is an AI Assistant here to help you connect to
+                        restaurants & dishes in your area.
+                      </p>
+                      <p className="text-xs absolute bottom-2 right-2 flex items-center gap-1 text-blue-500">
+                        Ask Carmen <ChevronRightIcon className="w-3 h-3" />
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 w-1/2 border rounded-lg px-4 py-2 min-h-[100px] relative">
+                    <div>
+                      <p className="font-semibold text-muted-foreground text-xs hidden">
+                        Find Dishes & Restaurants
+                      </p>
+                      <p className="text-muted-foreground text-xs leading-relaxed pt-0">
+                        Find dishes & restaurants in your area. Search by
+                        location, type of dish, restaurant and more.
+                        <br /> &nbsp;
+                      </p>
+                      <p className="text-xs absolute bottom-2 right-2 flex items-center gap-1 text-blue-500">
+                        Go Exploring <ChevronRightIcon className="w-3 h-3" />
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-end gap-2 min-w-[200px] mt-[48px]">
+                <Callout title="More">
+                  <div className="flex items-center justify-between gap-4 w-full">
+                    {/* <img
+                      className="h-12 w-12 min-w-12 opacity-90 stroke-1 bg-gray-200 rounded-full p-3.5 border-2 border-gray-300"
+                      src={config.logoPath}
+                      width="24"
+                      height="24"
+                    /> */}
+                    <div>
+                      How It Works: Leave a mushroom on dishes you recommend.
+                      Choose wisely - you only get 20 mushrooms.
                     </div>
                   </div>
                 </Callout>
+                {/* <Separator className="opacity-100 bg-gray-300" /> */}
+                <Callout title="Read">
+                  <div className="flex items-center justify-between gap-4 w-full">
+                    {/* <TelescopeIcon className="h-12 w-12 min-w-12  opacity-90 stroke-1 bg-gray-200 rounded-full p-3 border-2 border-gray-300" />
+                     */}
+                    <div>
+                      Blog: How Flawed Review Systems Undermine Accurate Place
+                      Ratings
+                    </div>
+                  </div>
+                </Callout>
+                <Callout title="Read">
+                  <div className="flex items-center justify-between gap-4 w-full">
+                    {/* <TelescopeIcon className="h-12 w-12 min-w-12  opacity-90 stroke-1 bg-gray-200 rounded-full p-3 border-2 border-gray-300" />
+                     */}
+                    <div>
+                      Blog: AI's Blind Spot: How Flawed Data Corrupts
+                      Recommendation Systems
+                    </div>
+                  </div>
+                </Callout>
+
+                {/* <Separator className="opacity-100 bg-gray-300" /> */}
               </div>
             </div>
           </div>
@@ -337,22 +370,23 @@ export default function Page() {
 
 function Callout({
   title,
+
   moreLink = "",
   children,
 }: PropsWithChildren<{ title?: React.ReactNode; moreLink?: React.ReactNode }>) {
   return (
-    <Card className="max-w-sm h-1/2 border-0 bg-transparent shadow-none pt-1">
+    <Card className="w-full h-1/2 border-0 bg-transparent shadow-none pt-1 text-muted-foreground">
       <CardHeader className="px-0 py-0">
         {/* <CardTitle className="text-base">{title}</CardTitle> */}
-        <CardDescription className="flex items-center gap-2 text-xs text-primary">
+        <CardDescription className="flex items-center gap-2 text-xs text-muted-foreground">
           {children}
         </CardDescription>
       </CardHeader>
       <CardContent className="px-1 py-0 text-right">
         <Button
           size="sm"
-          variant="outline"
-          className="text-xs text-gray-600 h-8"
+          variant="link"
+          className="text-xs text-blue-500 mt-0 font-normal"
         >
           {moreLink || title} <ChevronRightIcon className="w-3 h-3" />
         </Button>
