@@ -1,7 +1,12 @@
 import { CommandMenu } from "@/components/CommandMenu";
 import { Button } from "@/components/ui/button";
 import { config } from "@/lib/config";
-import { ChevronRightIcon, EqualIcon, TelescopeIcon } from "lucide-react";
+import {
+  ChevronRightIcon,
+  EqualIcon,
+  PlayIcon,
+  TelescopeIcon,
+} from "lucide-react";
 import Link from "next/link";
 import {
   Card,
@@ -15,6 +20,7 @@ import Breadcrumb from "./(foobargroup)/foobar/explore/[hub]/[pt]/[t3]/[distance
 import React, { PropsWithChildren } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 
 export default function Page() {
   console.log("rendering home page");
@@ -49,12 +55,15 @@ export default function Page() {
                 <p className="text-muted-foreground text-sm leading-relaxed pt-4 pb-8">
                   Whether you&#39;re looking for a hidden gem or sharing your
                   favorite finds, 20 Mushrooms makes it easy to explore and
-                  recommend top dishes to fellow food enthusiasts.{" "}
-                  <Link className="text-blue-500" href="/">
-                    Join our community
+                  recommend top dishes to fellow food enthusiasts. Join our
+                  community today and elevate your culinary adventures &mdash;
+                  it&#39; free!{" "}
+                  <Link
+                    className="text-blue-500 inline-flex items-center gap-1 pl-2"
+                    href="/"
+                  >
+                    Join the community <ChevronRightIcon className="w-3 h-3" />
                   </Link>{" "}
-                  today and elevate your culinary adventures &mdash; it&#39;
-                  free!
                 </p>
 
                 <div className="flex flex-row-reverse items-center gap-4">
@@ -158,7 +167,7 @@ export default function Page() {
             <div className="bg-gray-50 relative z-10 p-8">
               <h2 className="pb-4">How It Works</h2>
               <div className="flex items-center gap-8">
-                <div className="min-w-[200px] w-[200px]">
+                <div className="w-[200px]">
                   <script
                     src="https://fast.wistia.com/embed/medias/2h3f4pt7xf.jsonp"
                     async
@@ -226,11 +235,11 @@ export default function Page() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground pt-4">
-                    &quot;Carmen: Intro&quot; (9s)
-                  </p>
                 </div>
-                <div className="min-w-[200px] w-[200px]">
+                <p className="text-xs text-muted-foreground pt-4 w-full max-w-[140px]">
+                  &quot;Carmen: Intro&quot; (9s)
+                </p>
+                <div className="w-[200px]">
                   <script
                     src="https://fast.wistia.com/embed/medias/3ampi72fyy.jsonp"
                     async
@@ -294,11 +303,11 @@ export default function Page() {
                       </div>
                     </div>
                   </div>{" "}
-                  <p className="text-xs text-muted-foreground pt-4">
-                    &quot;Carmen: 20 Mushrooms&quot; (10s)
-                  </p>
                 </div>
-                <div className="min-w-[200px] w-[200px]">
+                <p className="text-xs text-muted-foreground pt-4 w-full max-w-[140px]">
+                  &quot;Carmen: 20 Mushrooms&quot; (10s)
+                </p>
+                <div className="w-[200px] relative">
                   <script
                     src="https://fast.wistia.com/embed/medias/6kkrpuhz59.jsonp"
                     async
@@ -361,10 +370,19 @@ export default function Page() {
                         </div>
                       </div>
                     </div>
-                  </div>{" "}
-                  <p className="text-xs text-muted-foreground pt-4">
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground pt-4 w-full max-w-[140px]">
                     &quot;Carmen: Boston&quot; (10s)
                   </p>
+                  <Badge
+                    // size="sm"
+                    variant={"outline"}
+                    className="mt-4 text-xs font-normal gap-1 rounded-md hidden"
+                  >
+                    Play <PlayIcon className="w-3 h-3" />{" "}
+                  </Badge>
                 </div>
               </div>
             </div>
