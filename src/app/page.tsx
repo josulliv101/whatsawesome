@@ -122,7 +122,7 @@ export default function Page() {
                     {/* <TelescopeIcon className="h-12 w-12 min-w-12  opacity-90 stroke-1 bg-gray-200 rounded-full p-3 border-2 border-gray-300" />
                      */}
                     <div>
-                      Blog: AI's Blind Spot: How Flawed Data Corrupts
+                      Blog: AI&#39;s Blind Spot: How Flawed Data Corrupts
                       Recommendation Systems
                     </div>
                   </div>
